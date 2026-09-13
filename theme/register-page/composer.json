@@ -3,6 +3,7 @@
     "description": "整页注册页面（FluxBB 风格），提供 /register 路由，复用 Flarum 原生注册 API。",
     "type": "flarum-extension",
     "license": "MIT",
+    "version": "1.0.0",
     "require": {
         "flarum/core": ">=1.8.0 <2.0.0"
     },
