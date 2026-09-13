@@ -74,7 +74,10 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .TagCategory-subTagList { list-style: none !important; margin: 0 !important; padding: 0 !important; }
 .TagCategory-subTagList > .TagCategory { margin: 0 !important; list-style: none; }
 /* 子版块行之间不要分割线（图一 Arch 是连续的，行与行之间无线） */
-.TagCategory-subTagList > .TagCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; padding: 10px 14px !important; background: #fff !important; border-bottom: none !important; text-decoration: none !important; }
+.TagCategory-subTagList > .TagCategory > .TagCategory-content { position: relative !important; display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; padding: 10px 14px !important; background: #fff !important; border-bottom: none !important; text-decoration: none !important; }
+
+/* 版主列：绝对定位盖在第 4 列(100px)区域，脱离网格流，绝不影响其他列 */
+.TagCategory-subTagList .kv-mod { position: absolute !important; top: 0 !important; bottom: 0 !important; right: 14px !important; width: 100px !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; color: #0771a8 !important; font-size: 13px !important; font-weight: 600 !important; }
 .TagCategory-subTagList > .TagCategory > .TagCategory-content:hover { background: #f7f9fb !important; }
 .TagCategory-subTagList .TagCategory-alignStart { display: contents !important; }
 .TagCategory-subTagList .TagCategory-alignEnd { display: contents !important; }

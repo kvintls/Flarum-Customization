@@ -83,3 +83,24 @@
 })();
 </script>
 
+
+
+<script>
+/* 版主列 = 该板块最后发帖的作者（取 .username，绝对定位盖在第4列，不影响布局） */
+(function(){
+  setInterval(function(){
+    document.querySelectorAll('.TagCategory-subTagList > .TagCategory > .TagCategory-content').forEach(function(row){
+      var mod = '';
+      var u = row.querySelector('.LastDiscussion-usernameLink .username') || row.querySelector('.LastDiscussion .username') || row.querySelector('.username');
+      if(u){ mod = (u.textContent || '').trim(); }
+      var cell = row.querySelector('.kv-mod');
+      if(!cell){
+        cell = document.createElement('span');
+        cell.className = 'kv-mod';
+        row.appendChild(cell);
+      }
+      if(cell.textContent !== mod){ cell.textContent = mod; }
+    });
+  }, 500);
+})();
+</script>
