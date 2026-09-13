@@ -50,6 +50,8 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* 父级分组：每个是一个独立方框，块之间留空隙，直角、无阴影 */
 .TagCategoryList > .TagCategory.ParentCategory { display: block !important; border: 1px solid #ccc !important; border-radius: 0 !important; margin: 0 0 14px 0 !important; background: #fff !important; overflow: hidden !important; box-shadow: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory:last-child { margin-bottom: 0 !important; }
+/* 彻底去掉圆角：所有相关元素强制直角 */
+.CategoriesPage-content, .TagCategoryList, .TagCategoryList .TagCategory, .TagCategoryList .TagCategory-content, .TagCategory-subTagList, .TagCategory-subTagList .TagCategory, .TagCategory-subTagList .TagCategory-content { border-radius: 0 !important; }
 
 /* 分组标题栏（灰色） */
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 8px 14px !important; text-decoration: none !important; }
@@ -71,8 +73,8 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* 子板块数据行：扁平，细分隔线 */
 .TagCategory-subTagList { list-style: none !important; margin: 0 !important; padding: 0 !important; }
 .TagCategory-subTagList > .TagCategory { margin: 0 !important; list-style: none; }
-.TagCategory-subTagList > .TagCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; padding: 10px 14px !important; background: #fff !important; border-bottom: 1px solid #eee !important; text-decoration: none !important; }
-.TagCategory-subTagList > .TagCategory:last-child > .TagCategory-content { border-bottom: none !important; }
+/* 子版块行之间不要分割线（图一 Arch 是连续的，行与行之间无线） */
+.TagCategory-subTagList > .TagCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; padding: 10px 14px !important; background: #fff !important; border-bottom: none !important; text-decoration: none !important; }
 .TagCategory-subTagList > .TagCategory > .TagCategory-content:hover { background: #f7f9fb !important; }
 .TagCategory-subTagList .TagCategory-alignStart { display: contents !important; }
 .TagCategory-subTagList .TagCategory-alignEnd { display: contents !important; }
