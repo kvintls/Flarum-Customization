@@ -44,14 +44,12 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .TagCategoryList { background: transparent !important; border: none !important; list-style: none !important; padding: 0 !important; margin: 0 !important; }
 .TagCategoryList::before { display: none !important; }
 
-/* ===== Arch/FluxBB 风格：扁平连续列表，无阴影无圆角 ===== */
-/* 整个板块列表包一层边框，各分组连续排列（不再是一块一块浮起的卡片） */
-.TagCategoryList { border: 1px solid #ccc !important; border-radius: 0 !important; overflow: hidden !important; background: #fff !important; box-shadow: none !important; }
+/* ===== Arch/FluxBB 风格：每个分类独立成块，块间留空隙，方正无阴影 ===== */
+.TagCategoryList { border: none !important; border-radius: 0 !important; overflow: visible !important; background: transparent !important; box-shadow: none !important; }
 
-/* 父级分组：去掉单独边框/圆角/间距/阴影，连成一整片 */
-.TagCategoryList > .TagCategory.ParentCategory { display: block !important; border: none !important; border-radius: 0 !important; margin: 0 !important; background: #fff !important; overflow: visible !important; box-shadow: none !important; }
-/* 分组之间用一条分隔线（第二个及以后的分组标题上方加线） */
-.TagCategoryList > .TagCategory.ParentCategory + .TagCategory.ParentCategory > .TagCategory-content { border-top: 1px solid #ccc !important; }
+/* 父级分组：每个是一个独立方框，块之间留空隙，直角、无阴影 */
+.TagCategoryList > .TagCategory.ParentCategory { display: block !important; border: 1px solid #ccc !important; border-radius: 0 !important; margin: 0 0 14px 0 !important; background: #fff !important; overflow: hidden !important; box-shadow: none !important; }
+.TagCategoryList > .TagCategory.ParentCategory:last-child { margin-bottom: 0 !important; }
 
 /* 分组标题栏（灰色） */
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 8px 14px !important; text-decoration: none !important; }
