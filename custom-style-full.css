@@ -172,3 +172,7 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .SignUpModal .kv-flabel .kv-req, .LogInModal .kv-flabel .kv-req { color: #c0392b !important; margin-left: 2px; }
 /* 表单左对齐（配合标签） */
 .SignUpModal .Form--centered, .LogInModal .Form--centered { text-align: left !important; }
+
+
+/* 弹窗背景遮罩：去掉难看的蓝色，改成中性半透明黑 */
+.Modal-backdrop, .Modal-backdrop.fade, .Modal-backdrop.in { background: rgba(18, 22, 26, 0.55) !important; }
