@@ -71,14 +71,14 @@ class RegisterController implements RequestHandlerInterface
   .kv-search { margin-left: auto; position: relative; }
   .kv-search input { width: 260px; max-width: 40vw; padding: 8px 34px 8px 12px; border: 1px solid #ccd2d9; border-radius: 5px; font-size: 14px; outline: none; background: #fff; }
   .kv-search input:focus { border-color: #42b983; }
-  .kv-search button { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer; color: #8a96a3; font-size: 15px; padding: 0; }
+  .kv-search button { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer; padding: 0; display: flex; align-items: center; }
 
-  .kv-archbar { background: #fff; border-bottom: 2px solid #0771a8; }
-  .kv-archbar-in { max-width: 1320px; width: 94%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; font-size: 13px; padding: 10px 0 8px; }
+  /* archbar 放在白容器内部顶部，蓝色下划线（与首页一致） */
+  .kv-archbar { display: flex; align-items: center; justify-content: space-between; font-size: 13px; padding: 2px 0 8px; margin: 0 0 14px; border-bottom: 2px solid #0771a8; }
   .kv-arch-left { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; }
   .kv-arch-left a { color: #0771a8; }
   .kv-arch-right { color: #667; }
-  .kv-arch-right a { color: #0771a8; margin-left: 6px; }
+  .kv-arch-right a { color: #0771a8; margin-left: 8px; }
 
   /* 内容区：外层灰底，内层一个白色大容器（像论坛那样） */
   .kv-wrap { max-width: 1320px; width: 94%; margin: 0 auto; padding: 20px 0 40px; }
@@ -139,13 +139,15 @@ class RegisterController implements RequestHandlerInterface
     </nav>
     <form class="kv-search" action="/" method="get" role="search">
       <input name="q" type="search" placeholder="搜索">
-      <button type="submit" aria-label="搜索">&#128269;</button>
+      <button type="submit" aria-label="搜索"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="#8a96a3" stroke-width="2" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="6"></circle><line x1="13.5" y1="13.5" x2="18" y2="18"></line></svg></button>
     </form>
   </div>
 </div>
 
-<div class="kv-archbar">
-  <div class="kv-archbar-in">
+<div class="kv-wrap">
+  <div class="kv-panel">
+
+  <div class="kv-archbar">
     <ul class="kv-arch-left">
       <li><a href="/">首页</a></li>
       <li><a href="/tags">板块</a></li>
@@ -158,10 +160,6 @@ class RegisterController implements RequestHandlerInterface
       <a href="/?login=1">登录</a>
     </span>
   </div>
-</div>
-
-<div class="kv-wrap">
-  <div class="kv-panel">
 
   <div class="kv-pagehead">
     <div class="kv-pagetitle">注册</div>
