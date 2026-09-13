@@ -1,0 +1,87 @@
+body, .App { background: #f5f6f8; color: #1f2328; }
+.App-header, .Header { box-shadow: 0 1px 3px rgba(20,30,50,.06); }
+.Header-title, .Header-title a, .Header-logo { font-weight: 700; }
+.App-header .container, #header .container { max-width: 1320px !important; width: 94% !important; margin: 0 auto !important; }
+.Hero.WelcomeHero, .WelcomeHero { display: none !important; }
+.Header-controls .item-localeSwitcher, .Header-controls .LocaleSwitcher, .item-localeDropdown, .Header-controls .Dropdown.LanguageSwitcher { display: none !important; }
+.App-navigation { display: none !important; }
+.Button--primary { background: #3f7cac !important; border: none !important; border-radius: 8px !important; font-weight: 600 !important; }
+.Button--primary:hover { background: #35688f !important; }
+.TagLabel { border-radius: 4px !important; font-weight: 600 !important; }
+
+.Search .FormControl { border: 1px solid #ccd2d9 !important; border-radius: 5px !important; background: #fff !important; box-shadow: none !important; padding-left: 12px !important; padding-right: 34px !important; }
+.Search .FormControl:focus { border-color: #42b983 !important; box-shadow: none !important; outline: none !important; }
+.Search-clear { display: none !important; }
+.Search-input { position: relative !important; }
+.Search-input::before { position: absolute !important; left: auto !important; right: 12px !important; top: 50% !important; transform: translateY(-50%) !important; margin: 0 !important; z-index: 2; pointer-events: none; }
+.Search .LoadingIndicator, .Search-input .LoadingIndicator, .item-search .LoadingIndicator { display: none !important; }
+
+.DiscussionList-discussions { background: #fff !important; border: 1px solid #e3e7ec !important; border-radius: 10px !important; overflow: hidden !important; box-shadow: 0 1px 4px rgba(0,0,0,.05) !important; }
+.DiscussionListItem { padding: 11px 16px !important; border-bottom: 1px solid #eef1f4 !important; background: #fff !important; transition: background .12s ease !important; }
+.DiscussionListItem:last-child { border-bottom: none !important; }
+.DiscussionListItem:hover { background: #f4f8fc !important; }
+.DiscussionListItem-content .Avatar { width: 32px !important; height: 32px !important; }
+.DiscussionListItem-title { font-size: 15px !important; font-weight: 600 !important; color: #1f2d3d !important; }
+.DiscussionListItem:hover .DiscussionListItem-title { color: #3f7cac !important; }
+.DiscussionListItem-info { font-size: 12px !important; color: #8a96a3 !important; }
+
+.item-logIn, .item-signUp { display: none !important; }
+.ab-authwrap { margin-left: 18px; }
+.ab-auth { color: #0771a8 !important; text-decoration: none; margin-left: 12px; }
+.ab-auth:hover { text-decoration: underline; }
+#archbar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0771a8; padding: 0 2px 8px; margin-bottom: 14px; font-size: 13px; }
+#archbar ul { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; }
+#archbar a { color: #0771a8; text-decoration: none; }
+#archbar a:hover { text-decoration: underline; }
+#archbar .archbar-right { color: #555; }
+
+.CategoriesPage-nav { display: none !important; }
+.CategoriesPage-content.sideNavOffset { margin-left: 0 !important; }
+.CategoriesPage .container, .CategoriesPage .container.sideNavContainer { max-width: 1320px !important; width: 94% !important; }
+.CategoriesPage-content { background: #fff !important; border: 1px solid #c9cfd6 !important; border-radius: 3px !important; padding: 16px !important; box-shadow: 0 1px 3px rgba(0,0,0,.05) !important; }
+
+#kvin-cathead { display: none !important; }
+.TagCategoryList { background: transparent !important; border: none !important; list-style: none !important; padding: 0 !important; margin: 0 !important; }
+.TagCategoryList::before { display: none !important; }
+
+.TagCategoryList > .TagCategory.ParentCategory { display: block !important; border: 1px solid #ccc !important; background: #fff !important; border-radius: 3px; margin-bottom: 18px !important; overflow: hidden; }
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 70px 70px 190px !important; align-items: center !important; background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 8px 14px !important; text-decoration: none !important; }
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content:hover { background: linear-gradient(#eaeaea,#dcdcdc) !important; }
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-alignStart { display: contents !important; }
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-alignEnd { display: none !important; }
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-name { color: #333 !important; font-size: 13px !important; font-weight: 700 !important; margin: 0 !important; }
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-description { display: none !important; }
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-icon { display: none !important; }
+.kh-cols { display: contents; }
+.kh-cols span { text-align: center; font-size: 12px; color: #555; font-weight: 700; }
+.kh-cols span:last-child { text-align: left; }
+
+.TagCategory-subTagList { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+.TagCategory-subTagList > .TagCategory { margin: 0 !important; list-style: none; }
+.TagCategory-subTagList > .TagCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 70px 70px 190px !important; align-items: center !important; padding: 9px 14px !important; background: #fff !important; border-bottom: 1px solid #eee !important; text-decoration: none !important; }
+.TagCategory-subTagList > .TagCategory:last-child > .TagCategory-content { border-bottom: none !important; }
+.TagCategory-subTagList > .TagCategory > .TagCategory-content:hover { background: #f7f9fb !important; }
+.TagCategory-subTagList .TagCategory-alignStart { display: contents !important; }
+.TagCategory-subTagList .TagCategory-alignEnd { display: contents !important; }
+.TagCategory-subTagList .TagCategory-stats.StatWidgetList { display: contents !important; }
+.TagCategory-subTagList .StatWidget { text-align: center !important; width: auto !important; min-width: 0 !important; }
+.TagCategory-subTagList .StatWidget-label { display: none !important; }
+.TagCategory-subTagList .TagCategory-icon { display: none !important; }
+.TagCategory-subTagList .TagCategory-name { color: #0771a8 !important; font-weight: 700 !important; font-size: 14px !important; margin: 0 0 2px 0 !important; }
+.TagCategory-subTagList .TagCategory-content:hover .TagCategory-name { text-decoration: underline; }
+.TagCategory-subTagList .TagCategory-description { color: #555 !important; font-size: 12px !important; line-height: 1.4; }
+.TagCategory-subTagList .TagCategory-lastDiscussion .Avatar, .TagCategory-subTagList .LastDiscussion-avatar { display: none !important; }
+.TagCategory-subTagList .TagCategory-lastDiscussion { overflow: hidden !important; }
+.TagCategory-subTagList .LastDiscussion { display: block !important; }
+.TagCategory-subTagList .LastDiscussion-topRow { color: #0771a8 !important; font-size: 12px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.TagCategory-subTagList .LastDiscussion-bottomRow { font-size: 11px !important; color: #999 !important; }
+
+#kvin-stats { margin-top: 16px; border: 1px solid #ccc; background: #fff; border-radius: 3px; }
+.kvin-stats-title { background: linear-gradient(#f0f0f0,#e2e2e2); border-bottom: 1px solid #ccc; padding: 8px 14px; font-weight: 700; font-size: 13px; color: #333; }
+.kvin-stats-body { padding: 12px 16px; font-size: 13px; color: #555; }
+.ks-line { margin-bottom: 6px; }
+.ks-h { color: #333; }
+.kvin-stats-body b { color: #0771a8; }
+
+#kvin-footer2 { border-top: 2px solid #0771a8; margin-top: 16px; padding: 10px 2px; text-align: right; font-size: 12px; color: #888; }
+#kvin-footer2 a { color: #0771a8; font-weight: 700; }
