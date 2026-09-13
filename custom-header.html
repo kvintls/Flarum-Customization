@@ -1,0 +1,84 @@
+<div id="archbar-src" style="display:none">
+  <ul>
+    <li><a href="/">首页</a></li>
+    <li><a href="/tags">板块</a></li>
+    <li><a href="/rankings">排名</a></li>
+    <li><a href="/all">全部主题</a></li>
+  </ul>
+  <span class="archbar-right">
+    主题：<a href="/">活跃</a> | <a href="/all">未回复</a>
+    <span class="ab-authwrap">
+      <a href="#" class="ab-auth" onclick="var e=document.querySelector('.item-signUp button')||document.querySelector('.item-signUp a');if(e)e.click();return false;">注册</a>
+      <a href="#" class="ab-auth" onclick="var e=document.querySelector('.item-logIn button')||document.querySelector('.item-logIn a');if(e)e.click();return false;">登录</a>
+    </span>
+  </span>
+</div>
+<script>
+(function(){
+  setInterval(function(){
+    var box=document.querySelector('.CategoriesPage-content');
+    if(box && !box.querySelector('#archbar')){
+      var src=document.getElementById('archbar-src');
+      if(src){var bar=src.cloneNode(true);bar.id='archbar';bar.style.display='';box.insertBefore(bar,box.firstChild);}
+    }
+    var loggedIn=!document.querySelector('.item-logIn');
+    document.querySelectorAll('.ab-authwrap').forEach(function(e){e.style.display=loggedIn?'none':'';});
+  },300);
+})();
+</script>
+
+<style>
+.Search .FormControl { -webkit-appearance: none !important; appearance: none !important; }
+.Search .FormControl::-webkit-search-cancel-button,
+.Search .FormControl::-webkit-search-decoration {
+  -webkit-appearance: none !important;
+  display: none !important;
+}
+</style>
+
+<script>
+(function(){
+  setInterval(function(){
+    if(typeof app==='undefined' || !app.forum) return;
+    var box=document.querySelector('.CategoriesPage-content');
+    if(box && !document.getElementById('kvin-stats')){
+      var a=app.forum.data.attributes||{};
+      var d=a['fof-forum-statistics-widget.discussionsCount']||0;
+      var p=a['fof-forum-statistics-widget.postsCount']||0;
+      var u=a['fof-forum-statistics-widget.usersCount']||0;
+      var on=a['totalOnlineUsers']||0;
+      var el=document.createElement('div');
+      el.id='kvin-stats';
+      el.innerHTML='<div class="kvin-stats-title">统计信息</div>'+
+'<div class="kvin-stats-body">'+
+'<div class="ks-line"><b class="ks-h">在线用户</b>&nbsp;&nbsp;总共 <b>'+on+'</b> 人在线</div>'+
+'<div class="ks-line"><b class="ks-h">统计信息</b>&nbsp;&nbsp;帖子总数 <b>'+p+'</b> | 主题总数 <b>'+d+'</b> | 用户总数 <b>'+u+'</b></div>'+
+'</div>';
+
+      box.appendChild(el);
+    }
+    if(box && !box.querySelector('#kvin-footer2')){
+      var ft=document.createElement('div');
+      ft.id='kvin-footer2';
+      ft.innerHTML='由 <a href="https://flarum.org" target="_blank">Flarum</a> 提供技术支持 · © kvin 论坛';
+      box.appendChild(ft);
+    }
+
+  },400);
+})();
+</script>
+
+<script>
+(function(){
+  setInterval(function(){
+    document.querySelectorAll('.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content').forEach(function(h){
+      if(!h.querySelector('.kh-cols')){
+        var s=document.createElement('span');
+        s.className='kh-cols';
+        s.innerHTML='<span>主题/文章</span><span>最后发表</span><span>版主</span>';
+        h.appendChild(s);
+      }
+    });
+  },500);
+})();
+</script>

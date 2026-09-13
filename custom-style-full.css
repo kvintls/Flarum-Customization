@@ -44,37 +44,50 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .TagCategoryList { background: transparent !important; border: none !important; list-style: none !important; padding: 0 !important; margin: 0 !important; }
 .TagCategoryList::before { display: none !important; }
 
-.TagCategoryList > .TagCategory.ParentCategory { display: block !important; border: 1px solid #ccc !important; background: #fff !important; border-radius: 3px; margin-bottom: 18px !important; overflow: hidden; }
-.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 70px 70px 190px !important; align-items: center !important; background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 8px 14px !important; text-decoration: none !important; }
+/* ===== 4 列表格布局：版块名 | 主题/文章 | 最后发表 | 版主 ===== */
+/* 父级分组（灰色标题栏） */
+.TagCategoryList > .TagCategory.ParentCategory { display: block !important; border: 1px solid #ccc !important; background: #fff !important; border-radius: 3px; margin-bottom: 14px !important; overflow: hidden; }
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 8px 14px !important; text-decoration: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content:hover { background: linear-gradient(#eaeaea,#dcdcdc) !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-alignStart { display: contents !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-alignEnd { display: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-name { color: #333 !important; font-size: 13px !important; font-weight: 700 !important; margin: 0 !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-description { display: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-icon { display: none !important; }
-.kh-cols { display: contents; }
-.kh-cols span { text-align: center; font-size: 12px; color: #555; font-weight: 700; }
-.kh-cols span:last-child { text-align: left; }
 
+/* 列标题文字（由页头 JS 注入的 .kh-cols）*/
+.kh-cols { display: contents; }
+.kh-cols span { font-size: 12px; color: #555; font-weight: 700; }
+.kh-cols span:nth-child(1) { text-align: center; }              /* 主题/文章 */
+.kh-cols span:nth-child(2) { text-align: left; padding-left: 2px; } /* 最后发表：与帖子标题左对齐 */
+.kh-cols span:nth-child(3) { text-align: center; }              /* 版主 */
+
+/* 子板块数据行 */
 .TagCategory-subTagList { list-style: none !important; margin: 0 !important; padding: 0 !important; }
 .TagCategory-subTagList > .TagCategory { margin: 0 !important; list-style: none; }
-.TagCategory-subTagList > .TagCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 70px 70px 190px !important; align-items: center !important; padding: 9px 14px !important; background: #fff !important; border-bottom: 1px solid #eee !important; text-decoration: none !important; }
+.TagCategory-subTagList > .TagCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; padding: 8px 14px !important; background: #fff !important; border-bottom: 1px solid #eee !important; text-decoration: none !important; }
 .TagCategory-subTagList > .TagCategory:last-child > .TagCategory-content { border-bottom: none !important; }
 .TagCategory-subTagList > .TagCategory > .TagCategory-content:hover { background: #f7f9fb !important; }
 .TagCategory-subTagList .TagCategory-alignStart { display: contents !important; }
 .TagCategory-subTagList .TagCategory-alignEnd { display: contents !important; }
-.TagCategory-subTagList .TagCategory-stats.StatWidgetList { display: contents !important; }
-.TagCategory-subTagList .StatWidget { text-align: center !important; width: auto !important; min-width: 0 !important; }
+
+/* 主题/文章：把「主题数」「帖子数」两个统计合并到一格，显示成 1 / 0 */
+.TagCategory-subTagList .TagCategory-stats.StatWidgetList { display: inline-flex !important; align-items: baseline !important; justify-content: center !important; justify-self: center !important; gap: 0 !important; width: auto !important; min-width: 0 !important; }
+.TagCategory-subTagList .StatWidget { display: inline-block !important; text-align: center !important; width: auto !important; min-width: 0 !important; }
 .TagCategory-subTagList .StatWidget-label { display: none !important; }
+.TagCategory-subTagList .StatWidget:first-child::after { content: "/"; margin: 0 5px; color: #bbb; font-weight: 400; }
+
 .TagCategory-subTagList .TagCategory-icon { display: none !important; }
 .TagCategory-subTagList .TagCategory-name { color: #0771a8 !important; font-weight: 700 !important; font-size: 14px !important; margin: 0 0 2px 0 !important; }
 .TagCategory-subTagList .TagCategory-content:hover .TagCategory-name { text-decoration: underline; }
 .TagCategory-subTagList .TagCategory-description { color: #555 !important; font-size: 12px !important; line-height: 1.4; }
+
+/* 最后发表：左对齐，与列标题「最后发表」左边缘对齐（图四）*/
 .TagCategory-subTagList .TagCategory-lastDiscussion .Avatar, .TagCategory-subTagList .LastDiscussion-avatar { display: none !important; }
-.TagCategory-subTagList .TagCategory-lastDiscussion { overflow: hidden !important; }
-.TagCategory-subTagList .LastDiscussion { display: block !important; }
-.TagCategory-subTagList .LastDiscussion-topRow { color: #0771a8 !important; font-size: 12px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.TagCategory-subTagList .LastDiscussion-bottomRow { font-size: 11px !important; color: #999 !important; }
+.TagCategory-subTagList .TagCategory-lastDiscussion { overflow: hidden !important; justify-self: stretch !important; text-align: left !important; padding-left: 2px !important; }
+.TagCategory-subTagList .LastDiscussion { display: block !important; text-align: left !important; padding-left: 0 !important; margin-left: 0 !important; }
+.TagCategory-subTagList .LastDiscussion-topRow { color: #0771a8 !important; font-size: 12px !important; text-align: left !important; padding-left: 0 !important; margin-left: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.TagCategory-subTagList .LastDiscussion-bottomRow { font-size: 11px !important; color: #999 !important; text-align: left !important; padding-left: 0 !important; margin-left: 0 !important; }
 
 #kvin-stats { margin-top: 16px; border: 1px solid #ccc; background: #fff; border-radius: 3px; }
 .kvin-stats-title { background: linear-gradient(#f0f0f0,#e2e2e2); border-bottom: 1px solid #ccc; padding: 8px 14px; font-weight: 700; font-size: 13px; color: #333; }
