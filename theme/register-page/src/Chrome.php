@@ -160,6 +160,26 @@ HTML;
 
   </div><!-- /.kv-panel -->
 </div><!-- /.kv-wrap -->
+
+<script>
+/* 原生表单校验提示本地化：默认中文，仅英文浏览器显示英文 */
+(function(){
+  var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  var en = lang.indexOf('en') === 0;
+  var T = en
+    ? { required: 'Please fill out this field.', email: 'Please enter a valid email address.' }
+    : { required: '请填写此项。', email: '请输入有效的电子邮件地址。' };
+  function bind(el){
+    el.addEventListener('invalid', function(){
+      if (el.validity.valueMissing) el.setCustomValidity(T.required);
+      else if (el.validity.typeMismatch) el.setCustomValidity(T.email);
+      else el.setCustomValidity('');
+    });
+    el.addEventListener('input', function(){ el.setCustomValidity(''); });
+  }
+  document.querySelectorAll('input[required], input[type=email]').forEach(bind);
+})();
+</script>
 HTML;
     }
 }
