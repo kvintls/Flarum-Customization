@@ -128,3 +128,38 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 
 #kvin-footer2 { border-top: 2px solid #0771a8; margin-top: 16px; padding: 10px 2px; text-align: right; font-size: 12px; color: #888; }
 #kvin-footer2 a { color: #0771a8; font-weight: 700; }
+
+
+/* ===== 注册/登录弹窗：FluxBB 扁平方正风格 ===== */
+/* 弹窗外框：方正、细边框 */
+.SignUpModal .Modal-content,
+.LogInModal .Modal-content { border-radius: 0 !important; border: 1px solid #8ba6b8 !important; box-shadow: 0 3px 14px rgba(0,0,0,.25) !important; overflow: hidden !important; }
+
+/* 标题栏：灰色渐变，与论坛版块标题一致，文字左对齐 */
+.SignUpModal .Modal-header,
+.LogInModal .Modal-header { background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 10px 16px !important; text-align: left !important; }
+.SignUpModal .Modal-header h3, .SignUpModal .App-titleControl,
+.LogInModal .Modal-header h3, .LogInModal .App-titleControl { font-size: 15px !important; font-weight: 700 !important; color: #333 !important; text-align: left !important; margin: 0 !important; }
+.SignUpModal .Modal-close, .LogInModal .Modal-close { color: #888 !important; opacity: .8 !important; }
+
+/* 表单区：浅蓝底（FluxBB 感），紧凑 */
+.SignUpModal .Modal-body,
+.LogInModal .Modal-body { background: #eef3f7 !important; padding: 18px 20px !important; }
+
+/* 输入框：方正、细边框、扁平（去掉又大又圆的默认样式） */
+.SignUpModal .FormControl,
+.LogInModal .FormControl { border-radius: 2px !important; border: 1px solid #a9bcc9 !important; box-shadow: none !important; background: #fff !important; height: auto !important; padding: 8px 10px !important; font-size: 14px !important; margin: 0 !important; }
+.SignUpModal .FormControl:focus,
+.LogInModal .FormControl:focus { border-color: #3f7cac !important; box-shadow: none !important; outline: none !important; }
+.SignUpModal .Form-group, .LogInModal .Form-group { margin-bottom: 12px !important; }
+
+/* 主按钮：扁平方正 */
+.SignUpModal .Button--primary,
+.LogInModal .Button--primary { border-radius: 2px !important; background: #3f7cac !important; border: 1px solid #35688f !important; box-shadow: none !important; font-weight: 700 !important; padding: 9px !important; }
+.SignUpModal .Button--primary:hover,
+.LogInModal .Button--primary:hover { background: #35688f !important; }
+
+/* 底部链接区（已有账户?登录 / 忘记密码） */
+.SignUpModal .Modal-footer,
+.LogInModal .Modal-footer { background: #fff !important; border-top: 1px solid #dfe6ea !important; padding: 10px 16px !important; text-align: center !important; }
+.SignUpModal .Modal-footer a, .LogInModal .Modal-footer a { color: #0771a8 !important; }
