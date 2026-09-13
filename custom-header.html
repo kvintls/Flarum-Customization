@@ -104,3 +104,25 @@
   }, 500);
 })();
 </script>
+
+
+<script>
+/* 给注册/登录弹窗的输入框加 FluxBB 风格文字标签（用户名 * / 密码 * ...） */
+(function(){
+  setInterval(function(){
+    document.querySelectorAll('.SignUpModal .Form-group, .LogInModal .Form-group').forEach(function(g){
+      var input = g.querySelector('input.FormControl');
+      if(input && !g.querySelector('.kv-flabel')){
+        var ph = input.getAttribute('placeholder') || input.getAttribute('aria-label') || '';
+        if(ph){
+          var lb = document.createElement('label');
+          lb.className = 'kv-flabel';
+          lb.innerHTML = ph.replace(/</g,'&lt;') + ' <span class="kv-req">*</span>';
+          g.insertBefore(lb, input);
+          input.setAttribute('placeholder', ''); // 清掉重复的占位文字
+        }
+      }
+    });
+  }, 400);
+})();
+</script>

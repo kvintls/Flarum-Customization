@@ -163,3 +163,12 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .SignUpModal .Modal-footer,
 .LogInModal .Modal-footer { background: #fff !important; border-top: 1px solid #dfe6ea !important; padding: 10px 16px !important; text-align: center !important; }
 .SignUpModal .Modal-footer a, .LogInModal .Modal-footer a { color: #0771a8 !important; }
+
+
+/* 隐藏空的社交登录占位块 */
+.SignUpModal .LogInButtons:empty, .LogInModal .LogInButtons:empty { display: none !important; }
+/* FluxBB 风格字段标签（由页头 JS 注入） */
+.SignUpModal .kv-flabel, .LogInModal .kv-flabel { display: block !important; text-align: left !important; font-size: 13px !important; font-weight: 700 !important; color: #333 !important; margin: 0 0 5px 2px !important; }
+.SignUpModal .kv-flabel .kv-req, .LogInModal .kv-flabel .kv-req { color: #c0392b !important; margin-left: 2px; }
+/* 表单左对齐（配合标签） */
+.SignUpModal .Form--centered, .LogInModal .Form--centered { text-align: left !important; }
