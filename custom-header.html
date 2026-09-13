@@ -8,7 +8,7 @@
   <span class="archbar-right">
     主题：<a href="/">活跃</a> | <a href="/all">未回复</a>
     <span class="ab-authwrap">
-      <a href="#" class="ab-auth" onclick="var e=document.querySelector('.item-signUp button')||document.querySelector('.item-signUp a');if(e)e.click();return false;">注册</a>
+      <a href="/register" class="ab-auth">注册</a>
       <a href="#" class="ab-auth" onclick="var e=document.querySelector('.item-logIn button')||document.querySelector('.item-logIn a');if(e)e.click();return false;">登录</a>
     </span>
   </span>
@@ -124,5 +124,28 @@
       }
     });
   }, 400);
+})();
+</script>
+
+
+<script>
+/* 注册一律走整页 /register；?login=1 时自动打开登录弹窗 */
+(function(){
+  // 拦截 Flarum 原生「注册」按钮（顶栏 / 欢迎条等），改为跳转整页注册
+  document.addEventListener('click', function(e){
+    var t = e.target.closest ? e.target.closest('.item-signUp a, .item-signUp button, .Button--signup') : null;
+    if(t){ e.preventDefault(); e.stopPropagation(); window.location = '/register'; }
+  }, true);
+
+  // 访问 /?login=1 时自动弹出登录框
+  if(/[?&]login=1\b/.test(location.search)){
+    var tries = 0;
+    var iv = setInterval(function(){
+      tries++;
+      var btn = document.querySelector('.item-logIn button') || document.querySelector('.item-logIn a');
+      if(btn){ btn.click(); clearInterval(iv); history.replaceState(null,'',location.pathname); }
+      if(tries > 40){ clearInterval(iv); }
+    }, 150);
+  }
 })();
 </script>

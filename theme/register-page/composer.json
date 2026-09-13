@@ -1,0 +1,25 @@
+{
+    "name": "kvin/register-page",
+    "description": "整页注册页面（FluxBB 风格），提供 /register 路由，复用 Flarum 原生注册 API。",
+    "type": "flarum-extension",
+    "license": "MIT",
+    "require": {
+        "flarum/core": ">=1.8.0 <2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kvin\\RegisterPage\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Kvin 整页注册",
+            "category": "feature",
+            "icon": {
+                "name": "fas fa-user-plus",
+                "backgroundColor": "#3f7cac",
+                "color": "#fff"
+            }
+        }
+    }
+}
