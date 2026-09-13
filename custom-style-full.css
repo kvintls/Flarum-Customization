@@ -77,15 +77,15 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .TagCategory-subTagList .TagCategory-alignStart { display: contents !important; }
 .TagCategory-subTagList .TagCategory-alignEnd { display: contents !important; }
 
-/* 主题/文章：只显示两个数字，横排 0 / 0（隐藏图标和"主题/帖子"文字） */
-.TagCategory-subTagList .TagCategory-stats.StatWidgetList { display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: center !important; justify-self: center !important; gap: 0 !important; width: auto !important; min-width: 0 !important; }
-.TagCategory-subTagList .TagCategory-stats .StatWidget { display: flex !important; flex-direction: row !important; align-items: center !important; width: auto !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; font-weight: 700 !important; color: #333 !important; }
+/* 主题/文章：紧凑显示 0 / 0（斜杠分隔，无边框竖线，隐藏图标和"主题/帖子"文字） */
+.TagCategory-subTagList .TagCategory-stats.StatWidgetList { display: flex !important; flex-direction: row !important; align-items: baseline !important; justify-content: center !important; justify-self: center !important; gap: 0 !important; width: auto !important; min-width: 0 !important; border: none !important; }
+.TagCategory-subTagList .TagCategory-stats .StatWidget { display: flex !important; flex-direction: row !important; align-items: baseline !important; width: auto !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; border: none !important; box-shadow: none !important; font-weight: 700 !important; color: #333 !important; }
 .TagCategory-subTagList .TagCategory-stats .StatWidget .StatWidget-label { display: none !important; }
 .TagCategory-subTagList .TagCategory-stats .StatWidget i,
 .TagCategory-subTagList .TagCategory-stats .StatWidget svg,
 .TagCategory-subTagList .TagCategory-stats .StatWidget [class*="icon"],
 .TagCategory-subTagList .TagCategory-stats .StatWidget [class*="Icon"] { display: none !important; }
-.TagCategory-subTagList .TagCategory-stats .StatWidget:first-child::after { content: "/" !important; margin: 0 6px !important; color: #bbb !important; font-weight: 400 !important; }
+.TagCategory-subTagList .TagCategory-stats .StatWidget:first-child::after { content: "/" !important; margin: 0 7px !important; color: #ccc !important; font-weight: 400 !important; display: inline-block !important; border: none !important; }
 
 /* 子板块名（无图标） */
 .TagCategory-subTagList .TagCategory-icon { display: none !important; }
