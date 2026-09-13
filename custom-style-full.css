@@ -55,7 +55,8 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 
 /* 分组标题栏（灰色） */
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 8px 14px !important; text-decoration: none !important; }
-.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content:hover { background: linear-gradient(#eaeaea,#dcdcdc) !important; }
+/* 分组标题栏鼠标滑过不变色，始终与「统计信息」标题栏一致 */
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content:hover { background: linear-gradient(#f0f0f0,#e2e2e2) !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-alignStart { display: contents !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-alignEnd { display: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-name { color: #333 !important; font-size: 13px !important; font-weight: 700 !important; margin: 0 !important; padding-left: 0 !important; }
@@ -101,6 +102,21 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .TagCategory-subTagList .LastDiscussion { display: block !important; text-align: left !important; padding-left: 0 !important; margin-left: 0 !important; }
 .TagCategory-subTagList .LastDiscussion-topRow { color: #0771a8 !important; font-size: 12px !important; text-align: left !important; padding-left: 0 !important; margin-left: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .TagCategory-subTagList .LastDiscussion-bottomRow { font-size: 11px !important; color: #999 !important; text-align: left !important; padding-left: 0 !important; margin-left: 0 !important; }
+
+/* 去掉鼠标滑过「最后发表」时出现的绿色高亮块 */
+.TagCategory-subTagList .TagCategory-lastDiscussion,
+.TagCategory-subTagList .TagCategory-lastDiscussion *,
+.TagCategory-subTagList .TagCategory-lastDiscussion:hover,
+.TagCategory-subTagList .TagCategory-lastDiscussion:hover *,
+.TagCategory-subTagList .LastDiscussion,
+.TagCategory-subTagList .LastDiscussion:hover,
+.TagCategory-subTagList .LastDiscussion *,
+.TagCategory-subTagList .LastDiscussion:hover * { background: transparent !important; background-color: transparent !important; box-shadow: none !important; }
+.TagCategory-subTagList .TagCategory-lastDiscussion *::before,
+.TagCategory-subTagList .TagCategory-lastDiscussion *::after { background: transparent !important; box-shadow: none !important; }
+
+/* 版主列（由页头 JS 注入的 .kv-mod），放到第 4 列 */
+.TagCategory-subTagList .kv-mod { grid-column: 4 / 5 !important; grid-row: 1 !important; align-self: center !important; text-align: center !important; color: #0771a8 !important; font-size: 13px !important; font-weight: 600 !important; }
 
 #kvin-stats { margin-top: 16px; border: 1px solid #ccc; background: #fff; border-radius: 3px; }
 .kvin-stats-title { background: linear-gradient(#f0f0f0,#e2e2e2); border-bottom: 1px solid #ccc; padding: 8px 14px; font-weight: 700; font-size: 13px; color: #333; }

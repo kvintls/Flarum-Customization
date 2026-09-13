@@ -82,3 +82,31 @@
   },500);
 })();
 </script>
+
+
+<script>
+/* 版主列 = 该板块最后发帖的作者（随最后一篇帖子变动） */
+(function(){
+  setInterval(function(){
+    document.querySelectorAll('.TagCategory-subTagList > .TagCategory > .TagCategory-content').forEach(function(row){
+      var mod = '';
+      var bottom = row.querySelector('.LastDiscussion-bottomRow');
+      if(bottom){
+        var t = (bottom.textContent || '').trim();
+        if(t){
+          // 文本形如 "1 天前 | admin"，取最后一段作者名
+          if(t.indexOf('|') > -1){ mod = t.split('|').pop().trim(); }
+          else { var parts = t.split(/\s+/); mod = parts[parts.length-1].trim(); }
+        }
+      }
+      var cell = row.querySelector('.kv-mod');
+      if(!cell){
+        cell = document.createElement('span');
+        cell.className = 'kv-mod';
+        row.appendChild(cell);
+      }
+      if(cell.textContent !== mod){ cell.textContent = mod; }
+    });
+  }, 500);
+})();
+</script>
