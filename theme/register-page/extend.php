@@ -9,9 +9,11 @@
  */
 
 use Flarum\Extend;
+use Kvin\RegisterPage\LoginController;
 use Kvin\RegisterPage\RegisterController;
 
 return [
     (new Extend\Routes('forum'))
-        ->get('/register', 'kvin.register', RegisterController::class),
+        ->get('/register', 'kvin.register', RegisterController::class)
+        ->get('/login', 'kvin.login', LoginController::class),
 ];
