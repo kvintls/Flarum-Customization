@@ -26,15 +26,23 @@ class RegisterController implements RequestHandlerInterface
 
         $title = (string) ($this->settings->get('forum_title') ?: 'Forum');
 
-        // 论坛规则文字（可自行修改）。用 <br> 分段，HTML 已转义标题但规则这里是可信的站点文案。
-        $rules = "本论坛仅限 Arch Linux x86_64 用户。<br><br>"
-            . "不适用于 Artix、Apricity、Manjaro 或任何“简易 Arch 安装程序”，也不适用于 Arch-ARM；仅限纯净的 64 位 Arch Linux。如需帮助，请联系相应的社区。<br><br>"
-            . "注册本论坛即表示您同意本站隐私政策，并且您在论坛上发布的任何信息都将被视为“公共信息”。";
+        // 论坛规则文字：优先读取扩展目录下的 rules.html（方便随时改，无需动 PHP）；读不到则用默认。
+        $rulesFile = dirname(__DIR__) . '/rules.html';
+        if (is_file($rulesFile)) {
+            $rules = (string) file_get_contents($rulesFile);
+        } else {
+            $rules = "本论坛仅限 Arch Linux x86_64 用户。<br><br>"
+                . "不适用于 Artix、Apricity、Manjaro 或任何“简易 Arch 安装程序”，也不适用于 Arch-ARM；仅限纯净的 64 位 Arch Linux。如需帮助，请联系相应的社区。<br><br>"
+                . "注册本论坛即表示您同意本站隐私政策，并且您在论坛上发布的任何信息都将被视为“公共信息”。";
+        }
 
         $html = strtr($this->template(), [
             '__CSRF__'  => htmlspecialchars($csrf, ENT_QUOTES, 'UTF-8'),
             '__TITLE__' => htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
             '__RULES__' => $rules,
+            // 顶部导航两个标签链接（日常/技术、情报/测评）——如与实际不符，改这里的 URL 即可
+            '__NAV1_URL__' => '/',
+            '__NAV2_URL__' => '/',
         ]);
 
         return new HtmlResponse($html);
@@ -54,14 +62,28 @@ class RegisterController implements RequestHandlerInterface
   body { margin: 0; background: #eef1f4; color: #1f2328; font-family: -apple-system, "Segoe UI", "Microsoft YaHei", Arial, sans-serif; font-size: 14px; }
   a { color: #0771a8; text-decoration: none; }
   a:hover { text-decoration: underline; }
-  .kv-wrap { max-width: 900px; margin: 0 auto; padding: 0 16px 40px; }
+  /* ===== 全站统一头部（复刻论坛顶部） ===== */
+  .kv-header { background: #fff; box-shadow: 0 1px 3px rgba(20,30,50,.06); }
+  .kv-header-in { max-width: 1320px; width: 94%; margin: 0 auto; display: flex; align-items: center; padding: 14px 0; }
+  .kv-brand { font-size: 20px; font-weight: 700; color: #3f7cac; white-space: nowrap; }
+  .kv-topnav { display: flex; gap: 18px; margin-left: 22px; }
+  .kv-topnav a { color: #5a6b7a; font-size: 14px; }
+  .kv-search { margin-left: auto; position: relative; }
+  .kv-search input { width: 260px; max-width: 40vw; padding: 8px 34px 8px 12px; border: 1px solid #ccd2d9; border-radius: 5px; font-size: 14px; outline: none; background: #fff; }
+  .kv-search input:focus { border-color: #42b983; }
+  .kv-search button { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer; color: #8a96a3; font-size: 15px; padding: 0; }
 
-  /* 顶部标题栏 */
-  .kv-top { border-bottom: 2px solid #0771a8; padding: 16px 2px 10px; display: flex; align-items: baseline; justify-content: space-between; }
-  .kv-top .kv-logo { font-size: 20px; font-weight: 700; color: #0771a8; }
-  .kv-top .kv-nav a { margin-left: 16px; font-size: 13px; }
+  .kv-archbar { background: #fff; border-bottom: 2px solid #0771a8; }
+  .kv-archbar-in { max-width: 1320px; width: 94%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; font-size: 13px; padding: 10px 0 8px; }
+  .kv-arch-left { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; }
+  .kv-arch-left a { color: #0771a8; }
+  .kv-arch-right { color: #667; }
+  .kv-arch-right a { color: #0771a8; margin-left: 6px; }
 
-  .kv-pagetitle { font-size: 20px; font-weight: 700; margin: 20px 2px 14px; color: #1f2d3d; }
+  /* 内容区：外层灰底，内层一个白色大容器（像论坛那样） */
+  .kv-wrap { max-width: 1000px; width: 94%; margin: 0 auto; padding: 20px 0 40px; }
+  .kv-panel { background: #fff; border: 1px solid #c9cfd6; padding: 16px; }
+  .kv-pagetitle { font-size: 20px; font-weight: 700; margin: 0 0 14px; color: #1f2d3d; }
 
   /* 分节盒子（FluxBB 风格） */
   .kv-box { border: 1px solid #ccc; background: #fff; margin-bottom: 16px; }
@@ -98,18 +120,46 @@ class RegisterController implements RequestHandlerInterface
   .kv-msg.ok  { display: block; background: #eaf7ee; border: 1px solid #bfe3ca; color: #256b39; }
 
   .kv-foot { text-align: center; color: #667; font-size: 13px; margin-top: 8px; }
+
+  /* 底部页脚（复刻论坛页脚） */
+  .kv-sitefoot { border-top: 2px solid #0771a8; margin-top: 16px; padding: 10px 2px; text-align: right; font-size: 12px; color: #888; }
+  .kv-sitefoot a { color: #0771a8; font-weight: 700; }
 </style>
 </head>
 <body>
-<div class="kv-wrap">
 
-  <div class="kv-top">
-    <a class="kv-logo" href="/">__TITLE__</a>
-    <span class="kv-nav">
-      <a href="/">返回首页</a>
+<div class="kv-header">
+  <div class="kv-header-in">
+    <a class="kv-brand" href="/">__TITLE__</a>
+    <nav class="kv-topnav">
+      <a href="__NAV1_URL__">日常/技术</a>
+      <a href="__NAV2_URL__">情报/测评</a>
+    </nav>
+    <form class="kv-search" action="/" method="get" role="search">
+      <input name="q" type="search" placeholder="搜索">
+      <button type="submit" aria-label="搜索">&#128269;</button>
+    </form>
+  </div>
+</div>
+
+<div class="kv-archbar">
+  <div class="kv-archbar-in">
+    <ul class="kv-arch-left">
+      <li><a href="/">首页</a></li>
+      <li><a href="/tags">板块</a></li>
+      <li><a href="/rankings">排名</a></li>
+      <li><a href="/all">全部主题</a></li>
+    </ul>
+    <span class="kv-arch-right">
+      主题：<a href="/">活跃</a> | <a href="/all">未回复</a>
+      <a href="/register">注册</a>
       <a href="/?login=1">登录</a>
     </span>
   </div>
+</div>
+
+<div class="kv-wrap">
+  <div class="kv-panel">
 
   <div class="kv-pagetitle">注册</div>
 
@@ -179,7 +229,11 @@ class RegisterController implements RequestHandlerInterface
   </form>
 
   <div class="kv-foot">已有帐户？ <a href="/?login=1">登录</a></div>
-</div>
+
+  <div class="kv-sitefoot">由 <a href="https://flarum.org" target="_blank" rel="noopener">Flarum</a> 提供技术支持 · © __TITLE__</div>
+
+  </div><!-- /.kv-panel -->
+</div><!-- /.kv-wrap -->
 
 <script>
 (function(){
