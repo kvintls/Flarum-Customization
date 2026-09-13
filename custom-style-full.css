@@ -55,8 +55,7 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 
 /* 分组标题栏（灰色） */
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 8px 14px !important; text-decoration: none !important; }
-/* 分组标题栏鼠标滑过不变色，始终与「统计信息」标题栏一致 */
-.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content:hover { background: linear-gradient(#f0f0f0,#e2e2e2) !important; }
+.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content:hover { background: linear-gradient(#eaeaea,#dcdcdc) !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-alignStart { display: contents !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-alignEnd { display: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-name { color: #333 !important; font-size: 13px !important; font-weight: 700 !important; margin: 0 !important; padding-left: 0 !important; }
