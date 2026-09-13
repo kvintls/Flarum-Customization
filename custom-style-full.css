@@ -87,12 +87,11 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .TagCategory-subTagList .TagCategory-stats .StatWidget [class*="Icon"] { display: none !important; }
 .TagCategory-subTagList .TagCategory-stats .StatWidget:first-child::after { content: "/" !important; margin: 0 6px !important; color: #bbb !important; font-weight: 400 !important; }
 
-/* 子板块名 + 左侧小方块图标（Arch 风格） */
+/* 子板块名（无图标） */
 .TagCategory-subTagList .TagCategory-icon { display: none !important; }
-.TagCategory-subTagList .TagCategory-name { position: relative; color: #0771a8 !important; font-weight: 700 !important; font-size: 14px !important; margin: 0 0 2px 0 !important; padding-left: 22px !important; }
-.TagCategory-subTagList .TagCategory-name::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; border: 1px solid #9fb8c4; background: #e8eff3; border-radius: 2px; }
+.TagCategory-subTagList .TagCategory-name { color: #0771a8 !important; font-weight: 700 !important; font-size: 14px !important; margin: 0 0 2px 0 !important; padding-left: 0 !important; }
 .TagCategory-subTagList .TagCategory-content:hover .TagCategory-name { text-decoration: underline; }
-.TagCategory-subTagList .TagCategory-description { color: #555 !important; font-size: 12px !important; line-height: 1.4; padding-left: 22px !important; }
+.TagCategory-subTagList .TagCategory-description { color: #555 !important; font-size: 12px !important; line-height: 1.4; padding-left: 0 !important; }
 
 /* 最后发表：左对齐，与列标题「最后发表」左边缘对齐（图四）*/
 .TagCategory-subTagList .TagCategory-lastDiscussion .Avatar, .TagCategory-subTagList .LastDiscussion-avatar { display: none !important; }
