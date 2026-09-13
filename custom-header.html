@@ -83,36 +83,3 @@
 })();
 </script>
 
-
-<script>
-/* 版主列 = 该板块最后发帖的作者（随最后一篇帖子变动） */
-(function(){
-  setInterval(function(){
-    document.querySelectorAll('.TagCategory-subTagList > .TagCategory > .TagCategory-content').forEach(function(row){
-      var mod = '';
-      var last = row.querySelector('.TagCategory-lastDiscussion') || row;
-      // 1) 用户主页链接 /u/用户名
-      var ua = last.querySelector('a[href*="/u/"]');
-      if(ua && ua.textContent.trim()){ mod = ua.textContent.trim(); }
-      // 2) 头像的 title / alt
-      if(!mod){
-        var av = last.querySelector('.Avatar, img.Avatar, .Avatar img');
-        if(av){ mod = (av.getAttribute('title') || av.getAttribute('alt') || '').trim(); }
-      }
-      // 3) 底部一行文本，形如 "1 天前 | admin"，取 | 后的作者
-      if(!mod){
-        var bottom = last.querySelector('.LastDiscussion-bottomRow');
-        var t = bottom ? (bottom.textContent || '').trim() : '';
-        if(t && t.indexOf('|') > -1){ mod = t.split('|').pop().trim(); }
-      }
-      var cell = row.querySelector('.kv-mod');
-      if(!cell){
-        cell = document.createElement('span');
-        cell.className = 'kv-mod';
-        row.appendChild(cell);
-      }
-      if(cell.textContent !== mod){ cell.textContent = mod; }
-    });
-  }, 500);
-})();
-</script>
