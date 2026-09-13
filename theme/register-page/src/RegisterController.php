@@ -81,9 +81,11 @@ class RegisterController implements RequestHandlerInterface
   .kv-arch-right a { color: #0771a8; margin-left: 6px; }
 
   /* 内容区：外层灰底，内层一个白色大容器（像论坛那样） */
-  .kv-wrap { max-width: 1000px; width: 94%; margin: 0 auto; padding: 20px 0 40px; }
+  .kv-wrap { max-width: 1320px; width: 94%; margin: 0 auto; padding: 20px 0 40px; }
   .kv-panel { background: #fff; border: 1px solid #c9cfd6; padding: 16px; }
-  .kv-pagetitle { font-size: 20px; font-weight: 700; margin: 0 0 14px; color: #1f2d3d; }
+  .kv-pagehead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 14px; }
+  .kv-pagetitle { font-size: 20px; font-weight: 700; margin: 0; color: #1f2d3d; }
+  .kv-haveaccount { font-size: 13px; color: #667; white-space: nowrap; }
 
   /* 分节盒子（FluxBB 风格） */
   .kv-box { border: 1px solid #ccc; background: #fff; margin-bottom: 16px; }
@@ -161,7 +163,10 @@ class RegisterController implements RequestHandlerInterface
 <div class="kv-wrap">
   <div class="kv-panel">
 
-  <div class="kv-pagetitle">注册</div>
+  <div class="kv-pagehead">
+    <div class="kv-pagetitle">注册</div>
+    <div class="kv-haveaccount">已有帐户？ <a href="/?login=1">登录</a></div>
+  </div>
 
   <div id="kv-msg" class="kv-msg"></div>
 
@@ -227,8 +232,6 @@ class RegisterController implements RequestHandlerInterface
     </div>
 
   </form>
-
-  <div class="kv-foot">已有帐户？ <a href="/?login=1">登录</a></div>
 
   <div class="kv-sitefoot">由 <a href="https://flarum.org" target="_blank" rel="noopener">Flarum</a> 提供技术支持 · © __TITLE__</div>
 
