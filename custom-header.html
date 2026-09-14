@@ -193,3 +193,25 @@
   }, 400);
 })();
 </script>
+
+
+<script>
+/* 登录后在顶部右侧放「用户名 · 退出」链接（用户菜单已被 CSS 隐藏，避免无法登出） */
+(function(){
+  setInterval(function(){
+    if(typeof app === 'undefined' || !app.session || !app.session.user) return;
+    var sec = document.querySelector('.Header-secondary');
+    if(sec && !sec.querySelector('.kv-logout')){
+      var li = document.createElement('li');
+      li.className = 'kv-logout';
+      var uname = '';
+      try { uname = app.session.user.username(); } catch(e){}
+      var a = document.createElement('a');
+      a.href = '/logout?token=' + app.session.csrfToken;
+      a.textContent = (uname ? uname + ' · ' : '') + '退出';
+      li.appendChild(a);
+      sec.appendChild(li);
+    }
+  }, 500);
+})();
+</script>

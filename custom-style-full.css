@@ -303,3 +303,36 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* 上方左对齐(图二)，下方右对齐(图三) */
 .IndexPage .Pagination { justify-content: flex-start !important; }
 .IndexPage .DiscussionList-discussions ~ .Pagination { justify-content: flex-end !important; }
+
+
+/* ============ 顶栏精简 + 翻页修正 + 回复列 ============ */
+/* 1. 顶部右侧：隐藏 旗标/通知/用户菜单；搜索移到最右；保留「退出」链接 */
+.Header-secondary .item-flags,
+.Header-secondary .item-notifications,
+.Header-secondary .item-session { display: none !important; }
+.Header-secondary { justify-content: flex-end !important; }
+.Header-secondary .item-search { margin-left: auto !important; }
+.Header-secondary .kv-logout a { color: #3f7cac !important; font-weight: 600; margin-left: 14px; white-space: nowrap; }
+
+/* 3. 翻页：按“图标类”精确隐藏 首页/上一页/末页/跳转（title 选择器不生效，改用图标类）*/
+.IndexPage .Pagination li:has(.fa-angle-double-left),
+.IndexPage .Pagination li:has(.fa-angles-left),
+.IndexPage .Pagination li:has(.fa-angle-left),
+.IndexPage .Pagination li:has(.fa-angle-double-right),
+.IndexPage .Pagination li:has(.fa-angles-right),
+.IndexPage .Pagination li:has(.fa-paper-plane),
+.IndexPage .Pagination li:has(#pagination-inputJump) { display: none !important; }
+/* 下一个：图标换成文字 */
+.IndexPage .Pagination .Button:has(.fa-angle-right) .Button-icon,
+.IndexPage .Pagination .Button:has(.fa-angle-right) i { display: none !important; }
+.IndexPage .Pagination .Button:has(.fa-angle-right)::after { content: "下一个"; color: #0771a8; }
+/* 下一个后面不要竖线 */
+.IndexPage .Pagination .IndexPage-toolbar-view > li:has(.fa-angle-right)::after { content: none !important; }
+
+/* 4. 回复列：只显示数字(去掉图标)，数字居中对齐「回复」表头 */
+.DiscussionListItem-count i, .DiscussionListItem-count svg, .DiscussionListItem-count .icon { display: none !important; }
+.DiscussionListItem-count::before { display: none !important; content: none !important; }
+.DiscussionListItem-count { grid-column: 2 !important; justify-self: center !important; text-align: center !important; }
+/* 再次强制 浏览量→第3列，最后发帖→第4列 */
+.DiscussionListItem-content .item-discussion-views { grid-column: 3 !important; justify-self: center !important; }
+.DiscussionListItem-content .item-terminalPost { grid-column: 4 !important; }
