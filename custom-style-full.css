@@ -418,3 +418,33 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .DiscussionListItem-content .DiscussionListItem-count { grid-column: 2 !important; grid-row: 1 !important; justify-self: center !important; }
 .IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: 3 !important; grid-row: 1 !important; justify-self: center !important; }
 .IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: 4 !important; grid-row: 1 !important; justify-self: start !important; }
+
+
+/* ============ 帖子列表页：整体套用首页(CategoriesPage)一模一样的样式 ============ */
+/* 外层白卡 = 首页 .CategoriesPage-content（同边框色 #c9cfd6、同内边距 16px）*/
+.IndexPage-results,
+.IndexPage-results.sideNavOffset {
+  background: #fff !important;
+  border: 1px solid #c9cfd6 !important;
+  border-radius: 0 !important;
+  padding: 16px !important;
+  box-shadow: none !important;
+  margin: 0 auto !important;
+  width: auto !important;
+}
+/* 列表内框 = 首页分组盒子 .ParentCategory（边框 #ccc）*/
+.IndexPage .DiscussionList {
+  border: 1px solid #ccc !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+}
+/* 表头栏 = 首页分组标题栏（灰渐变 #f0f0f0→#e2e2e2、下边框 #ccc）*/
+.kv-dlhead {
+  background: linear-gradient(#f0f0f0,#e2e2e2) !important;
+  border-bottom: 1px solid #ccc !important;
+  color: #333 !important;
+  padding: 8px 14px !important;
+}
+.IndexPage .DiscussionList-discussions { border: none !important; }
