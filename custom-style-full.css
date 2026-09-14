@@ -980,3 +980,25 @@ body > .UserCard,
   color:#0771a8 !important; padding:0 !important; height:auto !important; font-size:13px !important; font-weight:400 !important;
 }
 .CommentPost .Post-header .Post-actions .Button-label{ color:#0771a8 !important; }
+
+
+
+/* ============================================================
+   帖子 header 操作条修正 + 回复框简洁化(B)
+   ============================================================ */
+/* 头像与用户名之间留间距 */
+.CommentPost .Post-header .PostUser-avatar{ margin-right:8px !important; }
+/* 时间/楼层不换行(避免"5小时/前"折行) */
+.CommentPost .Post-header .item-meta,
+.CommentPost .Post-header .PostMeta{ white-space:nowrap !important; }
+/* 右侧操作(回复/赞/⋯)一直显示，不再只在鼠标滑过时出现 */
+.CommentPost .Post-actions,
+.CommentPost .Post-header .Post-actions,
+.CommentPost .Post-header .Post-actions .Button{ opacity:1 !important; visibility:visible !important; }
+/* ⋯ 下拉菜单(编辑/投票详情/删除)向左展开、右对齐，不溢出到框外 */
+.CommentPost .Post-header .Post-actions .Dropdown-menu{ right:0 !important; left:auto !important; }
+
+/* B) 回复框更简洁(图三风)：去掉头像，编辑区占满；工具栏布局(图四)保持不变 */
+.App-composer.kv-inline .ComposerBody-avatar{ display:none !important; }
+.App-composer.kv-inline .ComposerBody{ padding:12px !important; }
+.App-composer.kv-inline .ComposerBody-content{ margin-left:0 !important; }
