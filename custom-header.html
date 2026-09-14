@@ -568,6 +568,7 @@
   var bypass = false, lastBtn = null;
   var orig = window.confirm.bind(window);
   document.addEventListener('click', function(e){
+    if(e.target.closest && e.target.closest('.kv-confirm-overlay')) return; // 不记录美化弹窗自身的按钮
     var el = e.target.closest && e.target.closest('button, a');
     if(el) lastBtn = el;
   }, true);
@@ -592,5 +593,22 @@
     };
     ov.onclick = function(e){ if(e.target === ov) closeModal(); };
   }
+})();
+</script>
+
+
+
+<script>
+/* 未登录用户点「回复」→ 直接跳整页 /login，不再弹出旧登录弹窗 */
+(function(){
+  document.addEventListener('click', function(e){
+    if(!e.target.closest) return;
+    var r = e.target.closest('.item-reply, .item-reply a, .item-reply button');
+    if(!r) return;
+    if(typeof app === 'undefined' || !app.session || !app.session.user){
+      e.preventDefault(); e.stopPropagation();
+      window.location = '/login';
+    }
+  }, true);
 })();
 </script>
