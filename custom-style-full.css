@@ -783,8 +783,11 @@ body, .App { background: #f5f6f8; color: #1f2328; }
    把它改成 block 让 stream 独占整宽。 */
 .DiscussionPage .container,
 .DiscussionPage .container.sideNavContainer{ max-width:1320px !important; width:94% !important; }
+/* 关键：详情页 .container 是 display:grid，为隐藏的侧栏保留了一列(330px)，
+   把它改成 block，stream 才能拿到整宽 1320 */
 .DiscussionPage .sideNavContainer,
-.DiscussionPage-discussion{ display:block !important; }
+.DiscussionPage-discussion,
+.DiscussionPage .container{ display:block !important; }
 .DiscussionPage-content,
 .DiscussionPage-stream,
 .DiscussionPage-stream.sideNavOffset,
