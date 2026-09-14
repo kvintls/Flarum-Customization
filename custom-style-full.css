@@ -8,14 +8,12 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .Button--primary { background: #3f7cac !important; border: none !important; border-radius: 8px !important; font-weight: 600 !important; }
 .Button--primary:hover { background: #35688f !important; }
 .TagLabel { border-radius: 4px !important; font-weight: 600 !important; }
-
 .Search .FormControl { border: 1px solid #ccd2d9 !important; border-radius: 5px !important; background: #fff !important; box-shadow: none !important; padding-left: 12px !important; padding-right: 34px !important; }
 .Search .FormControl:focus { border-color: #42b983 !important; box-shadow: none !important; outline: none !important; }
 .Search-clear { display: none !important; }
 .Search-input { position: relative !important; }
 .Search-input::before { position: absolute !important; left: auto !important; right: 12px !important; top: 50% !important; transform: translateY(-50%) !important; margin: 0 !important; z-index: 2; pointer-events: none; }
 .Search .LoadingIndicator, .Search-input .LoadingIndicator, .item-search .LoadingIndicator { display: none !important; }
-
 .DiscussionList-discussions { background: #fff !important; border: 1px solid #e3e7ec !important; border-radius: 10px !important; overflow: hidden !important; box-shadow: 0 1px 4px rgba(0,0,0,.05) !important; }
 .DiscussionListItem { padding: 11px 16px !important; border-bottom: 1px solid #eef1f4 !important; background: #fff !important; transition: background .12s ease !important; }
 .DiscussionListItem:last-child { border-bottom: none !important; }
@@ -24,7 +22,6 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .DiscussionListItem-title { font-size: 15px !important; font-weight: 600 !important; color: #1f2d3d !important; }
 .DiscussionListItem:hover .DiscussionListItem-title { color: #3f7cac !important; }
 .DiscussionListItem-info { font-size: 12px !important; color: #8a96a3 !important; }
-
 .item-logIn, .item-signUp { display: none !important; }
 .ab-authwrap { margin-left: 18px; }
 .ab-auth { color: #0771a8 !important; text-decoration: none; margin-left: 12px; }
@@ -34,26 +31,17 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 #archbar a { color: #0771a8; text-decoration: none; }
 #archbar a:hover { text-decoration: underline; }
 #archbar .archbar-right { color: #555; }
-
 .CategoriesPage-nav { display: none !important; }
 .CategoriesPage-content.sideNavOffset { margin-left: 0 !important; }
 .CategoriesPage .container, .CategoriesPage .container.sideNavContainer { max-width: 1320px !important; width: 94% !important; }
 .CategoriesPage-content { background: #fff !important; border: 1px solid #c9cfd6 !important; border-radius: 0 !important; padding: 16px !important; box-shadow: none !important; }
-
 #kvin-cathead { display: none !important; }
 .TagCategoryList { background: transparent !important; border: none !important; list-style: none !important; padding: 0 !important; margin: 0 !important; }
 .TagCategoryList::before { display: none !important; }
-
-/* ===== Arch/FluxBB 风格：每个分类独立成块，块间留空隙，方正无阴影 ===== */
 .TagCategoryList { border: none !important; border-radius: 0 !important; overflow: visible !important; background: transparent !important; box-shadow: none !important; }
-
-/* 父级分组：每个是一个独立方框，块之间留空隙，直角、无阴影 */
 .TagCategoryList > .TagCategory.ParentCategory { display: block !important; border: 1px solid #ccc !important; border-radius: 0 !important; margin: 0 0 14px 0 !important; background: #fff !important; overflow: hidden !important; box-shadow: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory:last-child { margin-bottom: 0 !important; }
-/* 彻底去掉圆角：所有相关元素强制直角 */
 .CategoriesPage-content, .TagCategoryList, .TagCategoryList .TagCategory, .TagCategoryList .TagCategory-content, .TagCategory-subTagList, .TagCategory-subTagList .TagCategory, .TagCategory-subTagList .TagCategory-content { border-radius: 0 !important; }
-
-/* 分组标题栏（灰色） */
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content { display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 8px 14px !important; text-decoration: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content:hover { background: linear-gradient(#eaeaea,#dcdcdc) !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-alignStart { display: contents !important; }
@@ -62,27 +50,18 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-name::before { display: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-description { display: none !important; }
 .TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content .TagCategory-icon { display: none !important; }
-
-/* 列标题文字（由页头 JS 注入的 .kh-cols）*/
 .kh-cols { display: contents; }
 .kh-cols span { font-size: 12px; color: #555; font-weight: 700; }
-.kh-cols span:nth-child(1) { text-align: center; }              /* 主题/文章 */
-.kh-cols span:nth-child(2) { text-align: left; padding-left: 2px; } /* 最后发表：与帖子标题左对齐 */
-.kh-cols span:nth-child(3) { text-align: center; }              /* 版主 */
-
-/* 子板块数据行：扁平，细分隔线 */
+.kh-cols span:nth-child(1) { text-align: center; }              
+.kh-cols span:nth-child(2) { text-align: left; padding-left: 2px; } 
+.kh-cols span:nth-child(3) { text-align: center; }              
 .TagCategory-subTagList { list-style: none !important; margin: 0 !important; padding: 0 !important; }
 .TagCategory-subTagList > .TagCategory { margin: 0 !important; list-style: none; }
-/* 子版块行之间不要分割线（图一 Arch 是连续的，行与行之间无线） */
 .TagCategory-subTagList > .TagCategory > .TagCategory-content { position: relative !important; display: grid !important; grid-template-columns: 1fr 120px 240px 100px !important; align-items: center !important; padding: 10px 14px !important; background: #fff !important; border-bottom: none !important; text-decoration: none !important; }
-
-/* 版主列：绝对定位盖在第 4 列(100px)区域，脱离网格流，绝不影响其他列 */
 .TagCategory-subTagList .kv-mod { position: absolute !important; top: 0 !important; bottom: 0 !important; right: 14px !important; width: 100px !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; color: #0771a8 !important; font-size: 13px !important; font-weight: 600 !important; }
 .TagCategory-subTagList > .TagCategory > .TagCategory-content:hover { background: #f7f9fb !important; }
 .TagCategory-subTagList .TagCategory-alignStart { display: contents !important; }
 .TagCategory-subTagList .TagCategory-alignEnd { display: contents !important; }
-
-/* 主题/文章：紧凑显示 0 / 0（斜杠分隔，无边框竖线，隐藏图标和"主题/帖子"文字） */
 .TagCategory-subTagList .TagCategory-stats.StatWidgetList { display: flex !important; flex-direction: row !important; align-items: baseline !important; justify-content: center !important; justify-self: center !important; gap: 0 !important; width: auto !important; min-width: 0 !important; border: none !important; }
 .TagCategory-subTagList .TagCategory-stats .StatWidget { display: flex !important; flex-direction: row !important; align-items: baseline !important; width: auto !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; border: none !important; box-shadow: none !important; font-weight: 700 !important; color: #333 !important; }
 .TagCategory-subTagList .TagCategory-stats .StatWidget .StatWidget-label { display: none !important; }
@@ -91,21 +70,15 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .TagCategory-subTagList .TagCategory-stats .StatWidget [class*="icon"],
 .TagCategory-subTagList .TagCategory-stats .StatWidget [class*="Icon"] { display: none !important; }
 .TagCategory-subTagList .TagCategory-stats .StatWidget:first-child::after { content: "/" !important; margin: 0 7px !important; color: #ccc !important; font-weight: 400 !important; display: inline-block !important; border: none !important; }
-
-/* 子板块名（无图标） */
 .TagCategory-subTagList .TagCategory-icon { display: none !important; }
 .TagCategory-subTagList .TagCategory-name { color: #0771a8 !important; font-weight: 700 !important; font-size: 14px !important; margin: 0 0 2px 0 !important; padding-left: 0 !important; }
 .TagCategory-subTagList .TagCategory-content:hover .TagCategory-name { text-decoration: underline; }
 .TagCategory-subTagList .TagCategory-description { color: #555 !important; font-size: 12px !important; line-height: 1.4; padding-left: 0 !important; }
-
-/* 最后发表：左对齐，与列标题「最后发表」左边缘对齐（图四）*/
 .TagCategory-subTagList .TagCategory-lastDiscussion .Avatar, .TagCategory-subTagList .LastDiscussion-avatar { display: none !important; }
 .TagCategory-subTagList .TagCategory-lastDiscussion { overflow: hidden !important; justify-self: stretch !important; text-align: left !important; padding-left: 2px !important; }
 .TagCategory-subTagList .LastDiscussion { display: block !important; text-align: left !important; padding-left: 0 !important; margin-left: 0 !important; }
 .TagCategory-subTagList .LastDiscussion-topRow { color: #0771a8 !important; font-size: 12px !important; text-align: left !important; padding-left: 0 !important; margin-left: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .TagCategory-subTagList .LastDiscussion-bottomRow { font-size: 11px !important; color: #999 !important; text-align: left !important; padding-left: 0 !important; margin-left: 0 !important; }
-
-/* 去掉鼠标滑过「最后发表」时出现的绿色高亮块 */
 .TagCategory-subTagList .TagCategory-lastDiscussion,
 .TagCategory-subTagList .TagCategory-lastDiscussion *,
 .TagCategory-subTagList .TagCategory-lastDiscussion:hover,
@@ -116,90 +89,52 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .TagCategory-subTagList .LastDiscussion:hover * { background: transparent !important; background-color: transparent !important; box-shadow: none !important; }
 .TagCategory-subTagList .TagCategory-lastDiscussion *::before,
 .TagCategory-subTagList .TagCategory-lastDiscussion *::after { background: transparent !important; box-shadow: none !important; }
-
-
-
 #kvin-stats { margin-top: 16px; border: 1px solid #ccc; background: #fff; border-radius: 3px; }
 .kvin-stats-title { background: linear-gradient(#f0f0f0,#e2e2e2); border-bottom: 1px solid #ccc; padding: 8px 14px; font-weight: 700; font-size: 13px; color: #333; }
 .kvin-stats-body { padding: 12px 16px; font-size: 13px; color: #555; }
 .ks-line { margin-bottom: 6px; }
 .ks-h { color: #333; }
 .kvin-stats-body b { color: #0771a8; }
-
 #kvin-footer2 { border-top: 2px solid #0771a8; margin-top: 16px; padding: 10px 2px; text-align: right; font-size: 12px; color: #888; }
 #kvin-footer2 a { color: #0771a8; font-weight: 700; }
-
-
-/* ===== 注册/登录弹窗：FluxBB 扁平方正风格 ===== */
-/* 弹窗外框：方正、细边框 */
 .SignUpModal .Modal-content,
 .LogInModal .Modal-content { border-radius: 0 !important; border: 1px solid #8ba6b8 !important; box-shadow: 0 3px 14px rgba(0,0,0,.25) !important; overflow: hidden !important; }
-
-/* 标题栏：灰色渐变，与论坛版块标题一致，文字左对齐 */
 .SignUpModal .Modal-header,
 .LogInModal .Modal-header { background: linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom: 1px solid #ccc !important; padding: 10px 16px !important; text-align: left !important; }
 .SignUpModal .Modal-header h3, .SignUpModal .App-titleControl,
 .LogInModal .Modal-header h3, .LogInModal .App-titleControl { font-size: 15px !important; font-weight: 700 !important; color: #333 !important; text-align: left !important; margin: 0 !important; }
 .SignUpModal .Modal-close, .LogInModal .Modal-close { color: #888 !important; opacity: .8 !important; }
-
-/* 表单区：浅蓝底（FluxBB 感），紧凑 */
 .SignUpModal .Modal-body,
 .LogInModal .Modal-body { background: #eef3f7 !important; padding: 18px 20px !important; }
-
-/* 输入框：方正、细边框、扁平（去掉又大又圆的默认样式） */
 .SignUpModal .FormControl,
 .LogInModal .FormControl { border-radius: 2px !important; border: 1px solid #a9bcc9 !important; box-shadow: none !important; background: #fff !important; height: auto !important; padding: 8px 10px !important; font-size: 14px !important; margin: 0 !important; }
 .SignUpModal .FormControl:focus,
 .LogInModal .FormControl:focus { border-color: #3f7cac !important; box-shadow: none !important; outline: none !important; }
 .SignUpModal .Form-group, .LogInModal .Form-group { margin-bottom: 12px !important; }
-
-/* 主按钮：扁平方正 */
 .SignUpModal .Button--primary,
 .LogInModal .Button--primary { border-radius: 2px !important; background: #3f7cac !important; border: 1px solid #35688f !important; box-shadow: none !important; font-weight: 700 !important; padding: 9px !important; }
 .SignUpModal .Button--primary:hover,
 .LogInModal .Button--primary:hover { background: #35688f !important; }
-
-/* 底部链接区（已有账户?登录 / 忘记密码） */
 .SignUpModal .Modal-footer,
 .LogInModal .Modal-footer { background: #fff !important; border-top: 1px solid #dfe6ea !important; padding: 10px 16px !important; text-align: center !important; }
 .SignUpModal .Modal-footer a, .LogInModal .Modal-footer a { color: #0771a8 !important; }
-
-
-/* 隐藏空的社交登录占位块 */
 .SignUpModal .LogInButtons:empty, .LogInModal .LogInButtons:empty { display: none !important; }
-/* FluxBB 风格字段标签（由页头 JS 注入） */
 .SignUpModal .kv-flabel, .LogInModal .kv-flabel { display: block !important; text-align: left !important; font-size: 13px !important; font-weight: 700 !important; color: #333 !important; margin: 0 0 5px 2px !important; }
 .SignUpModal .kv-flabel .kv-req, .LogInModal .kv-flabel .kv-req { color: #c0392b !important; margin-left: 2px; }
-/* 表单左对齐（配合标签） */
 .SignUpModal .Form--centered, .LogInModal .Form--centered { text-align: left !important; }
-
-
-/* 弹窗背景遮罩：去掉难看的蓝色，改成中性半透明黑 */
 .Modal-backdrop, .Modal-backdrop.fade, .Modal-backdrop.in { background: rgba(18, 22, 26, 0.55) !important; }
-
-
-/* ===================== 帖子列表页（点进板块）：FluxBB 表格 ===================== */
-/* 隐藏大灰 banner + 侧栏，列表铺满 */
 .IndexPage-hero, .Hero.TagHero, .TagHero { display: none !important; }
 .IndexPage-nav, nav.IndexPage-nav { display: none !important; }
 .IndexPage-results.sideNavOffset, .IndexPage-results { margin-left: 0 !important; width: auto !important; }
-
-/* 顶部面包屑条（注入 #kv-forumbar） */
 #kv-forumbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 2px solid #0771a8; padding: 2px 2px 8px; margin: 4px 0 14px; font-size: 13px; }
 #kv-forumbar .kv-crumb { color: #555; }
 #kv-forumbar .kv-crumb a { color: #0771a8; }
 .kv-newtopic { border: 1px solid #35688f; background: #3f7cac; color: #fff; font-weight: 700; font-size: 13px; padding: 6px 14px; border-radius: 2px; cursor: pointer; white-space: nowrap; }
 .kv-newtopic:hover { background: #35688f; }
-
-/* 列表整体方框 */
 .IndexPage .DiscussionList { border: 1px solid #c9cfd6 !important; background: #fff !important; box-shadow: none !important; border-radius: 0 !important; }
 .IndexPage .DiscussionList-discussions { border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; background: transparent !important; }
-
-/* 列头（注入 .kv-dlhead） */
 .kv-dlhead { display: grid; grid-template-columns: 1fr 64px 76px 220px; align-items: center; column-gap: 8px; background: linear-gradient(#f0f0f0,#e2e2e2); border-bottom: 1px solid #ccc; padding: 9px 14px; font-size: 13px; font-weight: 700; color: #333; }
 .kv-dlhead .c2, .kv-dlhead .c3 { text-align: center; }
-
-/* 数据行：grid 四列 = 话题 | 回复 | 浏览量 | 最后一篇帖子 */
 .DiscussionList-discussions > li { list-style: none !important; }
 .DiscussionListItem { border-bottom: 1px solid #eef1f4 !important; background: #fff !important; }
 .DiscussionListItem:hover { background: #f7f9fb !important; }
@@ -208,61 +143,35 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .DiscussionListItem-author, .DiscussionListItem-badges { display: none !important; }
 .DiscussionListItem-main { display: contents !important; }
 .DiscussionListItem-info { display: contents !important; font-size: 12px; }
-
 .DiscussionListItem-title { grid-column: 1 !important; grid-row: 1 !important; font-size: 14px !important; font-weight: 600 !important; color: #0771a8 !important; margin: 0 !important; white-space: normal !important; overflow: visible !important; }
 .DiscussionListItem-content:hover .DiscussionListItem-title { text-decoration: underline; }
 .DiscussionListItem-info .item-tags { grid-column: 1 !important; grid-row: 2 !important; margin: 3px 0 0 !important; }
-
-/* 回复数（.DiscussionListItem-count 本身是绝对定位的气泡，改成网格单元） */
 .DiscussionListItem-count { position: static !important; grid-column: 2 !important; grid-row: 1 / span 2 !important; align-self: center !important; justify-self: center !important; text-align: center !important; background: none !important; color: #333 !important; font-weight: 700 !important; font-size: 14px !important; min-width: 0 !important; width: auto !important; height: auto !important; box-shadow: none !important; padding: 0 !important; border-radius: 0 !important; }
 .DiscussionListItem-count .visually-hidden { display: none !important; }
-
-/* 浏览量 */
 .DiscussionListItem-info .item-discussion-views { grid-column: 3 !important; grid-row: 1 / span 2 !important; align-self: center !important; justify-self: center !important; text-align: center !important; color: #667 !important; }
-
-/* 最后一篇帖子 */
 .DiscussionListItem-info .item-terminalPost { grid-column: 4 !important; grid-row: 1 / span 2 !important; align-self: center !important; color: #8a96a3 !important; text-align: left !important; }
 .DiscussionListItem-info .item-terminalPost .username { color: #0771a8 !important; }
-
-/* 隐藏意外的 info 项（摘要等），避免打乱表格 */
 .DiscussionListItem-info > li:not(.item-tags):not(.item-discussion-views):not(.item-terminalPost) { display: none !important; }
-
-/* 翻页（foskym pagination） */
 .IndexPage .Pagination { display: flex !important; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 14px 6px !important; }
 .IndexPage .Pagination .IndexPage-toolbar-view { list-style: none; display: inline-flex; gap: 4px; margin: 0; padding: 0; }
 .IndexPage .Pagination .Button { border: 1px solid #ccd2d9 !important; background: #fff !important; color: #0771a8 !important; border-radius: 2px !important; min-width: 30px; padding: 4px 8px !important; box-shadow: none !important; font-weight: 600 !important; }
 .IndexPage .Pagination .Button--active, .IndexPage .Pagination .Button--primary { background: #3f7cac !important; color: #fff !important; border-color: #35688f !important; }
 .IndexPage .Pagination #pagination-inputJump { width: 48px; padding: 4px 6px; border: 1px solid #ccd2d9; border-radius: 2px; text-align: center; }
-
-
-/* ---- 帖子列表页 微调：紧凑单行 + 去排序/刷新/返回箭头 + 主区加宽 ---- */
-/* 去掉顶部工具条(最新回复排序 + 刷新按钮) */
 .IndexPage-toolbar { display: none !important; }
-/* 去掉 header 左上角返回箭头 */
 #header-navigation, .Header-navigation { display: none !important; }
-/* 主区域宽度与首页一致 */
 .IndexPage .container { max-width: 1320px !important; width: 94% !important; margin: 0 auto !important; }
-
-/* 每条帖子更小/单行：隐藏板块标签，压缩行高，标题单行省略 */
 .DiscussionListItem-info .item-tags { display: none !important; }
 .DiscussionListItem-content { grid-template-rows: auto !important; padding: 5px 14px !important; }
 .DiscussionListItem-title { grid-row: 1 !important; font-size: 13px !important; line-height: 1.5 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
 .DiscussionListItem-count { grid-row: 1 !important; }
 .DiscussionListItem-info .item-discussion-views { grid-row: 1 !important; }
 .DiscussionListItem-info .item-terminalPost { grid-row: 1 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
-
-
-/* ---- 翻页做成图一样式：页数： 1 2 3 … 下一个（文字链接、左对齐）---- */
 .IndexPage .Pagination { justify-content: flex-start !important; padding: 8px 2px !important; gap: 0 !important; border-bottom: 1px solid #e3e7ec; }
 .IndexPage .Pagination .IndexPage-toolbar-view { align-items: baseline !important; gap: 6px !important; flex-wrap: wrap !important; }
 .IndexPage .Pagination .IndexPage-toolbar-view::before { content: "页数："; color: #555; font-size: 13px; font-weight: 700; margin-right: 2px; }
-
-/* 页码按钮 → 纯文字链接 */
 .IndexPage .Pagination .Button { border: none !important; background: none !important; color: #0771a8 !important; padding: 0 4px !important; min-width: 0 !important; font-weight: 400 !important; box-shadow: none !important; height: auto !important; }
 .IndexPage .Pagination .Button:hover { text-decoration: underline; background: none !important; }
 .IndexPage .Pagination .Button--active, .IndexPage .Pagination .Button--primary { color: #d0430f !important; font-weight: 700 !important; background: none !important; }
-
-/* 隐藏 首页/上一页/末页/跳转输入/跳转按钮（连同它们的 li） */
 .IndexPage .Pagination li:has(.Button[title="First"]),
 .IndexPage .Pagination li:has(.Button[title="Back"]),
 .IndexPage .Pagination li:has(.Button[title="Last"]),
@@ -273,48 +182,28 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .Pagination .Button[title="Last"],
 .IndexPage .Pagination .Button[title="Jump"],
 .IndexPage .Pagination #pagination-inputJump { display: none !important; }
-
-/* 下一个：图标换成文字「下一个」 */
 .IndexPage .Pagination .Button[title="Next"] { margin-left: 6px; }
 .IndexPage .Pagination .Button[title="Next"] .Button-icon,
 .IndexPage .Pagination .Button[title="Next"] i { display: none !important; }
 .IndexPage .Pagination .Button[title="Next"]::after { content: "下一个"; color: #0771a8; }
-
-
-/* ============ 帖子列表页 二次调整（图二/图三 对齐）============ */
-
-/* 2. 去掉右侧「在线用户」widget，让主区铺满 */
 .AfruxWidgets-Widget:has(.Afrux-OnlineUsersWidget-users-list),
 .AfruxWidgets-Widget:has([class*="Afrux-OnlineUsersWidget"]) { display: none !important; }
 [class*="Afrux-OnlineUsersWidget"] { display: none !important; }
 .AfruxWidgets-sideNavAlt { display: none !important; }
-
-/* 4. 整体框进一个边框；主区铺满 */
 .IndexPage-results, .IndexPage-results.sideNavOffset { margin: 0 !important; width: 100% !important; max-width: 100% !important; }
 .IndexPage .DiscussionList { border: 1px solid #c9cfd6 !important; background: #fff !important; }
-
-/* 3. 帖子行更矮 */
 .DiscussionListItem-content { padding: 4px 14px !important; min-height: 0 !important; }
 .DiscussionListItem { min-height: 0 !important; }
-
-/* 1. 翻页：页数： 1 | 2 | 3 | … | 2769 | 下一个（竖线分隔）*/
 .IndexPage .Pagination .IndexPage-toolbar-view > li::after { content: "|"; color: #cfd6dd; margin: 0 7px; }
 .IndexPage .Pagination .IndexPage-toolbar-view > li:has(.Button[title="Next"])::after { content: none !important; }
-/* 上方左对齐(图二)，下方右对齐(图三) */
 .IndexPage .Pagination { justify-content: flex-start !important; }
 .IndexPage .DiscussionList-discussions ~ .Pagination { justify-content: flex-end !important; }
-
-
-/* ============ 顶栏精简 + 翻页修正 + 回复列 ============ */
-/* 1. 顶部右侧：隐藏 旗标/通知/用户菜单；搜索移到最右；保留「退出」链接 */
 .Header-secondary .item-flags,
 .Header-secondary .item-notifications,
 .Header-secondary .item-session { display: none !important; }
 .Header-secondary { justify-content: flex-end !important; }
 .Header-secondary .item-search { margin-left: auto !important; }
 .Header-secondary .kv-logout a { color: #3f7cac !important; font-weight: 600; margin-left: 14px; white-space: nowrap; }
-
-/* 3. 翻页：按“图标类”精确隐藏 首页/上一页/末页/跳转（title 选择器不生效，改用图标类）*/
 .IndexPage .Pagination li:has(.fa-angle-double-left),
 .IndexPage .Pagination li:has(.fa-angles-left),
 .IndexPage .Pagination li:has(.fa-angle-left),
@@ -322,52 +211,31 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .Pagination li:has(.fa-angles-right),
 .IndexPage .Pagination li:has(.fa-paper-plane),
 .IndexPage .Pagination li:has(#pagination-inputJump) { display: none !important; }
-/* 下一个：图标换成文字 */
 .IndexPage .Pagination .Button:has(.fa-angle-right) .Button-icon,
 .IndexPage .Pagination .Button:has(.fa-angle-right) i { display: none !important; }
 .IndexPage .Pagination .Button:has(.fa-angle-right)::after { content: "下一个"; color: #0771a8; }
-/* 下一个后面不要竖线 */
 .IndexPage .Pagination .IndexPage-toolbar-view > li:has(.fa-angle-right)::after { content: none !important; }
-
-/* 4. 回复列：只显示数字(去掉图标)，数字居中对齐「回复」表头 */
 .DiscussionListItem-count i, .DiscussionListItem-count svg, .DiscussionListItem-count .icon { display: none !important; }
 .DiscussionListItem-count::before { display: none !important; content: none !important; }
 .DiscussionListItem-count { grid-column: 2 !important; justify-self: center !important; text-align: center !important; }
-/* 再次强制 浏览量→第3列，最后发帖→第4列 */
 .DiscussionListItem-content .item-discussion-views { grid-column: 3 !important; justify-self: center !important; }
 .DiscussionListItem-content .item-terminalPost { grid-column: 4 !important; }
-
-
-/* ============ 帖子列表 最终统一（覆盖以上所有）============ */
-/* 关键：表头与数据行列宽必须完全一致，否则串列 */
 .kv-dlhead,
 .IndexPage .DiscussionListItem-content { grid-template-columns: 1fr 70px 90px 230px !important; column-gap: 8px !important; }
 .IndexPage .DiscussionListItem-content { grid-template-rows: auto !important; }
-
-/* 强制打平结构，保证 浏览量/最后发帖 各自成列 */
 .IndexPage .DiscussionListItem-main { display: contents !important; }
 .IndexPage .DiscussionListItem-info { display: contents !important; }
-
-/* 各列归位 */
 .DiscussionListItem-title { grid-column: 1 !important; grid-row: 1 !important; }
 .DiscussionListItem-count { grid-column: 2 !important; grid-row: 1 !important; justify-self: center !important; text-align: center !important; margin: 0 !important; }
 .IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: 3 !important; grid-row: 1 !important; justify-self: center !important; text-align: center !important; }
 .IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: 4 !important; grid-row: 1 !important; justify-self: start !important; text-align: left !important; }
-
-/* 表格框成一整块(图二)：表头 顶+左右，行 左右+底；DiscussionList 本身不描边 */
 .IndexPage .DiscussionList { border: none !important; background: transparent !important; box-shadow: none !important; }
 .kv-dlhead { border: 1px solid #c9cfd6 !important; border-bottom: 1px solid #ccc !important; }
 .IndexPage .DiscussionList-discussions { border: 1px solid #c9cfd6 !important; border-top: none !important; background: #fff !important; }
-
-/* 翻页：无边框、间距收紧(像图三) */
 .IndexPage .Pagination { border: none !important; padding: 6px 2px !important; margin: 0 !important; gap: 0 !important; }
 .IndexPage .Pagination .IndexPage-toolbar-view { gap: 0 !important; }
 .IndexPage .Pagination .IndexPage-toolbar-view > li::after { margin: 0 5px !important; }
 .IndexPage .Pagination .Button { padding: 0 3px !important; min-width: 0 !important; }
-
-
-/* ============ 对齐 Arch/FluxBB 源码 ============ */
-/* 翻页：像 FluxBB「页数： 1 2 3 … 2,769 下一个」——去竖线、纯空格、当前页加粗 */
 .IndexPage .Pagination .IndexPage-toolbar-view > li::after { content: none !important; }
 .IndexPage .Pagination { border: none !important; padding: 4px 2px !important; margin: 0 !important; justify-content: flex-start !important; }
 .IndexPage .DiscussionList-discussions ~ .Pagination { justify-content: flex-end !important; }
@@ -375,25 +243,16 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .Pagination .IndexPage-toolbar-view > li { margin: 0 !important; padding: 0 !important; }
 .IndexPage .Pagination .Button { margin: 0 !important; padding: 0 2px !important; min-width: 0 !important; height: auto !important; line-height: 1.5 !important; font-weight: 400 !important; border: none !important; background: none !important; }
 .IndexPage .Pagination .Button--active, .IndexPage .Pagination .Button--primary { font-weight: 700 !important; color: #333 !important; }
-
-/* 整个列表框成一个盒子（含翻页、表头、帖子行）*/
 .IndexPage .DiscussionList { border: 1px solid #c9cfd6 !important; background: #fff !important; box-shadow: none !important; }
 .kv-dlhead { border: none !important; border-bottom: 1px solid #ccc !important; }
 .IndexPage .DiscussionList-discussions { border: none !important; }
-
-/* 浏览量：去掉眼睛图标只留数字；列位置自动(靠JS重排到第3列) */
 .item-discussion-views i, .item-discussion-views .icon, .item-discussion-views svg { display: none !important; }
 .IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: auto !important; justify-self: center !important; text-align: center !important; }
 .IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: auto !important; justify-self: start !important; text-align: left !important; }
-
-/* 顶部「用户名·退出」：不换行、去小圆点、和搜索同排 */
 .Header-secondary { flex-wrap: nowrap !important; align-items: center !important; }
 .Header-secondary .kv-logout { list-style: none !important; display: inline-flex !important; align-items: center !important; }
 .Header-secondary .kv-logout::marker { content: none !important; }
 .Header-secondary .kv-logout a { margin-left: 16px !important; font-size: 13px !important; white-space: nowrap !important; }
-
-
-/* ============ 列表外框：清晰可见 ============ */
 .DiscussionList {
   border: 1px solid #aeb8c2 !important;
   background: #fff !important;
@@ -403,25 +262,16 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 }
 .kv-dlhead { border: none !important; border-bottom: 1px solid #ccc !important; }
 .DiscussionList-discussions { border: none !important; }
-
-
-/* ============ 帖子行做成 Arch「一条条」：清晰行分隔 + 紧凑 ============ */
 .DiscussionListItem { border-bottom: 1px solid #e4e8ec !important; background: #fff !important; }
 .DiscussionList-discussions > li:last-child .DiscussionListItem { border-bottom: none !important; }
 .DiscussionListItem-content { padding: 6px 12px !important; min-height: 0 !important; }
 .DiscussionListItem:hover { background: #f6f8fa !important; }
-
-/* 各列显式归位（覆盖上一版的 auto，浏览量强制回第3列）*/
 .IndexPage .DiscussionListItem-main { display: contents !important; }
 .IndexPage .DiscussionListItem-info { display: contents !important; }
 .IndexPage .DiscussionListItem-content .DiscussionListItem-title { grid-column: 1 !important; grid-row: 1 !important; }
 .IndexPage .DiscussionListItem-content .DiscussionListItem-count { grid-column: 2 !important; grid-row: 1 !important; justify-self: center !important; }
 .IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: 3 !important; grid-row: 1 !important; justify-self: center !important; }
 .IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: 4 !important; grid-row: 1 !important; justify-self: start !important; }
-
-
-/* ============ 帖子列表页：整体套用首页(CategoriesPage)一模一样的样式 ============ */
-/* 外层白卡 = 首页 .CategoriesPage-content（同边框色 #c9cfd6、同内边距 16px）*/
 .IndexPage-results,
 .IndexPage-results.sideNavOffset {
   background: #fff !important;
@@ -432,7 +282,6 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   margin: 0 auto !important;
   width: auto !important;
 }
-/* 列表内框 = 首页分组盒子 .ParentCategory（边框 #ccc）*/
 .IndexPage .DiscussionList {
   border: 1px solid #ccc !important;
   border-radius: 0 !important;
@@ -440,7 +289,6 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   overflow: hidden !important;
   box-shadow: none !important;
 }
-/* 表头栏 = 首页分组标题栏（灰渐变 #f0f0f0→#e2e2e2、下边框 #ccc）*/
 .kv-dlhead {
   background: linear-gradient(#f0f0f0,#e2e2e2) !important;
   border-bottom: 1px solid #ccc !important;
@@ -448,42 +296,23 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   padding: 8px 14px !important;
 }
 .IndexPage .DiscussionList-discussions { border: none !important; }
-
-
-/* ============ 帖子行 = Arch 主题列表(紧凑一条条，叠加在首页白卡外框上) ============ */
-/* 紧凑矮行 + 细横线分隔 */
 .IndexPage .DiscussionListItem-content { padding: 4px 14px !important; }
 .IndexPage .DiscussionListItem { border-bottom: 1px solid #e9edf0 !important; }
 .IndexPage .DiscussionList-discussions > li:last-child .DiscussionListItem { border-bottom: none !important; }
 .IndexPage .DiscussionListItem:hover { background: #f6f8fa !important; }
-/* 标题：蓝色、常规字重(Arch 不加粗)、单行 */
 .IndexPage .DiscussionListItem-title { font-size: 13px !important; font-weight: 400 !important; color: #0771a8 !important; line-height: 1.5 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
-/* 最后发表小字灰色 */
 .IndexPage .item-terminalPost { font-size: 12px !important; color: #8a96a3 !important; }
 .IndexPage .item-terminalPost .username { color: #0771a8 !important; }
-
-
-/* ============ 行压矮：更紧凑(解决"上下太宽") ============ */
 .IndexPage .DiscussionListItem-content { padding: 2px 14px !important; min-height: 0 !important; }
 .IndexPage .DiscussionListItem { margin: 0 !important; }
 .IndexPage .DiscussionListItem-title { line-height: 1.35 !important; margin: 0 !important; padding: 0 !important; }
 .IndexPage .DiscussionListItem-count { line-height: 1.35 !important; margin: 0 !important; padding: 0 !important; }
 .IndexPage .item-terminalPost, .IndexPage .item-discussion-views { line-height: 1.35 !important; margin: 0 !important; padding: 0 !important; }
-
-
-/* ============ 翻页移到表格框外 + 标题后「由 发帖人」============ */
-/* 框只包"表头+帖子行"，翻页在框外(纯文字行) */
 .IndexPage .DiscussionList { border: none !important; box-shadow: none !important; }
 .kv-dlhead { border: 1px solid #ccc !important; border-bottom: 1px solid #ccc !important; }
 .IndexPage .DiscussionList-discussions { border: 1px solid #ccc !important; border-top: none !important; }
 .IndexPage .Pagination { border: none !important; background: transparent !important; }
-
-/* 标题后「由 发帖人」灰色小字(仿图三) */
 .DiscussionListItem-title .kv-by { color: #8a96a3 !important; font-weight: 400 !important; font-size: 12px !important; }
-
-
-/* ============ 仿图三：每行前小方块 + 行更薄 ============ */
-/* 标题前小方块状态图标(Arch 那种) */
 .IndexPage .DiscussionListItem-title::before {
   content: "";
   display: inline-block;
@@ -495,22 +324,13 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   margin-right: 8px;
   vertical-align: -1px;
 }
-/* 行压更薄(像图三一条条细窄) */
 .IndexPage .DiscussionListItem-content { padding: 3px 14px !important; }
 .IndexPage .DiscussionListItem-title,
 .IndexPage .DiscussionListItem-count,
 .IndexPage .item-terminalPost,
 .IndexPage .item-discussion-views { font-size: 13px !important; line-height: 1.3 !important; }
-
-
-/* ============ 帖子列表页整体收窄(解决"太宽")============ */
 .IndexPage .container { max-width: 1050px !important; width: 100% !important; margin: 0 auto !important; }
-
-
-/* ============ 纠正："太宽"=行高。宽度恢复首页一致，行高压到最薄 ============ */
-/* 宽度改回和首页一样(1320/94%) */
 .IndexPage .container { max-width: 1320px !important; width: 94% !important; margin: 0 auto !important; }
-/* 把所有可能撑高行的地方全部压掉 */
 .IndexPage .DiscussionList-discussions > li { padding: 0 !important; margin: 0 !important; }
 .IndexPage .DiscussionListItem { padding: 0 !important; margin: 0 !important; min-height: 0 !important; }
 .IndexPage .DiscussionListItem-content { padding: 2px 14px !important; min-height: 0 !important; align-items: center !important; }
@@ -519,43 +339,18 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .item-terminalPost,
 .IndexPage .item-discussion-views { line-height: 1.2 !important; padding: 0 !important; margin: 0 !important; }
 .IndexPage .item-terminalPost { white-space: nowrap !important; }
-
-
-/* ============ 顶部间距 + 数字左移 + 浏览量标签对齐到最右数字 ============ */
-/* 1. 顶部留间距(白卡与头部之间) */
 .IndexPage-results { margin-top: 14px !important; }
-
-/* 2+3. 五列: 话题(620固定) | 回复 | 最后一篇帖子 | 浏览量 | 右侧留白(数字整体左移) */
 .kv-dlhead,
 .IndexPage .DiscussionListItem-content { grid-template-columns: 620px 70px 240px 90px 1fr !important; }
-
-/* 表头标签重排：最后一篇帖子→第3列, 浏览量→第4列(正好在最右数字上方) */
 .kv-dlhead .c1 { grid-column: 1 !important; text-align: left !important; }
 .kv-dlhead .c2 { grid-column: 2 !important; text-align: center !important; }
 .kv-dlhead .c4 { grid-column: 3 !important; text-align: left !important; }
 .kv-dlhead .c3 { grid-column: 4 !important; text-align: center !important; }
-
-/* 数据归位：话题→1, 回复→2, 最后发帖→3, 浏览量→4(与浏览量标签对齐) */
 .IndexPage .DiscussionListItem-content .DiscussionListItem-title { grid-column: 1 !important; }
 .IndexPage .DiscussionListItem-content .DiscussionListItem-count { grid-column: 2 !important; justify-self: center !important; }
 .IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: 3 !important; justify-self: start !important; }
 .IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: 4 !important; justify-self: center !important; }
-
-
-/* 页脚在白卡框内：用负边距撑到白卡左右边缘，蓝线恢复满宽(文字保留右边距) */
 #kvin-footer2 { max-width: none !important; width: auto !important; margin: 16px -16px 0 !important; padding: 10px 16px 0 !important; box-sizing: border-box; }
-
-
-/* ============================================================
-   帖子列表页 —— 终极对齐方案：flex 定宽列 + order
-   （彻底废弃 grid：grid 的自动布局一直把「浏览量」甩到最右，
-    改用 flex + 固定 flex-basis + order，列位置 100% 确定）
-   表头与数据行使用完全相同的列宽/间距/左右内边距 → 数字必然对齐标签
-   ============================================================ */
-
-/* --- 列宽常量：话题(弹性) | 回复70 | 浏览量90 | 最后发帖240，列间距8，左右内边距14 --- */
-
-/* 表头 */
 .kv-dlhead{
   display:flex !important; align-items:center !important; flex-wrap:nowrap !important;
   gap:8px !important; padding:9px 14px !important;
@@ -564,25 +359,18 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .kv-dlhead .c2{ flex:0 0 70px !important;  text-align:center !important; }
 .kv-dlhead .c3{ flex:0 0 90px !important;  text-align:center !important; }
 .kv-dlhead .c4{ flex:0 0 240px !important; text-align:left !important; }
-
-/* 数据行容器：flex（不是 grid） */
 .IndexPage .DiscussionListItem-content{
   display:flex !important; align-items:center !important; flex-wrap:nowrap !important;
   gap:8px !important; padding:4px 14px !important;
 }
-/* JS 已把 main/count/views/terminal 依次挂为 content 的直接子元素，
-   flex 按 DOM 顺序从左到右排列，无需 display:contents，无需 order */
 .IndexPage .DiscussionListItem-main{
   display:block !important; flex:1 1 auto !important; min-width:0 !important; order:1 !important;
 }
 .IndexPage .DiscussionListItem-info{ display:block !important; margin:0 !important; }
-
-/* 第1列 话题标题（弹性、单行省略；标题在 main 内部） */
 .IndexPage .DiscussionListItem-title{
   display:block !important; max-width:100% !important;
   white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important;
 }
-/* 第2列 回复数（去气泡定位，定宽居中） */
 .IndexPage .DiscussionListItem-count{
   position:static !important; order:2 !important; flex:0 0 70px !important;
   display:flex !important; align-items:center !important; justify-content:center !important;
@@ -591,126 +379,73 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   min-width:0 !important; width:auto !important; height:auto !important; padding:0 !important;
   color:#333 !important; font-weight:700 !important; font-size:14px !important;
 }
-/* 第3列 浏览量（定宽居中，对齐「浏览量」表头） */
 .IndexPage .DiscussionListItem-content .item-discussion-views{
   position:static !important; top:auto !important; right:auto !important;
   order:3 !important; flex:0 0 90px !important;
   display:flex !important; align-items:center !important; justify-content:center !important;
   text-align:center !important; color:#667 !important;
 }
-/* 第4列 最后发帖（定宽左对齐） */
 .IndexPage .DiscussionListItem-content .item-terminalPost{
   order:4 !important; flex:0 0 240px !important;
   display:block !important; text-align:left !important; color:#8a96a3 !important;
   white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important;
 }
-/* 其余 info 项（标签/摘要）不参与表格 */
 .IndexPage .DiscussionListItem-info .item-tags,
 .IndexPage .DiscussionListItem-info > li:not(.item-discussion-views):not(.item-terminalPost){
   display:none !important;
 }
-
-/* 消除翻页重绘瞬间的闪烁：只要「浏览量/最后发帖」还嵌在标题块(main)里(JS 尚未移出成独立列)，
-   就先隐藏，避免瞬间出现「标题下方堆叠 由 admin 发布」的旧布局。
-   JS 把它们移成 content 的直接子元素后(不再在 main 内)，即恢复显示。 */
 .IndexPage .DiscussionListItem-main .DiscussionListItem-info{ display:none !important; }
-
-/* 翻页位置用 flex order 固定：.DiscussionList 变竖向 flex，
-   无论 mithril 重绘时子元素以什么顺序插入，浏览器都按 order 绘制 →
-   翻页永远「上一个在最上、下一个在最下」，翻页时不再出现「先在话题下方再跳到上方」 */
 .IndexPage .DiscussionList{ display:flex !important; flex-direction:column !important; }
 .IndexPage .DiscussionList > .Pagination{ order:1 !important; justify-content:flex-start !important; }
 .IndexPage .DiscussionList > .kv-dlhead{ order:2 !important; }
 .IndexPage .DiscussionList > .DiscussionList-discussions{ order:3 !important; }
-/* 位于话题列表之后的那个翻页 = 底部翻页 → 排到最下、右对齐 */
 .IndexPage .DiscussionList > .DiscussionList-discussions ~ .Pagination{ order:4 !important; justify-content:flex-end !important; }
-
-/* 加载中的转圈(.LoadingIndicator 等)默认 order:0 会跑到表头上方 →
-   统一把「非翻页/非表头/非列表」的其它直接子元素排到内容区(order:3)，
-   这样加载时：表头留在最上，圆圈出现在表头下方的内容区，体验正常 */
 .IndexPage .DiscussionList > *:not(.Pagination):not(.kv-dlhead):not(.DiscussionList-discussions){
   order:3 !important;
 }
-
-/* 加载转圈：全站隐藏，让翻页/切换尽量无感(同源加载很快，不必显示 loading) */
 .LoadingIndicator,
 [class*="LoadingIndicator"],
 .IndexPage .DiscussionList .LoadingIndicator{ display:none !important; }
-/* 加载时话题区被清空也保持高度，避免框体塌陷/跳动 */
 .IndexPage .DiscussionList{ min-height:140px !important; }
-
-/* 帖子列表页顶部留出间距(内容不要贴着顶栏) */
 .IndexPage .container{ padding-top:16px !important; }
 #kv-forumbar{ margin-top:0 !important; margin-bottom:12px !important; }
 .IndexPage .IndexPage-results{ margin-top:6px !important; }
-
-
-
-/* ============================================================
-   主题详情页(帖子流) —— FluxBB 风格
-   每帖 = 带边框的块；顶部灰色 header(头像+用户名+徽章 在左，时间+#楼层 在右)；下方正文
-   （对应需求：图二→图一，且左侧改成上下结构：上=图三的头像/时间，下=正文）
-   ============================================================ */
 .PostStream-item{ margin:0 0 16px !important; }
 .CommentPost{
   border:1px solid #c9cfd6 !important; background:#fff !important;
   border-radius:0 !important; box-shadow:none !important;
   padding:0 !important; margin:0 !important;
 }
-
-/* header 灰色横条 */
 .CommentPost .Post-header{ margin:0 !important; padding:0 !important; min-height:0 !important; }
 .CommentPost .Post-header > ul{
   display:flex !important; align-items:center !important; gap:8px !important; flex-wrap:nowrap !important;
   list-style:none !important; margin:0 !important; padding:6px 12px !important;
   background:linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom:1px solid #ccc !important;
 }
-/* 左：头像 + 用户名 + 徽章；并把后面的(时间/操作/楼层)推到最右 */
 .CommentPost .Post-header .item-user{ display:flex !important; align-items:center !important; gap:8px !important; margin:0 auto 0 0 !important; }
 .CommentPost .Post-header .item-user .PostUser{ display:flex !important; align-items:center !important; gap:8px !important; }
 .CommentPost .Post-header .item-user h3,
 .CommentPost .Post-header .item-user .PostUser-name{ margin:0 !important; font-size:14px !important; font-weight:700 !important; line-height:1.2 !important; display:flex !important; align-items:center !important; gap:8px !important; }
 .CommentPost .PostUser-name a{ color:#0771a8 !important; }
 .CommentPost .PostUser-badges{ margin:0 !important; }
-
-/* 头像缩小成小方块(FluxBB 感) */
 .CommentPost .PostUser-avatar,
 .CommentPost .Post-header .Avatar{
   width:30px !important; height:30px !important; min-width:30px !important;
   border-radius:3px !important; font-size:15px !important; line-height:30px !important; margin:0 !important;
 }
-
-/* 时间 / 元信息 靠右 */
 .CommentPost .item-meta{ margin:0 !important; }
 .CommentPost .PostMeta{ color:#555 !important; font-size:12px !important; }
-/* #楼层(JS 注入) */
 .CommentPost .kv-floor{ color:#8a96a3 !important; font-size:12px !important; font-weight:700 !important; margin-left:10px !important; white-space:nowrap !important; }
-
-/* 正文 */
 .CommentPost .Post-body{ padding:14px !important; margin:0 !important; font-size:14px !important; line-height:1.75 !important; color:#222 !important; }
-
-/* 底部操作(回复/投票)与反应 */
 .CommentPost .Post-actions,
 .CommentPost .Post-footer{ padding:0 14px 8px !important; margin:0 !important; }
-
-
-
-/* ============================================================
-   主题详情页 —— 去掉横幅/右侧栏/头像，帖子铺满整宽(Arch BBS 框式)
-   ============================================================ */
-/* 1) 顶部蓝灰大横幅(标题横条 Hero) */
 .DiscussionHero,
 .Hero.DiscussionHero,
 .DiscussionPage .Hero,
 .DiscussionPage [class*="Hero"]{ display:none !important; }
-
-/* 2) 右侧滚动条侧栏(scrubber / 登录以回复)，主区铺满 */
 .DiscussionPage-nav{ display:none !important; }
 .DiscussionPage-stream,
 .DiscussionPage-stream.sideNavOffset{ margin:0 !important; width:100% !important; max-width:100% !important; }
-
-/* 3) 头像：不再整体隐藏。把帖子作者头像收进灰色 header 里的用户名左边(小方块，图三/上下结构的"上边图标")；
-   之前游离到左侧的大头像，是因为默认 absolute 定位 —— 这里强制 static 收回 header 行内。 */
 .CommentPost .PostUser-avatar,
 .CommentPost .item-user .Avatar{
   display:inline-flex !important; position:static !important; float:none !important;
@@ -718,22 +453,13 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   border-radius:3px !important; margin:0 !important; font-size:13px !important; line-height:26px !important;
   align-items:center !important; justify-content:center !important;
 }
-/* 只隐藏：回复占位框(说点什么吧)的空头像 */
 .ReplyPlaceholder .Avatar,
 .PostStream-item.ReplyPlaceholder .Avatar,
 .ReplyPlaceholder-avatar{ display:none !important; }
-
-/* 4) 帖子块铺满整宽 */
 .PostStream,
 .PostStream-item,
 .CommentPost{ width:100% !important; max-width:100% !important; }
 .PostStream-item{ margin:0 0 12px !important; }
-
-
-
-/* ============================================================
-   主题详情页：主区域用和首页(.CategoriesPage-content)一模一样的白卡包起来
-   ============================================================ */
 .DiscussionPage .container,
 .DiscussionPage .container.sideNavContainer{
   max-width:1320px !important; width:94% !important; margin:0 auto !important;
@@ -744,19 +470,10 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   padding:16px !important; box-shadow:none !important;
   margin:0 auto !important; width:100% !important; max-width:100% !important;
 }
-/* 公共部分：顶部留白间距条 —— 所有页面(首页/列表/详情)统一顶部间距 */
 .CategoriesPage .container,
 .IndexPage .container,
 .DiscussionPage .container{ padding-top:16px !important; }
-/* 卡片内最后一帖去掉多余下间距 */
 .DiscussionPage-stream .PostStream-item:last-child{ margin-bottom:0 !important; }
-
-
-
-/* ============================================================
-   帖子 header 顶部与图一/图三一致：头像+用户名+徽章 紧凑靠左；时间+#楼层 靠右
-   （修正红框问题：徽章/勋章不再游离，紧跟用户名）
-   ============================================================ */
 .CommentPost .Post-header > ul{ align-items:center !important; }
 .CommentPost .Post-header .item-user{ display:flex !important; align-items:center !important; gap:6px !important; margin:0 auto 0 0 !important; }
 .CommentPost .Post-header .item-user .PostUser,
@@ -770,21 +487,8 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .CommentPost .Post-header .PostUser-badges .Badge,
 .CommentPost .Post-header .Badge{ position:static !important; margin:0 !important; top:auto !important; right:auto !important; }
 .CommentPost .Post-header .item-meta{ display:flex !important; align-items:center !important; gap:10px !important; margin:0 !important; }
-
-
-
-
-
-/* ============================================================
-   主题详情页 微调（按反馈）
-   ============================================================ */
-/* 1) 加宽：和首页同宽(1320)，帖子块铺满
-   关键：.sideNavContainer 用 grid/float 仍为已隐藏的侧栏保留了 ~255px 的列，
-   把它改成 block 让 stream 独占整宽。 */
 .DiscussionPage .container,
 .DiscussionPage .container.sideNavContainer{ max-width:1320px !important; width:94% !important; }
-/* 关键：详情页 .container 是 display:grid，为隐藏的侧栏保留了一列(330px)，
-   把它改成 block，stream 才能拿到整宽 1320 */
 .DiscussionPage .sideNavContainer,
 .DiscussionPage-discussion,
 .DiscussionPage .container{ display:block !important; }
@@ -796,12 +500,8 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   margin:0 !important; margin-left:0 !important; margin-right:0 !important;
   float:none !important; grid-column:1 / -1 !important; flex:1 1 100% !important;
 }
-
-/* 2) 去掉帖子内多余空白(默认为头像预留的高度) */
 .CommentPost{ min-height:0 !important; }
 .CommentPost .Post-body{ min-height:0 !important; }
-
-/* 3) 操作/反应栏(点赞/回复/…)移到 header 之下、正文之上(上边)，去掉底部大空白 */
 .CommentPost{ display:flex !important; flex-direction:column !important; }
 .CommentPost .Post-header{ order:1 !important; }
 .CommentPost .Post-footer{ order:2 !important; position:static !important; }
@@ -809,13 +509,7 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .CommentPost .Post-body{ order:3 !important; }
 .CommentPost .Post-actions,
 .CommentPost .Post-footer{ padding:6px 14px !important; margin:0 !important; border-bottom:1px solid #eef1f4 !important; }
-
-/* 4) 去掉红色勋章(admin 组徽章)，只保留用户名 */
 .CommentPost .PostUser-badges{ display:none !important; }
-
-
-
-/* 彻底去掉帖子 header 里的组徽章/勋章(含工具/扳手图标) —— 只保留用户名 */
 .CommentPost .Post-header .PostUser-badges,
 .CommentPost .Post-header .badges,
 .CommentPost .Post-header .Badge,
@@ -823,13 +517,6 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .CommentPost .Post-header [class*="Badge"],
 .CommentPost .Post-header .fa-wrench,
 .CommentPost .Post-header .fa-screwdriver-wrench{ display:none !important; }
-
-
-
-/* ============================================================
-   回复框内联化：点「回复」后直接显示在主题下方(不再浮动弹出)
-   仅作用于被 JS 标记 .kv-inline 的 composer(主题回复)，不影响其它页面
-   ============================================================ */
 .App-composer.kv-inline{
   position:static !important; height:auto !important; max-height:none !important;
   min-height:0 !important; width:100% !important; box-shadow:none !important; z-index:auto !important;
@@ -838,27 +525,16 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   position:static !important; height:auto !important; box-shadow:none !important;
   border:1px solid #c9cfd6 !important; border-radius:0 !important; margin:12px 0 0 !important;
 }
-/* 去掉拖拽条 + 最小化/全屏按钮(内联不需要，也更清爽) */
 .App-composer.kv-inline .Composer-handle{ display:none !important; }
 .App-composer.kv-inline .item-minimize,
 .App-composer.kv-inline .item-fullScreen{ display:none !important; }
-/* 内联时不需要给页面底部留固定 composer 的空位 */
 .App-composer.kv-inline + .composer-backdrop,
 .composer-backdrop{ display:none !important; }
-
-
-
-/* ============================================================
-   详情页 header 再调 + 去hover卡片/绿点 + 回复框铺满
-   ============================================================ */
-/* 用户名与头像垂直居中(图三效果) */
 .CommentPost .Post-header > ul{ align-items:center !important; min-height:0 !important; }
 .CommentPost .Post-header .item-user,
 .CommentPost .Post-header .item-user .PostUser{ align-items:center !important; }
 .CommentPost .PostUser-name{ display:flex !important; align-items:center !important; line-height:1.2 !important; margin:0 !important; }
 .CommentPost .PostUser-name a{ display:inline-flex !important; align-items:center !important; }
-
-/* 去掉鼠标悬停用户名弹出的用户卡片(hovercard) */
 .UserCard.Dropdown-menu,
 .Dropdown-menu.UserCard,
 [class*="HoverCard"],
@@ -868,16 +544,12 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 body > .UserCard,
 .tooltip .UserCard,
 .Tooltip .UserCard{ display:none !important; }
-
-/* 去掉在线绿点(尽量覆盖各种类名) */
 .CommentPost .Post-header .UserOnline,
 .CommentPost .Post-header .PostUser-online,
 .CommentPost .Post-header [class*="online"],
 .CommentPost .Post-header [class*="Online"],
 .CommentPost .Post-header [class*="-status"],
 .PostUser .UserOnline{ display:none !important; }
-
-/* 回复框(内联 composer)铺满卡片宽度 */
 .App-composer.kv-inline,
 .App-composer.kv-inline .Composer,
 .App-composer.kv-inline .ComposerBody,
@@ -885,20 +557,12 @@ body > .UserCard,
 .App-composer.kv-inline .TextEditor textarea{
   width:100% !important; max-width:100% !important; box-sizing:border-box !important;
 }
-
-
-
-/* 内联回复框：保证编辑区有高度可见(否则 height:auto 会塌成 0，点回复后看不到内容) */
 .App-composer.kv-inline{ display:block !important; }
 .App-composer.kv-inline .Composer-content{ display:block !important; height:auto !important; padding:12px !important; }
 .App-composer.kv-inline .ComposerBody{ display:block !important; height:auto !important; min-height:130px !important; }
 .App-composer.kv-inline .TextEditor{ min-height:110px !important; }
 .App-composer.kv-inline .TextEditor .TextEditor-editor,
 .App-composer.kv-inline .TextEditor textarea{ min-height:110px !important; height:auto !important; }
-
-
-
-/* 内联回复框 FluxBB 风格(仿图一登录页)：边框 + 顶部灰条 + 底部工具区浅灰 */
 .App-composer.kv-inline .Composer{
   border:1px solid #c9cfd6 !important; border-radius:0 !important; box-shadow:none !important; background:#fff !important;
 }
@@ -916,29 +580,18 @@ body > .UserCard,
 .App-composer.kv-inline .Button--submit{
   background:#3f7cac !important; border-color:#35688f !important; border-radius:2px !important;
 }
-
-
-
-/* ============================================================
-   详情页帖子 & 回复框 紧凑化（按反馈）
-   ============================================================ */
-/* A) 帖子：去掉多余空白(根因=为旧的左侧头像预留了高度，现在头像挪到了header) */
 .CommentPost{ display:block !important; min-height:0 !important; padding:0 !important; }
 .CommentPost > div,
 .CommentPost .Post,
 .CommentPost .Post-body,
 .PostStream-item{ min-height:0 !important; }
 .CommentPost .Post-body{ padding:8px 14px !important; margin:0 !important; }
-/* 顶部灰条变薄(变窄) */
 .CommentPost .Post-header > ul{ padding:5px 12px !important; min-height:0 !important; }
-/* 反应/操作：紧贴正文下方、右对齐、去多余间距 */
 .CommentPost .Post-footer,
 .CommentPost .Post-actions{
   margin:0 !important; padding:2px 14px 6px !important; min-height:0 !important; border:none !important;
   display:flex !important; justify-content:flex-end !important; align-items:center !important;
 }
-
-/* B) 回复框：头像变小+圆角；铺满宽度；去多余空白 */
 .App-composer.kv-inline .ComposerBody{ display:flex !important; align-items:flex-start !important; padding:12px !important; }
 .App-composer.kv-inline .ComposerBody-avatar,
 .App-composer.kv-inline .Avatar.ComposerBody-avatar{
@@ -946,25 +599,14 @@ body > .UserCard,
   border-radius:5px !important; margin:2px 10px 0 0 !important; font-size:16px !important; line-height:34px !important;
 }
 .App-composer.kv-inline .ComposerBody-content{ flex:1 1 auto !important; min-width:0 !important; }
-/* 回复目标那行做成灰条(FluxBB) */
 .App-composer.kv-inline .ComposerBody-header{
   background:linear-gradient(#f0f0f0,#e2e2e2) !important; border:1px solid #ccc !important;
   border-radius:3px !important; padding:6px 10px !important; margin:0 0 8px !important; font-size:13px !important;
 }
-/* 编辑区高度适中，别太空 */
 .App-composer.kv-inline .ComposerBody-editor .TextEditor,
 .App-composer.kv-inline .TextEditor-editor{ min-height:90px !important; }
-
-
-
-/* ============================================================
-   帖子操作条：删除 👍👎(item-votes)，其余(回复/赞/⋯)移到 header 最右做成文字链接
-   ============================================================ */
-/* 删除 👍👎 反应 */
 .CommentPost .item-votes{ display:none !important; }
-/* 底部"你回复了此帖"提示/空 footer 去掉，减少下方空白 */
 .CommentPost .Post-footer{ display:none !important; }
-/* 操作(回复/赞/⋯)移入 header 最右侧，纯文字链接(图三风) */
 .CommentPost .Post-header .Post-actions{
   margin:0 0 0 16px !important; padding:0 !important; border:none !important;
   position:static !important; display:flex !important; align-items:center !important; min-height:0 !important;
@@ -980,39 +622,19 @@ body > .UserCard,
   color:#0771a8 !important; padding:0 !important; height:auto !important; font-size:13px !important; font-weight:400 !important;
 }
 .CommentPost .Post-header .Post-actions .Button-label{ color:#0771a8 !important; }
-
-
-
-/* ============================================================
-   帖子 header 操作条修正 + 回复框简洁化(B)
-   ============================================================ */
-/* 头像与用户名之间留间距 */
 .CommentPost .Post-header .PostUser-avatar{ margin-right:8px !important; }
-/* 时间/楼层不换行(避免"5小时/前"折行) */
 .CommentPost .Post-header .item-meta,
 .CommentPost .Post-header .PostMeta{ white-space:nowrap !important; }
-/* 右侧操作(回复/赞/⋯)一直显示，不再只在鼠标滑过时出现 */
 .CommentPost .Post-actions,
 .CommentPost .Post-header .Post-actions,
 .CommentPost .Post-header .Post-actions .Button{ opacity:1 !important; visibility:visible !important; }
-/* ⋯ 下拉菜单(编辑/投票详情/删除)向左展开、右对齐，不溢出到框外 */
 .CommentPost .Post-header .Post-actions .Dropdown-menu{ right:0 !important; left:auto !important; }
-
-/* B) 回复框更简洁(图三风)：去掉头像，编辑区占满；工具栏布局(图四)保持不变 */
 .App-composer.kv-inline .ComposerBody-avatar{ display:none !important; }
 .App-composer.kv-inline .ComposerBody{ padding:12px !important; }
 .App-composer.kv-inline .ComposerBody-content{ margin-left:0 !important; }
-
-
-
-/* ============================================================
-   操作条改为绝对定位到帖子右上角（不移动 DOM → ⋯ 下拉恢复正常点击开合，不再常驻展开）
-   ============================================================ */
 .CommentPost{ position:relative !important; }
-/* 时间/#楼层紧跟 admin 在左侧(不再被推到最右) */
 .CommentPost .Post-header .item-user{ margin-right:0 !important; }
 .CommentPost .Post-header > ul{ justify-content:flex-start !important; padding-right:150px !important; }
-/* 操作(回复/赞/⋯)绝对定位在右上角、常显、文字链接 */
 .CommentPost .Post-actions{
   position:absolute !important; top:6px !important; right:14px !important;
   margin:0 !important; padding:0 !important; border:none !important; z-index:5 !important;
@@ -1026,24 +648,14 @@ body > .UserCard,
   background:none !important; border:none !important; box-shadow:none !important;
   color:#0771a8 !important; padding:0 !important; height:auto !important; font-size:13px !important; font-weight:400 !important;
 }
-/* ⋯ 下拉菜单：向左(右对齐)展开，留在框内 */
 .CommentPost .Post-actions .Dropdown-menu{ right:0 !important; left:auto !important; }
-
-
-
-/* ============================================================
-   回复区：框住样式 + 上下 2 条虚线；占位不可点击
-   ============================================================ */
-/* 回复框 / 占位 上下各一条虚线(2条虚线)，回复框在两线之间 */
 .App-composer.kv-inline,
 .DiscussionPage-stream .ReplyPlaceholder{
   border-top:2px dashed #b9c2cc !important;
   border-bottom:2px dashed #b9c2cc !important;
   padding:14px 0 !important; margin:12px 0 !important;
 }
-/* 回复框本体做成框住的白盒 */
 .App-composer.kv-inline .Composer{
   border:1px solid #c9cfd6 !important; border-radius:0 !important; background:#fff !important; margin:0 !important;
 }
-/* 「说点什么吧」占位不可点击 —— 引导用户用帖子里的「回复」按钮 */
 .DiscussionPage-stream .ReplyPlaceholder{ pointer-events:none !important; opacity:.85 !important; }
