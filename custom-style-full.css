@@ -812,3 +812,25 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .CommentPost .Post-header [class*="Badge"],
 .CommentPost .Post-header .fa-wrench,
 .CommentPost .Post-header .fa-screwdriver-wrench{ display:none !important; }
+
+
+
+/* ============================================================
+   回复框内联化：点「回复」后直接显示在主题下方(不再浮动弹出)
+   仅作用于被 JS 标记 .kv-inline 的 composer(主题回复)，不影响其它页面
+   ============================================================ */
+.App-composer.kv-inline{
+  position:static !important; height:auto !important; max-height:none !important;
+  min-height:0 !important; width:100% !important; box-shadow:none !important; z-index:auto !important;
+}
+.App-composer.kv-inline .Composer{
+  position:static !important; height:auto !important; box-shadow:none !important;
+  border:1px solid #c9cfd6 !important; border-radius:0 !important; margin:12px 0 0 !important;
+}
+/* 去掉拖拽条 + 最小化/全屏按钮(内联不需要，也更清爽) */
+.App-composer.kv-inline .Composer-handle{ display:none !important; }
+.App-composer.kv-inline .item-minimize,
+.App-composer.kv-inline .item-fullScreen{ display:none !important; }
+/* 内联时不需要给页面底部留固定 composer 的空位 */
+.App-composer.kv-inline + .composer-backdrop,
+.composer-backdrop{ display:none !important; }

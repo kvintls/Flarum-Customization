@@ -428,3 +428,28 @@
   }, 500);
 })();
 </script>
+
+
+
+<script>
+/* 主题详情页(/d/...)：把浮动的回复 composer 变成内联——移动到主题白卡内(页脚之前)，
+   并加 .kv-inline 类由 CSS 去掉浮动/拖拽/最小化。其它页面保持原样。 */
+(function(){
+  setInterval(function(){
+    var comp = document.querySelector('.App-composer');
+    if(!comp) return;
+    if(/^\/d\//.test(location.pathname)){
+      var stream = document.querySelector('.DiscussionPage-stream');
+      if(stream){
+        var footer = stream.querySelector('#kvin-footer2');
+        if(comp.parentElement !== stream || (footer && comp.nextElementSibling !== footer)){
+          if(footer) stream.insertBefore(comp, footer); else stream.appendChild(comp);
+        }
+        comp.classList.add('kv-inline');
+      }
+    } else {
+      comp.classList.remove('kv-inline');
+    }
+  }, 300);
+})();
+</script>
