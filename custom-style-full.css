@@ -336,3 +336,31 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* 再次强制 浏览量→第3列，最后发帖→第4列 */
 .DiscussionListItem-content .item-discussion-views { grid-column: 3 !important; justify-self: center !important; }
 .DiscussionListItem-content .item-terminalPost { grid-column: 4 !important; }
+
+
+/* ============ 帖子列表 最终统一（覆盖以上所有）============ */
+/* 关键：表头与数据行列宽必须完全一致，否则串列 */
+.kv-dlhead,
+.IndexPage .DiscussionListItem-content { grid-template-columns: 1fr 70px 90px 230px !important; column-gap: 8px !important; }
+.IndexPage .DiscussionListItem-content { grid-template-rows: auto !important; }
+
+/* 强制打平结构，保证 浏览量/最后发帖 各自成列 */
+.IndexPage .DiscussionListItem-main { display: contents !important; }
+.IndexPage .DiscussionListItem-info { display: contents !important; }
+
+/* 各列归位 */
+.DiscussionListItem-title { grid-column: 1 !important; grid-row: 1 !important; }
+.DiscussionListItem-count { grid-column: 2 !important; grid-row: 1 !important; justify-self: center !important; text-align: center !important; margin: 0 !important; }
+.IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: 3 !important; grid-row: 1 !important; justify-self: center !important; text-align: center !important; }
+.IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: 4 !important; grid-row: 1 !important; justify-self: start !important; text-align: left !important; }
+
+/* 表格框成一整块(图二)：表头 顶+左右，行 左右+底；DiscussionList 本身不描边 */
+.IndexPage .DiscussionList { border: none !important; background: transparent !important; box-shadow: none !important; }
+.kv-dlhead { border: 1px solid #c9cfd6 !important; border-bottom: 1px solid #ccc !important; }
+.IndexPage .DiscussionList-discussions { border: 1px solid #c9cfd6 !important; border-top: none !important; background: #fff !important; }
+
+/* 翻页：无边框、间距收紧(像图三) */
+.IndexPage .Pagination { border: none !important; padding: 6px 2px !important; margin: 0 !important; gap: 0 !important; }
+.IndexPage .Pagination .IndexPage-toolbar-view { gap: 0 !important; }
+.IndexPage .Pagination .IndexPage-toolbar-view > li::after { margin: 0 5px !important; }
+.IndexPage .Pagination .Button { padding: 0 3px !important; min-width: 0 !important; }
