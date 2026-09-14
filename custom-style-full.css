@@ -744,6 +744,10 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   padding:16px !important; box-shadow:none !important;
   margin:0 auto !important; width:100% !important; max-width:100% !important;
 }
+/* 公共部分：顶部留白间距条 —— 所有页面(首页/列表/详情)统一顶部间距 */
+.CategoriesPage .container,
+.IndexPage .container,
+.DiscussionPage .container{ padding-top:16px !important; }
 /* 卡片内最后一帖去掉多余下间距 */
 .DiscussionPage-stream .PostStream-item:last-child{ margin-bottom:0 !important; }
 
