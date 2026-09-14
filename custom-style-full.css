@@ -176,3 +176,60 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 
 /* 弹窗背景遮罩：去掉难看的蓝色，改成中性半透明黑 */
 .Modal-backdrop, .Modal-backdrop.fade, .Modal-backdrop.in { background: rgba(18, 22, 26, 0.55) !important; }
+
+
+/* ===================== 帖子列表页（点进板块）：FluxBB 表格 ===================== */
+/* 隐藏大灰 banner + 侧栏，列表铺满 */
+.IndexPage-hero, .Hero.TagHero, .TagHero { display: none !important; }
+.IndexPage-nav, nav.IndexPage-nav { display: none !important; }
+.IndexPage-results.sideNavOffset, .IndexPage-results { margin-left: 0 !important; width: auto !important; }
+
+/* 顶部面包屑条（注入 #kv-forumbar） */
+#kv-forumbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 2px solid #0771a8; padding: 2px 2px 8px; margin: 4px 0 14px; font-size: 13px; }
+#kv-forumbar .kv-crumb { color: #555; }
+#kv-forumbar .kv-crumb a { color: #0771a8; }
+.kv-newtopic { border: 1px solid #35688f; background: #3f7cac; color: #fff; font-weight: 700; font-size: 13px; padding: 6px 14px; border-radius: 2px; cursor: pointer; white-space: nowrap; }
+.kv-newtopic:hover { background: #35688f; }
+
+/* 列表整体方框 */
+.IndexPage .DiscussionList { border: 1px solid #c9cfd6 !important; background: #fff !important; box-shadow: none !important; border-radius: 0 !important; }
+.IndexPage .DiscussionList-discussions { border: none !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; background: transparent !important; }
+
+/* 列头（注入 .kv-dlhead） */
+.kv-dlhead { display: grid; grid-template-columns: 1fr 64px 76px 220px; align-items: center; column-gap: 8px; background: linear-gradient(#f0f0f0,#e2e2e2); border-bottom: 1px solid #ccc; padding: 9px 14px; font-size: 13px; font-weight: 700; color: #333; }
+.kv-dlhead .c2, .kv-dlhead .c3 { text-align: center; }
+
+/* 数据行：grid 四列 = 话题 | 回复 | 浏览量 | 最后一篇帖子 */
+.DiscussionList-discussions > li { list-style: none !important; }
+.DiscussionListItem { border-bottom: 1px solid #eef1f4 !important; background: #fff !important; }
+.DiscussionListItem:hover { background: #f7f9fb !important; }
+.DiscussionListItem .Slidable-underneath { display: none !important; }
+.DiscussionListItem-content { display: grid !important; grid-template-columns: 1fr 64px 76px 220px !important; grid-template-rows: auto auto !important; align-items: center !important; column-gap: 8px !important; padding: 9px 14px !important; }
+.DiscussionListItem-author, .DiscussionListItem-badges { display: none !important; }
+.DiscussionListItem-main { display: contents !important; }
+.DiscussionListItem-info { display: contents !important; font-size: 12px; }
+
+.DiscussionListItem-title { grid-column: 1 !important; grid-row: 1 !important; font-size: 14px !important; font-weight: 600 !important; color: #0771a8 !important; margin: 0 !important; white-space: normal !important; overflow: visible !important; }
+.DiscussionListItem-content:hover .DiscussionListItem-title { text-decoration: underline; }
+.DiscussionListItem-info .item-tags { grid-column: 1 !important; grid-row: 2 !important; margin: 3px 0 0 !important; }
+
+/* 回复数（.DiscussionListItem-count 本身是绝对定位的气泡，改成网格单元） */
+.DiscussionListItem-count { position: static !important; grid-column: 2 !important; grid-row: 1 / span 2 !important; align-self: center !important; justify-self: center !important; text-align: center !important; background: none !important; color: #333 !important; font-weight: 700 !important; font-size: 14px !important; min-width: 0 !important; width: auto !important; height: auto !important; box-shadow: none !important; padding: 0 !important; border-radius: 0 !important; }
+.DiscussionListItem-count .visually-hidden { display: none !important; }
+
+/* 浏览量 */
+.DiscussionListItem-info .item-discussion-views { grid-column: 3 !important; grid-row: 1 / span 2 !important; align-self: center !important; justify-self: center !important; text-align: center !important; color: #667 !important; }
+
+/* 最后一篇帖子 */
+.DiscussionListItem-info .item-terminalPost { grid-column: 4 !important; grid-row: 1 / span 2 !important; align-self: center !important; color: #8a96a3 !important; text-align: left !important; }
+.DiscussionListItem-info .item-terminalPost .username { color: #0771a8 !important; }
+
+/* 隐藏意外的 info 项（摘要等），避免打乱表格 */
+.DiscussionListItem-info > li:not(.item-tags):not(.item-discussion-views):not(.item-terminalPost) { display: none !important; }
+
+/* 翻页（foskym pagination） */
+.IndexPage .Pagination { display: flex !important; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 14px 6px !important; }
+.IndexPage .Pagination .IndexPage-toolbar-view { list-style: none; display: inline-flex; gap: 4px; margin: 0; padding: 0; }
+.IndexPage .Pagination .Button { border: 1px solid #ccd2d9 !important; background: #fff !important; color: #0771a8 !important; border-radius: 2px !important; min-width: 30px; padding: 4px 8px !important; box-shadow: none !important; font-weight: 600 !important; }
+.IndexPage .Pagination .Button--active, .IndexPage .Pagination .Button--primary { background: #3f7cac !important; color: #fff !important; border-color: #35688f !important; }
+.IndexPage .Pagination #pagination-inputJump { width: 48px; padding: 4px 6px; border: 1px solid #ccd2d9; border-radius: 2px; text-align: center; }

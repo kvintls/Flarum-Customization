@@ -143,3 +143,53 @@
   if(/[?&]login=1\b/.test(location.search)){ window.location = '/login'; }
 })();
 </script>
+
+
+<script>
+/* 帖子列表页(板块)：注入面包屑 + 列头(话题|回复|浏览量|最后一篇帖子)，做成 FluxBB 表格 */
+(function(){
+  setInterval(function(){
+    var dl = document.querySelector('.IndexPage .DiscussionList');
+    if(!dl) return;
+
+    // 列头（所有帖子列表都加）
+    var ul = dl.querySelector('.DiscussionList-discussions');
+    if(ul && !dl.querySelector('.kv-dlhead')){
+      var head = document.createElement('div');
+      head.className = 'kv-dlhead';
+      head.innerHTML = '<span class="c1">话题</span><span class="c2">回复</span><span class="c3">浏览量</span><span class="c4">最后一篇帖子</span>';
+      ul.parentNode.insertBefore(head, ul);
+    }
+
+    // 面包屑 + 发布新主题（仅板块页 /t/...）
+    var isTag = /^\/t\//.test(location.pathname);
+    var results = document.querySelector('.IndexPage-results') || dl.parentNode;
+    if(isTag && results && !document.getElementById('kv-forumbar')){
+      var name = (document.title.split(' - ')[0] || '').trim();
+      var bar = document.createElement('div');
+      bar.id = 'kv-forumbar';
+
+      var crumb = document.createElement('span');
+      crumb.className = 'kv-crumb';
+      var home = document.createElement('a'); home.href = '/'; home.textContent = '首页';
+      crumb.appendChild(home);
+      crumb.appendChild(document.createTextNode(' » ' + name));
+
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.id = 'kv-newtopic'; btn.className = 'kv-newtopic'; btn.textContent = '发布新主题';
+      btn.addEventListener('click', function(){
+        var b = document.querySelector('.item-newDiscussion button, .IndexPage-newDiscussion, .item-newDiscussion .Button');
+        if(b) b.click();
+      });
+
+      bar.appendChild(crumb);
+      bar.appendChild(btn);
+      results.insertBefore(bar, results.firstChild);
+    }
+
+    // 没有发帖权限时隐藏发帖按钮
+    var nt = document.getElementById('kv-newtopic');
+    if(nt){ nt.style.display = document.querySelector('.item-newDiscussion, .IndexPage-newDiscussion') ? '' : 'none'; }
+  }, 400);
+})();
+</script>

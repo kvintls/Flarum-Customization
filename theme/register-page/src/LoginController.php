@@ -35,8 +35,8 @@ class LoginController implements RequestHandlerInterface
         $html = strtr($page, [
             '__CSRF__'  => htmlspecialchars($csrf, ENT_QUOTES, 'UTF-8'),
             '__TITLE__' => htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
-            '__NAV1_URL__' => '/',
-            '__NAV2_URL__' => '/',
+            '__NAV1_URL__' => '/t/Technology',
+            '__NAV2_URL__' => '/t/Resources',
         ]);
 
         return new HtmlResponse($html);

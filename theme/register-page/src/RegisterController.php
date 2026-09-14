@@ -47,8 +47,8 @@ class RegisterController implements RequestHandlerInterface
             '__TITLE__' => htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
             '__RULES__' => $rules,
             // 顶部导航两个标签链接——如与实际不符，改这里的 URL 即可
-            '__NAV1_URL__' => '/',
-            '__NAV2_URL__' => '/',
+            '__NAV1_URL__' => '/t/Technology',
+            '__NAV2_URL__' => '/t/Resources',
         ]);
 
         return new HtmlResponse($html);
