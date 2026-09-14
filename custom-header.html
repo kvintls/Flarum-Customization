@@ -490,3 +490,17 @@
   }, true);
 })();
 </script>
+
+
+
+<script>
+/* 回复框(composer)打开时，隐藏底部"说点什么吧"占位，避免占位框与回复框重复出现 */
+(function(){
+  setInterval(function(){
+    var ph = document.querySelector('.DiscussionPage-stream .ReplyPlaceholder');
+    if(!ph) return;
+    var composing = !!document.querySelector('.App-composer.kv-inline .Composer');
+    ph.style.display = composing ? 'none' : '';
+  }, 250);
+})();
+</script>
