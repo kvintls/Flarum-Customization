@@ -834,3 +834,43 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* 内联时不需要给页面底部留固定 composer 的空位 */
 .App-composer.kv-inline + .composer-backdrop,
 .composer-backdrop{ display:none !important; }
+
+
+
+/* ============================================================
+   详情页 header 再调 + 去hover卡片/绿点 + 回复框铺满
+   ============================================================ */
+/* 用户名与头像垂直居中(图三效果) */
+.CommentPost .Post-header > ul{ align-items:center !important; min-height:0 !important; }
+.CommentPost .Post-header .item-user,
+.CommentPost .Post-header .item-user .PostUser{ align-items:center !important; }
+.CommentPost .PostUser-name{ display:flex !important; align-items:center !important; line-height:1.2 !important; margin:0 !important; }
+.CommentPost .PostUser-name a{ display:inline-flex !important; align-items:center !important; }
+
+/* 去掉鼠标悬停用户名弹出的用户卡片(hovercard) */
+.UserCard.Dropdown-menu,
+.Dropdown-menu.UserCard,
+[class*="HoverCard"],
+[class*="hovercard"],
+.PostUser .Dropdown-menu,
+.PostUser-card,
+body > .UserCard,
+.tooltip .UserCard,
+.Tooltip .UserCard{ display:none !important; }
+
+/* 去掉在线绿点(尽量覆盖各种类名) */
+.CommentPost .Post-header .UserOnline,
+.CommentPost .Post-header .PostUser-online,
+.CommentPost .Post-header [class*="online"],
+.CommentPost .Post-header [class*="Online"],
+.CommentPost .Post-header [class*="-status"],
+.PostUser .UserOnline{ display:none !important; }
+
+/* 回复框(内联 composer)铺满卡片宽度 */
+.App-composer.kv-inline,
+.App-composer.kv-inline .Composer,
+.App-composer.kv-inline .ComposerBody,
+.App-composer.kv-inline .TextEditor,
+.App-composer.kv-inline .TextEditor textarea{
+  width:100% !important; max-width:100% !important; box-sizing:border-box !important;
+}
