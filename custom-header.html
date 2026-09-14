@@ -218,16 +218,18 @@
 
 
 <script>
-/* 帖子行：把浏览量移到「最后发帖」之前(落第3列) + 最后发帖改「时间 由 用户名 发布」*/
+/* 帖子行：用内联样式强制四列(优先级最高,压过CSS) + 最后发帖改「时间 由 用户名 发布」*/
 (function(){
   setInterval(function(){
-    document.querySelectorAll('.DiscussionListItem-info').forEach(function(info){
-      var views = info.querySelector('.item-discussion-views');
-      var terminal = info.querySelector('.item-terminalPost');
-      // 让浏览量排在最后发帖前面 → 网格自动排列时浏览量=第3列, 最后发帖=第4列
-      if(views && terminal && terminal.previousElementSibling !== views){
-        info.insertBefore(views, terminal);
-      }
+    document.querySelectorAll('.DiscussionListItem-content').forEach(function(c){
+      var title = c.querySelector('.DiscussionListItem-title');
+      var count = c.querySelector('.DiscussionListItem-count');
+      var views = c.querySelector('.item-discussion-views');
+      var terminal = c.querySelector('.item-terminalPost');
+      if(title){ title.style.gridColumn = '1'; title.style.gridRow = '1'; }
+      if(count){ count.style.gridColumn = '2'; count.style.gridRow = '1'; count.style.justifySelf = 'center'; }
+      if(views){ views.style.gridColumn = '3'; views.style.gridRow = '1'; views.style.justifySelf = 'center'; }
+      if(terminal){ terminal.style.gridColumn = '4'; terminal.style.gridRow = '1'; terminal.style.justifySelf = 'start'; }
       // 最后发帖改成：时间 由 用户名 发布
       if(terminal && !terminal.querySelector('.kv-lp-user')){
         var time = terminal.querySelector('time');
