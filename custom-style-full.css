@@ -632,10 +632,10 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   order:3 !important;
 }
 
-/* 加载转圈：直接隐藏，让翻页/切换尽量无感(同源加载很快，不必显示 loading) */
-.IndexPage .DiscussionList .LoadingIndicator,
-.IndexPage .DiscussionList [class*="LoadingIndicator"],
-.IndexPage .LoadingIndicator{ display:none !important; }
+/* 加载转圈：全站隐藏，让翻页/切换尽量无感(同源加载很快，不必显示 loading) */
+.LoadingIndicator,
+[class*="LoadingIndicator"],
+.IndexPage .DiscussionList .LoadingIndicator{ display:none !important; }
 /* 加载时话题区被清空也保持高度，避免框体塌陷/跳动 */
 .IndexPage .DiscussionList{ min-height:140px !important; }
 

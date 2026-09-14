@@ -1,3 +1,27 @@
+<script>
+/* 让加载转圈彻底无感：任何含 "LoadingIndicator" 的元素一插入 DOM 就立刻隐藏。
+   用 MutationObserver 在元素出现的同一帧就处理，用户看不到转圈。 */
+(function(){
+  function killSpinners(root){
+    if(!root || !root.querySelectorAll) return;
+    var sel = '[class*="LoadingIndicator"], .LoadingIndicator';
+    if(root.matches && root.matches(sel)) root.style.setProperty('display','none','important');
+    root.querySelectorAll(sel).forEach(function(e){ e.style.setProperty('display','none','important'); });
+  }
+  function start(){
+    if(!document.body){ return setTimeout(start, 20); }
+    killSpinners(document.body);
+    new MutationObserver(function(muts){
+      for(var i=0;i<muts.length;i++){
+        var a=muts[i].addedNodes;
+        for(var j=0;j<a.length;j++){ if(a[j].nodeType===1) killSpinners(a[j]); }
+      }
+    }).observe(document.body, {childList:true, subtree:true});
+  }
+  start();
+})();
+</script>
+
 <div id="archbar-src" style="display:none">
   <ul>
     <li><a href="/">首页</a></li>
