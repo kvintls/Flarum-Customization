@@ -668,3 +668,5 @@ body > .UserCard,
 .DiscussionPage-stream .ReplyPlaceholder{display:none !important;}
 .App-composer.kv-inline{padding:0 !important;margin:12px 0 !important;border-top:2px dashed #b9c2cc !important;border-bottom:2px dashed #b9c2cc !important;}
 .App-composer.kv-inline .Composer{margin:14px 0 !important;width:100% !important;box-sizing:border-box !important;}
+
+.PostStream-item:has(.CommentPost.editing),.CommentPost.editing{display:none !important;}
