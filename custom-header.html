@@ -222,6 +222,11 @@
 (function(){
   setInterval(function(){
     document.querySelectorAll('.DiscussionListItem-content').forEach(function(c){
+      // 关键：强制 main/info 打平成 contents，浏览量才能成为网格项落到第3列
+      var main = c.querySelector('.DiscussionListItem-main');
+      var info = c.querySelector('.DiscussionListItem-info');
+      if(main) main.style.display = 'contents';
+      if(info) info.style.display = 'contents';
       var title = c.querySelector('.DiscussionListItem-title');
       var count = c.querySelector('.DiscussionListItem-count');
       var views = c.querySelector('.item-discussion-views');

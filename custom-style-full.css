@@ -461,3 +461,11 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* 最后发表小字灰色 */
 .IndexPage .item-terminalPost { font-size: 12px !important; color: #8a96a3 !important; }
 .IndexPage .item-terminalPost .username { color: #0771a8 !important; }
+
+
+/* ============ 行压矮：更紧凑(解决"上下太宽") ============ */
+.IndexPage .DiscussionListItem-content { padding: 2px 14px !important; min-height: 0 !important; }
+.IndexPage .DiscussionListItem { margin: 0 !important; }
+.IndexPage .DiscussionListItem-title { line-height: 1.35 !important; margin: 0 !important; padding: 0 !important; }
+.IndexPage .DiscussionListItem-count { line-height: 1.35 !important; margin: 0 !important; padding: 0 !important; }
+.IndexPage .item-terminalPost, .IndexPage .item-discussion-views { line-height: 1.35 !important; margin: 0 !important; padding: 0 !important; }
