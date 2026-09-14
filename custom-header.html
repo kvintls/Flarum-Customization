@@ -241,11 +241,41 @@
       var terminal = c.querySelector('.item-terminalPost');
       // 彻底确定性布局：把 4 个单元格按顺序直接挂到 content 下
       // (DOM 顺序 = flex 从左到右)，不再依赖 display:contents / order
-      if(main) main.style.display = '';           // 取消之前可能设的 display:contents
-      if(main) c.appendChild(main);               // 1) 标题区(含标题)
-      if(count) c.appendChild(count);             // 2) 回复
-      if(views) c.appendChild(views);             // 3) 浏览量
-      if(terminal) c.appendChild(terminal);       // 4) 最后一篇帖子
+      // 只有当顺序被打乱时才重排(避免每次轮询都动 DOM 造成闪烁/抖动)
+      var ordered = main && count && views && terminal &&
+        main.parentElement === c &&
+        count.previousElementSibling === main &&
+        views.previousElementSibling === count &&
+        terminal.previousElementSibling === views;
+      if(!ordered && main && count && views && terminal){
+        c.style.setProperty('display','flex','important');
+        main.style.display = '';
+        c.appendChild(main);       // 1) 标题区
+        c.appendChild(count);      // 2) 回复
+        c.appendChild(views);      // 3) 浏览量
+        c.appendChild(terminal);   // 4) 最后一篇帖子
+        // 内联 !important 强制每列位置/宽度(压过一切 CSS，含 Flarum 的 position:absolute 气泡)
+        main.style.setProperty('order','1','important');
+        main.style.setProperty('flex','1 1 auto','important');
+        main.style.setProperty('min-width','0','important');
+        count.style.setProperty('position','static','important');
+        count.style.setProperty('order','2','important');
+        count.style.setProperty('flex','0 0 70px','important');
+        count.style.setProperty('margin','0','important');
+        count.style.setProperty('display','flex','important');
+        count.style.setProperty('align-items','center','important');
+        count.style.setProperty('justify-content','center','important');
+        count.style.setProperty('background','none','important');
+        count.style.setProperty('box-shadow','none','important');
+        count.style.setProperty('top','auto','important');
+        count.style.setProperty('right','auto','important');
+        views.style.setProperty('order','3','important');
+        views.style.setProperty('flex','0 0 90px','important');
+        views.style.setProperty('justify-content','center','important');
+        terminal.style.setProperty('order','4','important');
+        terminal.style.setProperty('flex','0 0 240px','important');
+        terminal.style.setProperty('text-align','left','important');
+      }
       // 标题后加「由 发帖人」(仿图三 Arch: Title by username)，填充话题列
       var author = c.querySelector('.DiscussionListItem-author');
       if(title && author && !title.querySelector('.kv-by')){
