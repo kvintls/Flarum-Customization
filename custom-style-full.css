@@ -659,3 +659,8 @@ body > .UserCard,
   border:1px solid #c9cfd6 !important; border-radius:0 !important; background:#fff !important; margin:0 !important;
 }
 .DiscussionPage-stream .ReplyPlaceholder{ pointer-events:none !important; opacity:.85 !important; }
+
+.App-composer.kv-inline .Composer{border:1px solid #c9cfd6 !important;border-radius:0 !important;background:#fff !important;width:100% !important;max-width:100% !important;margin:0 !important;box-sizing:border-box !important;}
+.App-composer.kv-inline .Composer-content,.App-composer.kv-inline .ComposerBody,.App-composer.kv-inline .ComposerBody-content,.App-composer.kv-inline .ComposerBody-editor,.App-composer.kv-inline .TextEditor,.App-composer.kv-inline .TextEditor-editorContainer{width:auto !important;max-width:100% !important;margin:0 !important;box-sizing:border-box !important;}
+.App-composer.kv-inline .Composer-footer,.App-composer.kv-inline .TextEditor-controls{margin:0 !important;width:100% !important;box-sizing:border-box !important;}
+.App-composer.kv-inline .ComposerBody{padding:10px !important;}

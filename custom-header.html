@@ -504,3 +504,29 @@
   }, 250);
 })();
 </script>
+
+
+
+<script>
+/* 点「回复」后清掉自动插入的引用代码(@"user"#pNN)，让回复框是干净空白的 */
+(function(){
+  document.addEventListener('click', function(e){
+    if(!e.target.closest) return;
+    if(e.target.closest('.Post-actions .item-reply, .Post-actions .item-reply *')){
+      var tries = 0;
+      var t = setInterval(function(){
+        tries++;
+        var ta = document.querySelector('.App-composer .TextEditor textarea, .App-composer textarea');
+        if(ta){
+          if(/^\s*@"[^"]*"#p?\d+\s*$/.test(ta.value)){
+            ta.value = '';
+            ta.dispatchEvent(new Event('input', {bubbles:true}));
+          }
+          clearInterval(t);
+        }
+        if(tries > 20) clearInterval(t);
+      }, 60);
+    }
+  }, true);
+})();
+</script>
