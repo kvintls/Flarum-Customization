@@ -57,13 +57,16 @@
 
       box.appendChild(el);
     }
-    // 页脚：注入到当前页面的内容白卡里(和首页一样在框内)
+    // 页脚：始终放进当前页面的白卡里(和首页一样在框内)。哪怕之前跑到框外，也移回来。
     var footerBox = document.querySelector('.CategoriesPage-content') || document.querySelector('.IndexPage-results');
-    if(footerBox && !footerBox.querySelector('#kvin-footer2')){
-      var ft=document.createElement('div');
-      ft.id='kvin-footer2';
-      ft.innerHTML='由 <a href="https://flarum.org" target="_blank">Flarum</a> 提供技术支持 · © kvin 论坛';
-      footerBox.appendChild(ft);
+    if(footerBox){
+      var ft = document.getElementById('kvin-footer2');
+      if(!ft){
+        ft = document.createElement('div');
+        ft.id = 'kvin-footer2';
+        ft.innerHTML = '由 <a href="https://flarum.org" target="_blank">Flarum</a> 提供技术支持 · © kvin 论坛';
+      }
+      if(ft.parentElement !== footerBox){ footerBox.appendChild(ft); }
     }
 
   },400);
