@@ -625,6 +625,13 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* 位于话题列表之后的那个翻页 = 底部翻页 → 排到最下、右对齐 */
 .IndexPage .DiscussionList > .DiscussionList-discussions ~ .Pagination{ order:4 !important; justify-content:flex-end !important; }
 
+/* 加载中的转圈(.LoadingIndicator 等)默认 order:0 会跑到表头上方 →
+   统一把「非翻页/非表头/非列表」的其它直接子元素排到内容区(order:3)，
+   这样加载时：表头留在最上，圆圈出现在表头下方的内容区，体验正常 */
+.IndexPage .DiscussionList > *:not(.Pagination):not(.kv-dlhead):not(.DiscussionList-discussions){
+  order:3 !important; padding:24px 0 !important;
+}
+
 /* 帖子列表页顶部留出间距(内容不要贴着顶栏) */
 .IndexPage .container{ padding-top:16px !important; }
 #kv-forumbar{ margin-top:0 !important; margin-bottom:12px !important; }
