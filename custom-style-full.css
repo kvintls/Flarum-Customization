@@ -767,10 +767,4 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .CommentPost .Post-header .Badge{ position:static !important; margin:0 !important; top:auto !important; right:auto !important; }
 .CommentPost .Post-header .item-meta{ display:flex !important; align-items:center !important; gap:10px !important; margin:0 !important; }
 
-/* 主题详情页面包屑(公共顶部条，和列表页 #kv-forumbar 同款) */
-#kv-threadbar{
-  display:flex !important; align-items:center !important; justify-content:space-between !important;
-  max-width:1320px !important; width:94% !important; margin:0 auto 10px !important;
-  padding:8px 2px !important; font-size:13px !important; color:#555 !important;
-}
-#kv-threadbar a{ color:#0771a8 !important; }
+

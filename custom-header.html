@@ -388,22 +388,43 @@
 
 
 
+
+
 <script>
-/* 主题详情页(/d/...)：注入公共顶部面包屑条(首页 » 标题)，放在白卡上方，与列表页保持一致的公共结构 */
+/* 自动生成唯一头像(identicon)：给没有上传真实头像的用户，按用户名确定性地生成一张唯一的
+   GitHub 风格图案头像(纯前端、无需外网、无需扩展)。已上传真实头像(img)的用户保持不变。 */
 (function(){
+  function hash(s){ var h=2166136261; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
+  function identicon(seed){
+    var h=hash(seed), hue=h%360, fg='hsl('+hue+',58%,52%)', r=h;
+    function nx(){ r=(Math.imul(r,1103515245)+12345)>>>0; return r; }
+    var rects='';
+    for(var x=0;x<3;x++){ for(var y=0;y<5;y++){
+      if(nx()&1){
+        rects+='<rect x="'+(x*20)+'" y="'+(y*20)+'" width="20" height="20"/>';
+        if(x<2){ rects+='<rect x="'+((4-x)*20)+'" y="'+(y*20)+'" width="20" height="20"/>'; }
+      }
+    }}
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#eef0f2"/><g fill="'+fg+'">'+rects+'</g></svg>';
+    return 'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svg)));
+  }
+  function seedFor(av){
+    var a = av.closest && av.closest('a[href*="/u/"]');
+    if(a){ var m=a.getAttribute('href').match(/\/u\/([^\/?#]+)/); if(m) return decodeURIComponent(m[1]); }
+    var txt=(av.textContent||'').trim();
+    return txt + '|' + (av.getAttribute('style')||'') + getComputedStyle(av).backgroundColor;
+  }
   setInterval(function(){
-    if(!/^\/d\//.test(location.pathname)) return;
-    var stream = document.querySelector('.DiscussionPage-stream');
-    if(!stream || document.getElementById('kv-threadbar')) return;
-    var title = (document.title.split(/\s[-|]\s/)[0] || '').trim();
-    var bar = document.createElement('div');
-    bar.id = 'kv-threadbar';
-    var crumb = document.createElement('span');
-    var home = document.createElement('a'); home.href = '/'; home.textContent = '首页';
-    crumb.appendChild(home);
-    crumb.appendChild(document.createTextNode(' » ' + title));
-    bar.appendChild(crumb);
-    stream.parentNode.insertBefore(bar, stream);
-  }, 400);
+    document.querySelectorAll('.Avatar').forEach(function(av){
+      if(av.dataset.kvIdent) return;
+      if(av.tagName==='IMG' || av.querySelector('img')){ av.dataset.kvIdent='1'; return; } // 已有真实头像
+      var seed=seedFor(av); if(!seed) return;
+      av.style.backgroundImage='url("'+identicon(seed)+'")';
+      av.style.backgroundSize='cover';
+      av.style.backgroundColor='transparent';
+      av.style.color='transparent';
+      av.dataset.kvIdent='1';
+    });
+  }, 500);
 })();
 </script>
