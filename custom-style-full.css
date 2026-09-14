@@ -505,3 +505,17 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 
 /* ============ 帖子列表页整体收窄(解决"太宽")============ */
 .IndexPage .container { max-width: 1050px !important; width: 100% !important; margin: 0 auto !important; }
+
+
+/* ============ 纠正："太宽"=行高。宽度恢复首页一致，行高压到最薄 ============ */
+/* 宽度改回和首页一样(1320/94%) */
+.IndexPage .container { max-width: 1320px !important; width: 94% !important; margin: 0 auto !important; }
+/* 把所有可能撑高行的地方全部压掉 */
+.IndexPage .DiscussionList-discussions > li { padding: 0 !important; margin: 0 !important; }
+.IndexPage .DiscussionListItem { padding: 0 !important; margin: 0 !important; min-height: 0 !important; }
+.IndexPage .DiscussionListItem-content { padding: 2px 14px !important; min-height: 0 !important; align-items: center !important; }
+.IndexPage .DiscussionListItem-title,
+.IndexPage .DiscussionListItem-count,
+.IndexPage .item-terminalPost,
+.IndexPage .item-discussion-views { line-height: 1.2 !important; padding: 0 !important; margin: 0 !important; }
+.IndexPage .item-terminalPost { white-space: nowrap !important; }
