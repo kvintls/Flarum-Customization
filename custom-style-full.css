@@ -709,13 +709,19 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .DiscussionPage-stream,
 .DiscussionPage-stream.sideNavOffset{ margin:0 !important; width:100% !important; max-width:100% !important; }
 
-/* 3) 帖子头像全部去掉(游离的大头像 + 回复占位头像) —— Arch 帖子无头像 */
+/* 3) 头像：不再整体隐藏。把帖子作者头像收进灰色 header 里的用户名左边(小方块，图三/上下结构的"上边图标")；
+   之前游离到左侧的大头像，是因为默认 absolute 定位 —— 这里强制 static 收回 header 行内。 */
 .CommentPost .PostUser-avatar,
-.CommentPost .Avatar,
-.PostStream .PostUser-avatar,
-.PostStream .Avatar,
-.PostStream-item .Avatar,
-.ReplyPlaceholder .Avatar{ display:none !important; }
+.CommentPost .item-user .Avatar{
+  display:inline-flex !important; position:static !important; float:none !important;
+  width:26px !important; height:26px !important; min-width:26px !important;
+  border-radius:3px !important; margin:0 !important; font-size:13px !important; line-height:26px !important;
+  align-items:center !important; justify-content:center !important;
+}
+/* 只隐藏：回复占位框(说点什么吧)的空头像 */
+.ReplyPlaceholder .Avatar,
+.PostStream-item.ReplyPlaceholder .Avatar,
+.ReplyPlaceholder-avatar{ display:none !important; }
 
 /* 4) 帖子块铺满整宽 */
 .PostStream,
