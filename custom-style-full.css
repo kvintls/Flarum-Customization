@@ -895,3 +895,24 @@ body > .UserCard,
 .App-composer.kv-inline .TextEditor{ min-height:110px !important; }
 .App-composer.kv-inline .TextEditor .TextEditor-editor,
 .App-composer.kv-inline .TextEditor textarea{ min-height:110px !important; height:auto !important; }
+
+
+
+/* 内联回复框 FluxBB 风格(仿图一登录页)：边框 + 顶部灰条 + 底部工具区浅灰 */
+.App-composer.kv-inline .Composer{
+  border:1px solid #c9cfd6 !important; border-radius:0 !important; box-shadow:none !important; background:#fff !important;
+}
+.App-composer.kv-inline .Composer-header,
+.App-composer.kv-inline .ComposerBody-header,
+.App-composer.kv-inline ul.Composer-header{
+  background:linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom:1px solid #ccc !important;
+  padding:8px 12px !important; margin:0 !important; font-size:13px !important; color:#333 !important;
+}
+.App-composer.kv-inline .TextEditor-controls,
+.App-composer.kv-inline .Composer-footer{
+  background:#f7f8fa !important; border-top:1px solid #e3e7ec !important; padding:8px 12px !important;
+}
+.App-composer.kv-inline .Button--primary,
+.App-composer.kv-inline .Button--submit{
+  background:#3f7cac !important; border-color:#35688f !important; border-radius:2px !important;
+}
