@@ -785,11 +785,6 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .DiscussionPage .container.sideNavContainer{ max-width:1320px !important; width:94% !important; }
 .DiscussionPage .sideNavContainer,
 .DiscussionPage-discussion{ display:block !important; }
-/* 强制整条包裹链铺满到 container 全宽(1320)，让最外层白卡和首页一样满 */
-.DiscussionPage-discussion,
-.DiscussionPage-discussion > div,
-.DiscussionPage .sideNavContainer,
-.DiscussionPage .sideNavContainer > div{ max-width:100% !important; width:100% !important; margin:0 !important; }
 .DiscussionPage-content,
 .DiscussionPage-stream,
 .DiscussionPage-stream.sideNavOffset,
