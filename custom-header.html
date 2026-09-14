@@ -446,6 +446,18 @@
           if(footer) stream.insertBefore(comp, footer); else stream.appendChild(comp);
         }
         comp.classList.add('kv-inline');
+        // Flarum 给 App-composer 设了行内左右内边距(~52px)，压过 CSS —— 用行内 !important 清掉，
+        // 并让 .Composer 铺满，与上方帖子框同宽
+        comp.style.setProperty('padding-left','0','important');
+        comp.style.setProperty('padding-right','0','important');
+        var cc = comp.querySelector('.Composer');
+        if(cc){
+          cc.style.setProperty('width','100%','important');
+          cc.style.setProperty('max-width','none','important');
+          cc.style.setProperty('margin-left','0','important');
+          cc.style.setProperty('margin-right','0','important');
+          cc.style.setProperty('box-sizing','border-box','important');
+        }
       }
     } else {
       comp.classList.remove('kv-inline');
