@@ -151,6 +151,20 @@
 
 
 <script>
+/* 兜底：任何来源(发帖/回复/点赞/关注等)弹出的登录/注册弹窗，一律改跳到整页 /login 或 /register。
+   这样不管从哪个入口触发，都统一走和首页一模一样的整页注册/登录界面，不再出现旧弹窗。 */
+(function(){
+  setInterval(function(){
+    // 整页注册/登录页本身不拦截
+    if(location.pathname === '/login' || location.pathname === '/register') return;
+    if(document.querySelector('.SignUpModal, .Modal .SignUpModal, [class*="SignUpModal"]')){ window.location = '/register'; return; }
+    if(document.querySelector('.LogInModal, .Modal .LogInModal, [class*="LogInModal"]')){ window.location = '/login'; return; }
+  }, 80);
+})();
+</script>
+
+
+<script>
 /* 帖子列表页(板块)：注入面包屑 + 列头(话题|回复|浏览量|最后一篇帖子)，做成 FluxBB 表格 */
 (function(){
   setInterval(function(){
@@ -185,6 +199,8 @@
       var btn = document.createElement('button');
       btn.type = 'button'; btn.id = 'kv-newtopic'; btn.className = 'kv-newtopic'; btn.textContent = '发布新主题';
       btn.addEventListener('click', function(){
+        // 未登录 → 直接跳整页登录(避免弹出旧登录弹窗)
+        if(typeof app === 'undefined' || !app.session || !app.session.user){ window.location = '/login'; return; }
         var b = document.querySelector('.item-newDiscussion button, .IndexPage-newDiscussion, .item-newDiscussion .Button');
         if(b) b.click();
       });
