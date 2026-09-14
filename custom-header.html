@@ -441,13 +441,15 @@
     if(/^\/d\//.test(location.pathname)){
       var stream = document.querySelector('.DiscussionPage-stream');
       if(stream){
-        var footer = stream.querySelector('#kvin-footer2');
-        if(comp.parentElement !== stream || (footer && comp.nextElementSibling !== footer)){
-          if(footer) stream.insertBefore(comp, footer); else stream.appendChild(comp);
-        }
-        comp.classList.add('kv-inline');
-        // Flarum 给 App-composer 设了行内左右内边距(~52px)，压过 CSS —— 用行内 !important 清掉，
-        // 并让 .Composer 铺满，与上方帖子框同宽
+        comp.classList.add('kv-inline'); // 先加类,保证虚线/内联样式一定生效(即使下面搬动出错)
+        try{
+          var footer = stream.querySelector('#kvin-footer2');
+          if(footer && footer.parentElement === stream){
+            if(comp.nextElementSibling !== footer) stream.insertBefore(comp, footer);
+          } else if(comp.parentElement !== stream){
+            stream.appendChild(comp);
+          }
+        }catch(e){}
         comp.style.setProperty('padding-left','0','important');
         comp.style.setProperty('padding-right','0','important');
         // 真正的元凶：App-composer 里的 .container(站点栏宽/内边距)把回复框挤窄了 → 清掉
