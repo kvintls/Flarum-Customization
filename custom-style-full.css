@@ -772,3 +772,32 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .CommentPost .Post-header .item-meta{ display:flex !important; align-items:center !important; gap:10px !important; margin:0 !important; }
 
 
+
+
+
+/* ============================================================
+   主题详情页 微调（按反馈）
+   ============================================================ */
+/* 1) 加宽：和首页同宽(1320)，帖子块铺满 */
+.DiscussionPage .container,
+.DiscussionPage .container.sideNavContainer{ max-width:1320px !important; width:94% !important; }
+.DiscussionPage-content,
+.DiscussionPage-stream,
+.DiscussionPage-stream.sideNavOffset,
+.DiscussionPage .PostStream{ max-width:100% !important; width:100% !important; }
+
+/* 2) 去掉帖子内多余空白(默认为头像预留的高度) */
+.CommentPost{ min-height:0 !important; }
+.CommentPost .Post-body{ min-height:0 !important; }
+
+/* 3) 操作/反应栏(点赞/回复/…)移到 header 之下、正文之上(上边)，去掉底部大空白 */
+.CommentPost{ display:flex !important; flex-direction:column !important; }
+.CommentPost .Post-header{ order:1 !important; }
+.CommentPost .Post-footer{ order:2 !important; position:static !important; }
+.CommentPost .Post-actions{ order:2 !important; position:static !important; }
+.CommentPost .Post-body{ order:3 !important; }
+.CommentPost .Post-actions,
+.CommentPost .Post-footer{ padding:6px 14px !important; margin:0 !important; border-bottom:1px solid #eef1f4 !important; }
+
+/* 4) 去掉红色勋章(admin 组徽章)，只保留用户名 */
+.CommentPost .PostUser-badges{ display:none !important; }
