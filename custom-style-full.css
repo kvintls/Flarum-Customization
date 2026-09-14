@@ -801,3 +801,14 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 
 /* 4) 去掉红色勋章(admin 组徽章)，只保留用户名 */
 .CommentPost .PostUser-badges{ display:none !important; }
+
+
+
+/* 彻底去掉帖子 header 里的组徽章/勋章(含工具/扳手图标) —— 只保留用户名 */
+.CommentPost .Post-header .PostUser-badges,
+.CommentPost .Post-header .badges,
+.CommentPost .Post-header .Badge,
+.CommentPost .Post-header .Badge--icon,
+.CommentPost .Post-header [class*="Badge"],
+.CommentPost .Post-header .fa-wrench,
+.CommentPost .Post-header .fa-screwdriver-wrench{ display:none !important; }
