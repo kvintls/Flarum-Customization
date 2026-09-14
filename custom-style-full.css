@@ -885,3 +885,13 @@ body > .UserCard,
 .App-composer.kv-inline .TextEditor textarea{
   width:100% !important; max-width:100% !important; box-sizing:border-box !important;
 }
+
+
+
+/* 内联回复框：保证编辑区有高度可见(否则 height:auto 会塌成 0，点回复后看不到内容) */
+.App-composer.kv-inline{ display:block !important; }
+.App-composer.kv-inline .Composer-content{ display:block !important; height:auto !important; padding:12px !important; }
+.App-composer.kv-inline .ComposerBody{ display:block !important; height:auto !important; min-height:130px !important; }
+.App-composer.kv-inline .TextEditor{ min-height:110px !important; }
+.App-composer.kv-inline .TextEditor .TextEditor-editor,
+.App-composer.kv-inline .TextEditor textarea{ min-height:110px !important; height:auto !important; }
