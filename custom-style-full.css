@@ -746,3 +746,31 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 }
 /* 卡片内最后一帖去掉多余下间距 */
 .DiscussionPage-stream .PostStream-item:last-child{ margin-bottom:0 !important; }
+
+
+
+/* ============================================================
+   帖子 header 顶部与图一/图三一致：头像+用户名+徽章 紧凑靠左；时间+#楼层 靠右
+   （修正红框问题：徽章/勋章不再游离，紧跟用户名）
+   ============================================================ */
+.CommentPost .Post-header > ul{ align-items:center !important; }
+.CommentPost .Post-header .item-user{ display:flex !important; align-items:center !important; gap:6px !important; margin:0 auto 0 0 !important; }
+.CommentPost .Post-header .item-user .PostUser,
+.CommentPost .Post-header .item-user .PostUser > *{ display:flex !important; align-items:center !important; gap:6px !important; margin:0 !important; }
+.CommentPost .Post-header .PostUser-name{ white-space:nowrap !important; }
+.CommentPost .Post-header .PostUser-badges,
+.CommentPost .Post-header .badges{
+  display:inline-flex !important; align-items:center !important; gap:4px !important;
+  margin:0 !important; padding:0 !important; position:static !important; float:none !important;
+}
+.CommentPost .Post-header .PostUser-badges .Badge,
+.CommentPost .Post-header .Badge{ position:static !important; margin:0 !important; top:auto !important; right:auto !important; }
+.CommentPost .Post-header .item-meta{ display:flex !important; align-items:center !important; gap:10px !important; margin:0 !important; }
+
+/* 主题详情页面包屑(公共顶部条，和列表页 #kv-forumbar 同款) */
+#kv-threadbar{
+  display:flex !important; align-items:center !important; justify-content:space-between !important;
+  max-width:1320px !important; width:94% !important; margin:0 auto 10px !important;
+  padding:8px 2px !important; font-size:13px !important; color:#555 !important;
+}
+#kv-threadbar a{ color:#0771a8 !important; }

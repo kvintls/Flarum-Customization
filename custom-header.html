@@ -385,3 +385,25 @@
   }, 400);
 })();
 </script>
+
+
+
+<script>
+/* 主题详情页(/d/...)：注入公共顶部面包屑条(首页 » 标题)，放在白卡上方，与列表页保持一致的公共结构 */
+(function(){
+  setInterval(function(){
+    if(!/^\/d\//.test(location.pathname)) return;
+    var stream = document.querySelector('.DiscussionPage-stream');
+    if(!stream || document.getElementById('kv-threadbar')) return;
+    var title = (document.title.split(/\s[-|]\s/)[0] || '').trim();
+    var bar = document.createElement('div');
+    bar.id = 'kv-threadbar';
+    var crumb = document.createElement('span');
+    var home = document.createElement('a'); home.href = '/'; home.textContent = '首页';
+    crumb.appendChild(home);
+    crumb.appendChild(document.createTextNode(' » ' + title));
+    bar.appendChild(crumb);
+    stream.parentNode.insertBefore(bar, stream);
+  }, 400);
+})();
+</script>
