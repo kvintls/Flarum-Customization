@@ -350,3 +350,25 @@
   }, 200);
 })();
 </script>
+
+
+
+<script>
+/* 主题详情页：给每帖 header 右侧补一个「#楼层」号(从 PostMeta 文本里提取 #数字) */
+(function(){
+  setInterval(function(){
+    document.querySelectorAll('.PostStream .CommentPost').forEach(function(post){
+      var ul = post.querySelector('.Post-header > ul');
+      if(!ul || ul.querySelector('.kv-floor')) return;
+      var meta = post.querySelector('.PostMeta');
+      var m = meta ? (meta.textContent.match(/#(\d+)/)) : null;
+      if(m){
+        var f = document.createElement('span');
+        f.className = 'kv-floor';
+        f.textContent = '#' + m[1];
+        ul.appendChild(f);
+      }
+    });
+  }, 500);
+})();
+</script>

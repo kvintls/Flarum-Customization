@@ -643,3 +643,52 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .container{ padding-top:16px !important; }
 #kv-forumbar{ margin-top:0 !important; margin-bottom:12px !important; }
 .IndexPage .IndexPage-results{ margin-top:6px !important; }
+
+
+
+/* ============================================================
+   主题详情页(帖子流) —— FluxBB 风格
+   每帖 = 带边框的块；顶部灰色 header(头像+用户名+徽章 在左，时间+#楼层 在右)；下方正文
+   （对应需求：图二→图一，且左侧改成上下结构：上=图三的头像/时间，下=正文）
+   ============================================================ */
+.PostStream .PostStream-item{ margin:0 0 16px !important; }
+.PostStream .CommentPost{
+  border:1px solid #c9cfd6 !important; background:#fff !important;
+  border-radius:0 !important; box-shadow:none !important;
+  padding:0 !important; margin:0 !important;
+}
+
+/* header 灰色横条 */
+.PostStream .CommentPost .Post-header{ margin:0 !important; padding:0 !important; min-height:0 !important; }
+.PostStream .CommentPost .Post-header > ul{
+  display:flex !important; align-items:center !important; gap:8px !important; flex-wrap:nowrap !important;
+  list-style:none !important; margin:0 !important; padding:6px 12px !important;
+  background:linear-gradient(#f0f0f0,#e2e2e2) !important; border-bottom:1px solid #ccc !important;
+}
+/* 左：头像 + 用户名 + 徽章；并把后面的(时间/操作/楼层)推到最右 */
+.PostStream .CommentPost .Post-header .item-user{ display:flex !important; align-items:center !important; gap:8px !important; margin:0 auto 0 0 !important; }
+.PostStream .CommentPost .Post-header .item-user .PostUser{ display:flex !important; align-items:center !important; gap:8px !important; }
+.PostStream .CommentPost .Post-header .item-user h3,
+.PostStream .CommentPost .Post-header .item-user .PostUser-name{ margin:0 !important; font-size:14px !important; font-weight:700 !important; line-height:1.2 !important; display:flex !important; align-items:center !important; gap:8px !important; }
+.PostStream .CommentPost .PostUser-name a{ color:#0771a8 !important; }
+.PostStream .CommentPost .PostUser-badges{ margin:0 !important; }
+
+/* 头像缩小成小方块(FluxBB 感) */
+.PostStream .CommentPost .PostUser-avatar,
+.PostStream .CommentPost .Post-header .Avatar{
+  width:30px !important; height:30px !important; min-width:30px !important;
+  border-radius:3px !important; font-size:15px !important; line-height:30px !important; margin:0 !important;
+}
+
+/* 时间 / 元信息 靠右 */
+.PostStream .CommentPost .item-meta{ margin:0 !important; }
+.PostStream .CommentPost .PostMeta{ color:#555 !important; font-size:12px !important; }
+/* #楼层(JS 注入) */
+.PostStream .CommentPost .kv-floor{ color:#8a96a3 !important; font-size:12px !important; font-weight:700 !important; margin-left:10px !important; white-space:nowrap !important; }
+
+/* 正文 */
+.PostStream .CommentPost .Post-body{ padding:14px !important; margin:0 !important; font-size:14px !important; line-height:1.75 !important; color:#222 !important; }
+
+/* 底部操作(回复/投票)与反应 */
+.PostStream .CommentPost .Post-actions,
+.PostStream .CommentPost .Post-footer{ padding:0 14px 8px !important; margin:0 !important; }
