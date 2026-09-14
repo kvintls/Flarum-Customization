@@ -166,12 +166,7 @@
       ul.parentNode.insertBefore(head, ul);
     }
 
-    // 翻页移到「话题」表头上方（页数在话题的上边）
-    var head2 = dl.querySelector('.kv-dlhead');
-    var pag = dl.querySelector('.Pagination');
-    if(pag && head2 && head2.previousElementSibling !== pag){
-      head2.parentNode.insertBefore(pag, head2);
-    }
+    // 翻页上/下位置改由 CSS 的 flex order 固定(瞬时生效，翻页时不再跳动)，此处不再用 JS 搬动
 
     // 面包屑 + 发布新主题（仅板块页 /t/...）
     var isTag = /^\/t\//.test(location.pathname);

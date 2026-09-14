@@ -615,9 +615,15 @@ body, .App { background: #f5f6f8; color: #1f2328; }
    JS 把它们移成 content 的直接子元素后(不再在 main 内)，即恢复显示。 */
 .IndexPage .DiscussionListItem-main .DiscussionListItem-info{ display:none !important; }
 
-/* 顶部翻页(话题上方)左对齐；底部翻页(帖子列表之后)右对齐(图三:下方靠右) */
-.IndexPage .DiscussionList > .Pagination:first-child{ justify-content:flex-start !important; }
-.IndexPage .DiscussionList-discussions ~ .Pagination{ justify-content:flex-end !important; }
+/* 翻页位置用 flex order 固定：.DiscussionList 变竖向 flex，
+   无论 mithril 重绘时子元素以什么顺序插入，浏览器都按 order 绘制 →
+   翻页永远「上一个在最上、下一个在最下」，翻页时不再出现「先在话题下方再跳到上方」 */
+.IndexPage .DiscussionList{ display:flex !important; flex-direction:column !important; }
+.IndexPage .DiscussionList > .Pagination{ order:1 !important; justify-content:flex-start !important; }
+.IndexPage .DiscussionList > .kv-dlhead{ order:2 !important; }
+.IndexPage .DiscussionList > .DiscussionList-discussions{ order:3 !important; }
+/* 位于话题列表之后的那个翻页 = 底部翻页 → 排到最下、右对齐 */
+.IndexPage .DiscussionList > .DiscussionList-discussions ~ .Pagination{ order:4 !important; justify-content:flex-end !important; }
 
 /* 帖子列表页顶部留出间距(内容不要贴着顶栏) */
 .IndexPage .container{ padding-top:16px !important; }
