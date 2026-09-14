@@ -391,3 +391,15 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .Header-secondary .kv-logout { list-style: none !important; display: inline-flex !important; align-items: center !important; }
 .Header-secondary .kv-logout::marker { content: none !important; }
 .Header-secondary .kv-logout a { margin-left: 16px !important; font-size: 13px !important; white-space: nowrap !important; }
+
+
+/* ============ 列表外框：清晰可见 ============ */
+.DiscussionList {
+  border: 1px solid #aeb8c2 !important;
+  background: #fff !important;
+  overflow: hidden !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06) !important;
+  border-radius: 2px !important;
+}
+.kv-dlhead { border: none !important; border-bottom: 1px solid #ccc !important; }
+.DiscussionList-discussions { border: none !important; }
