@@ -1002,3 +1002,29 @@ body > .UserCard,
 .App-composer.kv-inline .ComposerBody-avatar{ display:none !important; }
 .App-composer.kv-inline .ComposerBody{ padding:12px !important; }
 .App-composer.kv-inline .ComposerBody-content{ margin-left:0 !important; }
+
+
+
+/* ============================================================
+   操作条改为绝对定位到帖子右上角（不移动 DOM → ⋯ 下拉恢复正常点击开合，不再常驻展开）
+   ============================================================ */
+.CommentPost{ position:relative !important; }
+/* 时间/#楼层紧跟 admin 在左侧(不再被推到最右) */
+.CommentPost .Post-header .item-user{ margin-right:0 !important; }
+.CommentPost .Post-header > ul{ justify-content:flex-start !important; padding-right:150px !important; }
+/* 操作(回复/赞/⋯)绝对定位在右上角、常显、文字链接 */
+.CommentPost .Post-actions{
+  position:absolute !important; top:6px !important; right:14px !important;
+  margin:0 !important; padding:0 !important; border:none !important; z-index:5 !important;
+  opacity:1 !important; visibility:visible !important; display:flex !important; align-items:center !important;
+}
+.CommentPost .Post-actions > ul{
+  display:flex !important; align-items:center !important; gap:14px !important;
+  margin:0 !important; padding:0 !important; list-style:none !important;
+}
+.CommentPost .Post-actions .Button{
+  background:none !important; border:none !important; box-shadow:none !important;
+  color:#0771a8 !important; padding:0 !important; height:auto !important; font-size:13px !important; font-weight:400 !important;
+}
+/* ⋯ 下拉菜单：向左(右对齐)展开，留在框内 */
+.CommentPost .Post-actions .Dropdown-menu{ right:0 !important; left:auto !important; }
