@@ -570,13 +570,16 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   display:flex !important; align-items:center !important; flex-wrap:nowrap !important;
   gap:8px !important; padding:4px 14px !important;
 }
-/* main / info 用 display:contents 把里面的 标题/浏览量/最后发帖 提升为本行的 flex 项 */
-.IndexPage .DiscussionListItem-main{ display:contents !important; }
-.IndexPage .DiscussionListItem-info{ display:contents !important; }
+/* JS 已把 main/count/views/terminal 依次挂为 content 的直接子元素，
+   flex 按 DOM 顺序从左到右排列，无需 display:contents，无需 order */
+.IndexPage .DiscussionListItem-main{
+  display:block !important; flex:1 1 auto !important; min-width:0 !important; order:1 !important;
+}
+.IndexPage .DiscussionListItem-info{ display:block !important; margin:0 !important; }
 
-/* 第1列 话题标题（弹性、单行省略） */
+/* 第1列 话题标题（弹性、单行省略；标题在 main 内部） */
 .IndexPage .DiscussionListItem-title{
-  order:1 !important; flex:1 1 auto !important; min-width:0 !important;
+  display:block !important; max-width:100% !important;
   white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important;
 }
 /* 第2列 回复数（去气泡定位，定宽居中） */
@@ -606,6 +609,11 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   display:none !important;
 }
 
-/* 翻页移到「话题」上方后：左对齐、无边框、纯文字 */
-.IndexPage .DiscussionList > .Pagination,
-.IndexPage .DiscussionList-discussions ~ .Pagination{ justify-content:flex-start !important; }
+/* 顶部翻页(话题上方)左对齐；底部翻页(帖子列表之后)右对齐(图三:下方靠右) */
+.IndexPage .DiscussionList > .Pagination:first-child{ justify-content:flex-start !important; }
+.IndexPage .DiscussionList-discussions ~ .Pagination{ justify-content:flex-end !important; }
+
+/* 帖子列表页顶部留出间距(内容不要贴着顶栏) */
+.IndexPage .container{ padding-top:16px !important; }
+#kv-forumbar{ margin-top:0 !important; margin-bottom:12px !important; }
+.IndexPage .IndexPage-results{ margin-top:6px !important; }

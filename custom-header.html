@@ -235,15 +235,17 @@
   setInterval(function(){
     document.querySelectorAll('.DiscussionListItem-content').forEach(function(c){
       var main = c.querySelector('.DiscussionListItem-main');
-      var info = c.querySelector('.DiscussionListItem-info');
-      // flex + order 布局：main/info 用 display:contents 把内部项提升为本行 flex 项，
-      // 列位置全部由 CSS 的 order + flex-basis 决定(确定性，取代不可靠的 grid 自动布局)
-      if(main) main.style.display = 'contents';
-      if(info) info.style.display = 'contents';
       var title = c.querySelector('.DiscussionListItem-title');
       var count = c.querySelector('.DiscussionListItem-count');
       var views = c.querySelector('.item-discussion-views');
       var terminal = c.querySelector('.item-terminalPost');
+      // 彻底确定性布局：把 4 个单元格按顺序直接挂到 content 下
+      // (DOM 顺序 = flex 从左到右)，不再依赖 display:contents / order
+      if(main) main.style.display = '';           // 取消之前可能设的 display:contents
+      if(main) c.appendChild(main);               // 1) 标题区(含标题)
+      if(count) c.appendChild(count);             // 2) 回复
+      if(views) c.appendChild(views);             // 3) 浏览量
+      if(terminal) c.appendChild(terminal);       // 4) 最后一篇帖子
       // 标题后加「由 发帖人」(仿图三 Arch: Title by username)，填充话题列
       var author = c.querySelector('.DiscussionListItem-author');
       if(title && author && !title.querySelector('.kv-by')){
