@@ -529,25 +529,29 @@
 
 
 <script>
-/* 点「回复」后清掉自动插入的引用代码(@"user"#pNN)，让回复框是干净空白的 */
+/* 点「回复」后：先把编辑区文字设为透明(占位不受影响) → 清掉自动插入的引用代码(@"user"#pNN)
+   → 清完或用户开始输入即恢复显示。避免"@admin#pNN"一闪而过。 */
 (function(){
   document.addEventListener('click', function(e){
     if(!e.target.closest) return;
-    if(e.target.closest('.Post-actions .item-reply, .Post-actions .item-reply *')){
-      var tries = 0;
-      var t = setInterval(function(){
-        tries++;
-        var ta = document.querySelector('.App-composer .TextEditor textarea, .App-composer textarea');
-        if(ta){
-          if(/^\s*@"[^"]*"#p?\d+\s*$/.test(ta.value)){
-            ta.value = '';
-            ta.dispatchEvent(new Event('input', {bubbles:true}));
-          }
-          clearInterval(t);
+    if(!e.target.closest('.Post-actions .item-reply, .Post-actions .item-reply *')) return;
+    document.body.classList.add('kv-hide-composer-text');
+    var start = Date.now();
+    (function loop(){
+      var ta = document.querySelector('.App-composer .TextEditor textarea, .App-composer textarea');
+      if(ta){
+        var v = ta.value;
+        if(/^\s*@"[^"]*"#p?\d+\s*$/.test(v)){
+          ta.value = '';
+          ta.dispatchEvent(new Event('input', {bubbles:true}));
+          document.body.classList.remove('kv-hide-composer-text');
+          return;
         }
-        if(tries > 20) clearInterval(t);
-      }, 60);
-    }
+        if(v && v.trim() !== ''){ document.body.classList.remove('kv-hide-composer-text'); return; }
+      }
+      if(Date.now() - start < 800){ requestAnimationFrame(loop); }
+      else { document.body.classList.remove('kv-hide-composer-text'); }
+    })();
   }, true);
 })();
 </script>
