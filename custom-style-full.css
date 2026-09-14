@@ -593,6 +593,7 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 }
 /* 第3列 浏览量（定宽居中，对齐「浏览量」表头） */
 .IndexPage .DiscussionListItem-content .item-discussion-views{
+  position:static !important; top:auto !important; right:auto !important;
   order:3 !important; flex:0 0 90px !important;
   display:flex !important; align-items:center !important; justify-content:center !important;
   text-align:center !important; color:#667 !important;

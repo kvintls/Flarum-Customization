@@ -269,8 +269,13 @@
         count.style.setProperty('box-shadow','none','important');
         count.style.setProperty('top','auto','important');
         count.style.setProperty('right','auto','important');
+        views.style.setProperty('position','static','important');  // 关键:插件把它设成了 absolute
+        views.style.setProperty('top','auto','important');
+        views.style.setProperty('right','auto','important');
         views.style.setProperty('order','3','important');
         views.style.setProperty('flex','0 0 90px','important');
+        views.style.setProperty('display','flex','important');
+        views.style.setProperty('align-items','center','important');
         views.style.setProperty('justify-content','center','important');
         terminal.style.setProperty('order','4','important');
         terminal.style.setProperty('flex','0 0 240px','important');
