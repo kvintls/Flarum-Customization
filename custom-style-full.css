@@ -403,3 +403,18 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 }
 .kv-dlhead { border: none !important; border-bottom: 1px solid #ccc !important; }
 .DiscussionList-discussions { border: none !important; }
+
+
+/* ============ 帖子行做成 Arch「一条条」：清晰行分隔 + 紧凑 ============ */
+.DiscussionListItem { border-bottom: 1px solid #e4e8ec !important; background: #fff !important; }
+.DiscussionList-discussions > li:last-child .DiscussionListItem { border-bottom: none !important; }
+.DiscussionListItem-content { padding: 6px 12px !important; min-height: 0 !important; }
+.DiscussionListItem:hover { background: #f6f8fa !important; }
+
+/* 各列显式归位（覆盖上一版的 auto，浏览量强制回第3列）*/
+.IndexPage .DiscussionListItem-main { display: contents !important; }
+.IndexPage .DiscussionListItem-info { display: contents !important; }
+.IndexPage .DiscussionListItem-content .DiscussionListItem-title { grid-column: 1 !important; grid-row: 1 !important; }
+.IndexPage .DiscussionListItem-content .DiscussionListItem-count { grid-column: 2 !important; grid-row: 1 !important; justify-self: center !important; }
+.IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: 3 !important; grid-row: 1 !important; justify-self: center !important; }
+.IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: 4 !important; grid-row: 1 !important; justify-self: start !important; }
