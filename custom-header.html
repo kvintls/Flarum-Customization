@@ -218,25 +218,32 @@
 
 
 <script>
-/* 「最后一篇帖子」列改成：时间 由 用户名 发布 */
+/* 帖子行：把浏览量移到「最后发帖」之前(落第3列) + 最后发帖改「时间 由 用户名 发布」*/
 (function(){
   setInterval(function(){
-    document.querySelectorAll('.DiscussionListItem-info .item-terminalPost').forEach(function(el){
-      // 已是我们的格式就跳过（Mithril 重绘后会自愈重排）
-      if(el.querySelector('.kv-lp-user')) return;
-      var time = el.querySelector('time');
-      var unameEl = el.querySelector('.username');
-      if(!time || !unameEl) return;
-      var uname = unameEl.textContent.trim();
-      // 重排：时间(保留原 time 元素，含实时更新) + 由 + 用户名 + 发布
-      el.innerHTML = '';
-      el.appendChild(time);
-      el.appendChild(document.createTextNode(' 由 '));
-      var u = document.createElement('span');
-      u.className = 'username kv-lp-user';
-      u.textContent = uname;
-      el.appendChild(u);
-      el.appendChild(document.createTextNode(' 发布'));
+    document.querySelectorAll('.DiscussionListItem-info').forEach(function(info){
+      var views = info.querySelector('.item-discussion-views');
+      var terminal = info.querySelector('.item-terminalPost');
+      // 让浏览量排在最后发帖前面 → 网格自动排列时浏览量=第3列, 最后发帖=第4列
+      if(views && terminal && terminal.previousElementSibling !== views){
+        info.insertBefore(views, terminal);
+      }
+      // 最后发帖改成：时间 由 用户名 发布
+      if(terminal && !terminal.querySelector('.kv-lp-user')){
+        var time = terminal.querySelector('time');
+        var unameEl = terminal.querySelector('.username');
+        if(time && unameEl){
+          var uname = unameEl.textContent.trim();
+          terminal.innerHTML = '';
+          terminal.appendChild(time);
+          terminal.appendChild(document.createTextNode(' 由 '));
+          var u = document.createElement('span');
+          u.className = 'username kv-lp-user';
+          u.textContent = uname;
+          terminal.appendChild(u);
+          terminal.appendChild(document.createTextNode(' 发布'));
+        }
+      }
     });
   }, 500);
 })();

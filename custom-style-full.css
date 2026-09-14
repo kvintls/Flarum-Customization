@@ -364,3 +364,30 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .Pagination .IndexPage-toolbar-view { gap: 0 !important; }
 .IndexPage .Pagination .IndexPage-toolbar-view > li::after { margin: 0 5px !important; }
 .IndexPage .Pagination .Button { padding: 0 3px !important; min-width: 0 !important; }
+
+
+/* ============ 对齐 Arch/FluxBB 源码 ============ */
+/* 翻页：像 FluxBB「页数： 1 2 3 … 2,769 下一个」——去竖线、纯空格、当前页加粗 */
+.IndexPage .Pagination .IndexPage-toolbar-view > li::after { content: none !important; }
+.IndexPage .Pagination { border: none !important; padding: 4px 2px !important; margin: 0 !important; justify-content: flex-start !important; }
+.IndexPage .DiscussionList-discussions ~ .Pagination { justify-content: flex-end !important; }
+.IndexPage .Pagination .IndexPage-toolbar-view { gap: 7px !important; align-items: baseline !important; flex-wrap: wrap; }
+.IndexPage .Pagination .IndexPage-toolbar-view > li { margin: 0 !important; padding: 0 !important; }
+.IndexPage .Pagination .Button { margin: 0 !important; padding: 0 2px !important; min-width: 0 !important; height: auto !important; line-height: 1.5 !important; font-weight: 400 !important; border: none !important; background: none !important; }
+.IndexPage .Pagination .Button--active, .IndexPage .Pagination .Button--primary { font-weight: 700 !important; color: #333 !important; }
+
+/* 整个列表框成一个盒子（含翻页、表头、帖子行）*/
+.IndexPage .DiscussionList { border: 1px solid #c9cfd6 !important; background: #fff !important; box-shadow: none !important; }
+.kv-dlhead { border: none !important; border-bottom: 1px solid #ccc !important; }
+.IndexPage .DiscussionList-discussions { border: none !important; }
+
+/* 浏览量：去掉眼睛图标只留数字；列位置自动(靠JS重排到第3列) */
+.item-discussion-views i, .item-discussion-views .icon, .item-discussion-views svg { display: none !important; }
+.IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: auto !important; justify-self: center !important; text-align: center !important; }
+.IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: auto !important; justify-self: start !important; text-align: left !important; }
+
+/* 顶部「用户名·退出」：不换行、去小圆点、和搜索同排 */
+.Header-secondary { flex-wrap: nowrap !important; align-items: center !important; }
+.Header-secondary .kv-logout { list-style: none !important; display: inline-flex !important; align-items: center !important; }
+.Header-secondary .kv-logout::marker { content: none !important; }
+.Header-secondary .kv-logout a { margin-left: 16px !important; font-size: 13px !important; white-space: nowrap !important; }
