@@ -453,3 +453,20 @@
   }, 300);
 })();
 </script>
+
+
+
+<script>
+/* 隐藏鼠标悬停用户名弹出的用户卡片(.UserCard / .UserCard-profile 浮卡)。
+   个人主页(.UserPage)内的用户卡片保留不隐藏。 */
+(function(){
+  function hide(){
+    document.querySelectorAll('.UserCard, .UserCard-profile').forEach(function(el){
+      if(el.closest('.UserPage')) return;
+      el.style.setProperty('display','none','important');
+    });
+  }
+  try{ new MutationObserver(hide).observe(document.body,{childList:true,subtree:true}); }catch(e){}
+  setInterval(hide, 150);
+})();
+</script>
