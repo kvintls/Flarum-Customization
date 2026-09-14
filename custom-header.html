@@ -215,3 +215,29 @@
   }, 500);
 })();
 </script>
+
+
+<script>
+/* 「最后一篇帖子」列改成：时间 由 用户名 发布 */
+(function(){
+  setInterval(function(){
+    document.querySelectorAll('.DiscussionListItem-info .item-terminalPost').forEach(function(el){
+      // 已是我们的格式就跳过（Mithril 重绘后会自愈重排）
+      if(el.querySelector('.kv-lp-user')) return;
+      var time = el.querySelector('time');
+      var unameEl = el.querySelector('.username');
+      if(!time || !unameEl) return;
+      var uname = unameEl.textContent.trim();
+      // 重排：时间(保留原 time 元素，含实时更新) + 由 + 用户名 + 发布
+      el.innerHTML = '';
+      el.appendChild(time);
+      el.appendChild(document.createTextNode(' 由 '));
+      var u = document.createElement('span');
+      u.className = 'username kv-lp-user';
+      u.textContent = uname;
+      el.appendChild(u);
+      el.appendChild(document.createTextNode(' 发布'));
+    });
+  }, 500);
+})();
+</script>
