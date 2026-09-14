@@ -347,52 +347,6 @@
         }
       }
     });
-  }, 90);
-})();
-</script>
-
-
-
-<script>
-/* 翻页无空白：点击翻页时，把当前话题列表「冻结」一份(变淡)盖在原位，
-   等新一页内容到达后再撤掉冻结 —— 消除加载期间的空白，只留柔和淡入。 */
-(function(){
-  var poll;
-  document.addEventListener('click', function(e){
-    if(!e.target.closest) return;
-    var btn = e.target.closest('.Pagination .Button, .Pagination a, .IndexPage-toolbar-view .Button');
-    if(!btn) return;
-    var dl = document.querySelector('.IndexPage .DiscussionList');
-    var ul = dl && dl.querySelector('.DiscussionList-discussions:not(.kv-freeze)');
-    if(!ul) return;
-    var items = ul.querySelectorAll('.DiscussionListItem');
-    if(!items.length) return;
-    var oldFirst = (ul.querySelector('.DiscussionListItem-title') || {}).textContent || '';
-
-    // 移除旧的冻结层(若有)
-    var old = dl.querySelector('.kv-freeze'); if(old) old.remove();
-
-    // 生成冻结副本(保留行内 flex 样式)，盖在原位并变淡
-    var freeze = document.createElement('ul');
-    freeze.className = 'DiscussionList-discussions kv-freeze';
-    freeze.innerHTML = ul.innerHTML;
-    ul.parentNode.insertBefore(freeze, ul);
-    ul.style.setProperty('display', 'none', 'important');   // 藏起即将被清空的真实列表
-
-    clearInterval(poll);
-    var tries = 0;
-    poll = setInterval(function(){
-      tries++;
-      var live = dl.querySelector('.DiscussionList-discussions:not(.kv-freeze)');
-      var nowItems = live ? live.querySelectorAll('.DiscussionListItem') : [];
-      var nowFirst = live ? ((live.querySelector('.DiscussionListItem-title') || {}).textContent || '') : '';
-      // 新内容到达(有行且首条标题变了)，或超时(约3秒) → 撤掉冻结
-      if((nowItems.length > 0 && nowFirst && nowFirst !== oldFirst) || tries > 50){
-        if(live) live.style.removeProperty('display');
-        var f = dl.querySelector('.kv-freeze'); if(f) f.remove();
-        clearInterval(poll);
-      }
-    }, 60);
-  }, true);
+  }, 200);
 })();
 </script>
