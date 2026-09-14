@@ -233,3 +233,20 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .Pagination .Button { border: 1px solid #ccd2d9 !important; background: #fff !important; color: #0771a8 !important; border-radius: 2px !important; min-width: 30px; padding: 4px 8px !important; box-shadow: none !important; font-weight: 600 !important; }
 .IndexPage .Pagination .Button--active, .IndexPage .Pagination .Button--primary { background: #3f7cac !important; color: #fff !important; border-color: #35688f !important; }
 .IndexPage .Pagination #pagination-inputJump { width: 48px; padding: 4px 6px; border: 1px solid #ccd2d9; border-radius: 2px; text-align: center; }
+
+
+/* ---- 帖子列表页 微调：紧凑单行 + 去排序/刷新/返回箭头 + 主区加宽 ---- */
+/* 去掉顶部工具条(最新回复排序 + 刷新按钮) */
+.IndexPage-toolbar { display: none !important; }
+/* 去掉 header 左上角返回箭头 */
+#header-navigation, .Header-navigation { display: none !important; }
+/* 主区域宽度与首页一致 */
+.IndexPage .container { max-width: 1320px !important; width: 94% !important; margin: 0 auto !important; }
+
+/* 每条帖子更小/单行：隐藏板块标签，压缩行高，标题单行省略 */
+.DiscussionListItem-info .item-tags { display: none !important; }
+.DiscussionListItem-content { grid-template-rows: auto !important; padding: 5px 14px !important; }
+.DiscussionListItem-title { grid-row: 1 !important; font-size: 13px !important; line-height: 1.5 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+.DiscussionListItem-count { grid-row: 1 !important; }
+.DiscussionListItem-info .item-discussion-views { grid-row: 1 !important; }
+.DiscussionListItem-info .item-terminalPost { grid-row: 1 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
