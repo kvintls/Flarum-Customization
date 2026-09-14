@@ -922,20 +922,21 @@ body > .UserCard,
 /* ============================================================
    详情页帖子 & 回复框 紧凑化（按反馈）
    ============================================================ */
-/* A) 帖子：去掉多余空白，正文不再留高；用 grid 让正文在左、反应/操作在右 */
-.CommentPost{
-  display:grid !important; grid-template-columns:1fr auto !important;
-  column-gap:12px !important; align-items:start !important; min-height:0 !important;
-}
-.CommentPost .Post-header{ grid-column:1 / -1 !important; }
-.CommentPost .Post-body{ grid-column:1 !important; min-height:0 !important; padding:8px 0 8px 14px !important; }
-.CommentPost .Post-footer,
-.CommentPost .Post-actions{
-  grid-column:2 !important; justify-self:end !important; align-self:start !important;
-  margin:0 !important; padding:6px 14px 0 0 !important; border:none !important; min-height:0 !important;
-}
+/* A) 帖子：去掉多余空白(根因=为旧的左侧头像预留了高度，现在头像挪到了header) */
+.CommentPost{ display:block !important; min-height:0 !important; padding:0 !important; }
+.CommentPost > div,
+.CommentPost .Post,
+.CommentPost .Post-body,
+.PostStream-item{ min-height:0 !important; }
+.CommentPost .Post-body{ padding:8px 14px !important; margin:0 !important; }
 /* 顶部灰条变薄(变窄) */
 .CommentPost .Post-header > ul{ padding:5px 12px !important; min-height:0 !important; }
+/* 反应/操作：紧贴正文下方、右对齐、去多余间距 */
+.CommentPost .Post-footer,
+.CommentPost .Post-actions{
+  margin:0 !important; padding:2px 14px 6px !important; min-height:0 !important; border:none !important;
+  display:flex !important; justify-content:flex-end !important; align-items:center !important;
+}
 
 /* B) 回复框：头像变小+圆角；铺满宽度；去多余空白 */
 .App-composer.kv-inline .ComposerBody{ display:flex !important; align-items:flex-start !important; padding:12px !important; }
