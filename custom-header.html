@@ -559,3 +559,38 @@
   }, 300);
 })();
 </script>
+
+
+
+<script>
+/* 用美观居中弹窗替换删除时的原生 confirm。只拦"删除"类确认,其它确认走原生不受影响。 */
+(function(){
+  var bypass = false, lastBtn = null;
+  var orig = window.confirm.bind(window);
+  document.addEventListener('click', function(e){
+    var el = e.target.closest && e.target.closest('button, a');
+    if(el) lastBtn = el;
+  }, true);
+  window.confirm = function(msg){
+    if(bypass) return true;
+    showModal(msg);   // 所有原生 confirm(删除/丢弃回复等)都换成美化弹窗
+    return false;
+  };
+  function closeModal(){ var o = document.querySelector('.kv-confirm-overlay'); if(o) o.parentNode.removeChild(o); }
+  function showModal(msg){
+    closeModal();
+    var ov = document.createElement('div');
+    ov.className = 'kv-confirm-overlay';
+    ov.innerHTML = '<div class="kv-confirm-box"><div class="kv-confirm-head">提示</div><div class="kv-confirm-msg"></div><div class="kv-confirm-btns"><button type="button" class="kv-confirm-cancel">取消</button><button type="button" class="kv-confirm-ok">确定删除</button></div></div>';
+    ov.querySelector('.kv-confirm-msg').textContent = msg;
+    ov.querySelector('.kv-confirm-ok').textContent = /删除|刪除|delete/i.test(msg||'') ? '确定删除' : '确定';
+    document.body.appendChild(ov);
+    ov.querySelector('.kv-confirm-cancel').onclick = closeModal;
+    ov.querySelector('.kv-confirm-ok').onclick = function(){
+      closeModal();
+      if(lastBtn){ bypass = true; try{ lastBtn.click(); }catch(e){} bypass = false; }
+    };
+    ov.onclick = function(e){ if(e.target === ov) closeModal(); };
+  }
+})();
+</script>
