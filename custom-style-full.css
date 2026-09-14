@@ -250,3 +250,32 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .DiscussionListItem-count { grid-row: 1 !important; }
 .DiscussionListItem-info .item-discussion-views { grid-row: 1 !important; }
 .DiscussionListItem-info .item-terminalPost { grid-row: 1 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+
+
+/* ---- 翻页做成图一样式：页数： 1 2 3 … 下一个（文字链接、左对齐）---- */
+.IndexPage .Pagination { justify-content: flex-start !important; padding: 8px 2px !important; gap: 0 !important; border-bottom: 1px solid #e3e7ec; }
+.IndexPage .Pagination .IndexPage-toolbar-view { align-items: baseline !important; gap: 6px !important; flex-wrap: wrap !important; }
+.IndexPage .Pagination .IndexPage-toolbar-view::before { content: "页数："; color: #555; font-size: 13px; font-weight: 700; margin-right: 2px; }
+
+/* 页码按钮 → 纯文字链接 */
+.IndexPage .Pagination .Button { border: none !important; background: none !important; color: #0771a8 !important; padding: 0 4px !important; min-width: 0 !important; font-weight: 400 !important; box-shadow: none !important; height: auto !important; }
+.IndexPage .Pagination .Button:hover { text-decoration: underline; background: none !important; }
+.IndexPage .Pagination .Button--active, .IndexPage .Pagination .Button--primary { color: #d0430f !important; font-weight: 700 !important; background: none !important; }
+
+/* 隐藏 首页/上一页/末页/跳转输入/跳转按钮（连同它们的 li） */
+.IndexPage .Pagination li:has(.Button[title="First"]),
+.IndexPage .Pagination li:has(.Button[title="Back"]),
+.IndexPage .Pagination li:has(.Button[title="Last"]),
+.IndexPage .Pagination li:has(.Button[title="Jump"]),
+.IndexPage .Pagination li:has(#pagination-inputJump) { display: none !important; }
+.IndexPage .Pagination .Button[title="First"],
+.IndexPage .Pagination .Button[title="Back"],
+.IndexPage .Pagination .Button[title="Last"],
+.IndexPage .Pagination .Button[title="Jump"],
+.IndexPage .Pagination #pagination-inputJump { display: none !important; }
+
+/* 下一个：图标换成文字「下一个」 */
+.IndexPage .Pagination .Button[title="Next"] { margin-left: 6px; }
+.IndexPage .Pagination .Button[title="Next"] .Button-icon,
+.IndexPage .Pagination .Button[title="Next"] i { display: none !important; }
+.IndexPage .Pagination .Button[title="Next"]::after { content: "下一个"; color: #0771a8; }
