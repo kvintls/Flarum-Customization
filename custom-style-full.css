@@ -279,3 +279,27 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .Pagination .Button[title="Next"] .Button-icon,
 .IndexPage .Pagination .Button[title="Next"] i { display: none !important; }
 .IndexPage .Pagination .Button[title="Next"]::after { content: "下一个"; color: #0771a8; }
+
+
+/* ============ 帖子列表页 二次调整（图二/图三 对齐）============ */
+
+/* 2. 去掉右侧「在线用户」widget，让主区铺满 */
+.AfruxWidgets-Widget:has(.Afrux-OnlineUsersWidget-users-list),
+.AfruxWidgets-Widget:has([class*="Afrux-OnlineUsersWidget"]) { display: none !important; }
+[class*="Afrux-OnlineUsersWidget"] { display: none !important; }
+.AfruxWidgets-sideNavAlt { display: none !important; }
+
+/* 4. 整体框进一个边框；主区铺满 */
+.IndexPage-results, .IndexPage-results.sideNavOffset { margin: 0 !important; width: 100% !important; max-width: 100% !important; }
+.IndexPage .DiscussionList { border: 1px solid #c9cfd6 !important; background: #fff !important; }
+
+/* 3. 帖子行更矮 */
+.DiscussionListItem-content { padding: 4px 14px !important; min-height: 0 !important; }
+.DiscussionListItem { min-height: 0 !important; }
+
+/* 1. 翻页：页数： 1 | 2 | 3 | … | 2769 | 下一个（竖线分隔）*/
+.IndexPage .Pagination .IndexPage-toolbar-view > li::after { content: "|"; color: #cfd6dd; margin: 0 7px; }
+.IndexPage .Pagination .IndexPage-toolbar-view > li:has(.Button[title="Next"])::after { content: none !important; }
+/* 上方左对齐(图二)，下方右对齐(图三) */
+.IndexPage .Pagination { justify-content: flex-start !important; }
+.IndexPage .DiscussionList-discussions ~ .Pagination { justify-content: flex-end !important; }
