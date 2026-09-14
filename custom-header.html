@@ -222,7 +222,6 @@
 (function(){
   setInterval(function(){
     document.querySelectorAll('.DiscussionListItem-content').forEach(function(c){
-      // 关键：强制 main/info 打平成 contents，浏览量才能成为网格项落到第3列
       var main = c.querySelector('.DiscussionListItem-main');
       var info = c.querySelector('.DiscussionListItem-info');
       if(main) main.style.display = 'contents';
@@ -231,6 +230,10 @@
       var count = c.querySelector('.DiscussionListItem-count');
       var views = c.querySelector('.item-discussion-views');
       var terminal = c.querySelector('.item-terminalPost');
+      // 根治：把浏览量、最后发帖移出 info，做成 content 的直接子元素，
+      // 保证它们一定是网格项，grid-column 必然生效(双层 display:contents 不可靠)
+      if(views && views.parentElement !== c) c.appendChild(views);
+      if(terminal && terminal.parentElement !== c) c.appendChild(terminal);
       if(title){ title.style.gridColumn = '1'; title.style.gridRow = '1'; }
       if(count){ count.style.gridColumn = '2'; count.style.gridRow = '1'; count.style.justifySelf = 'center'; }
       if(views){ views.style.gridColumn = '3'; views.style.gridRow = '1'; views.style.justifySelf = 'center'; }
