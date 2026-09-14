@@ -673,4 +673,4 @@ body > .UserCard,
 
 .App-composer.kv-inline .container{max-width:none !important;width:100% !important;padding-left:0 !important;padding-right:0 !important;margin:0 !important;}
 
-body.kv-hide-composer-text .App-composer textarea,body.kv-hide-composer-text .App-composer .TextEditor-editor{color:transparent !important;}
+

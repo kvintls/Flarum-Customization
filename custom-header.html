@@ -529,29 +529,6 @@
 
 
 <script>
-/* 点「回复」后：先把编辑区文字设为透明(占位不受影响) → 清掉自动插入的引用代码(@"user"#pNN)
-   → 清完或用户开始输入即恢复显示。避免"@admin#pNN"一闪而过。 */
-(function(){
-  document.addEventListener('click', function(e){
-    if(!e.target.closest) return;
-    if(!e.target.closest('.Post-actions .item-reply, .Post-actions .item-reply *')) return;
-    document.body.classList.add('kv-hide-composer-text');
-    var start = Date.now();
-    (function loop(){
-      var ta = document.querySelector('.App-composer .TextEditor textarea, .App-composer textarea');
-      if(ta){
-        var v = ta.value;
-        if(/^\s*@"[^"]*"#p?\d+\s*$/.test(v)){
-          ta.value = '';
-          ta.dispatchEvent(new Event('input', {bubbles:true}));
-          document.body.classList.remove('kv-hide-composer-text');
-          return;
-        }
-        if(v && v.trim() !== ''){ document.body.classList.remove('kv-hide-composer-text'); return; }
-      }
-      if(Date.now() - start < 800){ requestAnimationFrame(loop); }
-      else { document.body.classList.remove('kv-hide-composer-text'); }
-    })();
-  }, true);
-})();
+/* (已移除)之前用 JS 清空输入框来去掉 @引用，会与 Flarum 编辑器状态不同步、导致
+   "回复尚未发布/丢弃吗"弹窗且回复框打不开。改为不干预，保留 Flarum 原生引用。 */
 </script>
