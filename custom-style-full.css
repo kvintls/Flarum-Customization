@@ -480,3 +480,24 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 
 /* 标题后「由 发帖人」灰色小字(仿图三) */
 .DiscussionListItem-title .kv-by { color: #8a96a3 !important; font-weight: 400 !important; font-size: 12px !important; }
+
+
+/* ============ 仿图三：每行前小方块 + 行更薄 ============ */
+/* 标题前小方块状态图标(Arch 那种) */
+.IndexPage .DiscussionListItem-title::before {
+  content: "";
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 1px solid #c0c8d0;
+  background: #f0f3f6;
+  border-radius: 1px;
+  margin-right: 8px;
+  vertical-align: -1px;
+}
+/* 行压更薄(像图三一条条细窄) */
+.IndexPage .DiscussionListItem-content { padding: 3px 14px !important; }
+.IndexPage .DiscussionListItem-title,
+.IndexPage .DiscussionListItem-count,
+.IndexPage .item-terminalPost,
+.IndexPage .item-discussion-views { font-size: 13px !important; line-height: 1.3 !important; }
