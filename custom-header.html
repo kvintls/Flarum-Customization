@@ -438,38 +438,10 @@
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
     if(!comp) return;
+    // 不再搬动 composer —— 搬进帖子流会在 SPA 跳转时被 mithril 销毁(App-composer变0个),
+    // 导致回复框消失、要刷新才出现。改为只切换 .kv-inline 类,由 CSS 让它静态显示在内容下方。
     if(/^\/d\//.test(location.pathname)){
-      var stream = document.querySelector('.DiscussionPage-stream');
-      if(stream){
-        comp.classList.add('kv-inline'); // 先加类,保证虚线/内联样式一定生效(即使下面搬动出错)
-        try{
-          var footer = stream.querySelector('#kvin-footer2');
-          if(footer && footer.parentElement === stream){
-            if(comp.nextElementSibling !== footer) stream.insertBefore(comp, footer);
-          } else if(comp.parentElement !== stream){
-            stream.appendChild(comp);
-          }
-        }catch(e){}
-        comp.style.setProperty('padding-left','0','important');
-        comp.style.setProperty('padding-right','0','important');
-        // 真正的元凶：App-composer 里的 .container(站点栏宽/内边距)把回复框挤窄了 → 清掉
-        var cont = comp.querySelector('.container');
-        if(cont){
-          cont.style.setProperty('max-width','none','important');
-          cont.style.setProperty('width','100%','important');
-          cont.style.setProperty('padding-left','0','important');
-          cont.style.setProperty('padding-right','0','important');
-          cont.style.setProperty('margin','0','important');
-        }
-        var cc = comp.querySelector('.Composer');
-        if(cc){
-          cc.style.setProperty('width','100%','important');
-          cc.style.setProperty('max-width','none','important');
-          cc.style.setProperty('margin-left','0','important');
-          cc.style.setProperty('margin-right','0','important');
-          cc.style.setProperty('box-sizing','border-box','important');
-        }
-      }
+      comp.classList.add('kv-inline');
     } else {
       comp.classList.remove('kv-inline');
     }
