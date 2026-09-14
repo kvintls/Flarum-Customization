@@ -954,3 +954,29 @@ body > .UserCard,
 /* 编辑区高度适中，别太空 */
 .App-composer.kv-inline .ComposerBody-editor .TextEditor,
 .App-composer.kv-inline .TextEditor-editor{ min-height:90px !important; }
+
+
+
+/* ============================================================
+   帖子操作条：删除 👍👎(item-votes)，其余(回复/赞/⋯)移到 header 最右做成文字链接
+   ============================================================ */
+/* 删除 👍👎 反应 */
+.CommentPost .item-votes{ display:none !important; }
+/* 底部"你回复了此帖"提示/空 footer 去掉，减少下方空白 */
+.CommentPost .Post-footer{ display:none !important; }
+/* 操作(回复/赞/⋯)移入 header 最右侧，纯文字链接(图三风) */
+.CommentPost .Post-header .Post-actions{
+  margin:0 0 0 16px !important; padding:0 !important; border:none !important;
+  position:static !important; display:flex !important; align-items:center !important; min-height:0 !important;
+}
+.CommentPost .Post-header .Post-actions ul{
+  display:flex !important; align-items:center !important; gap:14px !important;
+  margin:0 !important; padding:0 !important; list-style:none !important;
+}
+.CommentPost .Post-header .Post-actions li{ margin:0 !important; }
+.CommentPost .Post-header .Post-actions .Button,
+.CommentPost .Post-header .Post-actions button{
+  background:none !important; border:none !important; box-shadow:none !important;
+  color:#0771a8 !important; padding:0 !important; height:auto !important; font-size:13px !important; font-weight:400 !important;
+}
+.CommentPost .Post-header .Post-actions .Button-label{ color:#0771a8 !important; }

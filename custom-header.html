@@ -470,3 +470,18 @@
   setInterval(hide, 150);
 })();
 </script>
+
+
+
+<script>
+/* 帖子操作(回复/赞/⋯)移到 header 最右侧(与 admin 同一行)。👍👎 反应由 CSS 隐藏。 */
+(function(){
+  setInterval(function(){
+    document.querySelectorAll('.CommentPost').forEach(function(p){
+      var head = p.querySelector('.Post-header ul') || p.querySelector('.Post-header');
+      var actions = p.querySelector('.Post-actions');
+      if(head && actions && actions.parentElement !== head){ head.appendChild(actions); }
+    });
+  }, 300);
+})();
+</script>
