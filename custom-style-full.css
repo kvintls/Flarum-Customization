@@ -540,3 +540,7 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .DiscussionListItem-content .DiscussionListItem-count { grid-column: 2 !important; justify-self: center !important; }
 .IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: 3 !important; justify-self: start !important; }
 .IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: 4 !important; justify-self: center !important; }
+
+
+/* 全站页脚：约束宽度居中，与内容对齐 */
+#kvin-footer2 { max-width: 1320px !important; width: 94% !important; margin: 24px auto 30px !important; box-sizing: border-box; }

@@ -57,11 +57,15 @@
 
       box.appendChild(el);
     }
-    if(box && !box.querySelector('#kvin-footer2')){
-      var ft=document.createElement('div');
-      ft.id='kvin-footer2';
-      ft.innerHTML='由 <a href="https://flarum.org" target="_blank">Flarum</a> 提供技术支持 · © kvin 论坛';
-      box.appendChild(ft);
+    // 全站页脚：所有页面底部都显示(注入到通用的 .App-content)
+    if(!document.getElementById('kvin-footer2')){
+      var appc = document.querySelector('.App-content');
+      if(appc){
+        var ft=document.createElement('div');
+        ft.id='kvin-footer2';
+        ft.innerHTML='由 <a href="https://flarum.org" target="_blank">Flarum</a> 提供技术支持 · © kvin 论坛';
+        appc.appendChild(ft);
+      }
     }
 
   },400);
