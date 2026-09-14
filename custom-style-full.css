@@ -692,3 +692,33 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* 底部操作(回复/投票)与反应 */
 .CommentPost .Post-actions,
 .CommentPost .Post-footer{ padding:0 14px 8px !important; margin:0 !important; }
+
+
+
+/* ============================================================
+   主题详情页 —— 去掉横幅/右侧栏/头像，帖子铺满整宽(Arch BBS 框式)
+   ============================================================ */
+/* 1) 顶部蓝灰大横幅(标题横条 Hero) */
+.DiscussionHero,
+.Hero.DiscussionHero,
+.DiscussionPage .Hero,
+.DiscussionPage [class*="Hero"]{ display:none !important; }
+
+/* 2) 右侧滚动条侧栏(scrubber / 登录以回复)，主区铺满 */
+.DiscussionPage-nav{ display:none !important; }
+.DiscussionPage-stream,
+.DiscussionPage-stream.sideNavOffset{ margin:0 !important; width:100% !important; max-width:100% !important; }
+
+/* 3) 帖子头像全部去掉(游离的大头像 + 回复占位头像) —— Arch 帖子无头像 */
+.CommentPost .PostUser-avatar,
+.CommentPost .Avatar,
+.PostStream .PostUser-avatar,
+.PostStream .Avatar,
+.PostStream-item .Avatar,
+.ReplyPlaceholder .Avatar{ display:none !important; }
+
+/* 4) 帖子块铺满整宽 */
+.PostStream,
+.PostStream-item,
+.CommentPost{ width:100% !important; max-width:100% !important; }
+.PostStream-item{ margin:0 0 12px !important; }

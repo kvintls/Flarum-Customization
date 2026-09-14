@@ -372,3 +372,16 @@
   }, 500);
 })();
 </script>
+
+
+
+<script>
+/* 主题详情页(/d/...)：兜底隐藏顶部大横幅(Hero，类名可能因主题而异)。
+   仅在帖子详情页执行，避免误伤首页 Hero。 */
+(function(){
+  setInterval(function(){
+    if(!/^\/d\//.test(location.pathname)) return;
+    document.querySelectorAll('[class*="Hero"]').forEach(function(e){ e.style.display = 'none'; });
+  }, 400);
+})();
+</script>
