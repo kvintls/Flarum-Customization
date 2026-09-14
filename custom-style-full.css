@@ -519,3 +519,24 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .item-terminalPost,
 .IndexPage .item-discussion-views { line-height: 1.2 !important; padding: 0 !important; margin: 0 !important; }
 .IndexPage .item-terminalPost { white-space: nowrap !important; }
+
+
+/* ============ 顶部间距 + 数字左移 + 浏览量标签对齐到最右数字 ============ */
+/* 1. 顶部留间距(白卡与头部之间) */
+.IndexPage-results { margin-top: 14px !important; }
+
+/* 2+3. 五列: 话题(620固定) | 回复 | 最后一篇帖子 | 浏览量 | 右侧留白(数字整体左移) */
+.kv-dlhead,
+.IndexPage .DiscussionListItem-content { grid-template-columns: 620px 70px 240px 90px 1fr !important; }
+
+/* 表头标签重排：最后一篇帖子→第3列, 浏览量→第4列(正好在最右数字上方) */
+.kv-dlhead .c1 { grid-column: 1 !important; text-align: left !important; }
+.kv-dlhead .c2 { grid-column: 2 !important; text-align: center !important; }
+.kv-dlhead .c4 { grid-column: 3 !important; text-align: left !important; }
+.kv-dlhead .c3 { grid-column: 4 !important; text-align: center !important; }
+
+/* 数据归位：话题→1, 回复→2, 最后发帖→3, 浏览量→4(与浏览量标签对齐) */
+.IndexPage .DiscussionListItem-content .DiscussionListItem-title { grid-column: 1 !important; }
+.IndexPage .DiscussionListItem-content .DiscussionListItem-count { grid-column: 2 !important; justify-self: center !important; }
+.IndexPage .DiscussionListItem-content .item-terminalPost { grid-column: 3 !important; justify-self: start !important; }
+.IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: 4 !important; justify-self: center !important; }
