@@ -778,13 +778,21 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* ============================================================
    主题详情页 微调（按反馈）
    ============================================================ */
-/* 1) 加宽：和首页同宽(1320)，帖子块铺满 */
+/* 1) 加宽：和首页同宽(1320)，帖子块铺满
+   关键：.sideNavContainer 用 grid/float 仍为已隐藏的侧栏保留了 ~255px 的列，
+   把它改成 block 让 stream 独占整宽。 */
 .DiscussionPage .container,
 .DiscussionPage .container.sideNavContainer{ max-width:1320px !important; width:94% !important; }
+.DiscussionPage .sideNavContainer,
+.DiscussionPage-discussion{ display:block !important; }
 .DiscussionPage-content,
 .DiscussionPage-stream,
 .DiscussionPage-stream.sideNavOffset,
-.DiscussionPage .PostStream{ max-width:100% !important; width:100% !important; }
+.DiscussionPage .PostStream{
+  max-width:100% !important; width:100% !important;
+  margin:0 !important; margin-left:0 !important; margin-right:0 !important;
+  float:none !important; grid-column:1 / -1 !important; flex:1 1 100% !important;
+}
 
 /* 2) 去掉帖子内多余空白(默认为头像预留的高度) */
 .CommentPost{ min-height:0 !important; }
