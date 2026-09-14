@@ -1028,3 +1028,22 @@ body > .UserCard,
 }
 /* ⋯ 下拉菜单：向左(右对齐)展开，留在框内 */
 .CommentPost .Post-actions .Dropdown-menu{ right:0 !important; left:auto !important; }
+
+
+
+/* ============================================================
+   回复区：框住样式 + 上下 2 条虚线；占位不可点击
+   ============================================================ */
+/* 回复框 / 占位 上下各一条虚线(2条虚线)，回复框在两线之间 */
+.App-composer.kv-inline,
+.DiscussionPage-stream .ReplyPlaceholder{
+  border-top:2px dashed #b9c2cc !important;
+  border-bottom:2px dashed #b9c2cc !important;
+  padding:14px 0 !important; margin:12px 0 !important;
+}
+/* 回复框本体做成框住的白盒 */
+.App-composer.kv-inline .Composer{
+  border:1px solid #c9cfd6 !important; border-radius:0 !important; background:#fff !important; margin:0 !important;
+}
+/* 「说点什么吧」占位不可点击 —— 引导用户用帖子里的「回复」按钮 */
+.DiscussionPage-stream .ReplyPlaceholder{ pointer-events:none !important; opacity:.85 !important; }

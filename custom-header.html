@@ -472,3 +472,21 @@
 </script>
 
 
+
+
+
+<script>
+/* 点帖子里的「回复」按钮后，平滑滚动到底部的回复框 */
+(function(){
+  document.addEventListener('click', function(e){
+    if(!e.target.closest) return;
+    if(e.target.closest('.Post-actions .item-reply, .Post-actions .item-reply *')){
+      setTimeout(function(){
+        var c = document.querySelector('.App-composer.kv-inline .Composer')
+             || document.querySelector('.App-composer.kv-inline');
+        if(c) c.scrollIntoView({ behavior:'smooth', block:'center' });
+      }, 220);
+    }
+  }, true);
+})();
+</script>
