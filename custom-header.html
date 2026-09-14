@@ -450,6 +450,15 @@
         // 并让 .Composer 铺满，与上方帖子框同宽
         comp.style.setProperty('padding-left','0','important');
         comp.style.setProperty('padding-right','0','important');
+        // 真正的元凶：App-composer 里的 .container(站点栏宽/内边距)把回复框挤窄了 → 清掉
+        var cont = comp.querySelector('.container');
+        if(cont){
+          cont.style.setProperty('max-width','none','important');
+          cont.style.setProperty('width','100%','important');
+          cont.style.setProperty('padding-left','0','important');
+          cont.style.setProperty('padding-right','0','important');
+          cont.style.setProperty('margin','0','important');
+        }
         var cc = comp.querySelector('.Composer');
         if(cc){
           cc.style.setProperty('width','100%','important');

@@ -670,3 +670,5 @@ body > .UserCard,
 .App-composer.kv-inline .Composer{margin:14px 0 !important;width:100% !important;box-sizing:border-box !important;}
 
 .PostStream-item:has(.CommentPost.editing),.CommentPost.editing{display:none !important;}
+
+.App-composer.kv-inline .container{max-width:none !important;width:100% !important;padding-left:0 !important;padding-right:0 !important;margin:0 !important;}
