@@ -357,7 +357,7 @@
 /* 主题详情页：给每帖 header 右侧补一个「#楼层」号(从 PostMeta 文本里提取 #数字) */
 (function(){
   setInterval(function(){
-    document.querySelectorAll('.PostStream .CommentPost').forEach(function(post){
+    document.querySelectorAll('.CommentPost').forEach(function(post){
       var ul = post.querySelector('.Post-header > ul');
       if(!ul || ul.querySelector('.kv-floor')) return;
       var meta = post.querySelector('.PostMeta');
