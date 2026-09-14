@@ -639,6 +639,12 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 /* 加载时话题区被清空也保持高度，避免框体塌陷/跳动 */
 .IndexPage .DiscussionList{ min-height:140px !important; }
 
+/* 翻页「冻结层」：翻页加载期间盖在原位的旧列表副本，轻微变淡、不可点击，
+   等新内容到达即被撤掉 —— 消除加载空白 */
+.IndexPage .DiscussionList > .kv-freeze{
+  order:3 !important; opacity:.6 !important; pointer-events:none !important; margin:0 !important;
+}
+
 /* 帖子列表页顶部留出间距(内容不要贴着顶栏) */
 .IndexPage .container{ padding-top:16px !important; }
 #kv-forumbar{ margin-top:0 !important; margin-bottom:12px !important; }
