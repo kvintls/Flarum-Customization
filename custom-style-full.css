@@ -696,3 +696,7 @@ body > .UserCard,
 .App-composer.kv-inline .kv-cancel-li{list-style:none !important;display:inline-flex !important;margin:0 0 0 8px !important;}
 .App-composer.kv-inline .kv-cancel{background:#fff !important;border:1px solid #ccd2d9 !important;color:#666 !important;border-radius:2px !important;padding:0 14px !important;height:34px !important;font-size:13px !important;font-weight:600 !important;cursor:pointer !important;}
 .App-composer.kv-inline .kv-cancel:hover{background:#f2f4f6 !important;}
+
+.App-composer.kv-inline{position:static !important;height:auto !important;max-height:none !important;box-shadow:none !important;z-index:auto !important;border:none !important;padding:0 !important;margin:0 !important;width:100% !important;max-width:100% !important;}
+.App-composer.kv-inline .container{max-width:100% !important;width:100% !important;margin:0 !important;padding:12px 0 0 !important;border-top:2px dashed #b9c2cc !important;border-bottom:none !important;}
+.App-composer.kv-inline .Composer{position:static !important;height:auto !important;border:1px solid #c9cfd6 !important;border-radius:0 !important;background:#fff !important;width:100% !important;max-width:100% !important;margin:12px 0 0 !important;box-sizing:border-box !important;}
