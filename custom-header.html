@@ -448,9 +448,15 @@
     if(a){ var h = a.getAttribute('href') || ''; if(h && h.charAt(0) !== '#') park(); }
   }, true);
 
+  var kvPrevPath = location.pathname;
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
     if(!comp) return;
+    // 从帖子详情页离开(如点浏览器返回) → 关掉回复框,别让它浮在列表页上
+    if(/^\/d\//.test(kvPrevPath) && !/^\/d\//.test(location.pathname)){
+      try{ if(window.app && app.composer && typeof app.composer.hide === 'function') app.composer.hide(); }catch(e){}
+    }
+    kvPrevPath = location.pathname;
     if(/^\/d\//.test(location.pathname)){
       var stream = document.querySelector('.DiscussionPage-stream');
       if(stream){
