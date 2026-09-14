@@ -506,3 +506,32 @@
 /* (已移除)之前用 JS 清空输入框来去掉 @引用，会与 Flarum 编辑器状态不同步、导致
    "回复尚未发布/丢弃吗"弹窗且回复框打不开。改为不干预，保留 Flarum 原生引用。 */
 </script>
+
+
+
+<script>
+/* 回复框加「取消」按钮：用 Flarum 原生 API 关闭 composer(不改编辑器内容,安全) */
+(function(){
+  setInterval(function(){
+    if(!/^\/d\//.test(location.pathname)) return;
+    var tb = document.querySelector('.App-composer.kv-inline .TextEditor-controls, .App-composer.kv-inline .Composer-footer');
+    if(tb && !tb.querySelector('.kv-cancel')){
+      var li = document.createElement('li');
+      li.className = 'kv-cancel-li';
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'Button kv-cancel'; b.textContent = '取消';
+      b.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        try{
+          if(window.app && app.composer){
+            if(typeof app.composer.hide === 'function') app.composer.hide();
+            else if(typeof app.composer.close === 'function') app.composer.close();
+          }
+        }catch(err){}
+      });
+      li.appendChild(b);
+      tb.appendChild(li);
+    }
+  }, 300);
+})();
+</script>
