@@ -448,3 +448,16 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   padding: 8px 14px !important;
 }
 .IndexPage .DiscussionList-discussions { border: none !important; }
+
+
+/* ============ 帖子行 = Arch 主题列表(紧凑一条条，叠加在首页白卡外框上) ============ */
+/* 紧凑矮行 + 细横线分隔 */
+.IndexPage .DiscussionListItem-content { padding: 4px 14px !important; }
+.IndexPage .DiscussionListItem { border-bottom: 1px solid #e9edf0 !important; }
+.IndexPage .DiscussionList-discussions > li:last-child .DiscussionListItem { border-bottom: none !important; }
+.IndexPage .DiscussionListItem:hover { background: #f6f8fa !important; }
+/* 标题：蓝色、常规字重(Arch 不加粗)、单行 */
+.IndexPage .DiscussionListItem-title { font-size: 13px !important; font-weight: 400 !important; color: #0771a8 !important; line-height: 1.5 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+/* 最后发表小字灰色 */
+.IndexPage .item-terminalPost { font-size: 12px !important; color: #8a96a3 !important; }
+.IndexPage .item-terminalPost .username { color: #0771a8 !important; }
