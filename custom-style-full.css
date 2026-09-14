@@ -682,3 +682,7 @@ body > .UserCard,
 .CommentPost .Post-actions .Dropdown-menu .item-viewVotes,.CommentPost .Post-actions .Dropdown-menu .Dropdown-separator{display:none !important;}
 .CommentPost .Post-actions .Dropdown-menu .Button{background:none !important;border:none !important;box-shadow:none !important;color:#0771a8 !important;padding:0 !important;height:auto !important;font-size:13px !important;font-weight:400 !important;}
 .CommentPost .Post-actions .Dropdown-menu .Button-icon,.CommentPost .Post-actions .Dropdown-menu .Button .icon{display:none !important;}
+
+.CommentPost .Post-actions .Dropdown-menu,.CommentPost .Post-actions .Dropdown-menu li{background:none !important;border:none !important;box-shadow:none !important;}
+.CommentPost .Post-actions .Dropdown-menu button,.CommentPost .Post-actions .Dropdown-menu a{background:none !important;background-color:transparent !important;border:none !important;box-shadow:none !important;border-radius:0 !important;color:#0771a8 !important;padding:0 !important;margin:0 !important;height:auto !important;min-height:0 !important;font-size:13px !important;font-weight:400 !important;line-height:1.4 !important;text-align:left !important;}
+.CommentPost .Post-actions .Dropdown-menu button:hover,.CommentPost .Post-actions .Dropdown-menu a:hover{background:none !important;background-color:transparent !important;text-decoration:underline !important;color:#0771a8 !important;}
