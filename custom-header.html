@@ -166,6 +166,13 @@
       ul.parentNode.insertBefore(head, ul);
     }
 
+    // 翻页移到「话题」表头上方（页数在话题的上边）
+    var head2 = dl.querySelector('.kv-dlhead');
+    var pag = dl.querySelector('.Pagination');
+    if(pag && head2 && head2.previousElementSibling !== pag){
+      head2.parentNode.insertBefore(pag, head2);
+    }
+
     // 面包屑 + 发布新主题（仅板块页 /t/...）
     var isTag = /^\/t\//.test(location.pathname);
     var results = document.querySelector('.IndexPage-results') || dl.parentNode;
@@ -229,17 +236,14 @@
     document.querySelectorAll('.DiscussionListItem-content').forEach(function(c){
       var main = c.querySelector('.DiscussionListItem-main');
       var info = c.querySelector('.DiscussionListItem-info');
+      // flex + order 布局：main/info 用 display:contents 把内部项提升为本行 flex 项，
+      // 列位置全部由 CSS 的 order + flex-basis 决定(确定性，取代不可靠的 grid 自动布局)
       if(main) main.style.display = 'contents';
       if(info) info.style.display = 'contents';
       var title = c.querySelector('.DiscussionListItem-title');
       var count = c.querySelector('.DiscussionListItem-count');
       var views = c.querySelector('.item-discussion-views');
       var terminal = c.querySelector('.item-terminalPost');
-      // 根治：把浏览量、最后发帖移出 info，做成 content 的直接子元素，
-      // 保证它们一定是网格项，grid-column 必然生效(双层 display:contents 不可靠)
-      if(views && views.parentElement !== c) c.appendChild(views);
-      if(terminal && terminal.parentElement !== c) c.appendChild(terminal);
-      if(title){ title.style.gridColumn = '1'; title.style.gridRow = '1'; }
       // 标题后加「由 发帖人」(仿图三 Arch: Title by username)，填充话题列
       var author = c.querySelector('.DiscussionListItem-author');
       if(title && author && !title.querySelector('.kv-by')){
@@ -253,9 +257,7 @@
           title.appendChild(by);
         }
       }
-      if(count){ count.style.gridColumn = '2'; count.style.gridRow = '1'; count.style.justifySelf = 'center'; }
-      if(views){ views.style.gridColumn = '3'; views.style.gridRow = '1'; views.style.justifySelf = 'center'; }
-      if(terminal){ terminal.style.gridColumn = '4'; terminal.style.gridRow = '1'; terminal.style.justifySelf = 'start'; }
+      // 列位置由 CSS(order/flex-basis)接管，这里不再设内联 grid 样式
       // 最后发帖改成：时间 由 用户名 发布
       if(terminal && !terminal.querySelector('.kv-lp-user')){
         var time = terminal.querySelector('time');

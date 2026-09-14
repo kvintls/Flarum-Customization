@@ -542,5 +542,70 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .DiscussionListItem-content .item-discussion-views { grid-column: 4 !important; justify-self: center !important; }
 
 
-/* 页脚在白卡框内：取消之前的宽度约束，跟随白卡内宽 */
-#kvin-footer2 { max-width: none !important; width: auto !important; margin: 16px 0 0 !important; box-sizing: border-box; }
+/* 页脚在白卡框内：用负边距撑到白卡左右边缘，蓝线恢复满宽(文字保留右边距) */
+#kvin-footer2 { max-width: none !important; width: auto !important; margin: 16px -16px 0 !important; padding: 10px 16px 0 !important; box-sizing: border-box; }
+
+
+/* ============================================================
+   帖子列表页 —— 终极对齐方案：flex 定宽列 + order
+   （彻底废弃 grid：grid 的自动布局一直把「浏览量」甩到最右，
+    改用 flex + 固定 flex-basis + order，列位置 100% 确定）
+   表头与数据行使用完全相同的列宽/间距/左右内边距 → 数字必然对齐标签
+   ============================================================ */
+
+/* --- 列宽常量：话题(弹性) | 回复70 | 浏览量90 | 最后发帖240，列间距8，左右内边距14 --- */
+
+/* 表头 */
+.kv-dlhead{
+  display:flex !important; align-items:center !important; flex-wrap:nowrap !important;
+  gap:8px !important; padding:9px 14px !important;
+}
+.kv-dlhead .c1{ flex:1 1 auto !important; min-width:0 !important; text-align:left !important; }
+.kv-dlhead .c2{ flex:0 0 70px !important;  text-align:center !important; }
+.kv-dlhead .c3{ flex:0 0 90px !important;  text-align:center !important; }
+.kv-dlhead .c4{ flex:0 0 240px !important; text-align:left !important; }
+
+/* 数据行容器：flex（不是 grid） */
+.IndexPage .DiscussionListItem-content{
+  display:flex !important; align-items:center !important; flex-wrap:nowrap !important;
+  gap:8px !important; padding:4px 14px !important;
+}
+/* main / info 用 display:contents 把里面的 标题/浏览量/最后发帖 提升为本行的 flex 项 */
+.IndexPage .DiscussionListItem-main{ display:contents !important; }
+.IndexPage .DiscussionListItem-info{ display:contents !important; }
+
+/* 第1列 话题标题（弹性、单行省略） */
+.IndexPage .DiscussionListItem-title{
+  order:1 !important; flex:1 1 auto !important; min-width:0 !important;
+  white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important;
+}
+/* 第2列 回复数（去气泡定位，定宽居中） */
+.IndexPage .DiscussionListItem-count{
+  position:static !important; order:2 !important; flex:0 0 70px !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  text-align:center !important; margin:0 !important;
+  background:none !important; box-shadow:none !important; border-radius:0 !important;
+  min-width:0 !important; width:auto !important; height:auto !important; padding:0 !important;
+  color:#333 !important; font-weight:700 !important; font-size:14px !important;
+}
+/* 第3列 浏览量（定宽居中，对齐「浏览量」表头） */
+.IndexPage .DiscussionListItem-content .item-discussion-views{
+  order:3 !important; flex:0 0 90px !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  text-align:center !important; color:#667 !important;
+}
+/* 第4列 最后发帖（定宽左对齐） */
+.IndexPage .DiscussionListItem-content .item-terminalPost{
+  order:4 !important; flex:0 0 240px !important;
+  display:block !important; text-align:left !important; color:#8a96a3 !important;
+  white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important;
+}
+/* 其余 info 项（标签/摘要）不参与表格 */
+.IndexPage .DiscussionListItem-info .item-tags,
+.IndexPage .DiscussionListItem-info > li:not(.item-discussion-views):not(.item-terminalPost){
+  display:none !important;
+}
+
+/* 翻页移到「话题」上方后：左对齐、无边框、纯文字 */
+.IndexPage .DiscussionList > .Pagination,
+.IndexPage .DiscussionList-discussions ~ .Pagination{ justify-content:flex-start !important; }
