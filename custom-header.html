@@ -235,6 +235,19 @@
       if(views && views.parentElement !== c) c.appendChild(views);
       if(terminal && terminal.parentElement !== c) c.appendChild(terminal);
       if(title){ title.style.gridColumn = '1'; title.style.gridRow = '1'; }
+      // 标题后加「由 发帖人」(仿图三 Arch: Title by username)，填充话题列
+      var author = c.querySelector('.DiscussionListItem-author');
+      if(title && author && !title.querySelector('.kv-by')){
+        var al = (author.getAttribute('aria-label') || '').trim();
+        var starter = al.split('发布')[0].trim();
+        if(!starter) starter = al.split(/\s+/)[0];
+        if(starter){
+          var by = document.createElement('span');
+          by.className = 'kv-by';
+          by.textContent = ' 由 ' + starter;
+          title.appendChild(by);
+        }
+      }
       if(count){ count.style.gridColumn = '2'; count.style.gridRow = '1'; count.style.justifySelf = 'center'; }
       if(views){ views.style.gridColumn = '3'; views.style.gridRow = '1'; views.style.justifySelf = 'center'; }
       if(terminal){ terminal.style.gridColumn = '4'; terminal.style.gridRow = '1'; terminal.style.justifySelf = 'start'; }

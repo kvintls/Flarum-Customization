@@ -469,3 +469,14 @@ body, .App { background: #f5f6f8; color: #1f2328; }
 .IndexPage .DiscussionListItem-title { line-height: 1.35 !important; margin: 0 !important; padding: 0 !important; }
 .IndexPage .DiscussionListItem-count { line-height: 1.35 !important; margin: 0 !important; padding: 0 !important; }
 .IndexPage .item-terminalPost, .IndexPage .item-discussion-views { line-height: 1.35 !important; margin: 0 !important; padding: 0 !important; }
+
+
+/* ============ 翻页移到表格框外 + 标题后「由 发帖人」============ */
+/* 框只包"表头+帖子行"，翻页在框外(纯文字行) */
+.IndexPage .DiscussionList { border: none !important; box-shadow: none !important; }
+.kv-dlhead { border: 1px solid #ccc !important; border-bottom: 1px solid #ccc !important; }
+.IndexPage .DiscussionList-discussions { border: 1px solid #ccc !important; border-top: none !important; }
+.IndexPage .Pagination { border: none !important; background: transparent !important; }
+
+/* 标题后「由 发帖人」灰色小字(仿图三) */
+.DiscussionListItem-title .kv-by { color: #8a96a3 !important; font-weight: 400 !important; font-size: 12px !important; }
