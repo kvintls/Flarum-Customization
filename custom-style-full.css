@@ -610,6 +610,11 @@ body, .App { background: #f5f6f8; color: #1f2328; }
   display:none !important;
 }
 
+/* 消除翻页重绘瞬间的闪烁：只要「浏览量/最后发帖」还嵌在标题块(main)里(JS 尚未移出成独立列)，
+   就先隐藏，避免瞬间出现「标题下方堆叠 由 admin 发布」的旧布局。
+   JS 把它们移成 content 的直接子元素后(不再在 main 内)，即恢复显示。 */
+.IndexPage .DiscussionListItem-main .DiscussionListItem-info{ display:none !important; }
+
 /* 顶部翻页(话题上方)左对齐；底部翻页(帖子列表之后)右对齐(图三:下方靠右) */
 .IndexPage .DiscussionList > .Pagination:first-child{ justify-content:flex-start !important; }
 .IndexPage .DiscussionList-discussions ~ .Pagination{ justify-content:flex-end !important; }
