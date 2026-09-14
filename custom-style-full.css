@@ -916,3 +916,40 @@ body > .UserCard,
 .App-composer.kv-inline .Button--submit{
   background:#3f7cac !important; border-color:#35688f !important; border-radius:2px !important;
 }
+
+
+
+/* ============================================================
+   详情页帖子 & 回复框 紧凑化（按反馈）
+   ============================================================ */
+/* A) 帖子：去掉多余空白，正文不再留高；用 grid 让正文在左、反应/操作在右 */
+.CommentPost{
+  display:grid !important; grid-template-columns:1fr auto !important;
+  column-gap:12px !important; align-items:start !important; min-height:0 !important;
+}
+.CommentPost .Post-header{ grid-column:1 / -1 !important; }
+.CommentPost .Post-body{ grid-column:1 !important; min-height:0 !important; padding:8px 0 8px 14px !important; }
+.CommentPost .Post-footer,
+.CommentPost .Post-actions{
+  grid-column:2 !important; justify-self:end !important; align-self:start !important;
+  margin:0 !important; padding:6px 14px 0 0 !important; border:none !important; min-height:0 !important;
+}
+/* 顶部灰条变薄(变窄) */
+.CommentPost .Post-header > ul{ padding:5px 12px !important; min-height:0 !important; }
+
+/* B) 回复框：头像变小+圆角；铺满宽度；去多余空白 */
+.App-composer.kv-inline .ComposerBody{ display:flex !important; align-items:flex-start !important; padding:12px !important; }
+.App-composer.kv-inline .ComposerBody-avatar,
+.App-composer.kv-inline .Avatar.ComposerBody-avatar{
+  width:34px !important; height:34px !important; min-width:34px !important;
+  border-radius:5px !important; margin:2px 10px 0 0 !important; font-size:16px !important; line-height:34px !important;
+}
+.App-composer.kv-inline .ComposerBody-content{ flex:1 1 auto !important; min-width:0 !important; }
+/* 回复目标那行做成灰条(FluxBB) */
+.App-composer.kv-inline .ComposerBody-header{
+  background:linear-gradient(#f0f0f0,#e2e2e2) !important; border:1px solid #ccc !important;
+  border-radius:3px !important; padding:6px 10px !important; margin:0 0 8px !important; font-size:13px !important;
+}
+/* 编辑区高度适中，别太空 */
+.App-composer.kv-inline .ComposerBody-editor .TextEditor,
+.App-composer.kv-inline .TextEditor-editor{ min-height:90px !important; }
