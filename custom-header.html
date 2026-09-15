@@ -669,37 +669,52 @@
 
 
 <script>
-/* 贡献榜页面: 表头列名改中文 + 加载更多按钮放进灰色表头右上角(与3列同一行, 4项一排)
-   —— 首列奖杯/数字的替换改由 CSS(::before + nth-child)接管, 避开 Mithril 重绘会把 textContent 覆盖回来的坑 */
+/* 贡献榜: 表头 4 列平均分 = 贡献榜 / 用户 / 贡献认同 / 加载更多
+   —— 4th 列是我加的 <th>, 点击触发真的 loadMore 按钮; 数据行补一个空 td 保持 4 列对齐 */
 (function(){
   setInterval(function(){
     var tbl=document.querySelector('table.rankings');
     if(!tbl) return;
-    /* 表头列名: 排名->贡献榜 / 👍->贡献认同 */
+    /* 表头文字改中文(排名/贡献人 -> 贡献榜, 👍 -> 贡献认同; 我的第4列 th 跳过) */
     tbl.querySelectorAll('th').forEach(function(th){
+      if(th.classList.contains('kv-loadmore-th')) return;
       var t=(th.textContent||'').trim();
-      if(t==='排名') th.textContent='贡献榜';
+      if(t==='排名'||t==='贡献人') th.textContent='贡献榜';
       if(t==='👍'||th.querySelector('i.fa-thumbs-up,.fa-thumbs-up')) th.textContent='贡献认同';
     });
-    /* 用 wrap 包住 table 作为绝对定位上下文 —— 按钮放进 wrap 后就能压在灰色表头右上角 */
-    var wrap=tbl.parentElement;
-    if(!wrap.classList.contains('kv-rank-wrap')){
-      var nw=document.createElement('div');
-      nw.className='kv-rank-wrap';
-      wrap.insertBefore(nw,tbl);
-      nw.appendChild(tbl);
-      wrap=nw;
+    /* 表头行加第 4 列 <th>加载更多</th>(幂等) */
+    var thRow=tbl.querySelector('tr');
+    if(thRow&&!thRow.querySelector('.kv-loadmore-th')){
+      var lth=document.createElement('th');
+      lth.className='kv-loadmore-th';
+      lth.textContent='加载更多';
+      lth.onclick=function(){
+        document.querySelectorAll('button').forEach(function(b){
+          if((b.textContent||'').trim()==='加载更多'&&!b.classList.contains('kv-loadmore-th')) b.click();
+        });
+      };
+      thRow.appendChild(lth);
     }
-    /* 加载更多按钮: 挪进 wrap 内部(不加 dataset 门闩, Mithril 若移回来这里会自动再移回来) */
-    var main=document.querySelector('main.App-content');
-    if(main){
-      main.querySelectorAll('button').forEach(function(b){
-        var t=(b.textContent||'').trim();
-        if(t==='加载更多'&&b.parentElement!==wrap){
-          b.classList.add('kv-loadmore');
-          wrap.appendChild(b);
-        }
-      });
+    /* 数据行补第 4 列空 td, 让列对齐(幂等) */
+    tbl.querySelectorAll('tr').forEach(function(tr){
+      if(tr.querySelector('th')) return;
+      if(tr.children.length===3&&!tr.querySelector('.kv-more-td')){
+        var td=document.createElement('td');
+        td.className='kv-more-td';
+        tr.appendChild(td);
+      }
+    });
+    /* 隐藏原始 加载更多 按钮(它的 onclick 被上面 th 代理触发) */
+    document.querySelectorAll('button').forEach(function(b){
+      if((b.textContent||'').trim()==='加载更多'&&!b.classList.contains('kv-loadmore-th')){
+        b.style.display='none';
+      }
+    });
+    /* 拆除历史 kv-rank-wrap(把 table 移回它 parent, 再删 wrap; 用户可能还留着旧 DOM 状态) */
+    var w=tbl.parentElement;
+    if(w&&w.classList.contains('kv-rank-wrap')){
+      var gp=w.parentElement;
+      if(gp){gp.insertBefore(tbl,w);w.remove();}
     }
   },400);
 })();
