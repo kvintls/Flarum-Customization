@@ -510,6 +510,7 @@ table.rankings th,table.rankings td{width:20%!important}
 .kv-loadmore-th{cursor:pointer!important;vertical-align:middle!important;border-left:1px solid #ccc!important}
 .kv-loadmore-th:hover{background:linear-gradient(#eaeaea,#dcdcdc)!important;color:#0771a8!important}
 .rankings-loadmore{display:none!important}
+table.rankings th,table.rankings td{text-align:left!important}
 table.rankings td{padding:2px 14px!important;border-bottom:1px solid #e0e4ea!important;line-height:1.3!important}
 table.rankings td .PostUser,table.rankings td h3,table.rankings td a,table.rankings td div,table.rankings td span{margin:0!important;padding:0!important;line-height:1.3!important;min-height:0!important}
 table.rankings tr:last-child td{border-bottom:none!important}
