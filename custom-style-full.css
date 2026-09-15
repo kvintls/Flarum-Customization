@@ -468,7 +468,7 @@ table.rankings td{padding:6px 14px!important;vertical-align:middle!important;tex
 table.rankings td img{max-width:24px!important;height:auto!important;vertical-align:middle!important}
 table.rankings td i.icon,table.rankings td .fa,table.rankings td svg{font-size:20px!important}
 table.rankings .Avatar,table.rankings .info-avatar{width:26px!important;height:26px!important;min-width:26px!important;border-radius:3px!important;font-size:13px!important;line-height:26px!important;display:inline-block!important;vertical-align:middle!important;margin:0 6px 0 0!important}
-table.rankings h3.PostUser-name,table.rankings h3.rankings-info,table.rankings .rankings-info{margin:0!important;font-size:13px!important;font-weight:600!important;color:#0771a8!important;display:inline!important}
+table.rankings h3.PostUser-name,table.rankings h3.rankings-info,table.rankings .rankings-info,table.rankings .username,table.rankings a{margin:0!important;font-size:13px!important;font-weight:400!important;color:#333!important;display:inline!important;text-decoration:none!important}
 main.App-content:has(table.rankings) button.Button,main.App-content:has(table.rankings) .Button--flat{background:#fff!important;border:1px solid #c9cfd6!important;color:#0771a8!important;padding:6px 16px!important;border-radius:2px!important;box-shadow:none!important;font-weight:600!important}
 main.App-content:has(table.rankings) button.Button:hover{background:#f2f4f6!important}
 table.rankings td img{display:none!important}
