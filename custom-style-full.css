@@ -711,3 +711,16 @@ body > .UserCard,
 .kv-confirm-ok:hover{background:#b93a0d !important;}
 .kv-confirm-cancel{background:#eceff2 !important;color:#555 !important;}
 .kv-confirm-cancel:hover{background:#dfe3e8 !important;}
+
+.TagsPage .container{max-width:1320px !important;width:94% !important;padding-top:16px !important;}
+.TagsPage .TagTiles{display:block !important;grid-template-columns:none !important;margin:0 !important;background:#fff !important;border:1px solid #c9cfd6 !important;border-radius:0 !important;padding:16px !important;box-shadow:none !important;}
+.TagsPage .TagTile{display:block !important;float:none !important;width:auto !important;height:auto !important;min-height:0 !important;background:#fff !important;background-image:none !important;background-color:#fff !important;color:#333 !important;border:1px solid #c9cfd6 !important;border-radius:0 !important;box-shadow:none !important;margin:0 0 14px !important;padding:0 !important;}
+.TagsPage .TagTile:last-child{margin-bottom:0 !important;}
+.TagsPage .TagTile *{text-shadow:none !important;}
+.TagsPage .TagTile-info{display:block !important;position:static !important;padding:8px 14px !important;background:linear-gradient(#f0f0f0,#e2e2e2) !important;border-bottom:1px solid #ccc !important;color:#333 !important;}
+.TagsPage .TagTile-name{color:#0771a8 !important;font-weight:700 !important;font-size:15px !important;margin:0 !important;}
+.TagsPage .TagTile-description{color:#666 !important;margin:3px 0 0 !important;font-size:13px !important;}
+.TagsPage .TagTile-children{padding:8px 14px !important;margin:0 !important;}
+.TagsPage .TagTile-children a,.TagsPage .TagTile a{color:#0771a8 !important;}
+.TagsPage .TagTile-lastPostedDiscussion{display:block !important;position:static !important;padding:8px 14px !important;margin:0 !important;border-top:1px solid #eef1f4 !important;color:#8a96a3 !important;background:none !important;}
+.TagsPage .TagTile-lastPostedDiscussion a{color:#8a96a3 !important;}
