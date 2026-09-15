@@ -734,3 +734,5 @@ body > .UserCard,
 
 .DiscussionPage-list{display:none !important;}
 .App.hasPane .DiscussionPage-stream,.App.hasPane .DiscussionPage-discussion,.App.hasPane .DiscussionPage{margin-left:0 !important;padding-left:0 !important;}
+
+.TagsPage .TagTile-children{padding-left:0 !important;}
