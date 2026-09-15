@@ -456,8 +456,9 @@
     // 没有正在编辑的 .Composer 时,行内强制隐藏(比 :has() 可靠,消除过渡态露出的小块)
     if(!comp.querySelector('.Composer')){ comp.style.setProperty('display','none','important'); }
     else { comp.style.removeProperty('display'); }
-    // 从帖子详情页离开(如点浏览器返回) → 关掉回复框,别让它浮在列表页上
-    if(/^\/d\//.test(kvPrevPath) && !/^\/d\//.test(location.pathname)){
+    // 路径一变就关掉编辑框——不管是帖子详情页的回复框, 还是列表/标签页打开的发主题框,
+    // 都是"属于打开时那个页面"的, 不该跟着漂到下一个页面(用户返回首页/切分类都算)
+    if(kvPrevPath !== location.pathname){
       try{ if(window.app && app.composer && typeof app.composer.hide === 'function') app.composer.hide(); }catch(e){}
     }
     kvPrevPath = location.pathname;
