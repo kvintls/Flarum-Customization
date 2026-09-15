@@ -523,12 +523,4 @@ table.rankings tr:last-child td{border-bottom:none!important}
 .App .DiscussionListItem:hover,.App .DiscussionListItem:hover *{background:transparent!important;box-shadow:none!important;text-decoration:none!important}
 .App .DiscussionListItem:hover .DiscussionListItem-title{color:#1f2d3d!important}
 .App .DiscussionList-discussions{box-shadow:none!important}
-.App--admin{background:#f5f6f8!important}
-.App--admin .App-header,.AdminHero{background:linear-gradient(#f0f0f0,#e2e2e2)!important;border-bottom:1px solid #ccc!important;box-shadow:none!important}
-.AdminHero{color:#333!important;padding:12px 20px!important}
-.AdminHero h2{color:#333!important;font-weight:700!important}
-.AdminNav{background:#fff!important;border-right:1px solid #c9cfd6!important;box-shadow:none!important}
-.AdminNav .Button{background:transparent!important;border:none!important;border-radius:0!important;color:#333!important;box-shadow:none!important;text-align:left!important}
-.AdminNav .item.active .Button,.AdminNav .Button.active{background:#e8eef4!important;color:#0771a8!important}
-.AdminPage .Form-group,.AdminPage fieldset,.ExtensionListItem{background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;padding:14px!important;box-shadow:none!important;margin-bottom:14px!important}
-.AdminPage .Button--primary{background:#3f7cac!important;border-radius:0!important}
+

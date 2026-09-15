@@ -1,11 +1,11 @@
 <?php
 
 /*
- * Kvin 整页注册扩展
+ * Kvin 整页注册扩展 + 后台 FluxBB 样式
  *
- * 加一个真实的 /register 页面路由：服务端直接渲染整页 FluxBB 风格注册页。
- * 表单通过 fetch 调用 Flarum 自带的 POST /api/users 完成注册（复用原生校验/发信逻辑），
- * 不重写后端。CSRF token 从当前会话取出，内联进页面。
+ * 1) /register 和 /login 整页 FluxBB 风格路由 (复用 Flarum 原生注册 API)
+ * 2) 后台管理面板注入 admin.less —— Flarum Custom Styles 只进 forum 不进 admin,
+ *    要改后台样式只能走 Extend\Frontend('admin')->css()
  */
 
 use Flarum\Extend;
@@ -16,4 +16,7 @@ return [
     (new Extend\Routes('forum'))
         ->get('/register', 'kvin.register', RegisterController::class)
         ->get('/login', 'kvin.login', LoginController::class),
+
+    (new Extend\Frontend('admin'))
+        ->css(__DIR__ . '/less/admin.less'),
 ];

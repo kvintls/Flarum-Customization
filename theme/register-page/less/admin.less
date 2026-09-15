@@ -1,0 +1,121 @@
+/*
+ * Flarum 后台管理面板: FluxBB / 前台首页风格
+ *
+ * 关键: Flarum Appearance 里的 Custom Styles 只会编译进 forum 前端(不进 admin),
+ *      所以后台改样式必须走扩展 Extend\Frontend('admin')->css(...) 这条路。
+ */
+
+/* 整体页面背景与前台 .App 一致 */
+.App--admin {
+    background: #f5f6f8 !important;
+}
+
+/* 顶部条 + Hero 标题栏: FluxBB 灰色渐变 */
+.App--admin .App-header,
+.AdminHero {
+    background: linear-gradient(#f0f0f0, #e2e2e2) !important;
+    border-bottom: 1px solid #ccc !important;
+    box-shadow: none !important;
+}
+.AdminHero {
+    color: #333 !important;
+    padding: 12px 20px !important;
+}
+.AdminHero h2,
+.AdminHero-title {
+    color: #333 !important;
+    font-weight: 700 !important;
+}
+
+/* 左侧导航栏: 白底 + 灰边界 */
+.AdminNav,
+.AdminLinkButton {
+    background: #fff !important;
+    box-shadow: none !important;
+}
+.AdminNav {
+    border-right: 1px solid #c9cfd6 !important;
+}
+.AdminNav .Button,
+.AdminLinkButton .Button,
+.item-navigation .Button {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    color: #333 !important;
+    box-shadow: none !important;
+    text-align: left !important;
+    padding: 8px 14px !important;
+}
+.AdminNav .item.active .Button,
+.AdminNav .Button.active,
+.AdminLinkButton.active .Button,
+.AdminNav .Button:hover {
+    background: #e8eef4 !important;
+    color: #0771a8 !important;
+}
+
+/* 主内容区: 表单模块/扩展列表统一白卡+灰边 */
+.AdminPage,
+.ExtensionPage {
+    background: transparent !important;
+}
+.AdminPage .Form-group,
+.AdminPage fieldset,
+.ExtensionListItem,
+.AdminPage-setting,
+.ExtensionCard {
+    background: #fff !important;
+    border: 1px solid #c9cfd6 !important;
+    border-radius: 0 !important;
+    padding: 14px !important;
+    box-shadow: none !important;
+    margin-bottom: 14px !important;
+}
+
+/* 表单标题 */
+.AdminPage .Form-group > label,
+.AdminPage .Form-group > h3,
+.AdminPage fieldset > legend {
+    font-weight: 700 !important;
+    color: #333 !important;
+    font-size: 14px !important;
+}
+
+/* 按钮 */
+.AdminPage .Button--primary,
+.Button--primary {
+    background: #3f7cac !important;
+    border: none !important;
+    border-radius: 0 !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+.AdminPage .Button--primary:hover,
+.Button--primary:hover {
+    background: #35688f !important;
+}
+.AdminPage .Button {
+    border-radius: 0 !important;
+}
+
+/* 输入框 */
+.AdminPage .FormControl,
+.AdminPage input[type="text"],
+.AdminPage input[type="email"],
+.AdminPage input[type="password"],
+.AdminPage textarea {
+    background: #fff !important;
+    border: 1px solid #c9cfd6 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* 搜索框 */
+.SearchBar .FormControl,
+.SearchBar input {
+    background: #fff !important;
+    border: 1px solid #c9cfd6 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
