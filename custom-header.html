@@ -460,6 +460,7 @@
       try{ if(window.app && app.composer && typeof app.composer.hide === 'function') app.composer.hide(); }catch(e){}
     }
     kvPrevPath = location.pathname;
+    comp.classList.add('kv-inline'); // 任何页面(发主题/回复)都用同款内联样式(虚线+灰条+取消按钮)
     if(/^\/d\//.test(location.pathname)){
       var stream = document.querySelector('.DiscussionPage-stream');
       if(stream){
@@ -475,7 +476,7 @@
         }catch(e){}
       }
     } else {
-      comp.classList.remove('kv-inline');
+      // 非详情页(发主题)：不移动DOM(避免SPA问题),但保留kv-inline让样式一致
       park();
     }
   }, 300);
