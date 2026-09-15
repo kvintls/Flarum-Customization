@@ -1,43 +1,46 @@
 /* Flarum admin panel: WordPress-style top horizontal navigation + FluxBB white cards */
-/* IMPORTANT for LESS parser (less.php in Flarum 1.x): */
-/*   - Do NOT use box-drawing chars in comments (they crash the parser silently) */
-/*   - Keep comments ASCII-only */
-/*   - Avoid nested @media inside class rules (put media queries at very end if needed) */
-/*   - Everything below is at root level, no nesting, pure CSS syntax */
-/*   - Use .App.App--admin (double class) for max specificity to beat Flarum core defaults */
+/* IMPORTANT: less.php in Flarum 1.x has quirks: */
+/*   - NO box-drawing chars in comments (crashes parser silently) */
+/*   - Keep ASCII-only */
+/*   - Avoid deeply nested @media */
+/*   - This file is compiled into admin.css ONLY (via Extend\Frontend('admin')->css()), */
+/*     so we do NOT need .App--admin scope prefix (App--admin class doesn't even exist in the DOM). */
+/*   - Use #admin-navigation (ID, spec 1,0,0) for max specificity on side nav overrides. */
 
 /* Overall page background */
-.App.App--admin {
+.App {
     background: #f5f6f8 !important;
 }
 
 /* Top App-header (Flarum logo + user menu bar) - dark WordPress style */
-.App.App--admin .App-header {
+.App-header {
     background: #23282d !important;
     border-bottom: 1px solid #191c1f !important;
     box-shadow: none !important;
     color: #eee !important;
 }
-.App.App--admin .App-header a,
-.App.App--admin .App-header .Button {
+.App-header a,
+.App-header .Button {
     color: #eee !important;
 }
-.App.App--admin .App-header a:hover,
-.App.App--admin .App-header .Button:hover {
+.App-header a:hover,
+.App-header .Button:hover {
     background: #32373c !important;
     color: #fff !important;
 }
-.App.App--admin .Header-title,
-.App.App--admin .Header-title a {
+.Header-title,
+.Header-title a {
     color: #fff !important;
 }
 
 /* AdminNav: convert from left absolute-positioned column to top horizontal bar */
-/* Use .App.App--admin selector (specificity 0,3,1) to beat Flarum's .App-nav @desktop-up rule (0,1,1) */
-.App.App--admin .App-nav,
-.App.App--admin nav.App-nav {
+/* #admin-navigation is the actual container (spec 1,0,0 beats ALL Flarum class rules). */
+#admin-navigation,
+#admin-navigation.App-nav {
     position: static !important;
     top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
@@ -51,7 +54,7 @@
     z-index: 10 !important;
 }
 
-.App.App--admin .AdminNav {
+#admin-navigation .AdminNav {
     display: block !important;
     width: 100% !important;
     max-width: 1320px !important;
@@ -59,15 +62,18 @@
     padding: 0 !important;
     background: transparent !important;
     position: static !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
-/* Hide mobile toggle button (only used on phone) */
-.App.App--admin .AdminNav > .Dropdown-toggle {
+/* Hide the mobile-style Dropdown-toggle button (SelectDropdown expands to list on desktop) */
+#admin-navigation .AdminNav > .Dropdown-toggle {
     display: none !important;
 }
 
-/* Dropdown-menu = horizontal flex, allow wrapping for extensions */
-.App.App--admin .AdminNav .Dropdown-menu {
+/* Dropdown-menu = horizontal flex row, wrap for extensions */
+#admin-navigation .Dropdown-menu,
+#admin-navigation ul.Dropdown-menu {
     position: static !important;
     display: flex !important;
     flex-direction: row !important;
@@ -82,12 +88,19 @@
     min-width: 0 !important;
     width: 100% !important;
     max-height: none !important;
+    max-width: none !important;
     overflow: visible !important;
     height: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    float: none !important;
 }
 
-/* Category header <h4> ExtensionListTitle = full-width row (line break between core and extensions) */
-.App.App--admin .AdminNav .Dropdown-menu > h4.ExtensionListTitle {
+/* Category header <h4>.ExtensionListTitle = full-width row (wraps extensions to new row) */
+#admin-navigation .Dropdown-menu > h4.ExtensionListTitle,
+#admin-navigation .Dropdown-menu li.item-category-core,
+#admin-navigation .Dropdown-menu li.item-category-feature {
     flex-basis: 100% !important;
     width: 100% !important;
     margin: 0 !important;
@@ -99,10 +112,11 @@
     border-top: 1px solid #191c1f !important;
     font-weight: 700 !important;
     letter-spacing: 0.5px !important;
+    display: block !important;
 }
 
 /* Each tab <li> = flex item, horizontal */
-.App.App--admin .AdminNav .Dropdown-menu > li {
+#admin-navigation .Dropdown-menu > li {
     display: flex !important;
     align-items: stretch !important;
     margin: 0 !important;
@@ -111,11 +125,13 @@
     flex: 0 0 auto !important;
     position: static !important;
     float: none !important;
+    width: auto !important;
+    height: auto !important;
 }
 
 /* Tab link/button */
-.App.App--admin .AdminNav .Dropdown-menu > li > a,
-.App.App--admin .AdminNav .Dropdown-menu > li > .Button {
+#admin-navigation .Dropdown-menu > li > a,
+#admin-navigation .Dropdown-menu > li > .Button {
     display: flex !important;
     align-items: center !important;
     gap: 6px !important;
@@ -132,30 +148,33 @@
     white-space: nowrap !important;
     box-shadow: none !important;
     float: none !important;
+    width: auto !important;
 }
 
-.App.App--admin .AdminNav .Dropdown-menu > li > a:hover,
-.App.App--admin .AdminNav .Dropdown-menu > li > .Button:hover {
+#admin-navigation .Dropdown-menu > li > a:hover,
+#admin-navigation .Dropdown-menu > li > .Button:hover {
     background: #32373c !important;
     color: #fff !important;
 }
 
 /* Active tab highlight */
-.App.App--admin .AdminNav .Dropdown-menu > li.active > a,
-.App.App--admin .AdminNav .Dropdown-menu > li.active > .Button {
+#admin-navigation .Dropdown-menu > li.active > a,
+#admin-navigation .Dropdown-menu > li.active > .Button {
     background: #0771a8 !important;
     color: #fff !important;
     font-weight: 700 !important;
 }
 
 /* Tab inner icon and label */
-.App.App--admin .AdminNav .Dropdown-menu > li .Button-icon {
+#admin-navigation .Dropdown-menu > li .Button-icon {
     margin: 0 !important;
     float: none !important;
     font-size: 13px !important;
     padding: 0 !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
 }
-.App.App--admin .AdminNav .Dropdown-menu > li .Button-label {
+#admin-navigation .Dropdown-menu > li .Button-label {
     padding: 0 !important;
     margin: 0 !important;
     font-size: 13px !important;
@@ -163,37 +182,38 @@
 }
 
 /* Hide search input and description in top nav */
-.App.App--admin .AdminNav .Dropdown-menu > li.item-search,
-.App.App--admin .AdminNav .AdminLinkButton-description {
+#admin-navigation .Dropdown-menu > li.item-search,
+#admin-navigation .AdminLinkButton-description {
     display: none !important;
 }
 
 /* Extension list dot indicator: reset absolute positioning */
-.App.App--admin .AdminNav .Dropdown-menu > li .ExtensionListItem-Dot {
+#admin-navigation .Dropdown-menu > li .ExtensionListItem-Dot {
     position: static !important;
     margin: 0 4px !important;
     transform: none !important;
+    right: auto !important;
 }
 
 /* Main content: remove sideNavOffset margin so content is full width */
-.App.App--admin .App-content .sideNavOffset,
-.App.App--admin .App-content > .sideNavOffset,
-.App.App--admin .sideNavOffset {
+.App-content .sideNavOffset,
+.App-content > .sideNavOffset,
+.sideNavOffset {
     margin-left: 0 !important;
 }
 
-.App.App--admin .App-content {
+.App-content {
     padding: 20px 0 !important;
 }
-.App.App--admin .App-content .container {
+.App-content .container {
     max-width: 1320px !important;
     width: 94% !important;
     margin: 0 auto !important;
     padding: 0 !important;
 }
 
-/* AdminHeader (page hero above content) - FluxBB gray gradient card */
-.App.App--admin .AdminHeader {
+/* AdminHeader (page hero) - FluxBB gray gradient card */
+.AdminHeader {
     background: #f0f0f0 !important;
     border: 1px solid #c9cfd6 !important;
     border-radius: 0 !important;
@@ -204,36 +224,36 @@
     width: 94% !important;
     margin: 0 auto 16px !important;
 }
-.App.App--admin .AdminHeader .container {
+.AdminHeader .container {
     max-width: none !important;
     width: 100% !important;
     padding: 14px 20px !important;
     margin: 0 !important;
 }
-.App.App--admin .AdminHeader h2 {
+.AdminHeader h2 {
     color: #333 !important;
     font-weight: 700 !important;
     font-size: 16px !important;
     margin: 0 !important;
 }
-.App.App--admin .AdminHeader h2 .icon {
+.AdminHeader h2 .icon {
     color: #0771a8 !important;
     margin-right: 6px !important;
 }
-.App.App--admin .AdminHeader-description {
+.AdminHeader-description {
     color: #666 !important;
     font-size: 12px !important;
     margin-top: 4px !important;
 }
 
 /* Form groups, extension cards, widgets = FluxBB white cards */
-.App.App--admin .Form-group,
-.App.App--admin fieldset,
-.App.App--admin .ExtensionListItem,
-.App.App--admin .ExtensionCard,
-.App.App--admin .DashboardWidget,
-.App.App--admin .StatusWidget,
-.App.App--admin .ExtensionsWidget {
+.Form-group,
+fieldset,
+.ExtensionListItem,
+.ExtensionCard,
+.DashboardWidget,
+.StatusWidget,
+.ExtensionsWidget {
     background: #fff !important;
     border: 1px solid #c9cfd6 !important;
     border-radius: 0 !important;
@@ -242,17 +262,17 @@
     margin-bottom: 14px !important;
 }
 
-.App.App--admin .Form-group > label,
-.App.App--admin .Form-group > h3,
-.App.App--admin fieldset > legend {
+.Form-group > label,
+.Form-group > h3,
+fieldset > legend {
     font-weight: 700 !important;
     color: #333 !important;
     font-size: 14px !important;
 }
 
 /* Buttons */
-.App.App--admin .Button--primary,
-.App.App--admin .Button.Button--primary {
+.Button--primary,
+.Button.Button--primary {
     background: #3f7cac !important;
     border: none !important;
     border-radius: 0 !important;
@@ -260,31 +280,27 @@
     font-weight: 600 !important;
     box-shadow: none !important;
 }
-.App.App--admin .Button--primary:hover,
-.App.App--admin .Button.Button--primary:hover {
+.Button--primary:hover,
+.Button.Button--primary:hover {
     background: #35688f !important;
-}
-.App.App--admin .Button {
-    border-radius: 0 !important;
-    box-shadow: none !important;
 }
 
 /* Form controls (inputs, textareas, selects) */
-.App.App--admin .FormControl,
-.App.App--admin input[type="text"],
-.App.App--admin input[type="email"],
-.App.App--admin input[type="password"],
-.App.App--admin input[type="number"],
-.App.App--admin input[type="url"],
-.App.App--admin textarea,
-.App.App--admin select {
+.FormControl,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+textarea,
+select {
     background: #fff !important;
     border: 1px solid #c9cfd6 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     color: #333 !important;
 }
-.App.App--admin .FormControl:focus {
+.FormControl:focus {
     border-color: #0771a8 !important;
     box-shadow: none !important;
     outline: none !important;
