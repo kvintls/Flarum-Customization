@@ -731,3 +731,6 @@ body > .UserCard,
 
 .Pane,.Pane-content,.DiscussionPage .IndexPage-results,.DiscussionPage .DiscussionList{display:none !important;}
 .App{padding-left:0 !important;}
+
+.DiscussionPage-list{display:none !important;}
+.App.hasPane .DiscussionPage-stream,.App.hasPane .DiscussionPage-discussion,.App.hasPane .DiscussionPage{margin-left:0 !important;padding-left:0 !important;}
