@@ -526,5 +526,6 @@ table.rankings tr:last-child td{border-bottom:none!important}
 .SettingsPage>ul>li:last-child{margin-bottom:0!important}
 .SettingsPage fieldset{border:1px solid #c9cfd6!important;padding:10px 14px 12px!important;background:#fff!important;border-radius:0!important;margin:0!important}
 .SettingsPage fieldset>legend{font-weight:700!important;color:#333!important;padding:0 6px!important;font-size:14px!important}
+.SettingsPage .NotificationGrid,.SettingsPage .NotificationGrid table,.SettingsPage fieldset table{width:100%!important}
 .UserPage .sideNav ul,.UserPage .sideNav ul.affix,.UserPage .sideNav ul.affix-top,.UserPage .sideNav ul.affix-bottom{position:static!important;width:auto!important;top:auto!important}
 .App-composer.kv-inline,.App-composer.kv-inline .container,.App-composer.kv-inline .Composer{border:none!important}
