@@ -632,32 +632,41 @@ main.App-content:has(table.rankings) hr{display:none !important;}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)){display:none !important;}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)) *{display:none !important;}
 
-/* 贡献榜首列: 用 CSS 彻底隐藏奖杯图标/数字(4,5,6...), 并用 ::before 注入赞赏词
-   —— 走 CSS 是为绕开 Mithril 反复重绘会把 textContent 覆盖回来的坑 */
-table.rankings tbody tr>td:first-child{font-size:0 !important;line-height:0 !important;color:transparent !important;text-align:center !important;}
-table.rankings tbody tr>td:first-child>*{display:none !important;}
-table.rankings tbody tr>td:first-child::before{content:"贡献者";display:inline-block !important;font-size:13px !important;line-height:1.5 !important;color:#333 !important;font-weight:400 !important;}
-table.rankings tbody tr:nth-child(1)>td:first-child::before{content:"论坛之光";}
-table.rankings tbody tr:nth-child(2)>td:first-child::before{content:"贡献先锋";}
-table.rankings tbody tr:nth-child(3)>td:first-child::before{content:"铁杆达人";}
-table.rankings tbody tr:nth-child(4)>td:first-child::before{content:"妙笔生花";}
-table.rankings tbody tr:nth-child(5)>td:first-child::before{content:"热心助人";}
-table.rankings tbody tr:nth-child(6)>td:first-child::before{content:"分享之星";}
-table.rankings tbody tr:nth-child(7)>td:first-child::before{content:"论坛红人";}
-table.rankings tbody tr:nth-child(8)>td:first-child::before{content:"智慧之源";}
-table.rankings tbody tr:nth-child(9)>td:first-child::before{content:"众望所归";}
-table.rankings tbody tr:nth-child(10)>td:first-child::before{content:"出类拔萃";}
-table.rankings tbody tr:nth-child(11)>td:first-child::before{content:"论坛栋梁";}
-table.rankings tbody tr:nth-child(12)>td:first-child::before{content:"活跃达人";}
-table.rankings tbody tr:nth-child(13)>td:first-child::before{content:"大有可为";}
-table.rankings tbody tr:nth-child(14)>td:first-child::before{content:"有口皆碑";}
-table.rankings tbody tr:nth-child(15)>td:first-child::before{content:"人气之星";}
-table.rankings tbody tr:nth-child(16)>td:first-child::before{content:"人气之王";}
-table.rankings tbody tr:nth-child(17)>td:first-child::before{content:"贡献之王";}
-table.rankings tbody tr:nth-child(18)>td:first-child::before{content:"广受赞誉";}
-table.rankings tbody tr:nth-child(19)>td:first-child::before{content:"敬佩之星";}
-table.rankings tbody tr:nth-child(20)>td:first-child::before{content:"实力担当";}
+/* 贡献榜首列: 隐藏奖杯图标(<i class="fa-trophy">)和数字(4,5,6...), 通过 ::before 注入赞赏词
+   —— 根因: fof/gamification 的 RankingsPage 里 <table> 下直接就是 <tr>, 没显式 <thead>/<tbody>;
+      Mithril 用 createElement+appendChild 建 DOM, 浏览器不会自动补 <tbody>(只有 innerHTML 才补).
+      所以带 tbody 前缀的选择器全部落空. 去掉 tbody 直接选 tr 就 match 得上.
+   —— 另: 表头那个 <tr> 是 nth-child(1)(里面是 <th> 不是 <td>, 我们选择器自然跳过),
+      数据行第 1 名从 nth-child(2) 起. */
+table.rankings tr td:first-child{font-size:0 !important;line-height:0 !important;color:transparent !important;text-align:center !important;}
+table.rankings tr td:first-child *{display:none !important;}
+table.rankings tr td:first-child::before{content:"贡献者";display:inline-block !important;font-size:13px !important;line-height:1.5 !important;color:#333 !important;font-weight:400 !important;}
+table.rankings tr:nth-child(2) td:first-child::before{content:"论坛之光";}
+table.rankings tr:nth-child(3) td:first-child::before{content:"贡献先锋";}
+table.rankings tr:nth-child(4) td:first-child::before{content:"铁杆达人";}
+table.rankings tr:nth-child(5) td:first-child::before{content:"妙笔生花";}
+table.rankings tr:nth-child(6) td:first-child::before{content:"热心助人";}
+table.rankings tr:nth-child(7) td:first-child::before{content:"分享之星";}
+table.rankings tr:nth-child(8) td:first-child::before{content:"论坛红人";}
+table.rankings tr:nth-child(9) td:first-child::before{content:"智慧之源";}
+table.rankings tr:nth-child(10) td:first-child::before{content:"众望所归";}
+table.rankings tr:nth-child(11) td:first-child::before{content:"出类拔萃";}
+table.rankings tr:nth-child(12) td:first-child::before{content:"论坛栋梁";}
+table.rankings tr:nth-child(13) td:first-child::before{content:"活跃达人";}
+table.rankings tr:nth-child(14) td:first-child::before{content:"大有可为";}
+table.rankings tr:nth-child(15) td:first-child::before{content:"有口皆碑";}
+table.rankings tr:nth-child(16) td:first-child::before{content:"人气之星";}
+table.rankings tr:nth-child(17) td:first-child::before{content:"人气之王";}
+table.rankings tr:nth-child(18) td:first-child::before{content:"贡献之王";}
+table.rankings tr:nth-child(19) td:first-child::before{content:"广受赞誉";}
+table.rankings tr:nth-child(20) td:first-child::before{content:"敬佩之星";}
+table.rankings tr:nth-child(21) td:first-child::before{content:"实力担当";}
 
-/* 加载更多按钮: 放进灰色表头右上角(与3列同一行, 视觉上4项一排) */
-.kv-rank-wrap{position:relative !important;}
-.kv-rank-wrap>button.kv-loadmore{position:absolute !important;top:3px !important;right:8px !important;z-index:5 !important;margin:0 !important;padding:2px 14px !important;font-size:12px !important;line-height:1.6 !important;height:auto !important;}
+/* 表格窄化居中(去掉大片空白) + 加载更多改成与"用户/贡献认同"同款的表头纯文字(压在灰 th 行右侧作为第4列) */
+table.rankings{max-width:720px !important;margin:0 auto !important;}
+.kv-rank-wrap{position:relative !important;max-width:720px !important;margin:0 auto !important;}
+.kv-rank-wrap>button.kv-loadmore{position:absolute !important;top:0 !important;right:0 !important;z-index:5 !important;margin:0 !important;padding:8px 14px !important;background:transparent !important;border:none !important;box-shadow:none !important;color:#333 !important;font-size:13px !important;font-weight:700 !important;line-height:1.5 !important;height:auto !important;text-align:center !important;cursor:pointer !important;}
+.kv-rank-wrap>button.kv-loadmore:hover{color:#0771a8 !important;text-decoration:underline !important;background:transparent !important;}
+
+/* 去掉 kv-inline 编辑框留下的 2 条虚线(首页/列表页/贡献榜页残留时都能盖掉之前几处 border:2px dashed) */
+.App-composer.kv-inline,.App-composer.kv-inline .container,.App-composer.kv-inline .Composer{border:none !important;}
