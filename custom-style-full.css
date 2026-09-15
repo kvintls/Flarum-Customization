@@ -603,3 +603,19 @@ border:1px solid #c9cfd6 !important;border-radius:0 !important;background:#fff !
 .TagsPage .TagTile-children{padding-left:0 !important;}
 .App-composer:not(:has(.Composer)){display:none !important;}
 .App-composer.minimized,.App-composer--minimized,.Composer.minimized{display:none !important;}
+
+
+main.App-content:has(table.rankings){padding:16px 0 !important;}
+main.App-content:has(table.rankings) .sideNavContainer,main.App-content:has(table.rankings) .container{display:block !important;max-width:1320px !important;width:94% !important;margin:0 auto !important;}
+main.App-content:has(table.rankings) .sideNav,main.App-content:has(table.rankings) nav.sideNav{display:none !important;}
+table.rankings{width:100% !important;max-width:100% !important;background:#fff !important;border:1px solid #c9cfd6 !important;border-radius:0 !important;box-shadow:none !important;border-collapse:collapse !important;margin:0 auto !important;}
+table.rankings th{background:linear-gradient(#f0f0f0,#e2e2e2) !important;border-bottom:1px solid #ccc !important;padding:8px 14px !important;color:#333 !important;font-weight:700 !important;font-size:13px !important;text-align:center !important;}
+table.rankings tbody tr{border-bottom:1px solid #eef1f4 !important;background:#fff !important;}
+table.rankings tbody tr:hover{background:#f7f9fb !important;}
+table.rankings td{padding:6px 14px !important;vertical-align:middle !important;text-align:center !important;font-size:13px !important;}
+table.rankings td img{max-width:24px !important;height:auto !important;vertical-align:middle !important;}
+table.rankings td i.icon,table.rankings td .fa,table.rankings td svg{font-size:20px !important;}
+table.rankings .Avatar,table.rankings .info-avatar{width:26px !important;height:26px !important;min-width:26px !important;border-radius:3px !important;font-size:13px !important;line-height:26px !important;display:inline-block !important;vertical-align:middle !important;margin:0 6px 0 0 !important;}
+table.rankings h3.PostUser-name,table.rankings h3.rankings-info,table.rankings .rankings-info{margin:0 !important;font-size:13px !important;font-weight:600 !important;color:#0771a8 !important;display:inline !important;}
+main.App-content:has(table.rankings) button.Button,main.App-content:has(table.rankings) .Button--flat{background:#fff !important;border:1px solid #c9cfd6 !important;color:#0771a8 !important;padding:6px 16px !important;border-radius:2px !important;box-shadow:none !important;font-weight:600 !important;}
+main.App-content:has(table.rankings) button.Button:hover{background:#f2f4f6 !important;}
