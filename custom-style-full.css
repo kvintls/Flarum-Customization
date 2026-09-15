@@ -517,10 +517,9 @@ table.rankings td .PostUser,table.rankings td h3,table.rankings td a,table.ranki
 table.rankings tr:last-child td{border-bottom:none!important}
 .Hero.UserHero{display:none!important}
 .UserPage .container{max-width:1320px!important;width:94%!important;margin:0 auto!important}
-.UserPage .sideNavContainer{background:transparent!important;border:none!important;padding:0!important;margin-top:16px!important}
-.UserPage .UserPage-nav.sideNav,.UserPage .UserPage-content.sideNavOffset{background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;box-shadow:none!important;box-sizing:border-box!important}
-.UserPage .UserPage-nav.sideNav{padding:12px 8px!important;min-height:420px!important}
-.UserPage .UserPage-content.sideNavOffset{padding:16px!important;margin-left:200px!important}
+.UserPage .sideNavContainer{display:flex!important;background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;padding:0!important;box-shadow:none!important;margin-top:16px!important}
+.UserPage .UserPage-nav.sideNav{position:static!important;background:transparent!important;border:none!important;border-right:1px solid #c9cfd6!important;padding:16px 12px!important;flex:0 0 170px!important;box-sizing:border-box!important;min-height:auto!important;box-shadow:none!important;margin:0!important;top:auto!important}
+.UserPage .UserPage-content.sideNavOffset{background:transparent!important;border:none!important;padding:16px!important;margin-left:0!important;flex:1 1 auto!important;min-width:0!important;box-sizing:border-box!important;box-shadow:none!important}
 .UserPage .UserPage-nav.sideNav a.active,.UserPage .UserPage-nav.sideNav a:hover{background:#eef4f8!important;color:#0771a8!important}
 .SettingsPage>ul{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;list-style:none!important;padding:0!important;margin:0!important}
 .SettingsPage>ul>li.item-notifications{grid-column:1/-1!important}
