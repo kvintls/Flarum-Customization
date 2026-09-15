@@ -477,8 +477,20 @@
         }catch(e){}
       }
     } else {
-      // 非详情页(发主题)：不移动DOM(避免SPA问题),但保留kv-inline让样式一致
-      park();
+      // 非详情页(发主题)：移进当前页的内容白卡内(有park保护SPA跳转); 找不到卡片就退回park到.App
+      var card = document.querySelector('.IndexPage-results') || document.querySelector('.CategoriesPage-content') || document.querySelector('.TagsPage .TagTiles');
+      if(card){
+        try{
+          var _f = card.querySelector('#kvin-footer2');
+          if(_f && _f.parentElement === card){
+            if(comp.parentElement !== card || comp.nextElementSibling !== _f) card.insertBefore(comp, _f);
+          } else if(comp.parentElement !== card){
+            card.appendChild(comp);
+          }
+        }catch(e){}
+      } else {
+        park();
+      }
     }
   }, 300);
 })();
@@ -548,7 +560,7 @@
 /* 回复框加「取消」按钮：用 Flarum 原生 API 关闭 composer(不改编辑器内容,安全) */
 (function(){
   setInterval(function(){
-    if(!/^\/d\//.test(location.pathname)) return;
+    // 所有页面(回复/发主题)都注入取消按钮
     var tb = document.querySelector('.App-composer.kv-inline .TextEditor-controls, .App-composer.kv-inline .Composer-footer');
     if(tb && !tb.querySelector('.kv-cancel')){
       var li = document.createElement('li');
