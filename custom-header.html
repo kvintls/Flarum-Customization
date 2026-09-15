@@ -769,6 +769,8 @@
       var gp=w.parentElement;
       if(gp){gp.insertBefore(tbl,w);w.remove();}
     }
-  },400);
+    /* 所有改动都做完 -> 加 kv-ready 类让 CSS 显示表格(切页/初次加载时避免露出原始"排名|用户|👍") */
+    tbl.classList.add('kv-ready');
+  },50);
 })();
 </script>
