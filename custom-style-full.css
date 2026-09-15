@@ -736,3 +736,6 @@ body > .UserCard,
 .App.hasPane .DiscussionPage-stream,.App.hasPane .DiscussionPage-discussion,.App.hasPane .DiscussionPage{margin-left:0 !important;padding-left:0 !important;}
 
 .TagsPage .TagTile-children{padding-left:0 !important;}
+
+.App-composer:not(:has(.Composer)){display:none !important;}
+.App-composer.minimized,.App-composer--minimized,.Composer.minimized{display:none !important;}
