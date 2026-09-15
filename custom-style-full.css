@@ -529,3 +529,7 @@ table.rankings tr:last-child td{border-bottom:none!important}
 .SettingsPage .NotificationGrid,.SettingsPage .NotificationGrid table,.SettingsPage fieldset table{width:100%!important}
 .UserPage .sideNav ul,.UserPage .sideNav ul.affix,.UserPage .sideNav ul.affix-top,.UserPage .sideNav ul.affix-bottom{position:static!important;width:auto!important;top:auto!important}
 .App-composer.kv-inline,.App-composer.kv-inline .container,.App-composer.kv-inline .Composer{border:none!important}
+.DiscussionListItem{border-bottom:1px solid #c9cfd6!important;box-shadow:none!important;transition:none!important}
+.DiscussionListItem:hover,.DiscussionListItem:hover *{background:transparent!important;box-shadow:none!important;color:inherit!important;text-decoration:none!important}
+.DiscussionListItem:hover .DiscussionListItem-title{color:#1f2d3d!important}
+.DiscussionList-discussions{box-shadow:none!important}
