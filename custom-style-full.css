@@ -728,3 +728,6 @@ body > .UserCard,
 .TagsPage .TagTile-lastPostedDiscussion a{color:#8a96a3 !important;}
 
 .TagsPage .TagTile-lastPostedDiscussion .kv-lp-by{color:#8a96a3 !important;}
+
+.Pane,.Pane-content,.DiscussionPage .IndexPage-results,.DiscussionPage .DiscussionList{display:none !important;}
+.App{padding-left:0 !important;}
