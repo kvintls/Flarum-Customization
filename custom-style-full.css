@@ -213,13 +213,7 @@ body, .App{background: #f5f6f8;color: #1f2328;}
 .Header-secondary .kv-logout{list-style: none !important;display: inline-flex !important;align-items: center !important;}
 .Header-secondary .kv-logout::marker{content: none !important;}
 .Header-secondary .kv-logout a{margin-left: 16px !important;font-size: 13px !important;white-space: nowrap !important;}
-.DiscussionList{
-border: 1px solid #aeb8c2 !important;
-background: #fff !important;
-overflow: hidden !important;
-box-shadow: 0 1px 3px rgba(0,0,0,.06) !important;
-border-radius: 2px !important;
-}
+.DiscussionList{border: 1px solid #aeb8c2 !important;background: #fff !important;overflow: hidden !important;box-shadow: 0 1px 3px rgba(0,0,0,.06) !important;border-radius: 2px !important;}
 .kv-dlhead{border: none !important;border-bottom: 1px solid #ccc !important;}
 .DiscussionList-discussions{border: none !important;}
 .DiscussionListItem{border-bottom: 1px solid #e4e8ec !important;background: #fff !important;}
@@ -232,28 +226,9 @@ border-radius: 2px !important;
 .IndexPage .DiscussionListItem-content .DiscussionListItem-count{grid-column: 2 !important;grid-row: 1 !important;justify-self: center !important;}
 .IndexPage .DiscussionListItem-content .item-discussion-views{grid-column: 3 !important;grid-row: 1 !important;justify-self: center !important;}
 .IndexPage .DiscussionListItem-content .item-terminalPost{grid-column: 4 !important;grid-row: 1 !important;justify-self: start !important;}
-.IndexPage-results,.IndexPage-results.sideNavOffset{
-background: #fff !important;
-border: 1px solid #c9cfd6 !important;
-border-radius: 0 !important;
-padding: 16px !important;
-box-shadow: none !important;
-margin: 0 auto !important;
-width: auto !important;
-}
-.IndexPage .DiscussionList{
-border: 1px solid #ccc !important;
-border-radius: 0 !important;
-background: #fff !important;
-overflow: hidden !important;
-box-shadow: none !important;
-}
-.kv-dlhead{
-background: linear-gradient(#f0f0f0,#e2e2e2) !important;
-border-bottom: 1px solid #ccc !important;
-color: #333 !important;
-padding: 8px 14px !important;
-}
+.IndexPage-results,.IndexPage-results.sideNavOffset{background: #fff !important;border: 1px solid #c9cfd6 !important;border-radius: 0 !important;padding: 16px !important;box-shadow: none !important;margin: 0 auto !important;width: auto !important;}
+.IndexPage .DiscussionList{border: 1px solid #ccc !important;border-radius: 0 !important;background: #fff !important;overflow: hidden !important;box-shadow: none !important;}
+.kv-dlhead{background: linear-gradient(#f0f0f0,#e2e2e2) !important;border-bottom: 1px solid #ccc !important;color: #333 !important;padding: 8px 14px !important;}
 .IndexPage .DiscussionList-discussions{border: none !important;}
 .IndexPage .DiscussionListItem-content{padding: 4px 14px !important;}
 .IndexPage .DiscussionListItem{border-bottom: 1px solid #e9edf0 !important;}
@@ -272,17 +247,7 @@ padding: 8px 14px !important;
 .IndexPage .DiscussionList-discussions{border: 1px solid #ccc !important;border-top: none !important;}
 .IndexPage .Pagination{border: none !important;background: transparent !important;}
 .DiscussionListItem-title .kv-by{color: #8a96a3 !important;font-weight: 400 !important;font-size: 12px !important;}
-.IndexPage .DiscussionListItem-title::before{
-content: "";
-display: inline-block;
-width: 11px;
-height: 11px;
-border: 1px solid #c0c8d0;
-background: #f0f3f6;
-border-radius: 1px;
-margin-right: 8px;
-vertical-align: -1px;
-}
+.IndexPage .DiscussionListItem-title::before{content: "";display: inline-block;width: 11px;height: 11px;border: 1px solid #c0c8d0;background: #f0f3f6;border-radius: 1px;margin-right: 8px;vertical-align: -1px;}
 .IndexPage .DiscussionListItem-content{padding: 3px 14px !important;}
 .IndexPage .DiscussionListItem-title,.IndexPage .DiscussionListItem-count,.IndexPage .item-terminalPost,.IndexPage .item-discussion-views{font-size: 13px !important;line-height: 1.3 !important;}
 .IndexPage .container{max-width: 1050px !important;width: 100% !important;margin: 0 auto !important;}
@@ -303,83 +268,41 @@ vertical-align: -1px;
 .IndexPage .DiscussionListItem-content .item-terminalPost{grid-column: 3 !important;justify-self: start !important;}
 .IndexPage .DiscussionListItem-content .item-discussion-views{grid-column: 4 !important;justify-self: center !important;}
 #kvin-footer2{max-width: none !important;width: auto !important;margin: 16px -16px 0 !important;padding: 10px 16px 0 !important;box-sizing: border-box;}
-.kv-dlhead{
-display:flex !important;align-items:center !important;flex-wrap:nowrap !important;
-gap:8px !important;padding:9px 14px !important;
-}
+.kv-dlhead{display:flex !important;align-items:center !important;flex-wrap:nowrap !important;gap:8px !important;padding:9px 14px !important;}
 .kv-dlhead .c1{flex:1 1 auto !important;min-width:0 !important;text-align:left !important;}
 .kv-dlhead .c2{flex:0 0 70px !important;text-align:center !important;}
 .kv-dlhead .c3{flex:0 0 90px !important;text-align:center !important;}
 .kv-dlhead .c4{flex:0 0 240px !important;text-align:left !important;}
-.IndexPage .DiscussionListItem-content{
-display:flex !important;align-items:center !important;flex-wrap:nowrap !important;
-gap:8px !important;padding:4px 14px !important;
-}
-.IndexPage .DiscussionListItem-main{
-display:block !important;flex:1 1 auto !important;min-width:0 !important;order:1 !important;
-}
+.IndexPage .DiscussionListItem-content{display:flex !important;align-items:center !important;flex-wrap:nowrap !important;gap:8px !important;padding:4px 14px !important;}
+.IndexPage .DiscussionListItem-main{display:block !important;flex:1 1 auto !important;min-width:0 !important;order:1 !important;}
 .IndexPage .DiscussionListItem-info{display:block !important;margin:0 !important;}
-.IndexPage .DiscussionListItem-title{
-display:block !important;max-width:100% !important;
-white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;
-}
-.IndexPage .DiscussionListItem-count{
-position:static !important;order:2 !important;flex:0 0 70px !important;
-display:flex !important;align-items:center !important;justify-content:center !important;
-text-align:center !important;margin:0 !important;
-background:none !important;box-shadow:none !important;border-radius:0 !important;
-min-width:0 !important;width:auto !important;height:auto !important;padding:0 !important;
-color:#333 !important;font-weight:700 !important;font-size:14px !important;
-}
-.IndexPage .DiscussionListItem-content .item-discussion-views{
-position:static !important;top:auto !important;right:auto !important;
-order:3 !important;flex:0 0 90px !important;
-display:flex !important;align-items:center !important;justify-content:center !important;
-text-align:center !important;color:#667 !important;
-}
-.IndexPage .DiscussionListItem-content .item-terminalPost{
-order:4 !important;flex:0 0 240px !important;
-display:block !important;text-align:left !important;color:#8a96a3 !important;
-white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;
-}
-.IndexPage .DiscussionListItem-info .item-tags,.IndexPage .DiscussionListItem-info > li:not(.item-discussion-views):not(.item-terminalPost){
-display:none !important;
-}
+.IndexPage .DiscussionListItem-title{display:block !important;max-width:100% !important;white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;}
+.IndexPage .DiscussionListItem-count{position:static !important;order:2 !important;flex:0 0 70px !important;display:flex !important;align-items:center !important;justify-content:center !important;text-align:center !important;margin:0 !important;background:none !important;box-shadow:none !important;border-radius:0 !important;min-width:0 !important;width:auto !important;height:auto !important;padding:0 !important;color:#333 !important;font-weight:700 !important;font-size:14px !important;}
+.IndexPage .DiscussionListItem-content .item-discussion-views{position:static !important;top:auto !important;right:auto !important;order:3 !important;flex:0 0 90px !important;display:flex !important;align-items:center !important;justify-content:center !important;text-align:center !important;color:#667 !important;}
+.IndexPage .DiscussionListItem-content .item-terminalPost{order:4 !important;flex:0 0 240px !important;display:block !important;text-align:left !important;color:#8a96a3 !important;white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;}
+.IndexPage .DiscussionListItem-info .item-tags,.IndexPage .DiscussionListItem-info > li:not(.item-discussion-views):not(.item-terminalPost){display:none !important;}
 .IndexPage .DiscussionListItem-main .DiscussionListItem-info{display:none !important;}
 .IndexPage .DiscussionList{display:flex !important;flex-direction:column !important;}
 .IndexPage .DiscussionList > .Pagination{order:1 !important;justify-content:flex-start !important;}
 .IndexPage .DiscussionList > .kv-dlhead{order:2 !important;}
 .IndexPage .DiscussionList > .DiscussionList-discussions{order:3 !important;}
 .IndexPage .DiscussionList > .DiscussionList-discussions ~ .Pagination{order:4 !important;justify-content:flex-end !important;}
-.IndexPage .DiscussionList > *:not(.Pagination):not(.kv-dlhead):not(.DiscussionList-discussions){
-order:3 !important;
-}
+.IndexPage .DiscussionList > *:not(.Pagination):not(.kv-dlhead):not(.DiscussionList-discussions){order:3 !important;}
 .LoadingIndicator,[class*="LoadingIndicator"],.IndexPage .DiscussionList .LoadingIndicator{display:none !important;}
 .IndexPage .DiscussionList{min-height:140px !important;}
 .IndexPage .container{padding-top:16px !important;}
 #kv-forumbar{margin-top:0 !important;margin-bottom:12px !important;}
 .IndexPage .IndexPage-results{margin-top:6px !important;}
 .PostStream-item{margin:0 0 16px !important;}
-.CommentPost{
-border:1px solid #c9cfd6 !important;background:#fff !important;
-border-radius:0 !important;box-shadow:none !important;
-padding:0 !important;margin:0 !important;
-}
+.CommentPost{border:1px solid #c9cfd6 !important;background:#fff !important;border-radius:0 !important;box-shadow:none !important;padding:0 !important;margin:0 !important;}
 .CommentPost .Post-header{margin:0 !important;padding:0 !important;min-height:0 !important;}
-.CommentPost .Post-header > ul{
-display:flex !important;align-items:center !important;gap:8px !important;flex-wrap:nowrap !important;
-list-style:none !important;margin:0 !important;padding:6px 12px !important;
-background:linear-gradient(#f0f0f0,#e2e2e2) !important;border-bottom:1px solid #ccc !important;
-}
+.CommentPost .Post-header > ul{display:flex !important;align-items:center !important;gap:8px !important;flex-wrap:nowrap !important;list-style:none !important;margin:0 !important;padding:6px 12px !important;background:linear-gradient(#f0f0f0,#e2e2e2) !important;border-bottom:1px solid #ccc !important;}
 .CommentPost .Post-header .item-user{display:flex !important;align-items:center !important;gap:8px !important;margin:0 auto 0 0 !important;}
 .CommentPost .Post-header .item-user .PostUser{display:flex !important;align-items:center !important;gap:8px !important;}
 .CommentPost .Post-header .item-user h3,.CommentPost .Post-header .item-user .PostUser-name{margin:0 !important;font-size:14px !important;font-weight:700 !important;line-height:1.2 !important;display:flex !important;align-items:center !important;gap:8px !important;}
 .CommentPost .PostUser-name a{color:#0771a8 !important;}
 .CommentPost .PostUser-badges{margin:0 !important;}
-.CommentPost .PostUser-avatar,.CommentPost .Post-header .Avatar{
-width:30px !important;height:30px !important;min-width:30px !important;
-border-radius:3px !important;font-size:15px !important;line-height:30px !important;margin:0 !important;
-}
+.CommentPost .PostUser-avatar,.CommentPost .Post-header .Avatar{width:30px !important;height:30px !important;min-width:30px !important;border-radius:3px !important;font-size:15px !important;line-height:30px !important;margin:0 !important;}
 .CommentPost .item-meta{margin:0 !important;}
 .CommentPost .PostMeta{color:#555 !important;font-size:12px !important;}
 .CommentPost .kv-floor{color:#8a96a3 !important;font-size:12px !important;font-weight:700 !important;margin-left:10px !important;white-space:nowrap !important;}
@@ -388,42 +311,24 @@ border-radius:3px !important;font-size:15px !important;line-height:30px !importa
 .DiscussionHero,.Hero.DiscussionHero,.DiscussionPage .Hero,.DiscussionPage [class*="Hero"]{display:none !important;}
 .DiscussionPage-nav{display:none !important;}
 .DiscussionPage-stream,.DiscussionPage-stream.sideNavOffset{margin:0 !important;width:100% !important;max-width:100% !important;}
-.CommentPost .PostUser-avatar,.CommentPost .item-user .Avatar{
-display:inline-flex !important;position:static !important;float:none !important;
-width:26px !important;height:26px !important;min-width:26px !important;
-border-radius:3px !important;margin:0 !important;font-size:13px !important;line-height:26px !important;
-align-items:center !important;justify-content:center !important;
-}
+.CommentPost .PostUser-avatar,.CommentPost .item-user .Avatar{display:inline-flex !important;position:static !important;float:none !important;width:26px !important;height:26px !important;min-width:26px !important;border-radius:3px !important;margin:0 !important;font-size:13px !important;line-height:26px !important;align-items:center !important;justify-content:center !important;}
 .ReplyPlaceholder .Avatar,.PostStream-item.ReplyPlaceholder .Avatar,.ReplyPlaceholder-avatar{display:none !important;}
 .PostStream,.PostStream-item,.CommentPost{width:100% !important;max-width:100% !important;}
 .PostStream-item{margin:0 0 12px !important;}
-.DiscussionPage .container,.DiscussionPage .container.sideNavContainer{
-max-width:1320px !important;width:94% !important;margin:0 auto !important;
-}
-.DiscussionPage-stream,.DiscussionPage-stream.sideNavOffset{
-background:#fff !important;border:1px solid #c9cfd6 !important;border-radius:0 !important;
-padding:16px !important;box-shadow:none !important;
-margin:0 auto !important;width:100% !important;max-width:100% !important;
-}
+.DiscussionPage .container,.DiscussionPage .container.sideNavContainer{max-width:1320px !important;width:94% !important;margin:0 auto !important;}
+.DiscussionPage-stream,.DiscussionPage-stream.sideNavOffset{background:#fff !important;border:1px solid #c9cfd6 !important;border-radius:0 !important;padding:16px !important;box-shadow:none !important;margin:0 auto !important;width:100% !important;max-width:100% !important;}
 .CategoriesPage .container,.IndexPage .container,.DiscussionPage .container{padding-top:16px !important;}
 .DiscussionPage-stream .PostStream-item:last-child{margin-bottom:0 !important;}
 .CommentPost .Post-header > ul{align-items:center !important;}
 .CommentPost .Post-header .item-user{display:flex !important;align-items:center !important;gap:6px !important;margin:0 auto 0 0 !important;}
 .CommentPost .Post-header .item-user .PostUser,.CommentPost .Post-header .item-user .PostUser > *{display:flex !important;align-items:center !important;gap:6px !important;margin:0 !important;}
 .CommentPost .Post-header .PostUser-name{white-space:nowrap !important;}
-.CommentPost .Post-header .PostUser-badges,.CommentPost .Post-header .badges{
-display:inline-flex !important;align-items:center !important;gap:4px !important;
-margin:0 !important;padding:0 !important;position:static !important;float:none !important;
-}
+.CommentPost .Post-header .PostUser-badges,.CommentPost .Post-header .badges{display:inline-flex !important;align-items:center !important;gap:4px !important;margin:0 !important;padding:0 !important;position:static !important;float:none !important;}
 .CommentPost .Post-header .PostUser-badges .Badge,.CommentPost .Post-header .Badge{position:static !important;margin:0 !important;top:auto !important;right:auto !important;}
 .CommentPost .Post-header .item-meta{display:flex !important;align-items:center !important;gap:10px !important;margin:0 !important;}
 .DiscussionPage .container,.DiscussionPage .container.sideNavContainer{max-width:1320px !important;width:94% !important;}
 .DiscussionPage .sideNavContainer,.DiscussionPage-discussion,.DiscussionPage .container{display:block !important;}
-.DiscussionPage-content,.DiscussionPage-stream,.DiscussionPage-stream.sideNavOffset,.DiscussionPage .PostStream{
-max-width:100% !important;width:100% !important;
-margin:0 !important;margin-left:0 !important;margin-right:0 !important;
-float:none !important;grid-column:1 / -1 !important;flex:1 1 100% !important;
-}
+.DiscussionPage-content,.DiscussionPage-stream,.DiscussionPage-stream.sideNavOffset,.DiscussionPage .PostStream{max-width:100% !important;width:100% !important;margin:0 !important;margin-left:0 !important;margin-right:0 !important;float:none !important;grid-column:1 / -1 !important;flex:1 1 100% !important;}
 .CommentPost{min-height:0 !important;}
 .CommentPost .Post-body{min-height:0 !important;}
 .CommentPost{display:flex !important;flex-direction:column !important;}
@@ -434,14 +339,8 @@ float:none !important;grid-column:1 / -1 !important;flex:1 1 100% !important;
 .CommentPost .Post-actions,.CommentPost .Post-footer{padding:6px 14px !important;margin:0 !important;border-bottom:1px solid #eef1f4 !important;}
 .CommentPost .PostUser-badges{display:none !important;}
 .CommentPost .Post-header .PostUser-badges,.CommentPost .Post-header .badges,.CommentPost .Post-header .Badge,.CommentPost .Post-header .Badge--icon,.CommentPost .Post-header [class*="Badge"],.CommentPost .Post-header .fa-wrench,.CommentPost .Post-header .fa-screwdriver-wrench{display:none !important;}
-.App-composer.kv-inline{
-position:static !important;height:auto !important;max-height:none !important;
-min-height:0 !important;width:100% !important;box-shadow:none !important;z-index:auto !important;
-}
-.App-composer.kv-inline .Composer{
-position:static !important;height:auto !important;box-shadow:none !important;
-border:1px solid #c9cfd6 !important;border-radius:0 !important;margin:12px 0 0 !important;
-}
+.App-composer.kv-inline{position:static !important;height:auto !important;max-height:none !important;min-height:0 !important;width:100% !important;box-shadow:none !important;z-index:auto !important;}
+.App-composer.kv-inline .Composer{position:static !important;height:auto !important;box-shadow:none !important;border:1px solid #c9cfd6 !important;border-radius:0 !important;margin:12px 0 0 !important;}
 .App-composer.kv-inline .Composer-handle{display:none !important;}
 .App-composer.kv-inline .item-minimize,.App-composer.kv-inline .item-fullScreen{display:none !important;}
 .App-composer.kv-inline + .composer-backdrop,.composer-backdrop{display:none !important;}
@@ -451,61 +350,32 @@ border:1px solid #c9cfd6 !important;border-radius:0 !important;margin:12px 0 0 !
 .CommentPost .PostUser-name a{display:inline-flex !important;align-items:center !important;}
 .UserCard.Dropdown-menu,.Dropdown-menu.UserCard,[class*="HoverCard"],[class*="hovercard"],.PostUser .Dropdown-menu,.PostUser-card,body > .UserCard,.tooltip .UserCard,.Tooltip .UserCard{display:none !important;}
 .CommentPost .Post-header .UserOnline,.CommentPost .Post-header .PostUser-online,.CommentPost .Post-header [class*="online"],.CommentPost .Post-header [class*="Online"],.CommentPost .Post-header [class*="-status"],.PostUser .UserOnline{display:none !important;}
-.App-composer.kv-inline,.App-composer.kv-inline .Composer,.App-composer.kv-inline .ComposerBody,.App-composer.kv-inline .TextEditor,.App-composer.kv-inline .TextEditor textarea{
-width:100% !important;max-width:100% !important;box-sizing:border-box !important;
-}
+.App-composer.kv-inline,.App-composer.kv-inline .Composer,.App-composer.kv-inline .ComposerBody,.App-composer.kv-inline .TextEditor,.App-composer.kv-inline .TextEditor textarea{width:100% !important;max-width:100% !important;box-sizing:border-box !important;}
 .App-composer.kv-inline{display:block !important;}
 .App-composer.kv-inline .Composer-content{display:block !important;height:auto !important;padding:12px !important;}
 .App-composer.kv-inline .ComposerBody{display:block !important;height:auto !important;min-height:130px !important;}
 .App-composer.kv-inline .TextEditor{min-height:110px !important;}
 .App-composer.kv-inline .TextEditor .TextEditor-editor,.App-composer.kv-inline .TextEditor textarea{min-height:110px !important;height:auto !important;}
-.App-composer.kv-inline .Composer{
-border:1px solid #c9cfd6 !important;border-radius:0 !important;box-shadow:none !important;background:#fff !important;
-}
-.App-composer.kv-inline .Composer-header,.App-composer.kv-inline .ComposerBody-header,.App-composer.kv-inline ul.Composer-header{
-background:linear-gradient(#f0f0f0,#e2e2e2) !important;border-bottom:1px solid #ccc !important;
-padding:8px 12px !important;margin:0 !important;font-size:13px !important;color:#333 !important;
-}
-.App-composer.kv-inline .TextEditor-controls,.App-composer.kv-inline .Composer-footer{
-background:#f7f8fa !important;border-top:1px solid #e3e7ec !important;padding:8px 12px !important;
-}
-.App-composer.kv-inline .Button--primary,.App-composer.kv-inline .Button--submit{
-background:#3f7cac !important;border-color:#35688f !important;border-radius:2px !important;
-}
+.App-composer.kv-inline .Composer{border:1px solid #c9cfd6 !important;border-radius:0 !important;box-shadow:none !important;background:#fff !important;}
+.App-composer.kv-inline .Composer-header,.App-composer.kv-inline .ComposerBody-header,.App-composer.kv-inline ul.Composer-header{background:linear-gradient(#f0f0f0,#e2e2e2) !important;border-bottom:1px solid #ccc !important;padding:8px 12px !important;margin:0 !important;font-size:13px !important;color:#333 !important;}
+.App-composer.kv-inline .TextEditor-controls,.App-composer.kv-inline .Composer-footer{background:#f7f8fa !important;border-top:1px solid #e3e7ec !important;padding:8px 12px !important;}
+.App-composer.kv-inline .Button--primary,.App-composer.kv-inline .Button--submit{background:#3f7cac !important;border-color:#35688f !important;border-radius:2px !important;}
 .CommentPost{display:block !important;min-height:0 !important;padding:0 !important;}
 .CommentPost > div,.CommentPost .Post,.CommentPost .Post-body,.PostStream-item{min-height:0 !important;}
 .CommentPost .Post-body{padding:8px 14px !important;margin:0 !important;}
 .CommentPost .Post-header > ul{padding:5px 12px !important;min-height:0 !important;}
-.CommentPost .Post-footer,.CommentPost .Post-actions{
-margin:0 !important;padding:2px 14px 6px !important;min-height:0 !important;border:none !important;
-display:flex !important;justify-content:flex-end !important;align-items:center !important;
-}
+.CommentPost .Post-footer,.CommentPost .Post-actions{margin:0 !important;padding:2px 14px 6px !important;min-height:0 !important;border:none !important;display:flex !important;justify-content:flex-end !important;align-items:center !important;}
 .App-composer.kv-inline .ComposerBody{display:flex !important;align-items:flex-start !important;padding:12px !important;}
-.App-composer.kv-inline .ComposerBody-avatar,.App-composer.kv-inline .Avatar.ComposerBody-avatar{
-width:34px !important;height:34px !important;min-width:34px !important;
-border-radius:5px !important;margin:2px 10px 0 0 !important;font-size:16px !important;line-height:34px !important;
-}
+.App-composer.kv-inline .ComposerBody-avatar,.App-composer.kv-inline .Avatar.ComposerBody-avatar{width:34px !important;height:34px !important;min-width:34px !important;border-radius:5px !important;margin:2px 10px 0 0 !important;font-size:16px !important;line-height:34px !important;}
 .App-composer.kv-inline .ComposerBody-content{flex:1 1 auto !important;min-width:0 !important;}
-.App-composer.kv-inline .ComposerBody-header{
-background:linear-gradient(#f0f0f0,#e2e2e2) !important;border:1px solid #ccc !important;
-border-radius:3px !important;padding:6px 10px !important;margin:0 0 8px !important;font-size:13px !important;
-}
+.App-composer.kv-inline .ComposerBody-header{background:linear-gradient(#f0f0f0,#e2e2e2) !important;border:1px solid #ccc !important;border-radius:3px !important;padding:6px 10px !important;margin:0 0 8px !important;font-size:13px !important;}
 .App-composer.kv-inline .ComposerBody-editor .TextEditor,.App-composer.kv-inline .TextEditor-editor{min-height:90px !important;}
 .CommentPost .item-votes{display:none !important;}
 .CommentPost .Post-footer{display:none !important;}
-.CommentPost .Post-header .Post-actions{
-margin:0 0 0 16px !important;padding:0 !important;border:none !important;
-position:static !important;display:flex !important;align-items:center !important;min-height:0 !important;
-}
-.CommentPost .Post-header .Post-actions ul{
-display:flex !important;align-items:center !important;gap:14px !important;
-margin:0 !important;padding:0 !important;list-style:none !important;
-}
+.CommentPost .Post-header .Post-actions{margin:0 0 0 16px !important;padding:0 !important;border:none !important;position:static !important;display:flex !important;align-items:center !important;min-height:0 !important;}
+.CommentPost .Post-header .Post-actions ul{display:flex !important;align-items:center !important;gap:14px !important;margin:0 !important;padding:0 !important;list-style:none !important;}
 .CommentPost .Post-header .Post-actions li{margin:0 !important;}
-.CommentPost .Post-header .Post-actions .Button,.CommentPost .Post-header .Post-actions button{
-background:none !important;border:none !important;box-shadow:none !important;
-color:#0771a8 !important;padding:0 !important;height:auto !important;font-size:13px !important;font-weight:400 !important;
-}
+.CommentPost .Post-header .Post-actions .Button,.CommentPost .Post-header .Post-actions button{background:none !important;border:none !important;box-shadow:none !important;color:#0771a8 !important;padding:0 !important;height:auto !important;font-size:13px !important;font-weight:400 !important;}
 .CommentPost .Post-header .Post-actions .Button-label{color:#0771a8 !important;}
 .CommentPost .Post-header .PostUser-avatar{margin-right:8px !important;}
 .CommentPost .Post-header .item-meta,.CommentPost .Post-header .PostMeta{white-space:nowrap !important;}
@@ -517,28 +387,12 @@ color:#0771a8 !important;padding:0 !important;height:auto !important;font-size:1
 .CommentPost{position:relative !important;}
 .CommentPost .Post-header .item-user{margin-right:0 !important;}
 .CommentPost .Post-header > ul{justify-content:flex-start !important;padding-right:150px !important;}
-.CommentPost .Post-actions{
-position:absolute !important;top:6px !important;right:14px !important;
-margin:0 !important;padding:0 !important;border:none !important;z-index:5 !important;
-opacity:1 !important;visibility:visible !important;display:flex !important;align-items:center !important;
-}
-.CommentPost .Post-actions > ul{
-display:flex !important;align-items:center !important;gap:14px !important;
-margin:0 !important;padding:0 !important;list-style:none !important;
-}
-.CommentPost .Post-actions .Button{
-background:none !important;border:none !important;box-shadow:none !important;
-color:#0771a8 !important;padding:0 !important;height:auto !important;font-size:13px !important;font-weight:400 !important;
-}
+.CommentPost .Post-actions{position:absolute !important;top:6px !important;right:14px !important;margin:0 !important;padding:0 !important;border:none !important;z-index:5 !important;opacity:1 !important;visibility:visible !important;display:flex !important;align-items:center !important;}
+.CommentPost .Post-actions > ul{display:flex !important;align-items:center !important;gap:14px !important;margin:0 !important;padding:0 !important;list-style:none !important;}
+.CommentPost .Post-actions .Button{background:none !important;border:none !important;box-shadow:none !important;color:#0771a8 !important;padding:0 !important;height:auto !important;font-size:13px !important;font-weight:400 !important;}
 .CommentPost .Post-actions .Dropdown-menu{right:0 !important;left:auto !important;}
-.App-composer.kv-inline,.DiscussionPage-stream .ReplyPlaceholder{
-border-top:2px dashed #b9c2cc !important;
-border-bottom:2px dashed #b9c2cc !important;
-padding:14px 0 !important;margin:12px 0 !important;
-}
-.App-composer.kv-inline .Composer{
-border:1px solid #c9cfd6 !important;border-radius:0 !important;background:#fff !important;margin:0 !important;
-}
+.App-composer.kv-inline,.DiscussionPage-stream .ReplyPlaceholder{border-top:2px dashed #b9c2cc !important;border-bottom:2px dashed #b9c2cc !important;padding:14px 0 !important;margin:12px 0 !important;}
+.App-composer.kv-inline .Composer{border:1px solid #c9cfd6 !important;border-radius:0 !important;background:#fff !important;margin:0 !important;}
 .DiscussionPage-stream .ReplyPlaceholder{pointer-events:none !important;opacity:.85 !important;}
 .App-composer.kv-inline .Composer{border:1px solid #c9cfd6 !important;border-radius:0 !important;background:#fff !important;width:100% !important;max-width:100% !important;margin:0 !important;box-sizing:border-box !important;}
 .App-composer.kv-inline .Composer-content,.App-composer.kv-inline .ComposerBody,.App-composer.kv-inline .ComposerBody-content,.App-composer.kv-inline .ComposerBody-editor,.App-composer.kv-inline .TextEditor,.App-composer.kv-inline .TextEditor-editorContainer{width:auto !important;max-width:100% !important;margin:0 !important;box-sizing:border-box !important;}
@@ -603,8 +457,6 @@ border:1px solid #c9cfd6 !important;border-radius:0 !important;background:#fff !
 .TagsPage .TagTile-children{padding-left:0 !important;}
 .App-composer:not(:has(.Composer)){display:none !important;}
 .App-composer.minimized,.App-composer--minimized,.Composer.minimized{display:none !important;}
-
-
 main.App-content:has(table.rankings){padding:16px 0 !important;}
 main.App-content:has(table.rankings) .sideNavContainer,main.App-content:has(table.rankings) .container{display:block !important;max-width:1320px !important;width:94% !important;margin:0 auto !important;}
 main.App-content:has(table.rankings) .sideNav,main.App-content:has(table.rankings) nav.sideNav{display:none !important;}
@@ -619,8 +471,6 @@ table.rankings .Avatar,table.rankings .info-avatar{width:26px !important;height:
 table.rankings h3.PostUser-name,table.rankings h3.rankings-info,table.rankings .rankings-info{margin:0 !important;font-size:13px !important;font-weight:600 !important;color:#0771a8 !important;display:inline !important;}
 main.App-content:has(table.rankings) button.Button,main.App-content:has(table.rankings) .Button--flat{background:#fff !important;border:1px solid #c9cfd6 !important;color:#0771a8 !important;padding:6px 16px !important;border-radius:2px !important;box-shadow:none !important;font-weight:600 !important;}
 main.App-content:has(table.rankings) button.Button:hover{background:#f2f4f6 !important;}
-
-
 table.rankings td img{display:none !important;}
 table.rankings .Avatar,table.rankings .info-avatar{display:none !important;}
 table.rankings td.rankings-1,table.rankings td.rankings-2,table.rankings td.rankings-3,table.rankings td.rankings-mobile{color:#333 !important;font-size:13px !important;font-weight:400 !important;}
@@ -631,42 +481,31 @@ table.rankings td h3{vertical-align:middle !important;line-height:1.2 !important
 main.App-content:has(table.rankings) hr{display:none !important;}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)){display:none !important;}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)) *{display:none !important;}
-
-/* 贡献榜首列: 隐藏奖杯图标(<i class="fa-trophy">)和数字(4,5,6...), 通过 ::before 注入赞赏词
-   —— 根因: fof/gamification 的 RankingsPage 里 <table> 下直接就是 <tr>, 没显式 <thead>/<tbody>;
-      Mithril 用 createElement+appendChild 建 DOM, 浏览器不会自动补 <tbody>(只有 innerHTML 才补).
-      所以带 tbody 前缀的选择器全部落空. 去掉 tbody 直接选 tr 就 match 得上.
-   —— 另: 表头那个 <tr> 是 nth-child(1)(里面是 <th> 不是 <td>, 我们选择器自然跳过),
-      数据行第 1 名从 nth-child(2) 起. */
-table.rankings tr td:first-child{font-size:0 !important;line-height:0 !important;color:transparent !important;text-align:center !important;}
-table.rankings tr td:first-child *{display:none !important;}
-table.rankings tr td:first-child::before{content:"贡献者";display:inline-block !important;font-size:13px !important;line-height:1.5 !important;color:#333 !important;font-weight:400 !important;}
-table.rankings tr:nth-child(2) td:first-child::before{content:"论坛之光";}
-table.rankings tr:nth-child(3) td:first-child::before{content:"贡献先锋";}
-table.rankings tr:nth-child(4) td:first-child::before{content:"铁杆达人";}
-table.rankings tr:nth-child(5) td:first-child::before{content:"妙笔生花";}
-table.rankings tr:nth-child(6) td:first-child::before{content:"热心助人";}
-table.rankings tr:nth-child(7) td:first-child::before{content:"分享之星";}
-table.rankings tr:nth-child(8) td:first-child::before{content:"论坛红人";}
-table.rankings tr:nth-child(9) td:first-child::before{content:"智慧之源";}
-table.rankings tr:nth-child(10) td:first-child::before{content:"众望所归";}
-table.rankings tr:nth-child(11) td:first-child::before{content:"出类拔萃";}
-table.rankings tr:nth-child(12) td:first-child::before{content:"论坛栋梁";}
-table.rankings tr:nth-child(13) td:first-child::before{content:"活跃达人";}
-table.rankings tr:nth-child(14) td:first-child::before{content:"大有可为";}
-table.rankings tr:nth-child(15) td:first-child::before{content:"有口皆碑";}
-table.rankings tr:nth-child(16) td:first-child::before{content:"人气之星";}
-table.rankings tr:nth-child(17) td:first-child::before{content:"人气之王";}
-table.rankings tr:nth-child(18) td:first-child::before{content:"贡献之王";}
-table.rankings tr:nth-child(19) td:first-child::before{content:"广受赞誉";}
-table.rankings tr:nth-child(20) td:first-child::before{content:"敬佩之星";}
-table.rankings tr:nth-child(21) td:first-child::before{content:"实力担当";}
-
-/* 表格窄化居中(去掉大片空白) + 加载更多改成与"用户/贡献认同"同款的表头纯文字(压在灰 th 行右侧作为第4列) */
+.rankings tr td:first-child{font-size:0 !important;line-height:0 !important;color:transparent !important;text-align:center !important;}
+.rankings tr td:first-child *{display:none !important;}
+.rankings tr td:first-child::before{content:"贡献者";display:inline-block !important;font-size:13px !important;line-height:1.5 !important;color:#333 !important;font-weight:400 !important;}
+.rankings tr:nth-child(2) td:first-child::before{content:"论坛之光"}
+.rankings tr:nth-child(3) td:first-child::before{content:"贡献先锋"}
+.rankings tr:nth-child(4) td:first-child::before{content:"铁杆达人"}
+.rankings tr:nth-child(5) td:first-child::before{content:"妙笔生花"}
+.rankings tr:nth-child(6) td:first-child::before{content:"热心助人"}
+.rankings tr:nth-child(7) td:first-child::before{content:"分享之星"}
+.rankings tr:nth-child(8) td:first-child::before{content:"论坛红人"}
+.rankings tr:nth-child(9) td:first-child::before{content:"智慧之源"}
+.rankings tr:nth-child(10) td:first-child::before{content:"众望所归"}
+.rankings tr:nth-child(11) td:first-child::before{content:"出类拔萃"}
+.rankings tr:nth-child(12) td:first-child::before{content:"论坛栋梁"}
+.rankings tr:nth-child(13) td:first-child::before{content:"活跃达人"}
+.rankings tr:nth-child(14) td:first-child::before{content:"大有可为"}
+.rankings tr:nth-child(15) td:first-child::before{content:"有口皆碑"}
+.rankings tr:nth-child(16) td:first-child::before{content:"人气之星"}
+.rankings tr:nth-child(17) td:first-child::before{content:"人气之王"}
+.rankings tr:nth-child(18) td:first-child::before{content:"贡献之王"}
+.rankings tr:nth-child(19) td:first-child::before{content:"广受赞誉"}
+.rankings tr:nth-child(20) td:first-child::before{content:"敬佩之星"}
+.rankings tr:nth-child(21) td:first-child::before{content:"实力担当"}
 table.rankings{max-width:720px !important;margin:0 auto !important;}
 .kv-rank-wrap{position:relative !important;max-width:720px !important;margin:0 auto !important;}
 .kv-rank-wrap>button.kv-loadmore{position:absolute !important;top:0 !important;right:0 !important;z-index:5 !important;margin:0 !important;padding:8px 14px !important;background:transparent !important;border:none !important;box-shadow:none !important;color:#333 !important;font-size:13px !important;font-weight:700 !important;line-height:1.5 !important;height:auto !important;text-align:center !important;cursor:pointer !important;}
 .kv-rank-wrap>button.kv-loadmore:hover{color:#0771a8 !important;text-decoration:underline !important;background:transparent !important;}
-
-/* 去掉 kv-inline 编辑框留下的 2 条虚线(首页/列表页/贡献榜页残留时都能盖掉之前几处 border:2px dashed) */
 .App-composer.kv-inline,.App-composer.kv-inline .container,.App-composer.kv-inline .Composer{border:none !important;}
