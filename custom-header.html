@@ -669,6 +669,26 @@
 
 
 <script>
+/* 贡献榜访问权限: 只有登录用户能看; 未登录用户 —— 导航链接隐藏 + 直接访问 /rankings 跳回首页 */
+(function(){
+  function loggedIn(){try{return !!(window.app&&app.session&&app.session.user);}catch(e){return false;}}
+  function apply(){
+    var isIn=loggedIn();
+    document.querySelectorAll('a[href="/rankings"]').forEach(function(a){
+      var li=a.closest('li')||a;
+      li.style.display=isIn?'':'none';
+    });
+    if(!isIn&&location.pathname==='/rankings'){
+      try{if(window.app&&app.route&&app.route.set){app.route.set('/');}else{location.replace('/');}}catch(e){location.replace('/');}
+    }
+  }
+  document.addEventListener('DOMContentLoaded',apply);
+  setInterval(apply,400);
+})();
+</script>
+
+
+<script>
 /* 贡献榜: 表头 = 贡献榜/用户/贡献认同/加载更多 4列, 第4列用 rowspan 撑满整表 = 加载更多垂直居中
    —— 原生底部按钮容器 .rankings-loadmore 由 CSS 隐藏 (Mithril 碰不到CSS, 就不会在点击后闪现) */
 (function(){
