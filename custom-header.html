@@ -452,6 +452,9 @@
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
     if(!comp) return;
+    // 没有正在编辑的 .Composer 时,行内强制隐藏(比 :has() 可靠,消除过渡态露出的小块)
+    if(!comp.querySelector('.Composer')){ comp.style.setProperty('display','none','important'); }
+    else { comp.style.removeProperty('display'); }
     // 从帖子详情页离开(如点浏览器返回) → 关掉回复框,别让它浮在列表页上
     if(/^\/d\//.test(kvPrevPath) && !/^\/d\//.test(location.pathname)){
       try{ if(window.app && app.composer && typeof app.composer.hide === 'function') app.composer.hide(); }catch(e){}
