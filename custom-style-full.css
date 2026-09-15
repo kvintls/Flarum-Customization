@@ -516,19 +516,20 @@ table.rankings td{padding:2px 14px!important;border-bottom:1px solid #e0e4ea!imp
 table.rankings td .PostUser,table.rankings td h3,table.rankings td a,table.rankings td div,table.rankings td span{margin:0!important;padding:0!important;line-height:1.3!important;min-height:0!important}
 table.rankings tr:last-child td{border-bottom:none!important}
 .UserCard--hero,.UserCard.UserCard--hero{background:linear-gradient(#f0f0f0,#e2e2e2)!important;background-image:none!important;color:#333!important;border-bottom:1px solid #ccc!important;min-height:0!important;padding:8px 0!important;box-shadow:none!important}
-.UserCard--hero .darkenBackground{background:transparent!important;padding:0!important;min-height:0!important}
-.UserCard--hero .UserCard-profile{padding:0!important;min-height:0!important}
+.UserCard--hero .darkenBackground,.UserCard--hero .UserCard-profile{padding:0!important;min-height:0!important}
+.UserCard--hero .darkenBackground{background:transparent!important}
 .UserCard--hero *{color:#333!important;text-shadow:none!important}
-.UserCard--hero .username,.UserCard--hero h2.UserCard-identity,.UserCard--hero .UserCard-name,.UserCard--hero h1,.UserCard--hero h2{color:#0771a8!important;font-size:15px!important;font-weight:700!important;margin:0!important;text-shadow:none!important}
-.UserCard--hero .Avatar,.UserCard--hero .UserCard-info .Avatar{width:36px!important;height:36px!important;min-width:36px!important;font-size:16px!important;line-height:36px!important;border-radius:3px!important;border:1px solid #c9cfd6!important;box-shadow:none!important;text-shadow:none!important}
+.UserCard--hero .username,.UserCard--hero h1,.UserCard--hero h2,.UserCard--hero .UserCard-name{color:#0771a8!important;font-size:15px!important;font-weight:700!important;margin:0!important}
+.UserCard--hero .Avatar{width:36px!important;height:36px!important;min-width:36px!important;font-size:16px!important;line-height:36px!important;border-radius:3px!important;border:1px solid #c9cfd6!important;box-shadow:none!important}
 .UserPage .container{max-width:1320px!important;width:94%!important;margin:0 auto!important}
-.UserPage .sideNavContainer{background:transparent!important;border:none!important;padding:0!important;box-shadow:none!important;margin-top:16px!important}
-.UserPage .UserPage-nav.sideNav{background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;padding:12px 8px!important;box-shadow:none!important;min-height:420px!important;box-sizing:border-box!important}
-.UserPage .UserPage-content.sideNavOffset{background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;padding:16px!important;box-shadow:none!important;box-sizing:border-box!important;margin-left:200px!important}
-.UserPage .UserPage-nav.sideNav a.active,.UserPage .UserPage-nav.sideNav a:hover{background:#eef4f8!important;color:#0771a8!important;border-radius:0!important}
+.UserPage .sideNavContainer{background:transparent!important;border:none!important;padding:0!important;margin-top:16px!important}
+.UserPage .UserPage-nav.sideNav,.UserPage .UserPage-content.sideNavOffset{background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;box-shadow:none!important;box-sizing:border-box!important}
+.UserPage .UserPage-nav.sideNav{padding:12px 8px!important;min-height:420px!important}
+.UserPage .UserPage-content.sideNavOffset{padding:16px!important;margin-left:200px!important}
+.UserPage .UserPage-nav.sideNav a.active,.UserPage .UserPage-nav.sideNav a:hover{background:#eef4f8!important;color:#0771a8!important}
 .SettingsPage>ul{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;list-style:none!important;padding:0!important;margin:0!important}
-.SettingsPage>ul>li{margin:0!important;padding:0!important}
 .SettingsPage>ul>li.item-notifications{grid-column:1/-1!important}
 .SettingsPage fieldset{border:1px solid #c9cfd6!important;padding:10px 14px 12px!important;background:#fff!important;border-radius:0!important;margin:0!important}
+.SettingsPage fieldset>legend{font-weight:700!important;font-size:14px!important;padding:0 6px!important}
 .SettingsPage fieldset>legend{font-weight:700!important;color:#333!important;padding:0 6px!important;font-size:14px!important}
 .App-composer.kv-inline,.App-composer.kv-inline .container,.App-composer.kv-inline .Composer{border:none!important}
