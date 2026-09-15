@@ -624,18 +624,40 @@ main.App-content:has(table.rankings) button.Button:hover{background:#f2f4f6 !imp
 table.rankings td img{display:none !important;}
 table.rankings .Avatar,table.rankings .info-avatar{display:none !important;}
 table.rankings td.rankings-1,table.rankings td.rankings-2,table.rankings td.rankings-3,table.rankings td.rankings-mobile{color:#333 !important;font-size:13px !important;font-weight:400 !important;}
-table.rankings tr.ranking-1 td:first-child::before{content:"1";}
-table.rankings tr.ranking-2 td:first-child::before{content:"2";}
-table.rankings tr.ranking-3 td:first-child::before{content:"3";}
-table.rankings{max-width:520px !important;}
+table.rankings{max-width:100% !important;}
 table.rankings td{padding:5px 14px !important;font-size:13px !important;line-height:1.5 !important;}
 table.rankings th{font-size:13px !important;padding:6px 14px !important;}
-
-
-table.rankings{max-width:100% !important;}
-table.rankings tr td:first-child::before{content:none !important;}
 table.rankings td h3{vertical-align:middle !important;line-height:1.2 !important;}
 main.App-content:has(table.rankings) hr{display:none !important;}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)){display:none !important;}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)) *{display:none !important;}
-button.kv-loadmore{float:right !important;margin:0 0 10px !important;}
+
+/* 贡献榜首列: 用 CSS 彻底隐藏奖杯图标/数字(4,5,6...), 并用 ::before 注入赞赏词
+   —— 走 CSS 是为绕开 Mithril 反复重绘会把 textContent 覆盖回来的坑 */
+table.rankings tbody tr>td:first-child{font-size:0 !important;line-height:0 !important;color:transparent !important;text-align:center !important;}
+table.rankings tbody tr>td:first-child>*{display:none !important;}
+table.rankings tbody tr>td:first-child::before{content:"贡献者";display:inline-block !important;font-size:13px !important;line-height:1.5 !important;color:#333 !important;font-weight:400 !important;}
+table.rankings tbody tr:nth-child(1)>td:first-child::before{content:"论坛之光";}
+table.rankings tbody tr:nth-child(2)>td:first-child::before{content:"贡献先锋";}
+table.rankings tbody tr:nth-child(3)>td:first-child::before{content:"铁杆达人";}
+table.rankings tbody tr:nth-child(4)>td:first-child::before{content:"妙笔生花";}
+table.rankings tbody tr:nth-child(5)>td:first-child::before{content:"热心助人";}
+table.rankings tbody tr:nth-child(6)>td:first-child::before{content:"分享之星";}
+table.rankings tbody tr:nth-child(7)>td:first-child::before{content:"论坛红人";}
+table.rankings tbody tr:nth-child(8)>td:first-child::before{content:"智慧之源";}
+table.rankings tbody tr:nth-child(9)>td:first-child::before{content:"众望所归";}
+table.rankings tbody tr:nth-child(10)>td:first-child::before{content:"出类拔萃";}
+table.rankings tbody tr:nth-child(11)>td:first-child::before{content:"论坛栋梁";}
+table.rankings tbody tr:nth-child(12)>td:first-child::before{content:"活跃达人";}
+table.rankings tbody tr:nth-child(13)>td:first-child::before{content:"大有可为";}
+table.rankings tbody tr:nth-child(14)>td:first-child::before{content:"有口皆碑";}
+table.rankings tbody tr:nth-child(15)>td:first-child::before{content:"人气之星";}
+table.rankings tbody tr:nth-child(16)>td:first-child::before{content:"人气之王";}
+table.rankings tbody tr:nth-child(17)>td:first-child::before{content:"贡献之王";}
+table.rankings tbody tr:nth-child(18)>td:first-child::before{content:"广受赞誉";}
+table.rankings tbody tr:nth-child(19)>td:first-child::before{content:"敬佩之星";}
+table.rankings tbody tr:nth-child(20)>td:first-child::before{content:"实力担当";}
+
+/* 加载更多按钮: 放进灰色表头右上角(与3列同一行, 视觉上4项一排) */
+.kv-rank-wrap{position:relative !important;}
+.kv-rank-wrap>button.kv-loadmore{position:absolute !important;top:3px !important;right:8px !important;z-index:5 !important;margin:0 !important;padding:2px 14px !important;font-size:12px !important;line-height:1.6 !important;height:auto !important;}
