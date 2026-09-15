@@ -526,7 +526,5 @@ table.rankings tr:last-child td{border-bottom:none!important}
 .UserPage .UserPage-nav.sideNav{background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;padding:12px 8px!important;box-shadow:none!important;min-height:420px!important;box-sizing:border-box!important}
 .UserPage .UserPage-content.sideNavOffset{background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;padding:16px!important;box-shadow:none!important;box-sizing:border-box!important;margin-left:200px!important}
 .UserPage .UserPage-nav.sideNav a.active,.UserPage .UserPage-nav.sideNav a:hover{background:#eef4f8!important;color:#0771a8!important;border-radius:0!important}
-.UserPage.NotificationsPage .UserPage-content,.UserPage.SettingsPage .UserPage-content{display:grid!important;grid-template-columns:1fr 1fr!important;gap:16px!important;align-items:start!important}
-.UserPage.NotificationsPage .UserPage-content>table,.UserPage.NotificationsPage .UserPage-content>.NotificationGrid,.UserPage.SettingsPage .UserPage-content>table{grid-column:1/-1!important}
-.UserPage.NotificationsPage .UserPage-content>*,.UserPage.SettingsPage .UserPage-content>*{border:1px solid #d5d9df!important;background:#fff!important;padding:12px!important;border-radius:0!important;margin:0!important;min-width:0!important}
+.UserPage-content:has(table) .Form-group{border:1px solid #d5d9df!important;padding:10px!important;margin:8px 0!important;background:#fff!important;border-radius:0!important}
 .App-composer.kv-inline,.App-composer.kv-inline .container,.App-composer.kv-inline .Composer{border:none!important}
