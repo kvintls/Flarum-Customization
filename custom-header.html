@@ -618,3 +618,30 @@
   }, true);
 })();
 </script>
+
+
+
+<script>
+/* 板块页最后发帖：补上「由 用户名」(从 Flarum store 里取该讨论的最后发帖人/发起人) */
+(function(){
+  setInterval(function(){
+    if(typeof app === 'undefined' || !app.store) return;
+    document.querySelectorAll('.TagsPage .TagTile-lastPostedDiscussion').forEach(function(lp){
+      if(lp.querySelector('.kv-lp-by')) return;
+      var href = lp.getAttribute('href') || '';
+      var m = href.match(/\/d\/(\d+)/);
+      if(!m) return;
+      var disc = app.store.getById('discussions', m[1]);
+      if(!disc) return;
+      var u = null;
+      try{ u = (disc.lastPostedUser && disc.lastPostedUser()) || (disc.user && disc.user()); }catch(e){}
+      if(u && u.username){
+        var by = document.createElement('span');
+        by.className = 'kv-lp-by';
+        by.textContent = ' 由 ' + u.username();
+        lp.appendChild(by);
+      }
+    });
+  }, 600);
+})();
+</script>
