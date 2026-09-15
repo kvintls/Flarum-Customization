@@ -619,3 +619,14 @@ table.rankings .Avatar,table.rankings .info-avatar{width:26px !important;height:
 table.rankings h3.PostUser-name,table.rankings h3.rankings-info,table.rankings .rankings-info{margin:0 !important;font-size:13px !important;font-weight:600 !important;color:#0771a8 !important;display:inline !important;}
 main.App-content:has(table.rankings) button.Button,main.App-content:has(table.rankings) .Button--flat{background:#fff !important;border:1px solid #c9cfd6 !important;color:#0771a8 !important;padding:6px 16px !important;border-radius:2px !important;box-shadow:none !important;font-weight:600 !important;}
 main.App-content:has(table.rankings) button.Button:hover{background:#f2f4f6 !important;}
+
+
+table.rankings td img{display:none !important;}
+table.rankings .Avatar,table.rankings .info-avatar{display:none !important;}
+table.rankings td.rankings-1,table.rankings td.rankings-2,table.rankings td.rankings-3,table.rankings td.rankings-mobile{color:#333 !important;font-size:13px !important;font-weight:400 !important;}
+table.rankings tr.ranking-1 td:first-child::before{content:"1";}
+table.rankings tr.ranking-2 td:first-child::before{content:"2";}
+table.rankings tr.ranking-3 td:first-child::before{content:"3";}
+table.rankings{max-width:520px !important;}
+table.rankings td{padding:5px 14px !important;font-size:13px !important;line-height:1.5 !important;}
+table.rankings th{font-size:13px !important;padding:6px 14px !important;}
