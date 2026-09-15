@@ -481,9 +481,10 @@ table.rankings td h3{vertical-align:middle!important;line-height:1.2!important}
 main.App-content:has(table.rankings) hr{display:none!important}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)){display:none!important}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)) *{display:none!important}
-.rankings tr td:first-child{font-size:0!important;line-height:0!important;color:transparent!important;text-align:center!important}
+.rankings tr td:first-child{font-size:0!important;color:transparent!important;text-align:center!important}
 .rankings tr td:first-child *{display:none!important}
-.rankings tr td:first-child::before{content:"贡献者";display:inline-block!important;font-size:13px!important;line-height:1.5!important;color:#333!important;font-weight:400!important}
+.rankings tr td:first-child::before{content:"贡献者";display:inline!important;font-size:13px!important;color:#333!important;font-weight:400!important;vertical-align:middle!important}
+.rankings tr td{vertical-align:middle!important}
 .rankings tr:nth-child(2) td:first-child::before{content:"论坛之光"}
 .rankings tr:nth-child(3) td:first-child::before{content:"贡献先锋"}
 .rankings tr:nth-child(4) td:first-child::before{content:"铁杆达人"}
