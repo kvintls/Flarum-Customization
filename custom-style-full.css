@@ -510,6 +510,6 @@ table.rankings th,table.rankings td{width:25%!important}
 .kv-loadmore-th{cursor:pointer!important;vertical-align:middle!important;border-left:1px solid #ccc!important}
 .kv-loadmore-th:hover{background:linear-gradient(#eaeaea,#dcdcdc)!important;color:#0771a8!important}
 .rankings-loadmore{display:none!important}
-table.rankings td{padding:10px 14px!important;border-bottom:1px solid #e0e4ea!important}
+table.rankings td{padding:4px 14px!important;border-bottom:1px solid #e0e4ea!important;line-height:1.4!important}
 table.rankings tr:last-child td{border-bottom:none!important}
 .App-composer.kv-inline,.App-composer.kv-inline .container,.App-composer.kv-inline .Composer{border:none!important}
