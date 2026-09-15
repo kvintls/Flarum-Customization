@@ -598,7 +598,8 @@ border:1px solid #c9cfd6 !important;border-radius:0 !important;background:#fff !
 .Pane,.Pane-content,.DiscussionPage .IndexPage-results,.DiscussionPage .DiscussionList{display:none !important;}
 .App{padding-left:0 !important;}
 .DiscussionPage-list{display:none !important;}
-.App.hasPane .DiscussionPage-stream,.App.hasPane .DiscussionPage-discussion,.App.hasPane .DiscussionPage{margin-left:0 !important;padding-left:0 !important;}
+.App.hasPane .DiscussionPage-discussion,.App.hasPane .DiscussionPage{margin-left:0 !important;}
+.App.hasPane .DiscussionPage-stream{margin-left:0 !important;}
 .TagsPage .TagTile-children{padding-left:0 !important;}
 .App-composer:not(:has(.Composer)){display:none !important;}
 .App-composer.minimized,.App-composer--minimized,.Composer.minimized{display:none !important;}
