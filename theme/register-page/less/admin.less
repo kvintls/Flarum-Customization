@@ -1,38 +1,20 @@
-/*
- * Flarum 后台管理面板: WordPress 风顶栏 + FluxBB 前端首页风格白卡
- *
- * 布局:
- * ┌─────────────────────────────────────────────────┐
- * │ Flarum Logo               kvin_777 · 退出 · 网站  │  App-header
- * ├─────────────────────────────────────────────────┤
- * │ 仪表盘 常规 邮箱 权限 外观 用户                    │  AdminNav 顶部横栏(核心)
- * ├─────────────────────────────────────────────────┤
- * │ Approval BBCode Emoji Flags Follow-Tags ...      │  AdminNav 第二行(功能插件)
- * ├─────────────────────────────────────────────────┤
- * │                                                   │
- * │  内容(FluxBB 白卡: 表单块 / 扩展页 / 仪表盘等)      │
- * │                                                   │
- * └─────────────────────────────────────────────────┘
- *
- * 关键: Flarum Appearance 里的 Custom Styles 只会编译进 forum, 不进 admin。
- *      要改后台样式必须走扩展 Extend\Frontend('admin')->css(...) 这条路(见 extend.php)。
- */
+/* Flarum admin panel FluxBB style */
+/* IMPORTANT: keep this file plain CSS. less.php in Flarum 1.x can silently drop the whole file if it hits box-drawing chars or unusual LESS syntax. */
 
-/* ─── 整体页面 ─── */
+/* --- Overall background --- */
 .App--admin {
     background: #f5f6f8 !important;
 }
 
-/* ─── 顶部 App-header (Logo + 用户菜单) ─── */
+/* --- Top header bar (logo + user controls) --- */
 .App--admin .App-header {
-    background: #23282d !important;      /* WordPress 深灰黑 */
+    background: #23282d !important;
     border-bottom: 1px solid #191c1f !important;
     box-shadow: none !important;
     color: #eee !important;
 }
 .App--admin .App-header a,
-.App--admin .App-header .Button,
-.App--admin .App-header .Header-controls > li > a {
+.App--admin .App-header .Button {
     color: #eee !important;
 }
 .App--admin .App-header a:hover,
@@ -45,207 +27,44 @@
     color: #fff !important;
 }
 
-/* ─── AdminNav 从左栏变顶部横条 ─── */
-
-/* 桌面端: 把 .App-nav (侧栏) 拉到顶部, 全宽横条 */
-@media (min-width: 768px) {
-    .App--admin .App-nav {
-        position: static !important;
-        top: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important;
-        overflow-y: visible !important;
-        overflow-x: auto !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        background: #2c3338 !important;   /* 比 App-header 稍浅一点 */
-        border-bottom: 1px solid #191c1f !important;
-        box-shadow: none !important;
-        z-index: 10 !important;
-    }
-
-    .App--admin .AdminNav.App-titleControl {
-        display: block !important;
-        width: 100% !important;
-        max-width: 1320px !important;
-        margin: 0 auto !important;
-        padding: 0 !important;
-        background: transparent !important;
-    }
-
-    /* AdminNav 内部的 SelectDropdown 顶层按钮(移动端才用的选择器)隐藏 */
-    .App--admin .AdminNav > .Dropdown-toggle {
-        display: none !important;
-    }
-
-    /* Dropdown-menu (ul) 变横向 flex, 允许换行(核心和扩展换行分开) */
-    .App--admin .AdminNav .Dropdown-menu {
-        position: static !important;
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        align-items: stretch !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        background: transparent !important;
-        border: none !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        min-width: 0 !important;
-        width: 100% !important;
-        max-height: none !important;
-        overflow: visible !important;
-    }
-
-    /* 分类标题 <h4 class="ExtensionListTitle"> 作为换行断点(核心和扩展分开) */
-    .App--admin .AdminNav .Dropdown-menu > h4.ExtensionListTitle {
-        flex-basis: 100% !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 4px 20px 2px !important;
-        text-transform: uppercase !important;
-        font-size: 11px !important;
-        color: #a0a5aa !important;
-        background: #23282d !important;
-        border-top: 1px solid #191c1f !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.5px !important;
-    }
-
-    /* 每个 tab <li> 横向排列 */
-    .App--admin .AdminNav .Dropdown-menu > li {
-        display: flex !important;
-        align-items: stretch !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        list-style: none !important;
-        flex: 0 0 auto !important;
-    }
-
-    /* tab 的 <a> 或 <button> 样式 */
-    .App--admin .AdminNav .Dropdown-menu > li > a,
-    .App--admin .AdminNav .Dropdown-menu > li > .Button,
-    .App--admin .AdminNav .Dropdown-menu > li > .LinkButton {
-        display: flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-        padding: 10px 16px !important;
-        height: auto !important;
-        min-height: 42px !important;
-        color: #ddd !important;
-        text-decoration: none !important;
-        background: transparent !important;
-        border: none !important;
-        border-radius: 0 !important;
-        font-size: 13px !important;
-        font-weight: 400 !important;
-        white-space: nowrap !important;
-        box-shadow: none !important;
-    }
-
-    .App--admin .AdminNav .Dropdown-menu > li > a:hover,
-    .App--admin .AdminNav .Dropdown-menu > li > .Button:hover,
-    .App--admin .AdminNav .Dropdown-menu > li > .LinkButton:hover {
-        background: #32373c !important;
-        color: #fff !important;
-    }
-
-    /* 激活的 tab 高亮 */
-    .App--admin .AdminNav .Dropdown-menu > li.active > a,
-    .App--admin .AdminNav .Dropdown-menu > li.active > .Button,
-    .App--admin .AdminNav .Dropdown-menu > li.active > .LinkButton {
-        background: #0771a8 !important;
-        color: #fff !important;
-        font-weight: 700 !important;
-    }
-
-    /* tab 内 icon */
-    .App--admin .AdminNav .Dropdown-menu > li .Button-icon {
-        margin: 0 !important;
-        float: none !important;
-        font-size: 13px !important;
-    }
-
-    .App--admin .AdminNav .Dropdown-menu > li .Button-label {
-        padding: 0 !important;
-        margin: 0 !important;
-        font-size: 13px !important;
-    }
-
-    /* 搜索输入框、描述 - 顶栏不显示 */
-    .App--admin .AdminNav .Dropdown-menu > li.item-search,
-    .App--admin .AdminNav .AdminLinkButton-description {
-        display: none !important;
-    }
-
-    /* 扩展项启用/禁用指示点位置调整(不再是绝对定位到右边) */
-    .App--admin .AdminNav .Dropdown-menu > li .ExtensionListItem-Dot {
-        position: static !important;
-        margin: 0 4px !important;
-        transform: none !important;
-    }
-
-    /* ─── 移除 sideNavOffset 的 margin-left, 内容全宽 ─── */
-    .App--admin .App-content .sideNavOffset,
-    .App--admin .App-content > .sideNavOffset,
-    .App--admin .sideNavOffset {
-        margin-left: 0 !important;
-    }
-}
-
-/* ─── 主内容区: FluxBB 白卡风格 ─── */
-.App--admin .App-content {
-    padding: 20px 0 !important;
-}
-
-.App--admin .App-content .container {
-    max-width: 1320px !important;
-    width: 94% !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-}
-
-/* AdminHeader (页面顶部 hero) - FluxBB 灰色渐变 */
-.AdminHeader {
-    background: linear-gradient(#f0f0f0, #e2e2e2) !important;
-    border: 1px solid #c9cfd6 !important;
-    border-radius: 0 !important;
-    color: #333 !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    max-width: 1320px !important;
-    width: 94% !important;
-    margin: 0 auto 16px !important;
-}
-.AdminHeader .container {
-    max-width: none !important;
-    width: 100% !important;
-    padding: 14px 20px !important;
-    margin: 0 !important;
-}
-.AdminHeader h2 {
-    color: #333 !important;
+/* --- AdminNav side panel default styling --- */
+.App--admin .AdminNav .Dropdown-menu > h4.ExtensionListTitle {
+    text-transform: uppercase;
+    font-size: 11px !important;
+    color: #a0a5aa !important;
+    background: #f0f0f0 !important;
+    border-top: 1px solid #ccc !important;
+    padding: 6px 16px !important;
     font-weight: 700 !important;
-    font-size: 16px !important;
+    letter-spacing: 0.5px !important;
     margin: 0 !important;
 }
-.AdminHeader h2 .icon {
-    color: #0771a8 !important;
-    margin-right: 6px !important;
+
+.App--admin .AdminNav .Dropdown-menu > li > a,
+.App--admin .AdminNav .Dropdown-menu > li > .Button {
+    color: #333 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 10px 16px !important;
 }
-.AdminHeader-description {
-    color: #666 !important;
-    font-size: 12px !important;
-    margin-top: 4px !important;
+.App--admin .AdminNav .Dropdown-menu > li > a:hover,
+.App--admin .AdminNav .Dropdown-menu > li > .Button:hover {
+    background: #eef4f8 !important;
+    color: #0771a8 !important;
+}
+.App--admin .AdminNav .Dropdown-menu > li.active > a,
+.App--admin .AdminNav .Dropdown-menu > li.active > .Button {
+    background: #0771a8 !important;
+    color: #fff !important;
+    font-weight: 700 !important;
 }
 
-/* 每个设置块 / 表单组 / 扩展项都是白卡 */
+/* --- Main content: white cards --- */
 .App--admin .Form-group,
 .App--admin fieldset,
 .App--admin .ExtensionListItem,
 .App--admin .ExtensionCard,
-.App--admin .AdminPage-setting,
 .DashboardWidget,
 .StatusWidget,
 .ExtensionsWidget {
@@ -257,19 +76,42 @@
     margin-bottom: 14px !important;
 }
 
-/* Form 标题 */
 .App--admin .Form-group > label,
 .App--admin .Form-group > h3,
 .App--admin fieldset > legend {
     font-weight: 700 !important;
     color: #333 !important;
     font-size: 14px !important;
-    padding: 0 !important;
 }
 
-/* 按钮 */
-.App--admin .Button--primary,
-.App--admin .Button.Button--primary {
+/* --- AdminHeader (page hero) --- */
+.AdminHeader {
+    background: #f0f0f0 !important;
+    border: 1px solid #c9cfd6 !important;
+    border-radius: 0 !important;
+    color: #333 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    margin: 0 auto 16px !important;
+}
+.AdminHeader .container {
+    padding: 14px 20px !important;
+    margin: 0 !important;
+}
+.AdminHeader h2 {
+    color: #333 !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    margin: 0 !important;
+}
+.AdminHeader-description {
+    color: #666 !important;
+    font-size: 12px !important;
+    margin-top: 4px !important;
+}
+
+/* --- Buttons --- */
+.App--admin .Button--primary {
     background: #3f7cac !important;
     border: none !important;
     border-radius: 0 !important;
@@ -277,8 +119,7 @@
     font-weight: 600 !important;
     box-shadow: none !important;
 }
-.App--admin .Button--primary:hover,
-.App--admin .Button.Button--primary:hover {
+.App--admin .Button--primary:hover {
     background: #35688f !important;
 }
 .App--admin .Button {
@@ -286,7 +127,7 @@
     box-shadow: none !important;
 }
 
-/* 表单控件 */
+/* --- Form controls --- */
 .App--admin .FormControl,
 .App--admin input[type="text"],
 .App--admin input[type="email"],
@@ -305,11 +146,4 @@
     border-color: #0771a8 !important;
     box-shadow: none !important;
     outline: none !important;
-}
-
-/* 移动端: 保持 Flarum 默认下拉菜单形式(避免顶栏挤爆) */
-@media (max-width: 767px) {
-    .App--admin .App-nav .AdminNav {
-        display: block !important;
-    }
 }
