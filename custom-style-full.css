@@ -15,12 +15,9 @@ body,.App{background:#f5f6f8;color:#1f2328}
 .Search-input::before{position:absolute!important;left:auto!important;right:12px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;z-index:2;pointer-events:none}
 .Search .LoadingIndicator,.Search-input .LoadingIndicator,.item-search .LoadingIndicator{display:none!important}
 .DiscussionList-discussions{background:#fff!important;border:1px solid #e3e7ec!important;border-radius:10px!important;overflow:hidden!important;box-shadow:0 1px 4px rgba(0,0,0,.05)!important}
-.DiscussionListItem{padding:11px 16px!important;border-bottom:1px solid #d5d9df!important;background:#fff!important;transition:background .12s ease!important}
-.DiscussionListItem:last-child{border-bottom:none!important}
-.DiscussionListItem:hover{background:#f4f8fc!important}
+.DiscussionListItem{padding:11px 16px!important;background:#fff!important}
 .DiscussionListItem-content .Avatar{width:32px!important;height:32px!important}
 .DiscussionListItem-title{font-size:15px!important;font-weight:600!important;color:#1f2d3d!important}
-.DiscussionListItem:hover .DiscussionListItem-title{color:#3f7cac!important}
 .DiscussionListItem-info{font-size:12px!important;color:#8a96a3!important}
 .item-logIn,.item-signUp{display:none!important}
 .ab-authwrap{margin-left:18px}
@@ -116,15 +113,12 @@ body,.App{background:#f5f6f8;color:#1f2328}
 .kv-dlhead{display:grid;grid-template-columns:1fr 64px 76px 220px;align-items:center;column-gap:8px;background:linear-gradient(#f0f0f0,#e2e2e2);border-bottom:1px solid #ccc;padding:9px 14px;font-size:13px;font-weight:700;color:#333}
 .kv-dlhead .c2,.kv-dlhead .c3{text-align:center}
 .DiscussionList-discussions > li{list-style:none!important}
-.DiscussionListItem{border-bottom:1px solid #eef1f4!important;background:#fff!important}
-.DiscussionListItem:hover{background:#f7f9fb!important}
 .DiscussionListItem .Slidable-underneath{display:none!important}
 .DiscussionListItem-content{display:grid!important;grid-template-columns:1fr 64px 76px 220px!important;grid-template-rows:auto auto!important;align-items:center!important;column-gap:8px!important;padding:9px 14px!important}
 .DiscussionListItem-author,.DiscussionListItem-badges{display:none!important}
 .DiscussionListItem-main{display:contents!important}
 .DiscussionListItem-info{display:contents!important;font-size:12px}
 .DiscussionListItem-title{grid-column:1!important;grid-row:1!important;font-size:14px!important;font-weight:600!important;color:#0771a8!important;margin:0!important;white-space:normal!important;overflow:visible!important}
-.DiscussionListItem-content:hover .DiscussionListItem-title{text-decoration:underline}
 .DiscussionListItem-info .item-tags{grid-column:1!important;grid-row:2!important;margin:3px 0 0!important}
 .DiscussionListItem-count{position:static!important;grid-column:2!important;grid-row:1 / span 2!important;align-self:center!important;justify-self:center!important;text-align:center!important;background:none!important;color:#333!important;font-weight:700!important;font-size:14px!important;min-width:0!important;width:auto!important;height:auto!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
 .DiscussionListItem-count .visually-hidden{display:none!important}
@@ -216,10 +210,8 @@ body,.App{background:#f5f6f8;color:#1f2328}
 .DiscussionList{border:1px solid #aeb8c2!important;background:#fff!important;overflow:hidden!important;box-shadow:0 1px 3px rgba(0,0,0,.06)!important;border-radius:2px!important}
 .kv-dlhead{border:none!important;border-bottom:1px solid #ccc!important}
 .DiscussionList-discussions{border:none!important}
-.DiscussionListItem{border-bottom:1px solid #e4e8ec!important;background:#fff!important}
 .DiscussionList-discussions > li:last-child .DiscussionListItem{border-bottom:none!important}
 .DiscussionListItem-content{padding:6px 12px!important;min-height:0!important}
-.DiscussionListItem:hover{background:#f6f8fa!important}
 .IndexPage .DiscussionListItem-main{display:contents!important}
 .IndexPage .DiscussionListItem-info{display:contents!important}
 .IndexPage .DiscussionListItem-content .DiscussionListItem-title{grid-column:1!important;grid-row:1!important}
@@ -231,9 +223,7 @@ body,.App{background:#f5f6f8;color:#1f2328}
 .kv-dlhead{background:linear-gradient(#f0f0f0,#e2e2e2)!important;border-bottom:1px solid #ccc!important;color:#333!important;padding:8px 14px!important}
 .IndexPage .DiscussionList-discussions{border:none!important}
 .IndexPage .DiscussionListItem-content{padding:4px 14px!important}
-.IndexPage .DiscussionListItem{border-bottom:1px solid #e9edf0!important}
 .IndexPage .DiscussionList-discussions > li:last-child .DiscussionListItem{border-bottom:none!important}
-.IndexPage .DiscussionListItem:hover{background:#f6f8fa!important}
 .IndexPage .DiscussionListItem-title{font-size:13px!important;font-weight:400!important;color:#0771a8!important;line-height:1.5!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
 .IndexPage .item-terminalPost{font-size:12px!important;color:#8a96a3!important}
 .IndexPage .item-terminalPost .username{color:#0771a8!important}
@@ -533,3 +523,12 @@ table.rankings tr:last-child td{border-bottom:none!important}
 .App .DiscussionListItem:hover,.App .DiscussionListItem:hover *{background:transparent!important;box-shadow:none!important;text-decoration:none!important}
 .App .DiscussionListItem:hover .DiscussionListItem-title{color:#1f2d3d!important}
 .App .DiscussionList-discussions{box-shadow:none!important}
+.App--admin{background:#f5f6f8!important}
+.App--admin .App-header,.AdminHero{background:linear-gradient(#f0f0f0,#e2e2e2)!important;border-bottom:1px solid #ccc!important;box-shadow:none!important}
+.AdminHero{color:#333!important;padding:12px 20px!important}
+.AdminHero h2,.AdminHero-title{color:#333!important;font-weight:700!important}
+.App--admin .AdminNav{background:#fff!important;border-right:1px solid #c9cfd6!important;box-shadow:none!important}
+.App--admin .AdminNav .Button{background:transparent!important;border:none!important;border-radius:0!important;color:#333!important;box-shadow:none!important;text-align:left!important}
+.App--admin .AdminNav .item.active .Button,.App--admin .AdminNav .Button.active{background:#e8eef4!important;color:#0771a8!important}
+.AdminPage .Form-group,.AdminPage fieldset,.ExtensionListItem{background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;padding:14px!important;box-shadow:none!important;margin-bottom:14px!important}
+.AdminPage .Button--primary{background:#3f7cac!important;border-radius:0!important}
