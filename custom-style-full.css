@@ -481,7 +481,7 @@ table.rankings td h3{vertical-align:middle!important;line-height:1.2!important}
 main.App-content:has(table.rankings) hr{display:none!important}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)){display:none!important}
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)) *{display:none!important}
-.rankings tr td:first-child{font-size:0!important;color:transparent!important;text-align:left!important;background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><rect x="0.5" y="0.5" width="13" height="13" fill="%23fff" stroke="%23a0a7ae" rx="2"/></svg>') no-repeat 16px center!important;padding-left:38px!important}
+.rankings tr td:first-child{font-size:0!important;color:transparent!important;text-align:left!important;background:url('data:image/svg+xml;utf8,<svg xmlns= 0  width= 1  height= 2 ><rect x= 3  y= 4  width= 5  height= 6  fill= 7  stroke= 8  rx= 9 /></svg>') no-repeat 16px center!important;padding-left:38px!important}
 .rankings tr td:first-child *{display:none!important}
 .rankings tr td:first-child::before{content:"贡献者";display:inline!important;font-size:13px!important;color:#333!important;font-weight:400!important;vertical-align:middle!important}
 .rankings tr td{vertical-align:middle!important}
