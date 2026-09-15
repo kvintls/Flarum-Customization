@@ -1,12 +1,20 @@
-/* Flarum admin panel FluxBB style */
-/* IMPORTANT: keep this file plain CSS. less.php in Flarum 1.x can silently drop the whole file if it hits box-drawing chars or unusual LESS syntax. */
+/* Flarum admin panel: WordPress-style top horizontal navigation + FluxBB white cards */
+/* IMPORTANT for LESS parser (less.php in Flarum 1.x): */
+/*   - Do NOT use box-drawing chars in comments (they crash the parser silently) */
+/*   - Keep comments ASCII-only */
+/*   - Avoid nested @media inside class rules (put media queries at very end if needed) */
+/*   - Everything below is at root level, no nesting, pure CSS syntax */
 
-/* --- Overall background --- */
+/* ============================================================ */
+/* Overall page background                                       */
+/* ============================================================ */
 .App--admin {
     background: #f5f6f8 !important;
 }
 
-/* --- Top header bar (logo + user controls) --- */
+/* ============================================================ */
+/* Top App-header (Flarum logo + user menu bar) - dark WP style  */
+/* ============================================================ */
 .App--admin .App-header {
     background: #23282d !important;
     border-bottom: 1px solid #191c1f !important;
@@ -27,32 +35,112 @@
     color: #fff !important;
 }
 
-/* --- AdminNav side panel default styling --- */
-.App--admin .AdminNav .Dropdown-menu > h4.ExtensionListTitle {
-    text-transform: uppercase;
-    font-size: 11px !important;
-    color: #a0a5aa !important;
-    background: #f0f0f0 !important;
-    border-top: 1px solid #ccc !important;
-    padding: 6px 16px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
+/* ============================================================ */
+/* AdminNav: from left vertical column to top horizontal bar     */
+/* ============================================================ */
+
+/* Override Flarum default position:absolute width:250px on side panel */
+.App--admin .App-nav {
+    position: static !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow-y: visible !important;
+    overflow-x: auto !important;
+    padding: 0 !important;
     margin: 0 !important;
+    background: #2c3338 !important;
+    border-bottom: 1px solid #191c1f !important;
+    box-shadow: none !important;
+    z-index: 10 !important;
 }
 
-.App--admin .AdminNav .Dropdown-menu > li > a,
-.App--admin .AdminNav .Dropdown-menu > li > .Button {
-    color: #333 !important;
+.App--admin .AdminNav.App-titleControl {
+    display: block !important;
+    width: 100% !important;
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+/* Hide mobile toggle button (only used on phone) */
+.App--admin .AdminNav > .Dropdown-toggle {
+    display: none !important;
+}
+
+/* Dropdown-menu = horizontal flex, allow wrapping for extensions */
+.App--admin .AdminNav .Dropdown-menu {
+    position: static !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+    padding: 0 !important;
+    margin: 0 !important;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
-    padding: 10px 16px !important;
+    box-shadow: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
 }
+
+/* Category header <h4> = full-width row (line break between core and extensions) */
+.App--admin .AdminNav .Dropdown-menu > h4.ExtensionListTitle {
+    flex-basis: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 4px 20px !important;
+    text-transform: uppercase !important;
+    font-size: 11px !important;
+    color: #a0a5aa !important;
+    background: #23282d !important;
+    border-top: 1px solid #191c1f !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* Each tab <li> = flex item, horizontal */
+.App--admin .AdminNav .Dropdown-menu > li {
+    display: flex !important;
+    align-items: stretch !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    flex: 0 0 auto !important;
+}
+
+/* Tab link/button */
+.App--admin .AdminNav .Dropdown-menu > li > a,
+.App--admin .AdminNav .Dropdown-menu > li > .Button {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 10px 16px !important;
+    height: auto !important;
+    min-height: 42px !important;
+    color: #ddd !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    white-space: nowrap !important;
+    box-shadow: none !important;
+}
+
 .App--admin .AdminNav .Dropdown-menu > li > a:hover,
 .App--admin .AdminNav .Dropdown-menu > li > .Button:hover {
-    background: #eef4f8 !important;
-    color: #0771a8 !important;
+    background: #32373c !important;
+    color: #fff !important;
 }
+
+/* Active tab highlight */
 .App--admin .AdminNav .Dropdown-menu > li.active > a,
 .App--admin .AdminNav .Dropdown-menu > li.active > .Button {
     background: #0771a8 !important;
@@ -60,7 +148,89 @@
     font-weight: 700 !important;
 }
 
-/* --- Main content: white cards --- */
+/* Tab inner icon and label */
+.App--admin .AdminNav .Dropdown-menu > li .Button-icon {
+    margin: 0 !important;
+    float: none !important;
+    font-size: 13px !important;
+}
+.App--admin .AdminNav .Dropdown-menu > li .Button-label {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+}
+
+/* Hide search input and description in top nav */
+.App--admin .AdminNav .Dropdown-menu > li.item-search,
+.App--admin .AdminNav .AdminLinkButton-description {
+    display: none !important;
+}
+
+/* Extension list dot indicator: reset absolute positioning */
+.App--admin .AdminNav .Dropdown-menu > li .ExtensionListItem-Dot {
+    position: static !important;
+    margin: 0 4px !important;
+    transform: none !important;
+}
+
+/* ============================================================ */
+/* Main content: remove sideNavOffset margin so content is full  */
+/* ============================================================ */
+.App--admin .App-content .sideNavOffset,
+.App--admin .App-content > .sideNavOffset,
+.App--admin .sideNavOffset {
+    margin-left: 0 !important;
+}
+
+.App--admin .App-content {
+    padding: 20px 0 !important;
+}
+.App--admin .App-content .container {
+    max-width: 1320px !important;
+    width: 94% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+/* ============================================================ */
+/* AdminHeader (page hero above content) - FluxBB gray gradient  */
+/* ============================================================ */
+.AdminHeader {
+    background: #f0f0f0 !important;
+    border: 1px solid #c9cfd6 !important;
+    border-radius: 0 !important;
+    color: #333 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    max-width: 1320px !important;
+    width: 94% !important;
+    margin: 0 auto 16px !important;
+}
+.AdminHeader .container {
+    max-width: none !important;
+    width: 100% !important;
+    padding: 14px 20px !important;
+    margin: 0 !important;
+}
+.AdminHeader h2 {
+    color: #333 !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    margin: 0 !important;
+}
+.AdminHeader h2 .icon {
+    color: #0771a8 !important;
+    margin-right: 6px !important;
+}
+.AdminHeader-description {
+    color: #666 !important;
+    font-size: 12px !important;
+    margin-top: 4px !important;
+}
+
+/* ============================================================ */
+/* Form groups, extension cards, widgets = FluxBB white cards    */
+/* ============================================================ */
 .App--admin .Form-group,
 .App--admin fieldset,
 .App--admin .ExtensionListItem,
@@ -84,34 +254,11 @@
     font-size: 14px !important;
 }
 
-/* --- AdminHeader (page hero) --- */
-.AdminHeader {
-    background: #f0f0f0 !important;
-    border: 1px solid #c9cfd6 !important;
-    border-radius: 0 !important;
-    color: #333 !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    margin: 0 auto 16px !important;
-}
-.AdminHeader .container {
-    padding: 14px 20px !important;
-    margin: 0 !important;
-}
-.AdminHeader h2 {
-    color: #333 !important;
-    font-weight: 700 !important;
-    font-size: 16px !important;
-    margin: 0 !important;
-}
-.AdminHeader-description {
-    color: #666 !important;
-    font-size: 12px !important;
-    margin-top: 4px !important;
-}
-
-/* --- Buttons --- */
-.App--admin .Button--primary {
+/* ============================================================ */
+/* Buttons                                                       */
+/* ============================================================ */
+.App--admin .Button--primary,
+.App--admin .Button.Button--primary {
     background: #3f7cac !important;
     border: none !important;
     border-radius: 0 !important;
@@ -119,7 +266,8 @@
     font-weight: 600 !important;
     box-shadow: none !important;
 }
-.App--admin .Button--primary:hover {
+.App--admin .Button--primary:hover,
+.App--admin .Button.Button--primary:hover {
     background: #35688f !important;
 }
 .App--admin .Button {
@@ -127,7 +275,9 @@
     box-shadow: none !important;
 }
 
-/* --- Form controls --- */
+/* ============================================================ */
+/* Form controls (inputs, textareas, selects)                    */
+/* ============================================================ */
 .App--admin .FormControl,
 .App--admin input[type="text"],
 .App--admin input[type="email"],
