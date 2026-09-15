@@ -483,28 +483,28 @@ main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)){display:
 main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)) *{display:none!important}
 .rankings tr td:first-child{font-size:0!important;color:transparent!important;text-align:left!important;background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><rect x="0.5" y="0.5" width="13" height="13" fill="%23fff" stroke="%23a0a7ae" rx="2"/></svg>') no-repeat 16px center!important;padding-left:38px!important}
 .rankings tr td:first-child *{display:none!important}
-.rankings tr td:first-child::before{content:"贡献者";display:inline!important;font-size:13px!important;color:#333!important;font-weight:400!important;vertical-align:middle!important}
+.rankings tr td:first-child::before{content:var(--kv-p,"贡献者");display:inline!important;font-size:13px!important;color:#333!important;font-weight:400!important;vertical-align:middle!important}
 .rankings tr td{vertical-align:middle!important}
-.rankings tr:nth-child(2) td:first-child::before{content:"论坛之光"}
-.rankings tr:nth-child(3) td:first-child::before{content:"贡献先锋"}
-.rankings tr:nth-child(4) td:first-child::before{content:"铁杆达人"}
-.rankings tr:nth-child(5) td:first-child::before{content:"妙笔生花"}
-.rankings tr:nth-child(6) td:first-child::before{content:"热心助人"}
-.rankings tr:nth-child(7) td:first-child::before{content:"分享之星"}
-.rankings tr:nth-child(8) td:first-child::before{content:"论坛红人"}
-.rankings tr:nth-child(9) td:first-child::before{content:"智慧之源"}
-.rankings tr:nth-child(10) td:first-child::before{content:"众望所归"}
-.rankings tr:nth-child(11) td:first-child::before{content:"出类拔萃"}
-.rankings tr:nth-child(12) td:first-child::before{content:"论坛栋梁"}
-.rankings tr:nth-child(13) td:first-child::before{content:"活跃达人"}
-.rankings tr:nth-child(14) td:first-child::before{content:"大有可为"}
-.rankings tr:nth-child(15) td:first-child::before{content:"有口皆碑"}
-.rankings tr:nth-child(16) td:first-child::before{content:"人气之星"}
-.rankings tr:nth-child(17) td:first-child::before{content:"人气之王"}
-.rankings tr:nth-child(18) td:first-child::before{content:"贡献之王"}
-.rankings tr:nth-child(19) td:first-child::before{content:"广受赞誉"}
-.rankings tr:nth-child(20) td:first-child::before{content:"敬佩之星"}
-.rankings tr:nth-child(21) td:first-child::before{content:"实力担当"}
+.rankings tr:nth-child(2){--kv-p:"论坛之光"}
+.rankings tr:nth-child(3){--kv-p:"贡献先锋"}
+.rankings tr:nth-child(4){--kv-p:"铁杆达人"}
+.rankings tr:nth-child(5){--kv-p:"妙笔生花"}
+.rankings tr:nth-child(6){--kv-p:"热心助人"}
+.rankings tr:nth-child(7){--kv-p:"分享之星"}
+.rankings tr:nth-child(8){--kv-p:"论坛红人"}
+.rankings tr:nth-child(9){--kv-p:"智慧之源"}
+.rankings tr:nth-child(10){--kv-p:"众望所归"}
+.rankings tr:nth-child(11){--kv-p:"出类拔萃"}
+.rankings tr:nth-child(12){--kv-p:"论坛栋梁"}
+.rankings tr:nth-child(13){--kv-p:"活跃达人"}
+.rankings tr:nth-child(14){--kv-p:"大有可为"}
+.rankings tr:nth-child(15){--kv-p:"有口皆碑"}
+.rankings tr:nth-child(16){--kv-p:"人气之星"}
+.rankings tr:nth-child(17){--kv-p:"人气之王"}
+.rankings tr:nth-child(18){--kv-p:"贡献之王"}
+.rankings tr:nth-child(19){--kv-p:"广受赞誉"}
+.rankings tr:nth-child(20){--kv-p:"敬佩之星"}
+.rankings tr:nth-child(21){--kv-p:"实力担当"}
 table.rankings{table-layout:fixed!important;width:100%!important;max-width:100%!important;margin:0!important}
 table.rankings th,table.rankings td{width:20%!important}
 table.rankings th.kv-loadmore-th{cursor:pointer!important;vertical-align:middle!important;text-align:center!important;border-left:1px solid #ccc!important}
