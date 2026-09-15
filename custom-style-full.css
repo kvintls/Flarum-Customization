@@ -521,9 +521,10 @@ table.rankings tr:last-child td{border-bottom:none!important}
 .UserPage .UserPage-nav.sideNav{position:static!important;background:transparent!important;border:none!important;border-right:1px solid #c9cfd6!important;padding:16px 12px!important;flex:0 0 170px!important;box-sizing:border-box!important;min-height:auto!important;box-shadow:none!important;margin:0!important;top:auto!important}
 .UserPage .UserPage-content.sideNavOffset{background:transparent!important;border:none!important;padding:16px!important;margin-left:0!important;flex:1 1 auto!important;min-width:0!important;box-sizing:border-box!important;box-shadow:none!important}
 .UserPage .UserPage-nav.sideNav a.active,.UserPage .UserPage-nav.sideNav a:hover{background:#eef4f8!important;color:#0771a8!important}
-.SettingsPage>ul{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;list-style:none!important;padding:0!important;margin:0!important}
-.SettingsPage>ul>li.item-notifications{grid-column:1/-1!important}
+.SettingsPage>ul{list-style:none!important;padding:0!important;margin:0!important;display:block!important}
+.SettingsPage>ul>li{margin:0 0 14px!important}
+.SettingsPage>ul>li:last-child{margin-bottom:0!important}
 .SettingsPage fieldset{border:1px solid #c9cfd6!important;padding:10px 14px 12px!important;background:#fff!important;border-radius:0!important;margin:0!important}
-.SettingsPage fieldset>legend{font-weight:700!important;font-size:14px!important;padding:0 6px!important}
 .SettingsPage fieldset>legend{font-weight:700!important;color:#333!important;padding:0 6px!important;font-size:14px!important}
+.UserPage .sideNav ul,.UserPage .sideNav ul.affix,.UserPage .sideNav ul.affix-top,.UserPage .sideNav ul.affix-bottom{position:static!important;width:auto!important;top:auto!important}
 .App-composer.kv-inline,.App-composer.kv-inline .container,.App-composer.kv-inline .Composer{border:none!important}

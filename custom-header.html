@@ -83,7 +83,7 @@
     }
     // 页脚：始终放进当前页面的白卡里(和首页一样在框内)。哪怕之前跑到框外，也移回来。
     var _rank = document.querySelector('table.rankings');
-    var footerBox = document.querySelector('.CategoriesPage-content') || document.querySelector('.DiscussionPage-stream') || document.querySelector('.IndexPage-results') || document.querySelector('.TagsPage .TagTiles') || (_rank && _rank.parentElement);
+    var footerBox = document.querySelector('.CategoriesPage-content') || document.querySelector('.DiscussionPage-stream') || document.querySelector('.IndexPage-results') || document.querySelector('.TagsPage .TagTiles') || document.querySelector('.UserPage .sideNavContainer') || (_rank && _rank.parentElement);
     if(footerBox){
       var ft = document.getElementById('kvin-footer2');
       if(!ft){
