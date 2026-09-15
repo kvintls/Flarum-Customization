@@ -630,3 +630,12 @@ table.rankings tr.ranking-3 td:first-child::before{content:"3";}
 table.rankings{max-width:520px !important;}
 table.rankings td{padding:5px 14px !important;font-size:13px !important;line-height:1.5 !important;}
 table.rankings th{font-size:13px !important;padding:6px 14px !important;}
+
+
+table.rankings{max-width:100% !important;}
+table.rankings tr td:first-child::before{content:none !important;}
+table.rankings td h3{vertical-align:middle !important;line-height:1.2 !important;}
+main.App-content:has(table.rankings) hr{display:none !important;}
+main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)){display:none !important;}
+main.App-content:has(table.rankings) .App-composer:not(:has(.Composer)) *{display:none !important;}
+button.kv-loadmore{float:right !important;margin:0 0 10px !important;}

@@ -664,3 +664,38 @@
   }, 600);
 })();
 </script>
+
+
+
+<script>
+/* 贡献榜页面: 表头改名 + 排名列换成赞赏词 + 加载更多移到右上 */
+(function(){
+  var praises=['论坛之光','贡献先锋','铁杆达人','妙笔生花','热心助人','分享之星','论坛红人','智慧之源','众望所归','出类拔萃','论坛栋梁','活跃达人','大有可为','有口皆碑','人气之星','人气之王','贡献之王','广受赞誉','众望所归','敬佩之星'];
+  setInterval(function(){
+    var tbl=document.querySelector('table.rankings');
+    if(!tbl) return;
+    tbl.querySelectorAll('th').forEach(function(th){
+      var t=(th.textContent||'').trim();
+      if(t==='排名') th.textContent='贡献榜';
+      if(t==='👍'||th.querySelector('i.fa-thumbs-up,.fa-thumbs-up')) th.textContent='贡献认同';
+    });
+    tbl.querySelectorAll('tbody tr').forEach(function(tr,i){
+      if(tr.dataset.kvPraised) return;
+      var first=tr.querySelector('td');
+      if(first){first.textContent=praises[i%praises.length];tr.dataset.kvPraised='1';}
+    });
+    var main=document.querySelector('main.App-content');
+    if(main){
+      var btns=main.querySelectorAll('button');
+      btns.forEach(function(b){
+        var t=(b.textContent||'').trim();
+        if(t==='加载更多'&&!b.dataset.kvMoved){
+          b.classList.add('kv-loadmore');
+          if(tbl.parentElement){tbl.parentElement.insertBefore(b,tbl);}
+          b.dataset.kvMoved='1';
+        }
+      });
+    }
+  },400);
+})();
+</script>
