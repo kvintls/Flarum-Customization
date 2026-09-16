@@ -436,23 +436,41 @@
 /* 主题详情页(/d/...)：把浮动的回复 composer 变成内联——移动到主题白卡内(页脚之前)，
    并加 .kv-inline 类由 CSS 去掉浮动/拖拽/最小化。其它页面保持原样。 */
 (function(){
+  var kvParkCooldown = 0; // >0 时暂缓把 composer 移回 stream,等 Mithril 重绘完成
   // 把 composer 移回 .App(安全位置)。导航前调用,避免它随被销毁的帖子流一起被 mithril 销毁。
   function park(){
     var comp = document.querySelector('.App-composer');
     var app = document.querySelector('.App');
     if(comp && app && comp.parentElement !== app){ try{ app.appendChild(comp); }catch(e){} }
+    kvParkCooldown = 3; // park 后跳过约 3 轮(~0.9s)再重新内联,让重绘先落定
   }
   // 浏览器后退/前进 & 点击任意会跳转的链接 —— 先 park,再让 mithril 去销毁旧页面
   window.addEventListener('popstate', park, true);
   document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a[href]');
+    if(!e.target.closest) return;
+    var a = e.target.closest('a[href]');
     if(a){ var h = a.getAttribute('href') || ''; if(h && h.charAt(0) !== '#') park(); }
+    // 点"发布回复/发布主题"提交按钮时,先把 composer 移出 stream(park 到 .App)。
+    // 发帖成功后 Flarum 会重绘 .DiscussionPage-stream, 若 composer 还塞在 stream 里,
+    // Mithril 的虚拟DOM与真实DOM对不上 -> 第二次打开回复框就"闪退"。提前 park 可避开。
+    if(e.target.closest('.Composer-footer .Button--primary, .Composer .Button--primary')){
+      park();
+    }
   }, true);
 
   var kvPrevPath = location.pathname;
+  var kvPostCount = -1; // 帖子流里帖子数,用于侦测"发帖成功"(数量变化)后及时 park
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
     if(!comp) return;
+    // 侦测帖子流数量变化(发帖成功/流刷新): 一旦变化就 park, 让 composer 脱离即将被
+    // Mithril 重绘的 stream, 下一轮再重新放回, 避免重绘时 DOM 错乱导致闪退。
+    var _stream = document.querySelector('.DiscussionPage-stream');
+    if(_stream){
+      var _n = _stream.querySelectorAll('.PostStream-item').length;
+      if(kvPostCount !== -1 && _n !== kvPostCount){ park(); }
+      kvPostCount = _n;
+    } else { kvPostCount = -1; }
     // 没有正在编辑的 .Composer 时,行内强制隐藏(比 :has() 可靠,消除过渡态露出的小块)
     if(!comp.querySelector('.Composer')){ comp.style.setProperty('display','none','important'); }
     else { comp.style.removeProperty('display'); }
@@ -465,7 +483,11 @@
     // 只在 composer 真正打开(有 .Composer 子)时才加 kv-inline,避免首页空 composer 也显示虚线
     if(comp.querySelector('.Composer')){ comp.classList.add('kv-inline'); }
     else { comp.classList.remove('kv-inline'); }
-    if(/^\/d\//.test(location.pathname)){
+    if(kvParkCooldown > 0){
+      // 刚 park 过(发帖/提交后), 本轮不把 composer 塞回 stream, 等 Mithril 重绘落定,
+      // 避免重绘瞬间 DOM 错乱导致下次打开回复框闪退。
+      kvParkCooldown--;
+    } else if(/^\/d\//.test(location.pathname)){
       var stream = document.querySelector('.DiscussionPage-stream');
       if(stream){
         comp.classList.add('kv-inline');
