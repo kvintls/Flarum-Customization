@@ -478,3 +478,23 @@ select {
     font-size: 12px !important;
     color: #888 !important;
 }
+
+
+/* Users admin table (and any admin table) should span the full content width. */
+/* Flarum defaults to width:auto which crams the table on the left with empty  */
+/* space on the right. Force it to fill the container.                         */
+.App-content table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: auto !important;
+    box-sizing: border-box !important;
+}
+.App-content table th,
+.App-content table td {
+    box-sizing: border-box !important;
+}
+/* Make the last column (actions) push to the right so the row stretches. */
+.App-content table th:last-child,
+.App-content table td:last-child {
+    text-align: right !important;
+}
