@@ -7,9 +7,17 @@
 /*     so we do NOT need .App--admin scope prefix (App--admin class doesn't even exist in the DOM). */
 /*   - Use #admin-navigation (ID, spec 1,0,0) for max specificity on side nav overrides. */
 
-/* Overall page background - plain white */
+/* Overall page: white bg + an OUTER master frame that wraps everything      */
+/* (header + nav + content), on top of which the nav and content have their  */
+/* own inner frames. 20px padding gives inner frames room from this outer.   */
 .App {
     background: #ffffff !important;
+    border: 1px solid #c3cad2 !important;
+    border-radius: 6px !important;
+    margin: 20px !important;
+    padding: 20px !important;
+    box-shadow: 0 2px 8px rgba(20, 30, 50, 0.08) !important;
+    box-sizing: border-box !important;
 }
 
 /* Top App-header (Flarum logo + user menu bar) - light style */
