@@ -442,28 +442,24 @@
    让 Mithril 重绘自己那份干净DOM。重绘落定后下一轮再借放回去。这样既内联、又不闪退。 */
 (function(){
   var root = document.documentElement;
-  var nativeParent = null;   // composer 的原生父节点(通常是 .App), 抽回时放这
+  var nativeParent = null;   // composer 的原生父节点(=.App-content), 抽回时放这
   var borrowed = false;      // composer 当前是否被借放进了 stream
   var cooldown = 0;          // >0 时暂不借放(等 Mithril 重绘落定)
+  var lastPostCount = -1;    // 上次记录的帖子数, 用于只在"真正新增帖子"时才 eject
 
-  // 把 composer 抽回原生父节点 —— Mithril 动 stream 前调用, 避免它操作到错位的DOM
+  function postCount(){
+    var s = document.querySelector('.PostStream');
+    return s ? s.querySelectorAll('.PostStream-item').length : -1;
+  }
+
+  // 把 composer 抽回原生父节点 —— 发帖/重绘前调用, 避免 Mithril 操作到错位的DOM
   function eject(){
     var comp = document.querySelector('.App-composer');
     if(comp && nativeParent && comp.parentElement !== nativeParent){
       try{ nativeParent.appendChild(comp); }catch(e){}
     }
     borrowed = false;
-    cooldown = 4; // 抽回后约0.8s内不再借放, 等重绘彻底结束
-  }
-
-  // 监听帖子流的子节点变化(发帖成功/翻页/加载更多都会触发): 一有变化立刻 eject
-  var streamObs = new MutationObserver(function(){ if(borrowed) eject(); });
-  var observedStream = null;
-  function watchStream(stream){
-    if(stream === observedStream) return;
-    try{ streamObs.disconnect(); }catch(e){}
-    observedStream = stream;
-    if(stream){ streamObs.observe(stream, {childList:true}); }
+    cooldown = 5; // 抽回后约1s内不再借放, 等重绘彻底结束
   }
 
   // 点"发布/提交"按钮那一刻先 eject(发帖会重绘 stream)
@@ -479,23 +475,29 @@
     if(!nativeParent) nativeParent = comp.parentElement; // 记住原生父节点(首次)
     var open = !!comp.querySelector('.Composer');
     root.classList.toggle('kv-composing', open);
-    if(cooldown > 0){ cooldown--; watchStream(document.querySelector('.DiscussionPage-stream')); return; }
+
+    // 侦测"帖子数变化"(发帖成功/翻页/加载更多的真实信号)。只有数量真的变了才 eject,
+    // 避免把"我自己插入 composer"或帖子内部的装饰性变动误判成重绘而反复抽回。
+    var pc = postCount();
+    if(borrowed && lastPostCount !== -1 && pc !== lastPostCount){ eject(); }
+    lastPostCount = pc;
+
+    if(cooldown > 0){ cooldown--; return; }
+
     if(open && /^\/d\//.test(location.pathname)){
       var stream = document.querySelector('.DiscussionPage-stream');
-      watchStream(stream);
-      if(stream){
-        var footer = stream.querySelector('#kvin-footer2');
+      if(stream && comp.parentElement !== stream){
+        // 借放进帖子流白卡内(页脚 #kvin-footer2 之前, 没有页脚则追加到末尾)
         try{
-          if(footer && footer.parentElement === stream){
-            if(comp.nextElementSibling !== footer){ stream.insertBefore(comp, footer); borrowed = true; }
-          } else if(comp.parentElement !== stream){
-            stream.appendChild(comp); borrowed = true;
-          }
+          var footer = stream.querySelector('#kvin-footer2');
+          if(footer && footer.parentElement === stream){ stream.insertBefore(comp, footer); }
+          else{ stream.appendChild(comp); }
+          borrowed = true;
+          lastPostCount = postCount(); // 插入后重新基准化, 别把这次插入算成"帖子变化"
         }catch(e){}
       }
     } else if(borrowed){
-      // 回复框关了或离开详情页 -> 抽回原生位置
-      eject();
+      eject(); // 回复框关了或离开详情页 -> 抽回原生位置
     }
   }, 200);
 })();
