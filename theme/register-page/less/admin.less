@@ -113,30 +113,16 @@
 
 /* item-category-core / item-category-feature are plain section labels        */
 /* (no children) -> render as a full-width header strip.                      */
+/* 核心配置 / 功能 top labels: keep only the essential behavior (full-width row */
+/* so the tabs/plugins below break to a new line). Leave visual styling to     */
+/* Flarum's native defaults -- user asked to stop customizing these two.        */
 #admin-navigation .Dropdown-menu > li.item-category-core,
 #admin-navigation .Dropdown-menu > li.item-category-feature {
     flex: 1 1 100% !important;
     flex-basis: 100% !important;
     width: 100% !important;
     max-width: 100% !important;
-    /* Negative side margins pull the strip to nav frame edges, escaping .Dropdown-menu's */
-    /* 14px side padding.                                                                  */
-    margin: 0 -14px !important;
-    padding: 9px 14px !important;
-    text-transform: none !important;
-    font-size: 13px !important;
-    color: #333 !important;
-    background: linear-gradient(#f4f5f7, #e9ebee) !important;
-    border-top: 1px solid #dfe3e8 !important;
-    border-bottom: 1px solid #dfe3e8 !important;
-    font-weight: 700 !important;
-    letter-spacing: 0 !important;
     display: block !important;
-    text-align: left !important;
-    line-height: 1.4 !important;
-}
-#admin-navigation .Dropdown-menu > li:first-child.item-category-core {
-    border-top: none !important;
 }
 
 /* A plugin GROUP (Styling / Forum Widgets / Language packs) is a li that     */
