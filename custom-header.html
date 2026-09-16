@@ -800,3 +800,64 @@
   },50);
 })();
 </script>
+
+
+
+<script>
+/* Locale-aware translation for extension modals that ship without Chinese
+   strings in the language pack (flarum-tags' "Choose tags to follow" flow, etc.).
+   Rule: only translate when the browser language starts with "zh" (Chinese).
+   English or other browsers see Flarum's default English -- no interference. */
+(function(){
+  var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  if(lang.indexOf('zh') !== 0) return; // Non-Chinese browsers: do nothing.
+
+  var dict = {
+    'Choose tags to follow': '选择要关注的标签',
+    'Continue to forum': '继续访问论坛',
+    'Remind me later': '稍后提醒',
+    'Follow': '关注',
+    'Unfollow': '取消关注',
+    'Choose primary tags': '选择主标签',
+    'Choose secondary tags': '选择次标签',
+    'Skip': '跳过',
+    'Next': '下一步',
+    'Back': '返回',
+    'Submit': '提交',
+    'Save changes': '保存修改',
+    'Save Changes': '保存修改'
+  };
+
+  function tryTranslate(el){
+    // Only replace TEXT nodes and buttons/spans whose entire trimmed text matches a key.
+    var scope = el.querySelectorAll('*');
+    for(var i = 0; i < scope.length; i++){
+      var n = scope[i];
+      // Skip inputs/textarea to not mess with typed content
+      if(/^(INPUT|TEXTAREA)$/.test(n.tagName)) continue;
+      // Direct text-only elements
+      if(n.children.length === 0 && n.textContent){
+        var t = n.textContent.trim();
+        if(dict[t]){ n.textContent = n.textContent.replace(t, dict[t]); }
+      }
+    }
+    // Also inspect direct text nodes of the container itself
+    for(var c = el.firstChild; c; c = c.nextSibling){
+      if(c.nodeType === 3 && c.textContent){
+        var t = c.textContent.trim();
+        if(dict[t]){ c.textContent = c.textContent.replace(t, dict[t]); }
+      }
+    }
+  }
+
+  // Target the tags-related modals + any modal in general (safe: only exact-match keys)
+  setInterval(function(){
+    var modals = document.querySelectorAll(
+      '.ChooseTagsToFollowModal, .SubscriptionMenuModal, .SubscribeMenuModal, ' +
+      '.NotificationMenuModal, .SelectTagsModal, .TagDiscussionModal, .Modal-content'
+    );
+    modals.forEach(tryTranslate);
+  }, 300);
+})();
+</script>
+
