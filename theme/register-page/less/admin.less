@@ -556,7 +556,13 @@ main.App-content::after {
 /* to match the admin nav width above. The page container itself has no frame */
 /* by default, which is why the users grid looks wider/uncontained vs the      */
 /* framed language-pack section in the admin nav above.                        */
-.App-content .UserListPage {
+/* Users page container: user reported width 1425px on 1440px viewport --      */
+/* the .App-content .container rule (max-width:1320px, width:94%) was being   */
+/* overridden here by higher-specificity Flarum defaults. Use #app + double    */
+/* classes to boost specificity so 1320px/94% actually wins.                   */
+#app main.App-content .container.UserListPage,
+#app main.App-content .AdminPage.UserListPage,
+#app main.App-content .sideNavOffset.UserListPage {
     max-width: 1320px !important;
     width: 94% !important;
     margin: 0 auto 16px !important;
@@ -565,6 +571,15 @@ main.App-content::after {
     border-radius: 4px !important;
     padding: 20px !important;
     box-shadow: 0 1px 3px rgba(20, 30, 50, 0.08) !important;
+    box-sizing: border-box !important;
+}
+/* Also boost specificity on the base .container rule so no other selector    */
+/* on the users page can override its 1320/94% width.                          */
+#app main.App-content .container {
+    max-width: 1320px !important;
+    width: 94% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
 }
 /* Users grid (section.UserListPage-grid uses display:grid) -- distribute      */
