@@ -498,3 +498,21 @@ select {
 .App-content table td:last-child {
     text-align: right !important;
 }
+
+
+/* Permission page: frame the permissions list area so it looks like a card,   */
+/* matching the framed user-groups panel above it. Cover common Flarum classes.*/
+.App-content .PermissionGrid,
+.App-content .PermissionsPage .PermissionGrid,
+.App-content .PermissionsPage-permissions,
+.App-content .PermissionsPage > section,
+.App-content .PermissionsPage > .Section,
+.App-content .SettingsPage .PermissionGrid {
+    background: #fff !important;
+    border: 1px solid #c3cad2 !important;
+    border-radius: 4px !important;
+    padding: 14px !important;
+    box-shadow: 0 1px 3px rgba(20, 30, 50, 0.08) !important;
+    margin: 0 auto 16px !important;
+    box-sizing: border-box !important;
+}
