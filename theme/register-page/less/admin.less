@@ -101,16 +101,18 @@
     float: none !important;
 }
 
-/* Real Flarum admin nav structure (confirmed from compiled admin.css):        */
-/*   ul.Dropdown-menu                                                          */
-/*     li.item-category-core / li.item-category-feature   (top tab groups)     */
-/*     .ExtensionList-Category                            (a plugin group box) */
-/*        .ExtensionListTitle  ("Styling" / "Forum Widgets" / "Language packs")*/
-/*        .ExtensionListItem   (each plugin)                                    */
-/* So the sub-group titles live INSIDE .ExtensionList-Category, not as direct  */
-/* children of .Dropdown-menu -- that is why earlier selectors missed them.    */
+/* REAL Flarum admin nav structure (confirmed via live DOM inspection):       */
+/*   ul.Dropdown-menu                                                         */
+/*     li.item-category-core                              (top group header)  */
+/*     li.item-<tab>            (Dashboard / General / Mail / ... tabs)        */
+/*     li.item-category-feature                           (top group header)  */
+/*     li.item-extension-<name>                           (each plugin)        */
+/*     li.item-category-theme / item-category-forum-widget /                  */
+/*         item-category-language   (a plugin GROUP: contains an              */
+/*         h4.ExtensionListTitle title + its own li.item-extension-* plugins) */
 
-/* Top-level category tab labels (Core config / Features) = full-width row */
+/* item-category-core / item-category-feature are plain section labels        */
+/* (no children) -> render as a full-width header strip.                      */
 #admin-navigation .Dropdown-menu > li.item-category-core,
 #admin-navigation .Dropdown-menu > li.item-category-feature {
     flex: 1 1 100% !important;
@@ -133,9 +135,13 @@
     border-top: none !important;
 }
 
-/* An extension group (Styling / Forum Widgets / Language packs) = full-width */
-/* block. Its inner items are laid out as a wrapping grid.                    */
-#admin-navigation .Dropdown-menu .ExtensionList-Category {
+/* A plugin GROUP (Styling / Forum Widgets / Language packs) is a li that     */
+/* itself contains a title + nested plugin items. Make it a full-width flex   */
+/* block so its title takes a row and its plugins wrap into a grid below.     */
+#admin-navigation .Dropdown-menu > li.item-category-theme,
+#admin-navigation .Dropdown-menu > li.item-category-forum-widget,
+#admin-navigation .Dropdown-menu > li.item-category-language,
+#admin-navigation .Dropdown-menu > li[class*="item-category-"]:not(.item-category-core):not(.item-category-feature) {
     flex: 1 1 100% !important;
     flex-basis: 100% !important;
     width: 100% !important;
@@ -149,10 +155,13 @@
     background: transparent !important;
     border-top: 1px solid #eceff2 !important;
     box-sizing: border-box !important;
+    list-style: none !important;
 }
 
-/* The group's title (Styling, Forum Widgets, Language packs...) = its own row */
-#admin-navigation .ExtensionList-Category > .ExtensionListTitle,
+/* The group's title (h4.ExtensionListTitle: Styling / Forum Widgets /        */
+/* Language packs) = its own full-width row above that group's plugins.       */
+#admin-navigation .Dropdown-menu li[class*="item-category-"] > h4.ExtensionListTitle,
+#admin-navigation .Dropdown-menu li[class*="item-category-"] > .ExtensionListTitle,
 #admin-navigation .ExtensionListTitle,
 #admin-navigation .ExtensionList-Label {
     flex: 1 1 100% !important;
@@ -250,16 +259,20 @@
 }
 
 /* --- Extension list layout (the "Features" / plugins grid) --- */
-/* Extension items (.ExtensionListItem) live INSIDE .ExtensionList-Category   */
-/* (confirmed via compiled admin.css), so target them there -- NOT as direct  */
-/* children of .Dropdown-menu. Give each a fixed-width cell so they line up in */
-/* tidy columns instead of ragged, uneven wrapping.                           */
+/* REAL structure (confirmed from live DOM inspection):                       */
+/*   ul.Dropdown-menu                                                         */
+/*     li.item-category-core / li.item-category-feature   (top tab groups)    */
+/*     li.item-extension-<name>          (each plugin -- e.g. fof-follow-tags) */
+/*     li.item-category-theme / item-category-forum-widget /                  */
+/*         item-category-language        (a plugin group, holds an            */
+/*         h4.ExtensionListTitle + its own li.item-extension-* children)      */
 #admin-navigation .Dropdown-menu {
     padding: 6px !important;
 }
-#admin-navigation .ExtensionListItem,
-#admin-navigation .Dropdown-menu > li.ExtensionListItem,
-#admin-navigation li[class*="ExtensionListItem"] {
+
+/* Each plugin = a fixed-width cell. Plugins appear both directly in the menu  */
+/* AND nested inside category groups, so target item-extension-* everywhere.  */
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] {
     flex: 0 0 190px !important;
     width: 190px !important;
     max-width: 190px !important;
@@ -270,9 +283,9 @@
     display: flex !important;
     align-items: stretch !important;
 }
-/* Extension item link fills its cell and truncates long names cleanly */
-#admin-navigation .ExtensionListItem > a,
-#admin-navigation .ExtensionListItem > .Button {
+/* Plugin link fills its cell and truncates long names cleanly */
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] > a,
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] > .Button {
     display: flex !important;
     align-items: center !important;
     gap: 6px !important;
@@ -288,14 +301,15 @@
     color: #333 !important;
     font-size: 13px !important;
     font-weight: 400 !important;
+    white-space: nowrap !important;
 }
-#admin-navigation .ExtensionListItem > a:hover,
-#admin-navigation .ExtensionListItem > .Button:hover {
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] > a:hover,
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] > .Button:hover {
     background: #eef1f4 !important;
     color: #0771a8 !important;
 }
-#admin-navigation .ExtensionListItem .Button-label,
-#admin-navigation .ExtensionListItem-title {
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] .Button-label,
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] .ExtensionListItem-title {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
@@ -303,14 +317,14 @@
     flex: 1 1 auto !important;
     text-align: left !important;
 }
-#admin-navigation .ExtensionListItem-icon,
-#admin-navigation .ExtensionListItem .Button-icon {
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] .ExtensionListItem-icon,
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] .Button-icon {
     flex: 0 0 auto !important;
     margin: 0 !important;
 }
 
 /* Extension status dot: reset absolute positioning, pin to the right of cell */
-#admin-navigation .ExtensionListItem-Dot {
+#admin-navigation .Dropdown-menu li[class*="item-extension-"] .ExtensionListItem-Dot {
     position: static !important;
     margin: 0 0 0 auto !important;
     transform: none !important;
