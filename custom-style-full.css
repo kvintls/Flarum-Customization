@@ -554,3 +554,28 @@ table.rankings tr:last-child td{border-bottom:none!important}
 .SelectTagsModal .Button--link,.TagSelectionModal .Button--link{color:#0771a8!important;background:transparent!important;border:none!important;padding:8px 10px!important}
 /* "Remind me later" link + "Continue to forum" area alignment */
 .SelectTagsModal .Modal-footer,.TagSelectionModal .Modal-footer{display:flex!important;align-items:center!important;justify-content:space-between!important}
+
+
+/* Subscribe-to-tag modal (from flarum-subscriptions extension). Match the      */
+/* FluxBB style used across the site's other modals.                            */
+.SubscriptionMenuModal .Modal-content,.SubscribeMenuModal .Modal-content,.NotificationMenuModal .Modal-content{border-radius:0!important;border:1px solid #8ba6b8!important;box-shadow:0 3px 14px rgba(0,0,0,.25)!important;overflow:hidden!important}
+.SubscriptionMenuModal .Modal-header,.SubscribeMenuModal .Modal-header,.NotificationMenuModal .Modal-header{background:linear-gradient(#f0f0f0,#e2e2e2)!important;border-bottom:1px solid #ccc!important;padding:10px 16px!important;text-align:left!important}
+.SubscriptionMenuModal .Modal-header h3,.SubscribeMenuModal .Modal-header h3,.NotificationMenuModal .Modal-header h3,.SubscriptionMenuModal .App-titleControl,.SubscribeMenuModal .App-titleControl{font-size:15px!important;font-weight:700!important;color:#333!important;text-align:left!important;margin:0!important}
+.SubscriptionMenuModal .Modal-close,.SubscribeMenuModal .Modal-close{color:#888!important;opacity:.8!important;background:transparent!important;border:none!important}
+.SubscriptionMenuModal .Modal-body,.SubscribeMenuModal .Modal-body,.NotificationMenuModal .Modal-body{background:#eef3f7!important;padding:14px 18px 8px!important}
+.SubscriptionMenuModal .Modal-body > label,.SubscriptionMenuModal .Modal-body > .Form-label,.SubscribeMenuModal .Modal-body > label{display:block!important;font-weight:700!important;font-size:13px!important;color:#333!important;margin:0 0 10px!important}
+.SubscriptionMenuModal .Modal-footer,.SubscribeMenuModal .Modal-footer{background:#fff!important;border-top:1px solid #dfe6ea!important;padding:10px 16px!important}
+/* Each option row (Not following / Following / Watching / etc.) */
+.SubscriptionMenuModal ul,.SubscribeMenuModal ul{list-style:none!important;padding:0!important;margin:0!important}
+.SubscriptionMenuModal ul > li,.SubscribeMenuModal ul > li{list-style:none!important;margin:0 0 6px!important}
+.SubscriptionMenuModal ul > li:last-child,.SubscribeMenuModal ul > li:last-child{margin-bottom:0!important}
+.SubscriptionMenuModal ul > li > .Button,.SubscribeMenuModal ul > li > .Button,.SubscriptionMenuModal ul > li > a,.SubscribeMenuModal ul > li > a{display:flex!important;align-items:center!important;width:100%!important;padding:9px 12px!important;background:#fff!important;border:1px solid #c9cfd6!important;border-radius:2px!important;box-shadow:none!important;color:#333!important;font-weight:600!important;text-align:left!important;font-size:14px!important;gap:10px!important}
+.SubscriptionMenuModal ul > li > .Button:hover,.SubscribeMenuModal ul > li > .Button:hover{background:#f5f8fb!important;border-color:#8ba6b8!important}
+.SubscriptionMenuModal ul > li.active > .Button,.SubscribeMenuModal ul > li.active > .Button,.SubscriptionMenuModal ul > li[aria-checked="true"] > .Button,.SubscribeMenuModal ul > li > .Button.selected{background:#fff5d6!important;border-color:#e0b93a!important;color:#7a5a00!important}
+.SubscriptionMenuModal ul > li > .Button .Button-icon,.SubscribeMenuModal ul > li > .Button .Button-icon{color:#666!important;font-size:14px!important;margin:0!important;flex:0 0 auto!important}
+.SubscriptionMenuModal ul > li > .Button .Button-label,.SubscribeMenuModal ul > li > .Button .Button-label{flex:1 1 auto!important;font-weight:700!important;color:#333!important}
+/* Description text next to each option label */
+.SubscriptionMenuModal ul > li > .Button > small,.SubscriptionMenuModal ul > li > .Button .description,.SubscribeMenuModal ul > li > .Button > small,.SubscribeMenuModal ul > li > .Button .description{color:#666!important;font-weight:400!important;font-size:12px!important;margin-left:6px!important}
+/* Confirm button */
+.SubscriptionMenuModal .Button--primary,.SubscribeMenuModal .Button--primary{background:#3f7cac!important;border:1px solid #35688f!important;color:#fff!important;border-radius:2px!important;font-weight:600!important;padding:8px 14px!important;font-size:13px!important;box-shadow:none!important}
+.SubscriptionMenuModal .Button--primary:hover,.SubscribeMenuModal .Button--primary:hover{background:#35688f!important}
