@@ -697,16 +697,12 @@ main.App-content::after {
 }
 
 
-/* Content pages (General / Basics / Mail / Permissions / etc): give the       */
-/* whole page container the same outer card frame as the admin nav above, so   */
-/* every admin page looks wrapped by a consistent large frame.                 */
-#app main.App-content > .container:not(.UserListPage),
-#app main.App-content > .AdminPage:not(.UserListPage),
-#app main.App-content > .BasicsPage,
-#app main.App-content > .MailPage,
-#app main.App-content > .PermissionsPage,
-#app main.App-content > .AppearancePage,
-#app main.App-content > .DashboardPage {
+/* Content pages: frame the outermost .AdminPage element (Dashboard / Basics /  */
+/* Mail / Permissions / Appearance / etc) as one big card, matching the nav    */
+/* frame above. .AdminPage is always the top wrapper of an admin page and it   */
+/* is NOT a direct child of main.App-content (there is a .container between),  */
+/* so target it as a descendant, not a direct child.                            */
+#app main.App-content .AdminPage:not(.UserListPage) {
     background: #ffffff !important;
     border: 1px solid #c3cad2 !important;
     border-radius: 4px !important;
