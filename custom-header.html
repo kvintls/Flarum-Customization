@@ -207,7 +207,7 @@
 
     // 翻页上/下位置改由 CSS 的 flex order 固定(瞬时生效，翻页时不再跳动)，此处不再用 JS 搬动
 
-    // 面包屑 + 发布新主题（仅板块页 /t/...）
+    // 面包屑 + 发布帖子（仅板块页 /t/...）
     var isTag = /^\/t\//.test(location.pathname);
     var results = document.querySelector('.IndexPage-results') || dl.parentNode;
     if(isTag && results && !document.getElementById('kv-forumbar')){
@@ -222,7 +222,7 @@
       crumb.appendChild(document.createTextNode(' » ' + name));
 
       var btn = document.createElement('button');
-      btn.type = 'button'; btn.id = 'kv-newtopic'; btn.className = 'kv-newtopic'; btn.textContent = '发布新主题';
+      btn.type = 'button'; btn.id = 'kv-newtopic'; btn.className = 'kv-newtopic'; btn.textContent = '发布帖子';
       btn.addEventListener('click', function(){
         // 未登录 → 直接跳整页登录(避免弹出旧登录弹窗)
         if(typeof app === 'undefined' || !app.session || !app.session.user){ window.location = '/login'; return; }
