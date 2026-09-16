@@ -305,6 +305,10 @@ body,.App{background:#f5f6f8;color:#1f2328}
 .ReplyPlaceholder .Avatar,.PostStream-item.ReplyPlaceholder .Avatar,.ReplyPlaceholder-avatar{display:none!important}
 .PostStream,.PostStream-item,.CommentPost{width:100%!important;max-width:100%!important}
 .PostStream-item{margin:0 0 12px!important}
+/* 时间分隔线「X 天后」美化 —— 居中小灰字, 两侧淡灰横线延伸(FluxBB 极简风)。 */
+.PostStream-timeGap{display:flex!important;align-items:center!important;text-align:center!important;margin:14px 0!important;border:none!important}
+.PostStream-timeGap::before,.PostStream-timeGap::after{content:""!important;flex:1 1 auto!important;height:1px!important;background:#d7dde3!important;display:block!important}
+.PostStream-timeGap span{flex:0 0 auto!important;padding:0 14px!important;font-size:12px!important;color:#8a96a3!important;font-weight:400!important;letter-spacing:.5px!important;background:transparent!important;border:none!important;line-height:1!important}
 .DiscussionPage .container,.DiscussionPage .container.sideNavContainer{max-width:1320px!important;width:94%!important;margin:0 auto!important}
 .DiscussionPage-stream,.DiscussionPage-stream.sideNavOffset{background:#fff!important;border:1px solid #c9cfd6!important;border-radius:0!important;padding:16px!important;box-shadow:none!important;margin:0 auto!important;width:100%!important;max-width:100%!important}
 .CategoriesPage .container,.IndexPage .container,.DiscussionPage .container{padding-top:16px!important}
