@@ -58,12 +58,11 @@
 /* margin-bottom below creates the gap before the dashboard content.          */
 #admin-navigation .AdminNav {
     display: block !important;
-    /* Constrain to the same content width as other admin panels (1320/94%),  */
-    /* auto-centered, so the outer border visibly wraps the nav sections      */
-    /* instead of running past the viewport edges.                             */
-    width: 94% !important;
-    max-width: 1320px !important;
-    margin: 0 auto 20px !important;
+    /* Restore full width (user liked the wider look) but keep the outer frame */
+    /* border/shadow so nav is clearly wrapped as one big card.                */
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 20px !important;
     padding: 0 !important;
     background: #ffffff !important;
     position: static !important;
