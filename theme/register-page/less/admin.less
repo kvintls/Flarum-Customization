@@ -113,9 +113,9 @@
 
 /* item-category-core / item-category-feature are plain section labels        */
 /* (no children) -> render as a full-width header strip.                      */
-/* Top category labels (Core config / Features): keep only the essential       */
-/* behavior (full-width row so tabs/plugins below wrap to a new line). Drop    */
-/* all visual overrides -- user asked to leave these two alone.                */
+/* Top category labels (Core config / Features): full-width row, plus two     */
+/* minimal tweaks -- a bit of vertical breathing room from neighboring rows,  */
+/* and slight left padding so the text isn't glued to the frame edge.         */
 #admin-navigation .Dropdown-menu > li.item-category-core,
 #admin-navigation .Dropdown-menu > li.item-category-feature {
     flex: 1 1 100% !important;
@@ -123,6 +123,8 @@
     width: 100% !important;
     max-width: 100% !important;
     display: block !important;
+    margin: 8px 0 6px !important;
+    padding-left: 14px !important;
 }
 
 /* A plugin GROUP (Styling / Forum Widgets / Language packs) is a li that     */
