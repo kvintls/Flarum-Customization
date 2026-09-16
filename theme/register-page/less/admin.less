@@ -147,11 +147,12 @@
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 6px 12px 10px !important;
+    padding: 10px 14px 14px !important;
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: wrap !important;
     align-items: stretch !important;
+    gap: 10px 14px !important; /* row 10px / col 14px spacing between plugin cells */
     background: transparent !important;
     border-top: 1px solid #eceff2 !important;
     box-sizing: border-box !important;
@@ -267,7 +268,8 @@
 /*         item-category-language        (a plugin group, holds an            */
 /*         h4.ExtensionListTitle + its own li.item-extension-* children)      */
 #admin-navigation .Dropdown-menu {
-    padding: 6px 12px 10px !important;
+    padding: 10px 14px 14px !important;
+    gap: 10px 14px !important; /* row/col gap for top Features plugin grid */
 }
 
 /* Each plugin = a flexible cell that GROWS to fill the row (min 190px),      */
