@@ -552,25 +552,53 @@ main.App-content::after {
 }
 
 
-/* Users admin page: wrap the whole page content in a card frame + constrain   */
-/* to match the admin nav width above. The page container itself has no frame */
-/* by default, which is why the users grid looks wider/uncontained vs the      */
-/* framed language-pack section in the admin nav above.                        */
-/* Users page container: user reported width 1425px on 1440px viewport --      */
-/* the .App-content .container rule (max-width:1320px, width:94%) was being   */
-/* overridden here by higher-specificity Flarum defaults. Use #app + double    */
-/* classes to boost specificity so 1320px/94% actually wins.                   */
+/* Users page container: constrain to 1320/94% like other admin panels.        */
+/* No frame (user said it looked ugly), no shadow, just plain white content.  */
 #app main.App-content .container.UserListPage,
 #app main.App-content .AdminPage.UserListPage,
 #app main.App-content .sideNavOffset.UserListPage {
     max-width: 1320px !important;
     width: 94% !important;
     margin: 0 auto 16px !important;
-    background: #fff !important;
-    border: 1px solid #c3cad2 !important;
-    border-radius: 4px !important;
-    padding: 20px !important;
-    box-shadow: 0 1px 3px rgba(20, 30, 50, 0.08) !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+}
+/* Also drop the frame + light bg from the AdminHeader ("用户" title card) on  */
+/* the users page and any plugin detail page -- user wants clean/white.        */
+.AdminHeader {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+/* Force plain white on the whole admin content surface (was showing a slight  */
+/* green/blue tint on plugin detail pages).                                    */
+.App, .App-content, .App-content > * {
+    background: #ffffff !important;
+}
+/* Search-users bar sits next to "用户" title on the right, not below it. */
+#app main.App-content .UserListPage .SearchBar,
+#app main.App-content .UserListPage .Search-input,
+#app main.App-content .UserListPage-search {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 260px !important;
+    margin: 0 !important;
+}
+#app main.App-content .UserListPage .AdminHeader {
+    position: relative !important;
+}
+/* Footer blue line: constrain to the framed content width (1320/94%) so it   */
+/* doesn't stretch across the full page width.                                 */
+main.App-content::after {
+    max-width: 1320px !important;
+    width: 94% !important;
+    margin: 16px auto 0 !important;
     box-sizing: border-box !important;
 }
 /* Also boost specificity on the base .container rule so no other selector    */
