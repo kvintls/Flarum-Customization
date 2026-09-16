@@ -459,9 +459,11 @@ select {
 /* so we recreate the same signature with a CSS ::after pseudo-element at the  */
 /* bottom of the admin content column: same blue top rule, right alignment,   */
 /* small grey text -- visually identical to the homepage footer.              */
-/* Attach footer once, at the very bottom of the whole admin content area.    */
-/* Previously used .container::after which duplicated per card/section.        */
-main.App-content::after {
+/* Footer signature line, rendered INSIDE the .AdminPage frame (per user)     */
+/* so it's wrapped by the same outer border as the page content. Also attach  */
+/* to the users page (.UserListPage) since that page's frame is separate.     */
+#app main.App-content .AdminPage::after,
+#app main.App-content .UserListPage::after {
     content: "\7531 kvin.kirby \63d0\4f9b\6280\672f\652f\6301 \00b7 \00a9 Talkora";
     display: block !important;
     border-top: 2px solid #0771a8 !important;
@@ -470,6 +472,7 @@ main.App-content::after {
     text-align: right !important;
     font-size: 12px !important;
     color: #888 !important;
+    box-sizing: border-box !important;
 }
 
 
@@ -633,14 +636,8 @@ html, body, .App, .App-content, .App-content > *,
 .App-content .PermissionGrid > div > *:last-child {
     border-right: none !important;
 }
-/* Footer blue line: constrain to the framed content width (1320/94%) so it   */
-/* doesn't stretch across the full page width.                                 */
-main.App-content::after {
-    max-width: 1320px !important;
-    width: 94% !important;
-    margin: 16px auto 0 !important;
-    box-sizing: border-box !important;
-}
+/* (Old rule that constrained main.App-content::after removed -- the footer   */
+/*  is now attached inside .AdminPage::after so it inherits the frame width.)  */
 /* Base .container: full width so content aligns with the full-width admin nav */
 /* above it. Boosted specificity so other Flarum defaults do not override.     */
 #app main.App-content .container {
