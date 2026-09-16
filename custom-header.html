@@ -1447,3 +1447,84 @@
   });
 })();
 </script>
+
+
+
+<script>
+/* 用户主页 (/u/name) 侧栏顶部塞一张统计卡: 加入天数 / 等级 / 鸡腿
+   - 加入天数: 从 user.joinTime() 实时算 (毫秒差 / 86400000)
+   - 等级: 阈值表映射, 参数 XP
+   - 鸡腿(XP): 前端暂时靠帖子数+评论数+加入天数推导, 服务端将来接入了真正的
+     签到/投喂/惩罚系统后, 把 computeXP 里的返回值换成 user.data.attributes.<字段>
+     就一步到位, 显示层不用改.
+   数据源: app.store.all('users') 里按 slug 匹配到当前主页用户. */
+(function(){
+  // ---- 参数(想调整积分曲线改这里就行) ----
+  var XP_PER_DISCUSSION = 5;
+  var XP_PER_COMMENT    = 1;
+  var XP_PER_DAY        = 0.5;
+  // 等级阈值: 需累积多少 XP 才能进这一级
+  var LEVEL_XP = [0, 50, 200, 500, 1000, 2000, 4000, 7000, 12000, 20000];
+
+  function daysSince(date){
+    if(!date) return 0;
+    var t = (date instanceof Date) ? date.getTime() : new Date(date).getTime();
+    if(!t) return 0;
+    return Math.max(0, Math.floor((Date.now() - t) / 86400000));
+  }
+  function computeXP(user, days){
+    // 前端估算 (装了后端积分插件后替换为 user.data.attributes.chickenLegs 等)
+    var d = 0, c = 0;
+    try{ d = user.discussionCount ? (user.discussionCount() || 0) : 0; }catch(e){}
+    try{ c = user.commentCount    ? (user.commentCount()    || 0) : 0; }catch(e){}
+    return Math.max(0, Math.floor(d * XP_PER_DISCUSSION + c * XP_PER_COMMENT + days * XP_PER_DAY));
+  }
+  function computeLevel(xp){
+    for(var i = LEVEL_XP.length - 1; i >= 0; i--){
+      if(xp >= LEVEL_XP[i]) return i + 1;
+    }
+    return 1;
+  }
+  function findUser(slug){
+    if(!(window.app && app.store)) return null;
+    var users = app.store.all('users') || [];
+    for(var i = 0; i < users.length; i++){
+      try{ if(users[i].username && users[i].username() === slug) return users[i]; }catch(e){}
+    }
+    return null;
+  }
+
+  setInterval(function(){
+    if(!/^\/u\//.test(location.pathname)) return;
+    var sideNav = document.querySelector('.UserPage .sideNav');
+    if(!sideNav) return;
+
+    var m = location.pathname.match(/^\/u\/([^\/?#]+)/);
+    if(!m) return;
+    var slug = decodeURIComponent(m[1]);
+    var user = findUser(slug);
+    if(!user) return;
+
+    var days  = user.joinTime ? daysSince(user.joinTime()) : 0;
+    var xp    = computeXP(user, days);
+    var level = computeLevel(xp);
+
+    var card = sideNav.querySelector('.kv-user-stats');
+    if(!card){
+      card = document.createElement('div');
+      card.className = 'kv-user-stats';
+      card.innerHTML =
+        '<div class="kv-us-item"><i class="fas fa-clock"></i><span class="kv-us-label">加入天数</span><span class="kv-us-value kv-us-days">-</span></div>' +
+        '<div class="kv-us-item"><i class="fas fa-gem"></i><span class="kv-us-label">等级</span><span class="kv-us-value kv-us-level">-</span></div>' +
+        '<div class="kv-us-item"><i class="fas fa-drumstick-bite"></i><span class="kv-us-label">鸡腿</span><span class="kv-us-value kv-us-xp">-</span></div>';
+      sideNav.insertBefore(card, sideNav.firstChild);
+    }
+    var dEl = card.querySelector('.kv-us-days');
+    var lEl = card.querySelector('.kv-us-level');
+    var xEl = card.querySelector('.kv-us-xp');
+    if(dEl.textContent !== String(days))  dEl.textContent = String(days);
+    if(lEl.textContent !== String(level)) lEl.textContent = String(level);
+    if(xEl.textContent !== String(xp))    xEl.textContent = String(xp);
+  }, 500);
+})();
+</script>
