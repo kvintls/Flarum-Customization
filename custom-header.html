@@ -450,20 +450,44 @@
   }, true);
 
   var kvPrevPath = location.pathname;
+  var kvEmptyStreak = 0; // 连续检测到"空"的次数，用于防抖(避免上传图片/Mithril重绘的过渡瞬间误隐藏)
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
     if(!comp) return;
-    // 没有正在编辑的 .Composer 时,行内强制隐藏(比 :has() 可靠,消除过渡态露出的小块)
-    if(!comp.querySelector('.Composer')){ comp.style.setProperty('display','none','important'); }
-    else { comp.style.removeProperty('display'); }
+    // 判断 composer 是否"真的"没有在编辑：优先信任 Flarum 的 app.composer 状态，
+    // 其次才看 DOM。上传图片时 Mithril 会短暂重建 .Composer 子节点，若纯看 DOM 会
+    // 在那一瞬间误判为空、给整个 composer 打上 display:none，导致回复框"闪一下就没了"。
+    var appOpen = false;
+    try{
+      if(window.app && app.composer){
+        var body = app.composer.body;
+        // isVisible / bodyMatches / 存在编辑内容 都视为"打开中"
+        if(typeof app.composer.isVisible === 'function'){ appOpen = app.composer.isVisible(); }
+        if(!appOpen && body && body.componentClass){ appOpen = true; }
+      }
+    }catch(e){}
+    var hasDom = !!comp.querySelector('.Composer');
+    // kvOpen = 稳定的"编辑器是否打开"判断(带防抖)，后续 kv-inline/移动 DOM 都以它为准
+    var kvOpen;
+    if(appOpen || hasDom){
+      // 编辑器打开中 —— 立刻显示，并清零"空"计数
+      kvEmptyStreak = 0;
+      comp.style.removeProperty('display');
+      kvOpen = true;
+    } else {
+      // 只有连续 4 次(约1.2s)都确认为空，才真正隐藏，跳过上传/重绘的过渡态
+      kvEmptyStreak++;
+      kvOpen = kvEmptyStreak < 4; // 过渡态仍视为"打开"，避免闪烁
+      if(kvEmptyStreak >= 4){ comp.style.setProperty('display','none','important'); }
+    }
     // 路径一变就关掉编辑框——不管是帖子详情页的回复框, 还是列表/标签页打开的发主题框,
     // 都是"属于打开时那个页面"的, 不该跟着漂到下一个页面(用户返回首页/切分类都算)
     if(kvPrevPath !== location.pathname){
       try{ if(window.app && app.composer && typeof app.composer.hide === 'function') app.composer.hide(); }catch(e){}
     }
     kvPrevPath = location.pathname;
-    // 只在 composer 真正打开(有 .Composer 子)时才加 kv-inline,避免首页空 composer 也显示虚线
-    if(comp.querySelector('.Composer')){ comp.classList.add('kv-inline'); }
+    // 只在 composer 打开时才加 kv-inline(用带防抖的 kvOpen,避免上传图片时短暂抖动)
+    if(kvOpen){ comp.classList.add('kv-inline'); }
     else { comp.classList.remove('kv-inline'); }
     if(/^\/d\//.test(location.pathname)){
       var stream = document.querySelector('.DiscussionPage-stream');
