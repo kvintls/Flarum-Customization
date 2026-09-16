@@ -741,3 +741,17 @@ html, body, .App, .App-content, .App-content > *,
     background-color: transparent !important;
     opacity: 0 !important;
 }
+
+
+/* Tags admin page: three columns (主标签 / 次标签 / 设置) sit inside            */
+/* .SettingsGroups (flex) with fixed widths, leaving empty space on the right. */
+/* Push the last column (设置) to the far right by distributing space.         */
+.ExtensionPage .SettingsGroups,
+.ExtensionPage-body .SettingsGroups,
+.SettingsGroups {
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
