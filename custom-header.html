@@ -1473,7 +1473,20 @@
     return Math.max(0, Math.floor((Date.now() - t) / 86400000));
   }
   function computeXP(user, days){
-    // 前端估算 (装了后端积分插件后替换为 user.data.attributes.chickenLegs 等)
+    // 优先: 用真实的后端积分 (fof/gamification 的 points, 由点赞/点踩驱动).
+    //       零服务器负担, 数据是权威的.
+    //       "投喂" = 别人点赞;  "恶意水贴扣分" = 别人点踩;  都是社区驱动.
+    try{
+      var real = user.data && user.data.attributes && user.data.attributes.points;
+      if(typeof real === 'number' && !isNaN(real)) return Math.max(0, Math.floor(real));
+      // 兼容: 如果 fof/gamification 用了别的字段名, 也试一下常见的
+      var alt = user.data && user.data.attributes && (
+        user.data.attributes.votes ||
+        user.data.attributes.reputation
+      );
+      if(typeof alt === 'number' && !isNaN(alt)) return Math.max(0, Math.floor(alt));
+    }catch(e){}
+    // 兜底: 后端字段不可用时按活跃度估算 (装了 fof/gamification 且有点赞后自动切换)
     var d = 0, c = 0;
     try{ d = user.discussionCount ? (user.discussionCount() || 0) : 0; }catch(e){}
     try{ c = user.commentCount    ? (user.commentCount()    || 0) : 0; }catch(e){}
