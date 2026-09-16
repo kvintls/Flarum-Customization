@@ -568,20 +568,18 @@ select {
 }
 
 
-/* Users page container: constrained to 1320/94% AND wrapped in a subtle       */
-/* border (user asked to frame it). No inner padding shift so content stays    */
-/* where it was.                                                                */
+/* Users page: full-width framed card matching the nav frame above it. */
 #app main.App-content .container.UserListPage,
 #app main.App-content .AdminPage.UserListPage,
 #app main.App-content .sideNavOffset.UserListPage {
-    max-width: 1320px !important;
-    width: 94% !important;
-    margin: 0 auto 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     background: #ffffff !important;
-    border: 1px solid #dfe3e8 !important;
+    border: 1px solid #c3cad2 !important;
     border-radius: 4px !important;
     padding: 20px !important;
-    box-shadow: none !important;
+    box-shadow: 0 1px 3px rgba(20, 30, 50, 0.06) !important;
     box-sizing: border-box !important;
 }
 /* Also drop the frame + light bg from the AdminHeader (page title card) on   */
