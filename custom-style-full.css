@@ -3,4 +3,5 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 
 .AlertManager,.AlertManager>ul,.AlertManager>ul>li{left:max(3vw,calc((100vw - 1320px) / 2))!important;right:max(3vw,calc((100vw - 1320px) / 2))!important}
 
-.CommentPost>.Button.Button--link,.CommentPost>button.Button--link{display:none!important}
+
+.CommentPost .Post-actions{left:auto!important;width:auto!important}
