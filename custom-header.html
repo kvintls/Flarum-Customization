@@ -444,6 +444,19 @@
   var wasOpen = false;   // 上一轮 composer 是否打开, 用于侦测"开->关"的转变(=发帖成功)
   var lastPath = location.pathname;
 
+  // 【修复"第一次点回复没反应"】焦点若卡在某个按钮上(常见 fof-upload-button 等),
+  // 浏览器会阻止 Flarum 给 #app 加 aria-hidden 打开回复框("Blocked aria-hidden ...
+  // Element with focus"), 结果第一次点看不见框, 第二次点因焦点已移开才正常。
+  // 修法: 在点"回复/编辑/发主题"按钮时, 先把当前焦点主动清掉。
+  document.addEventListener('mousedown', function(e){
+    if(!e.target.closest) return;
+    var trig = e.target.closest('.item-reply, .item-edit, .item-newDiscussion, .Post-actions .Button, .ReplyPlaceholder, [data-item-name="reply"], [data-item-name="edit"]');
+    if(trig){
+      var el = document.activeElement;
+      if(el && el !== document.body && el.blur){ try{ el.blur(); }catch(_){} }
+    }
+  }, true);
+
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
     if(!comp){ wasOpen = false; return; }
