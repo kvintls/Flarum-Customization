@@ -58,9 +58,9 @@
 /* margin-bottom below creates the gap before the dashboard content.          */
 #admin-navigation .AdminNav {
     display: block !important;
-    width: 94% !important;
-    max-width: 1320px !important;
-    margin: 0 auto 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 20px !important;
     padding: 0 !important;
     background: #ffffff !important;
     position: static !important;
@@ -101,16 +101,22 @@
     float: none !important;
 }
 
-/* Category / sub-group headers (Core, Features, Styling, Forum Widgets,     */
-/* Language packs...) = full-width row that breaks the flex wrap so the      */
-/* extension items below start on a fresh line and line up in a clean grid.  */
-#admin-navigation .Dropdown-menu > h4,
-#admin-navigation .Dropdown-menu > .ExtensionListTitle,
-#admin-navigation .Dropdown-menu > h4.ExtensionListTitle,
-#admin-navigation .Dropdown-menu li.item-category-core,
-#admin-navigation .Dropdown-menu li.item-category-feature {
+/* Real Flarum admin nav structure (confirmed from compiled admin.css):        */
+/*   ul.Dropdown-menu                                                          */
+/*     li.item-category-core / li.item-category-feature   (top tab groups)     */
+/*     .ExtensionList-Category                            (a plugin group box) */
+/*        .ExtensionListTitle  ("Styling" / "Forum Widgets" / "Language packs")*/
+/*        .ExtensionListItem   (each plugin)                                    */
+/* So the sub-group titles live INSIDE .ExtensionList-Category, not as direct  */
+/* children of .Dropdown-menu -- that is why earlier selectors missed them.    */
+
+/* Top-level category tab labels (Core config / Features) = full-width row */
+#admin-navigation .Dropdown-menu > li.item-category-core,
+#admin-navigation .Dropdown-menu > li.item-category-feature {
+    flex: 1 1 100% !important;
     flex-basis: 100% !important;
     width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
     padding: 8px 20px !important;
     text-transform: uppercase !important;
@@ -123,10 +129,47 @@
     letter-spacing: 0.5px !important;
     display: block !important;
 }
-/* First category header has no top border (sits at top of the box) */
-#admin-navigation .Dropdown-menu > h4.ExtensionListTitle:first-child,
 #admin-navigation .Dropdown-menu > li:first-child.item-category-core {
     border-top: none !important;
+}
+
+/* An extension group (Styling / Forum Widgets / Language packs) = full-width */
+/* block. Its inner items are laid out as a wrapping grid.                    */
+#admin-navigation .Dropdown-menu .ExtensionList-Category {
+    flex: 1 1 100% !important;
+    flex-basis: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 6px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+    background: transparent !important;
+    border-top: 1px solid #eceff2 !important;
+    box-sizing: border-box !important;
+}
+
+/* The group's title (Styling, Forum Widgets, Language packs...) = its own row */
+#admin-navigation .ExtensionList-Category > .ExtensionListTitle,
+#admin-navigation .ExtensionListTitle,
+#admin-navigation .ExtensionList-Label {
+    flex: 1 1 100% !important;
+    flex-basis: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 6px 14px !important;
+    text-transform: uppercase !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    color: #8a9099 !important;
+    background: transparent !important;
+    border: none !important;
+    display: block !important;
+    text-align: left !important;
 }
 
 /* Each tab <li> = flex item, horizontal */
@@ -207,41 +250,72 @@
 }
 
 /* --- Extension list layout (the "Features" / plugins grid) --- */
-/* Give every extension item a fixed width so they line up in tidy columns   */
-/* instead of ragged, uneven wrapping. Items sit inside a small padded row.   */
+/* Extension items (.ExtensionListItem) live INSIDE .ExtensionList-Category   */
+/* (confirmed via compiled admin.css), so target them there -- NOT as direct  */
+/* children of .Dropdown-menu. Give each a fixed-width cell so they line up in */
+/* tidy columns instead of ragged, uneven wrapping.                           */
 #admin-navigation .Dropdown-menu {
     padding: 6px !important;
 }
+#admin-navigation .ExtensionListItem,
 #admin-navigation .Dropdown-menu > li.ExtensionListItem,
-#admin-navigation .Dropdown-menu > li[class*="ExtensionListItem"] {
-    flex: 0 0 200px !important;
-    width: 200px !important;
-    max-width: 200px !important;
+#admin-navigation li[class*="ExtensionListItem"] {
+    flex: 0 0 190px !important;
+    width: 190px !important;
+    max-width: 190px !important;
+    margin: 0 !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
+    list-style: none !important;
+    display: flex !important;
+    align-items: stretch !important;
 }
 /* Extension item link fills its cell and truncates long names cleanly */
-#admin-navigation .Dropdown-menu > li.ExtensionListItem > a,
-#admin-navigation .Dropdown-menu > li.ExtensionListItem > .Button {
+#admin-navigation .ExtensionListItem > a,
+#admin-navigation .ExtensionListItem > .Button {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
     width: 100% !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     min-height: 34px !important;
     padding: 7px 12px !important;
     border-radius: 3px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #333 !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
 }
-#admin-navigation .Dropdown-menu > li.ExtensionListItem > a .Button-label,
-#admin-navigation .Dropdown-menu > li.ExtensionListItem > .Button .Button-label {
+#admin-navigation .ExtensionListItem > a:hover,
+#admin-navigation .ExtensionListItem > .Button:hover {
+    background: #eef1f4 !important;
+    color: #0771a8 !important;
+}
+#admin-navigation .ExtensionListItem .Button-label,
+#admin-navigation .ExtensionListItem-title {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    text-align: left !important;
+}
+#admin-navigation .ExtensionListItem-icon,
+#admin-navigation .ExtensionListItem .Button-icon {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
 }
 
-/* Extension list dot indicator: reset absolute positioning, pin to the right */
-#admin-navigation .Dropdown-menu > li .ExtensionListItem-Dot {
+/* Extension status dot: reset absolute positioning, pin to the right of cell */
+#admin-navigation .ExtensionListItem-Dot {
     position: static !important;
     margin: 0 0 0 auto !important;
     transform: none !important;
     right: auto !important;
+    top: auto !important;
     flex: 0 0 auto !important;
 }
 
