@@ -531,3 +531,26 @@ table.rankings tr:last-child td{border-bottom:none!important}
 .App .DiscussionListItem:hover .DiscussionListItem-title{color:#1f2d3d!important}
 .App .DiscussionList-discussions{box-shadow:none!important}
 
+
+
+/* "Choose tags to follow" welcome popup (post-signup, flarum-tags extension). */
+/* Match the FluxBB style used for SignUp/LogIn modals: grey gradient header, */
+/* soft body, kvin.kirby blue accents, clean rows.                            */
+.SelectTagsModal .Modal-content,.TagSelectionModal .Modal-content{border-radius:0!important;border:1px solid #8ba6b8!important;box-shadow:0 3px 14px rgba(0,0,0,.25)!important;overflow:hidden!important}
+.SelectTagsModal .Modal-header,.TagSelectionModal .Modal-header{background:linear-gradient(#f0f0f0,#e2e2e2)!important;border-bottom:1px solid #ccc!important;padding:10px 16px!important;text-align:left!important}
+.SelectTagsModal .Modal-header h3,.SelectTagsModal .App-titleControl,.TagSelectionModal .Modal-header h3,.TagSelectionModal .App-titleControl{font-size:15px!important;font-weight:700!important;color:#333!important;text-align:left!important;margin:0!important}
+.SelectTagsModal .Modal-close,.TagSelectionModal .Modal-close{color:#888!important;opacity:.8!important;background:transparent!important;border:none!important}
+.SelectTagsModal .Modal-body,.TagSelectionModal .Modal-body{background:#eef3f7!important;padding:16px 20px!important}
+.SelectTagsModal .Modal-footer,.TagSelectionModal .Modal-footer{background:#fff!important;border-top:1px solid #dfe6ea!important;padding:12px 16px!important}
+/* Tag rows */
+.SelectTagsModal .TagListItem,.SelectTagsModal .SelectTagListItem,.TagSelectionModal .TagListItem{display:flex!important;align-items:center!important;gap:12px!important;padding:10px 12px!important;background:#fff!important;border:1px solid #c9cfd6!important;border-radius:2px!important;margin:0 0 8px!important}
+.SelectTagsModal .TagListItem:last-child,.TagSelectionModal .TagListItem:last-child{margin-bottom:0!important}
+.SelectTagsModal .TagListItem .TagLabel,.SelectTagsModal .TagListItem-name,.TagSelectionModal .TagListItem-name{font-weight:700!important;color:#333!important;font-size:14px!important}
+.SelectTagsModal .TagListItem-description,.TagSelectionModal .TagListItem-description{color:#666!important;font-size:12px!important;flex:1 1 auto!important;margin:0 8px!important}
+/* Follow / Subscribe buttons */
+.SelectTagsModal .Button,.TagSelectionModal .Button{border-radius:2px!important;font-weight:600!important;font-size:13px!important;box-shadow:none!important}
+.SelectTagsModal .Button--primary,.TagSelectionModal .Button--primary{background:#3f7cac!important;border:1px solid #35688f!important;color:#fff!important;padding:8px 14px!important}
+.SelectTagsModal .Button--primary:hover,.TagSelectionModal .Button--primary:hover{background:#35688f!important}
+.SelectTagsModal .Button--link,.TagSelectionModal .Button--link{color:#0771a8!important;background:transparent!important;border:none!important;padding:8px 10px!important}
+/* "Remind me later" link + "Continue to forum" area alignment */
+.SelectTagsModal .Modal-footer,.TagSelectionModal .Modal-footer{display:flex!important;align-items:center!important;justify-content:space-between!important}
