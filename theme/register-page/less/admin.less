@@ -552,15 +552,26 @@ main.App-content::after {
 }
 
 
-/* Users admin grid (section.UserListPage-grid uses display:grid). Distribute  */
-/* columns with fr so they fill the grid's natural width, but DON'T stretch    */
-/* the grid's parent -- let it stay inside the same container width as other   */
-/* admin panels (language pack / users etc.) so it doesn't shoot past them.   */
+/* Users admin page: wrap the whole page content in a card frame + constrain   */
+/* to match the admin nav width above. The page container itself has no frame */
+/* by default, which is why the users grid looks wider/uncontained vs the      */
+/* framed language-pack section in the admin nav above.                        */
+.App-content .UserListPage {
+    max-width: 1320px !important;
+    width: 94% !important;
+    margin: 0 auto 16px !important;
+    background: #fff !important;
+    border: 1px solid #c3cad2 !important;
+    border-radius: 4px !important;
+    padding: 20px !important;
+    box-shadow: 0 1px 3px rgba(20, 30, 50, 0.08) !important;
+    box-sizing: border-box !important;
+}
+/* Users grid (section.UserListPage-grid uses display:grid) -- distribute      */
+/* columns with fr so they fill the framed page nicely.                        */
 .App-content .UserListPage-grid,
 .App-content .UserListPage-grid--loaded,
 .App-content .UserListPage-grid--loading {
     grid-template-columns: minmax(60px, auto) minmax(120px, 1.2fr) minmax(120px, 1.2fr) minmax(150px, 1.5fr) minmax(80px, 0.8fr) minmax(200px, 2fr) minmax(80px, auto) !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
     box-sizing: border-box !important;
 }
