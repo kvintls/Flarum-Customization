@@ -450,9 +450,11 @@
     if(!app) app = document.querySelector('.App');
     var open = !!comp.querySelector('.Composer');
 
-    // 开着才内联可见, 关了就隐藏(消除过渡态露出的空壳/虚线)
-    if(open){ comp.classList.add('kv-inline'); comp.style.removeProperty('display'); }
-    else { comp.classList.remove('kv-inline'); comp.style.setProperty('display','none','important'); }
+    // 开着加内联类, 关了去掉。不用 display:none 强行隐藏 —— 那样会在"点回复"的过渡瞬间
+    // (Flarum 刚建 composer、.Composer 子节点还没生成)把它压成隐藏且 !important 顶死,
+    // 导致"点回复没反应"。composer 的显示/隐藏交给 Flarum 自己管, 我们只管内联 class。
+    if(open){ comp.classList.add('kv-inline'); }
+    else { comp.classList.remove('kv-inline'); }
 
     // 帖子数增加 = 发帖成功 -> 立刻把 composer 移出帖子流, 进入冷却(躲开重绘窗口, 防闪退)
     var c = count();
