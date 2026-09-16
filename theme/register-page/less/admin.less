@@ -58,14 +58,13 @@
 /* margin-bottom below creates the gap before the dashboard content.          */
 #admin-navigation .AdminNav {
     display: block !important;
-    /* Nav is the TOP HALF of one continuous outer frame that wraps the entire */
-    /* admin page (nav + content + footer). Only top/left/right border here;   */
-    /* the bottom is left off so it visually connects to the .AdminPage frame  */
-    /* below with no seam.                                                     */
+    /* Top half of the single outer frame -- only top/left/right border.       */
+    /* Padding here matches .AdminPage's 20px so the inner nav content lines   */
+    /* up with the inner content of the AdminPage below (same visual width).  */
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 20px 20px 0 !important;
     background: #ffffff !important;
     position: static !important;
     box-shadow: none !important;
