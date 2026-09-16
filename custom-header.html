@@ -1137,7 +1137,16 @@
     document.querySelectorAll('.Post-body').forEach(function(body){
       try{
         var imgs = Array.from(body.querySelectorAll('img')).filter(function(img){
-          return !img.closest('.kv-imggrid');
+          if(img.closest('.kv-imggrid')) return false;
+          // 只把"用户上传的照片"塞进 grid: fof/upload 会把上传图裹在 <a href=原图>
+          // 里. 内联小图标 (表情、贴纸、markdown ![](url) 直插) 没这层 <a>, 保持
+          // 原地不动, 免得表情包被抽到帖子末尾变成大格子.
+          var a = img.closest('a[href]');
+          if(!a || !body.contains(a)) return false;
+          // 排除 Flarum 内联的 emoji (class=emoji 或者 alt=":xxx:")
+          if(img.classList && img.classList.contains('emoji')) return false;
+          if((img.getAttribute('alt')||'').match(/^:[\w+-]+:$/)) return false;
+          return true;
         });
         if(imgs.length === 0) return;
         var grid = body.querySelector(':scope > .kv-imggrid');
@@ -1164,5 +1173,206 @@
       }catch(e){}
     });
   }, 500);
+})();
+</script>
+
+
+
+<script>
+/* 自定义表情面板: 三个 tab (泡泡 / 阿鲁 / 颜文字)
+   - 干掉 Flarum 原生的 emoji picker (那个"regional_indicator_a"的下拉)
+   - 点笑脸按钮 -> 弹出我们的面板 (定位在按钮上方)
+   - 点图片表情: 往 composer textarea 插入 markdown ![](url), 会渲染成图片
+   - 点颜文字: 直接插入字符 (纯文本)
+   
+   素材来源 (全部走 jsdelivr CDN, 引用第三方公开托管仓库, 不重打包):
+   - 泡泡: KBdog/emojiCDN 的 tieba 目录 (贴吧原生表情, 61 张)
+   - 阿鲁: liopoos/aru-sticker 的 image 目录 (281 张)
+   如果这两个 CDN 挂了/慢了, 也可以自己 fork 一份到自己的仓库改 URL. */
+(function(){
+  // === 数据 ===
+  var PAOPAO_NAMES = ['OK','haha','what','不高兴','乖','你懂的','便便','勉强','吐','吐舌','呀咩爹','呵呵','哈哈','啊','喷','大拇指','太开心','太阳','委屈','小乖','小红脸','彩虹','心碎','怒','惊哭','惊讶','懒得理','手纸','挖鼻','捂嘴笑','星星月亮','汗','沙发','泪','滑稽','灯泡','爱心','犀利','狂汗','玫瑰','疑问','真棒','睡觉','礼物','笑尿','笑眼','红领巾','胜利','花心','茶杯','药丸','蛋糕','蜡烛','鄙视','酷','酸爽','钱币','阴险','音乐','香蕉','黑线'];
+  var ARU_COUNT = 281;
+  var KAOMOJI = [
+    '(๑•̀ㅁ•́ฅ)','(´｡• ω •｡`)','¯\\_(ツ)_/¯','(◍•ᴗ•◍)','ヾ(≧▽≦*)o',
+    '(´,,•ω•,,)♡','(｡◕‿◕｡)','(◕‿◕✿)','٩( ᐛ )و','(・_・?)',
+    '(；￣Д￣)','(◎_◎;)','(╯°□°）╯︵ ┻━┻','(ノಠ益ಠ)ノ','(˘•_•˘)',
+    'ಥ_ಥ','(っ °Д °;)っ','(ಥ﹏ಥ)','٩(◕‿◕)۶','(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧',
+    '(☆▽☆)','ヽ(´▽`)/','(⌒‿⌒)','(◠‿◠)','(♡´౪`♡)',
+    '٩(♡ε♡ )۶','(♡◡♡)','(∪｡∪)｡｡｡zzZ','σ(≧ε≦o)','(´−｀) ンー',
+    '( ͡° ͜ʖ ͡°)','(¬‿¬)','(*≧ω≦)','(＞人＜;)','(=^･ω･^=)',
+    '(=①ω①=)','(๑˃̵ᴗ˂̵)و','(◐‿◑)','｡◕‿‿◕｡','(＾• ω •＾)'
+  ];
+
+  var PAOPAO_BASE = 'https://cdn.jsdelivr.net/gh/KBdog/emojiCDN@master/tieba/';
+  var ARU_BASE = 'https://cdn.jsdelivr.net/gh/liopoos/aru-sticker@master/image/';
+
+  function paopaoUrl(name){ return PAOPAO_BASE + encodeURIComponent(name) + '.png'; }
+  function aruUrl(n){ return ARU_BASE + encodeURIComponent('aru (' + n + ').png'); }
+
+  var panel = null;
+
+  function buildPanel(){
+    if(panel) return panel;
+    panel = document.createElement('div');
+    panel.id = 'kv-emojipanel';
+    panel.innerHTML =
+      '<div class="kv-ep-body"></div>' +
+      '<div class="kv-ep-tabs">' +
+        '<button type="button" data-pack="pao">泡泡</button>' +
+        '<button type="button" data-pack="aru">阿鲁</button>' +
+        '<button type="button" data-pack="kao">颜文字</button>' +
+      '</div>';
+    document.body.appendChild(panel);
+    panel.addEventListener('click', function(e){
+      var tab = e.target.closest('.kv-ep-tabs button');
+      if(tab){
+        panel.querySelectorAll('.kv-ep-tabs button').forEach(function(b){ b.classList.remove('active'); });
+        tab.classList.add('active');
+        renderPack(tab.dataset.pack);
+        return;
+      }
+      var item = e.target.closest('[data-insert]');
+      if(item){
+        insertToComposer(item.dataset.insert);
+        // 插完不关掉面板, 方便连发多个
+        return;
+      }
+    });
+    // 防止面板里点击冒泡到 window/document 的 "点外面关掉" 逻辑
+    panel.addEventListener('mousedown', function(e){ e.stopPropagation(); });
+    return panel;
+  }
+
+  function renderPack(pack){
+    var body = panel.querySelector('.kv-ep-body');
+    body.className = 'kv-ep-body' + (pack === 'kao' ? ' kv-ep-kao' : '');
+    body.innerHTML = '';
+    var frag = document.createDocumentFragment();
+    if(pack === 'pao'){
+      PAOPAO_NAMES.forEach(function(name){
+        var url = paopaoUrl(name);
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'kv-ep-img';
+        b.title = name;
+        b.dataset.insert = '![](' + url + ')';
+        var img = document.createElement('img');
+        img.src = url; img.loading = 'lazy'; img.alt = name;
+        b.appendChild(img);
+        frag.appendChild(b);
+      });
+    } else if(pack === 'aru'){
+      for(var i = 1; i <= ARU_COUNT; i++){
+        var url = aruUrl(i);
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'kv-ep-img';
+        b.title = 'aru' + i;
+        b.dataset.insert = '![](' + url + ')';
+        var img = document.createElement('img');
+        img.src = url; img.loading = 'lazy'; img.alt = 'aru' + i;
+        b.appendChild(img);
+        frag.appendChild(b);
+      }
+    } else if(pack === 'kao'){
+      KAOMOJI.forEach(function(text){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'kv-ep-text';
+        b.dataset.insert = text;
+        b.textContent = text;
+        frag.appendChild(b);
+      });
+    }
+    body.appendChild(frag);
+  }
+
+  function showPanel(anchor){
+    buildPanel();
+    // 首次显示默认落在泡泡
+    if(!panel.querySelector('.kv-ep-tabs button.active')){
+      panel.querySelector('[data-pack="pao"]').classList.add('active');
+      renderPack('pao');
+    }
+    // 先显示成 block 才能测量尺寸
+    panel.style.display = 'flex';
+    panel.style.visibility = 'hidden';
+    panel.style.left = '0px'; panel.style.top = '0px';
+    // 等下一帧拿到真实尺寸再定位
+    requestAnimationFrame(function(){
+      var rect = anchor.getBoundingClientRect();
+      var pw = panel.offsetWidth, ph = panel.offsetHeight;
+      var top = rect.top + window.scrollY - ph - 8;
+      var left = rect.left + window.scrollX - pw / 2 + rect.width / 2;
+      if(left < 8) left = 8;
+      if(left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+      // 上方空间不够就展开到下方
+      if(top < window.scrollY + 8) top = rect.bottom + window.scrollY + 8;
+      panel.style.top  = top + 'px';
+      panel.style.left = left + 'px';
+      panel.style.visibility = 'visible';
+    });
+  }
+
+  function hidePanel(){ if(panel) panel.style.display = 'none'; }
+
+  function insertToComposer(text){
+    var ta = document.querySelector('.App-composer .Composer textarea, .App-composer textarea, .Composer textarea, .TextEditor textarea');
+    if(!ta) return;
+    var start = ta.selectionStart || 0;
+    var end   = ta.selectionEnd   || 0;
+    var v = ta.value;
+    // 图片单独成行 (前后自动补换行); 颜文字直接插原文
+    var isImg = /^!\[/.test(text);
+    var pre = v.substring(0, start), post = v.substring(end);
+    var lead  = isImg && pre  && !/\n$/.test(pre)  ? '\n' : '';
+    var trail = isImg && post && !/^\n/.test(post) ? '\n' : '';
+    var chunk = lead + text + trail;
+    // 用原生 setter 绕过 Mithril/React 的受控组件劫持
+    try{
+      var setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
+      setter.call(ta, pre + chunk + post);
+    }catch(e){
+      ta.value = pre + chunk + post;
+    }
+    var cursor = start + chunk.length;
+    ta.selectionStart = ta.selectionEnd = cursor;
+    ta.focus();
+    ta.dispatchEvent(new Event('input',  { bubbles: true }));
+    ta.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  // 拦截笑脸按钮 (capture 阶段, 抢在 Flarum 前面)
+  document.addEventListener('click', function(e){
+    if(!e.target.closest) return;
+    // 我们自己的面板不动
+    if(e.target.closest('#kv-emojipanel')) return;
+    // 笑脸按钮: 兼容多个可能的选择器
+    var btn = e.target.closest(
+      '.TextEditor-controls .item-emoji, .item-emoji, [data-item-name="emoji"], ' +
+      '.TextEditor-controls .fa-smile, .TextEditor-controls .fa-face-smile, ' +
+      '.Composer .fa-smile, .Composer .fa-face-smile'
+    );
+    if(!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    var anchor = btn.closest('li, button') || btn;
+    showPanel(anchor);
+  }, true);
+
+  // 点面板外面收起
+  document.addEventListener('mousedown', function(e){
+    if(!panel || panel.style.display === 'none') return;
+    if(e.target.closest && e.target.closest('#kv-emojipanel')) return;
+    if(e.target.closest && e.target.closest('.item-emoji, .fa-smile, .fa-face-smile, [data-item-name="emoji"]')) return;
+    hidePanel();
+  }, true);
+
+  // Esc 关掉
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && panel && panel.style.display !== 'none') hidePanel();
+  });
 })();
 </script>
