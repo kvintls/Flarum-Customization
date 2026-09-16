@@ -7,30 +7,30 @@
 /*     so we do NOT need .App--admin scope prefix (App--admin class doesn't even exist in the DOM). */
 /*   - Use #admin-navigation (ID, spec 1,0,0) for max specificity on side nav overrides. */
 
-/* Overall page background */
+/* Overall page background - plain white */
 .App {
-    background: #f5f6f8 !important;
+    background: #ffffff !important;
 }
 
-/* Top App-header (Flarum logo + user menu bar) - dark WordPress style */
+/* Top App-header (Flarum logo + user menu bar) - light style */
 .App-header {
-    background: #23282d !important;
-    border-bottom: 1px solid #191c1f !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #dfe3e8 !important;
     box-shadow: none !important;
-    color: #eee !important;
+    color: #333 !important;
 }
 .App-header a,
 .App-header .Button {
-    color: #eee !important;
+    color: #333 !important;
 }
 .App-header a:hover,
 .App-header .Button:hover {
-    background: #32373c !important;
-    color: #fff !important;
+    background: #eef1f4 !important;
+    color: #111 !important;
 }
 .Header-title,
 .Header-title a {
-    color: #fff !important;
+    color: #222 !important;
 }
 
 /* AdminNav: convert from left absolute-positioned column to top horizontal bar */
@@ -46,24 +46,28 @@
     height: auto !important;
     overflow-y: visible !important;
     overflow-x: auto !important;
-    padding: 0 !important;
+    padding: 16px 0 0 !important;
     margin: 0 !important;
-    background: #2c3338 !important;
-    border-bottom: 1px solid #191c1f !important;
+    background: #ffffff !important;
+    border-bottom: none !important;
     box-shadow: none !important;
     z-index: 10 !important;
 }
 
+/* The nav is wrapped in a light bordered box that spans the container width.  */
+/* margin-bottom below creates the gap before the dashboard content.          */
 #admin-navigation .AdminNav {
     display: block !important;
-    width: 100% !important;
+    width: 94% !important;
     max-width: 1320px !important;
-    margin: 0 auto !important;
+    margin: 0 auto 20px !important;
     padding: 0 !important;
-    background: transparent !important;
+    background: #ffffff !important;
     position: static !important;
     box-shadow: none !important;
-    border: none !important;
+    border: 1px solid #c9cfd6 !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
 }
 
 /* Hide the mobile-style Dropdown-toggle button (SelectDropdown expands to list on desktop) */
@@ -97,22 +101,32 @@
     float: none !important;
 }
 
-/* Category header <h4>.ExtensionListTitle = full-width row (wraps extensions to new row) */
+/* Category / sub-group headers (Core, Features, Styling, Forum Widgets,     */
+/* Language packs...) = full-width row that breaks the flex wrap so the      */
+/* extension items below start on a fresh line and line up in a clean grid.  */
+#admin-navigation .Dropdown-menu > h4,
+#admin-navigation .Dropdown-menu > .ExtensionListTitle,
 #admin-navigation .Dropdown-menu > h4.ExtensionListTitle,
 #admin-navigation .Dropdown-menu li.item-category-core,
 #admin-navigation .Dropdown-menu li.item-category-feature {
     flex-basis: 100% !important;
     width: 100% !important;
     margin: 0 !important;
-    padding: 4px 20px !important;
+    padding: 8px 20px !important;
     text-transform: uppercase !important;
     font-size: 11px !important;
-    color: #a0a5aa !important;
-    background: #23282d !important;
-    border-top: 1px solid #191c1f !important;
+    color: #667 !important;
+    background: linear-gradient(#f4f5f7, #e9ebee) !important;
+    border-top: 1px solid #dfe3e8 !important;
+    border-bottom: 1px solid #dfe3e8 !important;
     font-weight: 700 !important;
     letter-spacing: 0.5px !important;
     display: block !important;
+}
+/* First category header has no top border (sits at top of the box) */
+#admin-navigation .Dropdown-menu > h4.ExtensionListTitle:first-child,
+#admin-navigation .Dropdown-menu > li:first-child.item-category-core {
+    border-top: none !important;
 }
 
 /* Each tab <li> = flex item, horizontal */
@@ -135,10 +149,10 @@
     display: flex !important;
     align-items: center !important;
     gap: 6px !important;
-    padding: 10px 16px !important;
+    padding: 9px 14px !important;
     height: auto !important;
-    min-height: 42px !important;
-    color: #ddd !important;
+    min-height: 38px !important;
+    color: #333 !important;
     text-decoration: none !important;
     background: transparent !important;
     border: none !important;
@@ -153,8 +167,8 @@
 
 #admin-navigation .Dropdown-menu > li > a:hover,
 #admin-navigation .Dropdown-menu > li > .Button:hover {
-    background: #32373c !important;
-    color: #fff !important;
+    background: #eef1f4 !important;
+    color: #0771a8 !important;
 }
 
 /* Active tab highlight */
@@ -163,6 +177,11 @@
     background: #0771a8 !important;
     color: #fff !important;
     font-weight: 700 !important;
+}
+#admin-navigation .Dropdown-menu > li.active > a:hover,
+#admin-navigation .Dropdown-menu > li.active > .Button:hover {
+    background: #0771a8 !important;
+    color: #fff !important;
 }
 
 /* Tab inner icon and label */
@@ -187,12 +206,43 @@
     display: none !important;
 }
 
-/* Extension list dot indicator: reset absolute positioning */
+/* --- Extension list layout (the "Features" / plugins grid) --- */
+/* Give every extension item a fixed width so they line up in tidy columns   */
+/* instead of ragged, uneven wrapping. Items sit inside a small padded row.   */
+#admin-navigation .Dropdown-menu {
+    padding: 6px !important;
+}
+#admin-navigation .Dropdown-menu > li.ExtensionListItem,
+#admin-navigation .Dropdown-menu > li[class*="ExtensionListItem"] {
+    flex: 0 0 200px !important;
+    width: 200px !important;
+    max-width: 200px !important;
+    box-sizing: border-box !important;
+}
+/* Extension item link fills its cell and truncates long names cleanly */
+#admin-navigation .Dropdown-menu > li.ExtensionListItem > a,
+#admin-navigation .Dropdown-menu > li.ExtensionListItem > .Button {
+    width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    min-height: 34px !important;
+    padding: 7px 12px !important;
+    border-radius: 3px !important;
+}
+#admin-navigation .Dropdown-menu > li.ExtensionListItem > a .Button-label,
+#admin-navigation .Dropdown-menu > li.ExtensionListItem > .Button .Button-label {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+/* Extension list dot indicator: reset absolute positioning, pin to the right */
 #admin-navigation .Dropdown-menu > li .ExtensionListItem-Dot {
     position: static !important;
-    margin: 0 4px !important;
+    margin: 0 0 0 auto !important;
     transform: none !important;
     right: auto !important;
+    flex: 0 0 auto !important;
 }
 
 /* Main content: remove sideNavOffset margin so content is full width */
@@ -247,13 +297,14 @@
 }
 
 /* Form groups, extension cards, widgets = FluxBB white cards */
-.Form-group,
-fieldset,
-.ExtensionListItem,
-.ExtensionCard,
-.DashboardWidget,
-.StatusWidget,
-.ExtensionsWidget {
+/* Scoped to .App-content so these card styles do NOT hit the extension      */
+/* items inside the top nav (which share the .ExtensionListItem class).      */
+.App-content .Form-group,
+.App-content fieldset,
+.App-content .ExtensionCard,
+.App-content .DashboardWidget,
+.App-content .StatusWidget,
+.App-content .ExtensionsWidget {
     background: #fff !important;
     border: 1px solid #c9cfd6 !important;
     border-radius: 0 !important;
