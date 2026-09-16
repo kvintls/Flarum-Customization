@@ -452,14 +452,16 @@
     return s ? s.querySelectorAll('.PostStream-item').length : -1;
   }
 
-  // 把 composer 抽回原生父节点 —— 发帖/重绘前调用, 避免 Mithril 操作到错位的DOM
+  // 把 composer 抽回原生父节点 —— 发帖/重绘前调用, 避免 Mithril 操作到错位的DOM。
+  // 抽回后短暂藏起来(kv-ejecting), 免得用户看到它掉到底部空白处;cooldown 一过立刻借放回去。
   function eject(){
     var comp = document.querySelector('.App-composer');
     if(comp && nativeParent && comp.parentElement !== nativeParent){
       try{ nativeParent.appendChild(comp); }catch(e){}
     }
     borrowed = false;
-    cooldown = 5; // 抽回后约1s内不再借放, 等重绘彻底结束
+    root.classList.add('kv-ejecting'); // CSS 借此把抽回瞬间的 composer 暂时隐藏
+    cooldown = 3; // 抽回后约0.6s内不再借放, 等重绘落定
   }
 
   // 点"发布/提交"按钮那一刻先 eject(发帖会重绘 stream)
@@ -486,15 +488,18 @@
 
     if(open && /^\/d\//.test(location.pathname)){
       var stream = document.querySelector('.DiscussionPage-stream');
-      if(stream && comp.parentElement !== stream){
-        // 借放进帖子流白卡内(页脚 #kvin-footer2 之前, 没有页脚则追加到末尾)
-        try{
-          var footer = stream.querySelector('#kvin-footer2');
-          if(footer && footer.parentElement === stream){ stream.insertBefore(comp, footer); }
-          else{ stream.appendChild(comp); }
-          borrowed = true;
-          lastPostCount = postCount(); // 插入后重新基准化, 别把这次插入算成"帖子变化"
-        }catch(e){}
+      if(stream){
+        if(comp.parentElement !== stream){
+          // 借放进帖子流白卡内(页脚 #kvin-footer2 之前, 没有页脚则追加到末尾)
+          try{
+            var footer = stream.querySelector('#kvin-footer2');
+            if(footer && footer.parentElement === stream){ stream.insertBefore(comp, footer); }
+            else{ stream.appendChild(comp); }
+            borrowed = true;
+            lastPostCount = postCount(); // 插入后重新基准化, 别把这次插入算成"帖子变化"
+          }catch(e){}
+        }
+        root.classList.remove('kv-ejecting'); // 已在流内, 取消隐藏
       }
     } else if(borrowed){
       eject(); // 回复框关了或离开详情页 -> 抽回原生位置
