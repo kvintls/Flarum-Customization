@@ -119,10 +119,10 @@
     flex-basis: 100% !important;
     width: 100% !important;
     max-width: 100% !important;
-    /* Negative left/right margin cancels .Dropdown-menu's 14px side padding, so this */
-    /* header strip spans edge-to-edge of the nav frame and text sits close to left.  */
+    /* Negative side margins pull the strip to the nav frame edges (out of Dropdown-menu's */
+    /* 14px side padding). Small vertical padding keeps the bar tight around the text.     */
     margin: 0 -14px !important;
-    padding: 8px 12px !important;
+    padding: 5px 12px !important;
     text-transform: uppercase !important;
     font-size: 11px !important;
     color: #667 !important;
@@ -133,6 +133,7 @@
     letter-spacing: 0.5px !important;
     display: block !important;
     text-align: left !important;
+    line-height: 1.4 !important;
 }
 #admin-navigation .Dropdown-menu > li:first-child.item-category-core {
     border-top: none !important;
@@ -172,11 +173,9 @@
     flex-basis: 100% !important;
     width: auto !important;
     max-width: none !important;
-    /* Negative margins cancel the group container's 10px top / 14px side / 14px bottom */
-    /* padding, so this sub-group title spans edge-to-edge inside the group and matches  */
-    /* the top-level label bars visually.                                                */
+    /* Break out of the group container's inner padding to sit flush at the group edges. */
     margin: -10px -14px 10px !important;
-    padding: 8px 12px !important;
+    padding: 5px 12px !important;
     text-transform: uppercase !important;
     font-size: 11px !important;
     font-weight: 700 !important;
@@ -187,6 +186,7 @@
     border-bottom: 1px solid #dfe3e8 !important;
     display: block !important;
     text-align: left !important;
+    line-height: 1.4 !important;
 }
 
 /* Each tab <li> = flex item, horizontal */
@@ -275,8 +275,8 @@
 /*         item-category-language        (a plugin group, holds an            */
 /*         h4.ExtensionListTitle + its own li.item-extension-* children)      */
 #admin-navigation .Dropdown-menu {
-    padding: 10px 14px 14px !important;
-    gap: 10px 14px !important; /* row/col gap for top Features plugin grid */
+    padding: 0 14px 14px !important; /* no top padding so first label sits flush at top */
+    gap: 0 14px !important;          /* column gap only; rows meet without vertical gap */
 }
 
 /* Each plugin = a flexible cell that GROWS to fill the row (min 190px),      */
