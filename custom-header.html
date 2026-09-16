@@ -448,29 +448,23 @@
     if(!e.target.closest) return;
     var a = e.target.closest('a[href]');
     if(a){ var h = a.getAttribute('href') || ''; if(h && h.charAt(0) !== '#') park(); }
-    // 【闪退修复】点"发布回复/发布主题"提交按钮时,先 park 把 composer 移出帖子流。
-    // 发帖成功后 Flarum 会重绘 .DiscussionPage-stream, 若 composer 还塞在流里,
-    // Mithril 虚拟DOM与真实DOM错位 -> 第二次打开回复框就闪退。提交前 park 即可避开。
-    // 发布后 composer 会自然关闭(无 .Composer 子), 轮询也不会再把它塞回, 所以 park 后
-    // 它安静待在 .App 里不显示; 下次点回复 Flarum 重新打开, 轮询再内联进流。
+    // 【闪退修复】点"发布"按钮: park + 标记"已提交", 阻止轮询把 composer 塞回帖子流。
     if(e.target.closest('.Composer .Button--primary, .Composer-footer .Button--primary')){
-      park();
+      park(); kvJustSubmitted = true;
     }
   }, true);
 
   var kvPrevPath = location.pathname;
-  var kvPostCount = -1; // 帖子数, 侦测"发帖成功"(数量变化)作为二次保险再 park 一下
+  var kvJustSubmitted = false; // 发帖后为 true, 阻止轮询重新内联 composer, 直到 Flarum 关闭+重新打开为止
+  var kvWasOpen = false;       // 上一轮 composer 是否打开, 用于侦测"关闭->打开"(=新一次编辑, 可以重新内联)
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
     if(!comp) return;
-    // 【闪退修复·二次保险】帖子流数量一变(发帖成功),先 park 让 composer 脱离即将被
-    // Mithril 重绘的帖子流; 下一轮若回复框仍开着, 轮询会重新把它内联进流。
-    var _stream = document.querySelector('.DiscussionPage-stream');
-    if(_stream){
-      var _n = _stream.querySelectorAll('.PostStream-item').length;
-      if(kvPostCount !== -1 && _n !== kvPostCount){ park(); }
-      kvPostCount = _n;
-    } else { kvPostCount = -1; }
+    var open = !!comp.querySelector('.Composer');
+    // 侦测 "关闭→打开" 的转变 = Flarum 销毁了旧 composer、创建了全新的。
+    // 只有在这个转变发生时才清除 kvJustSubmitted, 允许重新内联。
+    if(!kvWasOpen && open){ kvJustSubmitted = false; }
+    kvWasOpen = open;
     // 没有正在编辑的 .Composer 时,行内强制隐藏(比 :has() 可靠,消除过渡态露出的小块)
     if(!comp.querySelector('.Composer')){ comp.style.setProperty('display','none','important'); }
     else { comp.style.removeProperty('display'); }
@@ -480,6 +474,10 @@
       try{ if(window.app && app.composer && typeof app.composer.hide === 'function') app.composer.hide(); }catch(e){}
     }
     kvPrevPath = location.pathname;
+    // 【闪退修复·核心】刚发过帖(kvJustSubmitted): 本次不再把 composer 塞回帖子流,
+    // 让 Flarum 完整走完自己的重绘/关闭流程。等它下次"关闭→重新打开"时(上面已清除标记),
+    // 才重新内联。这样发帖后 Mithril 重绘时 composer 不在流里, 第二次打开不再闪退。
+    if(kvJustSubmitted){ return; }
     // 只在 composer 真正打开(有 .Composer 子)时才加 kv-inline,避免首页空 composer 也显示虚线
     if(comp.querySelector('.Composer')){ comp.classList.add('kv-inline'); }
     else { comp.classList.remove('kv-inline'); }
