@@ -156,7 +156,7 @@ HTML;
     {
         return <<<'HTML'
 
-  <div class="kv-sitefoot">由 <a href="https://flarum.org" target="_blank" rel="noopener">Flarum</a> 提供技术支持 · © __TITLE__</div>
+  <div class="kv-sitefoot">由 <a href="https://vpsbt.online/" target="_blank" rel="noopener">kvin.kirby</a> 提供技术支持 · © __TITLE__</div>
 
   </div><!-- /.kv-panel -->
 </div><!-- /.kv-wrap -->
