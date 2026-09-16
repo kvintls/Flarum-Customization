@@ -701,8 +701,18 @@ html, body, .App, .App-content, .App-content > *,
 /* frame above. .AdminPage is always the top wrapper of an admin page and it   */
 /* is NOT a direct child of main.App-content (there is a .container between),  */
 /* so target it as a descendant, not a direct child.                            */
-#app main.App-content .AdminPage:not(.UserListPage) {
-    /* Content page: complete framed card of its own (all four borders).      */
+/* Every admin content page = complete framed card. Include both .AdminPage   */
+/* AND page-specific classes so extension detail (.ExtensionPage) and         */
+/* permissions (.PermissionsPage) etc are covered even when they lack the    */
+/* .AdminPage class.                                                          */
+#app main.App-content .AdminPage:not(.UserListPage),
+#app main.App-content .ExtensionPage:not(.UserListPage),
+#app main.App-content .PermissionsPage:not(.UserListPage),
+#app main.App-content .SettingsPage:not(.UserListPage),
+#app main.App-content .BasicsPage,
+#app main.App-content .MailPage,
+#app main.App-content .AppearancePage,
+#app main.App-content .DashboardPage {
     background: #ffffff !important;
     border: 1px solid #c3cad2 !important;
     border-radius: 4px !important;
