@@ -570,9 +570,9 @@ main.App-content::after {
 .App-content .UserListPage-grid--loaded,
 .App-content .UserListPage-grid--loading {
     grid-template-columns: minmax(60px, auto) minmax(120px, 1.2fr) minmax(120px, 1.2fr) minmax(150px, 1.5fr) minmax(80px, 0.8fr) minmax(200px, 2fr) minmax(80px, auto) !important;
-    /* Align the grid's left/right edges with the search box / add-user button */
-    /* above it, which sit inside the container's normal padding.               */
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    /* Slight side padding so the grid aligns with the search box above but    */
+    /* isn't pushed too narrow.                                                 */
+    padding-left: 10px !important;
+    padding-right: 10px !important;
     box-sizing: border-box !important;
 }
