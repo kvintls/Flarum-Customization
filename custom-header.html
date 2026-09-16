@@ -865,22 +865,25 @@
 
 
 <script>
-/* Auto-close the ChooseTagsToFollow and Subscription modals as soon as they
-   open. Simply hiding them with CSS leaves Flarum's internal modal state
-   "open" (backdrop stays, body is scroll-locked, page looks grayed out).
-   Using app.modal.close() properly tears down the modal + backdrop. */
+/* Silently remove the ChooseTagsToFollow and Subscription modals as soon as
+   they open. IMPORTANT: do NOT call app.modal.close() -- that triggers
+   Flarum's internal close handlers which may fire backend API calls (save
+   preferences, follow-tags, etc.) that regular users lack permission for,
+   causing "您没有权限进行此操作" errors even for logged-in users.
+   Instead we directly tear down the DOM: remove the modal + any backdrop
+   + unlock body scroll -- all fully client-side, zero API calls. */
 (function(){
   setInterval(function(){
     var m = document.querySelector('.ChooseTagsToFollowModal, .SubscriptionModal');
     if(!m) return;
     try{
-      if(window.app && app.modal && typeof app.modal.close === 'function'){
-        app.modal.close();
-      } else {
-        // Fallback: click the modal's close button
-        var x = m.querySelector('.Modal-close, .close, button[aria-label="Close"]');
-        if(x) x.click();
-      }
+      m.remove();
+      document.querySelectorAll('.Modal-backdrop, .modal-backdrop').forEach(function(b){ b.remove(); });
+      document.body.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      var mm = document.querySelector('.ModalManager');
+      if(mm){ mm.classList.remove('in','fade','modal'); mm.style.display = 'none'; }
     }catch(e){}
   }, 100);
 })();
