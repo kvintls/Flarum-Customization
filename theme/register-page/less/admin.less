@@ -350,7 +350,7 @@
 
 /* AdminHeader (page hero) - framed panel matching the nav box */
 .AdminHeader {
-    background: #f7f8fa !important;
+    background: #ffffff !important;
     border: 1px solid #c3cad2 !important;
     border-radius: 4px !important;
     color: #333 !important;
@@ -456,7 +456,9 @@ select {
 /* so we recreate the same signature with a CSS ::after pseudo-element at the  */
 /* bottom of the admin content column: same blue top rule, right alignment,   */
 /* small grey text -- visually identical to the homepage footer.              */
-.App-content .container::after {
+/* Attach footer once, at the very bottom of the whole admin content area.    */
+/* Previously used .container::after which duplicated per card/section.        */
+main.App-content::after {
     content: "\7531 kvin.kirby \63d0\4f9b\6280\672f\652f\6301 \00b7 \00a9 Talkora";
     display: block !important;
     border-top: 2px solid #0771a8 !important;
