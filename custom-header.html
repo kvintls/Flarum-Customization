@@ -481,14 +481,21 @@
 
     if(cooldown > 0){ cooldown--; return; } // 冷却期不动位置
 
-    // 平时: 详情页且回复框开着 -> 归位到帖子流(页脚之前的虚线区)
-    if(open && /^\/d\//.test(location.pathname)){
-      var stream = document.querySelector('.DiscussionPage-stream');
-      if(stream && comp.parentElement !== stream){
+    // 平时: composer 打开时 -> 归位到当前页面的白卡内(页脚之前的虚线区)
+    //  - /d/ 详情页 : 白卡 = .DiscussionPage-stream
+    //  - /t/ 板块页 : 白卡 = .IndexPage-results  (发新主题也要在白卡内, 不能跑到框外)
+    if(open){
+      var host = null;
+      if(/^\/d\//.test(location.pathname)){
+        host = document.querySelector('.DiscussionPage-stream');
+      } else if(/^\/t\//.test(location.pathname) || location.pathname === '/'){
+        host = document.querySelector('.IndexPage-results');
+      }
+      if(host && comp.parentElement !== host){
         try{
-          var footer = stream.querySelector('#kvin-footer2');
-          if(footer && footer.parentElement === stream){ stream.insertBefore(comp, footer); }
-          else { stream.appendChild(comp); }
+          var footer = host.querySelector('#kvin-footer2');
+          if(footer && footer.parentElement === host){ host.insertBefore(comp, footer); }
+          else { host.appendChild(comp); }
         }catch(e){}
       }
     }
@@ -581,6 +588,50 @@
 <script>
 /* (已移除)之前用 JS 清空输入框来去掉 @引用，会与 Flarum 编辑器状态不同步、导致
    "回复尚未发布/丢弃吗"弹窗且回复框打不开。改为不干预，保留 Flarum 原生引用。 */
+</script>
+
+
+
+<script>
+/* 新建主题的 composer: 把提交按钮标签从「发布主题」改为「发布帖子」
+   —— 只改新建主题(有 title 输入框)的 composer, 回复框不受影响。
+   同时兼容 Button-label / 纯文本 两种结构; 会保留按钮里的 icon 节点。 */
+(function(){
+  setInterval(function(){
+    var comp = document.querySelector('.App-composer');
+    if(!comp) return;
+    // 判定是不是"新建主题" composer: DiscussionComposer / 有标题输入框
+    var isNewDiscussion = !!(
+      comp.querySelector('.DiscussionComposer') ||
+      comp.querySelector('.DiscussionComposer-title') ||
+      comp.querySelector('input[name="title"]') ||
+      comp.querySelector('.ComposerBody-header input.FormControl')
+    );
+    if(!isNewDiscussion) return;
+    var btn = comp.querySelector('.Composer-footer .Button--primary')
+           || comp.querySelector('.TextEditor-controls .Button--primary')
+           || comp.querySelector('.Button--primary');
+    if(!btn) return;
+    var lbl = btn.querySelector('.Button-label');
+    if(lbl){
+      if((lbl.textContent||'').trim() !== '发布帖子'){ lbl.textContent = '发布帖子'; }
+    } else {
+      // 无 .Button-label 结构: 直接改按钮里的文本节点(保留 icon 等元素节点)
+      var changed = false;
+      for(var i=0;i<btn.childNodes.length;i++){
+        var n = btn.childNodes[i];
+        if(n.nodeType === 3 && n.textContent && n.textContent.trim()){
+          if(n.textContent.trim() !== '发布帖子'){ n.textContent = '发布帖子'; }
+          changed = true;
+          break;
+        }
+      }
+      if(!changed && (btn.textContent||'').trim() !== '发布帖子'){
+        btn.textContent = '发布帖子';
+      }
+    }
+  }, 200);
+})();
 </script>
 
 
