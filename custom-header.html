@@ -1203,14 +1203,20 @@
       try{
         var imgs = Array.from(body.querySelectorAll('img')).filter(function(img){
           if(img.closest('.kv-imggrid')) return false;
-          // 只把"用户上传的照片"塞进 grid: fof/upload 会把上传图裹在 <a href=原图>
-          // 里. 内联小图标 (表情、贴纸、markdown ![](url) 直插) 没这层 <a>, 保持
-          // 原地不动, 免得表情包被抽到帖子末尾变成大格子.
-          var a = img.closest('a[href]');
-          if(!a || !body.contains(a)) return false;
-          // 排除 Flarum 内联的 emoji (class=emoji 或者 alt=":xxx:")
-          if(img.classList && img.classList.contains('emoji')) return false;
+          // 排除 emoji/表情包 (保持内联小图, 不进 grid):
+          //  - Flarum 内置 twemoji: class="emoji"
+          //  - fof/emoji: class="fof-emoji"
+          //  - alt 是 :xxx: 形式的
+          //  - 我们自己的 tieba/aru 两个 CDN
+          if(img.classList){
+            if(img.classList.contains('emoji')) return false;
+            if(img.classList.contains('fof-emoji')) return false;
+          }
           if((img.getAttribute('alt')||'').match(/^:[\w+-]+:$/)) return false;
+          var src = img.getAttribute('src') || '';
+          if(src.indexOf('cdn.jsdelivr.net/gh/liopoos/aru-sticker') !== -1) return false;
+          if(src.indexOf('cdn.jsdelivr.net/gh/KBdog/emojiCDN')  !== -1) return false;
+          // 其它一律当"真照片", 进 grid (无论有没有 <a> 外壳)
           return true;
         });
         if(imgs.length === 0) return;

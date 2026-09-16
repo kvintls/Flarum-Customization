@@ -29,7 +29,7 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 #kv-emojipanel .kv-ep-tabs button.active{background:#3f7cac;color:#fff;font-weight:600}
 #kv-emojipanel .kv-ep-tabs button:hover:not(.active){background:#eef2f6}
 
-.Post-body img[src*="cdn.jsdelivr.net/gh/liopoos/aru-sticker"],.Post-body img[src*="cdn.jsdelivr.net/gh/KBdog/emojiCDN"]{display:inline!important;height:1.5em!important;width:auto!important;max-width:none!important;max-height:1.5em!important;margin:0 2px!important;vertical-align:-.3em!important;float:none!important;clear:none!important}
+.Post-body img.emoji,.Post-body img.fof-emoji,.Post-body img[alt^=":"][alt$=":"],.Post-body img[src*="cdn.jsdelivr.net/gh/liopoos/aru-sticker"],.Post-body img[src*="cdn.jsdelivr.net/gh/KBdog/emojiCDN"]{display:inline!important;height:1.5em!important;width:auto!important;max-width:none!important;max-height:1.5em!important;margin:0 2px!important;vertical-align:-.3em!important;float:none!important;clear:none!important}
 
 .DiscussionList-discussions .DiscussionListItem-content{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;gap:12px!important;padding:10px 14px!important;grid-template-columns:none!important;grid-template-rows:none!important}
 .DiscussionList-discussions .DiscussionListItem-main{display:block!important;flex:1 1 auto!important;min-width:0!important;order:1!important}
