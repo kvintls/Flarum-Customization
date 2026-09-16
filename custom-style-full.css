@@ -9,3 +9,7 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 .Post-body img,.Post-body picture,.Post-body figure{display:block!important;float:none!important;clear:both!important;max-width:100%!important;height:auto!important;margin:12px auto!important}
 .Post-body p{float:none!important;clear:both!important}
 .Post-body a:has(>img){display:block!important;margin:12px 0!important;text-align:center!important}
+
+.Post-body .kv-imggrid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:6px!important;margin:14px 0!important;align-items:start!important}
+.Post-body .kv-imggrid>*{margin:0!important;padding:0!important;max-width:100%!important;text-align:left!important;display:block!important;float:none!important;clear:none!important}
+.Post-body .kv-imggrid img{width:100%!important;height:auto!important;max-width:100%!important;display:block!important;margin:0!important}

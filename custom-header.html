@@ -1064,3 +1064,49 @@
 })();
 </script>
 
+
+
+
+<script>
+/* 帖子正文图片相册化 —— 两条规则合一:
+   (1) 先文字后图片: 无论作者怎么写, 所有 <img> 一律搬到 .Post-body 末尾
+   (2) 一行最多 3 张, 3 等分列宽 (第1张左 / 第2张中 / 第3张右)
+       4张+ 自动换行, 依然按左->中->右填充
+   实现: 每轮 setInterval 扫每个 .Post-body, 把没进 grid 的 <img> 连带最外层
+   <a href> 一起 appendChild 到 .kv-imggrid (grid 容器) 里, grid 挂在 Post-body
+   的最末尾. 原来的段落如果被抽空就顺手删掉, 不留空白段.
+   idempotent: 靠 :not(.kv-imggrid img) 的过滤保证已经进 grid 的不再动. */
+(function(){
+  setInterval(function(){
+    document.querySelectorAll('.Post-body').forEach(function(body){
+      try{
+        var imgs = Array.from(body.querySelectorAll('img')).filter(function(img){
+          return !img.closest('.kv-imggrid');
+        });
+        if(imgs.length === 0) return;
+        var grid = body.querySelector(':scope > .kv-imggrid');
+        if(!grid){
+          grid = document.createElement('div');
+          grid.className = 'kv-imggrid';
+          body.appendChild(grid);
+        }
+        // 保证 grid 永远是 body 的最后一个子节点 (即使有人在后面又插了新段落)
+        if(body.lastElementChild !== grid){ body.appendChild(grid); }
+        imgs.forEach(function(img){
+          var a = img.closest('a[href]');
+          var moveEl = (a && body.contains(a)) ? a : img;
+          if(moveEl.parentElement === grid) return;
+          var oldParent = moveEl.parentElement;
+          grid.appendChild(moveEl);
+          // 老段落被抽空了(既没文字也没其它多媒体) -> 删掉, 不留空白段
+          if(oldParent && oldParent !== body && oldParent !== grid &&
+             !(oldParent.textContent || '').replace(/[\s\u00A0\uFEFF]+/g, '') &&
+             !oldParent.querySelector('img,video,iframe,audio,button,input,picture')){
+            oldParent.remove();
+          }
+        });
+      }catch(e){}
+    });
+  }, 500);
+})();
+</script>
