@@ -47,3 +47,6 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 .kv-dlhead{display:flex!important;grid-template-columns:none!important;padding:9px 14px!important;flex-wrap:nowrap!important}
 .kv-dlhead .c2,.kv-dlhead .c3,.kv-dlhead .c4{display:none!important}
 .kv-dlhead .c1{flex:1 1 auto!important;text-align:left!important;grid-column:auto!important;padding:0!important}
+
+.UserPage .UserPage-nav.sideNav a,.UserPage .sideNav ul li a,.UserPage .sideNav ul li .Button{justify-content:center!important;text-align:center!important;display:flex!important;align-items:center!important;gap:8px!important}
+.UserPage .sideNav ul li a .Button-label{text-align:center!important;flex:0 0 auto!important}
