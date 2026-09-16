@@ -329,12 +329,24 @@ body,.App{background:#f5f6f8;color:#1f2328}
 .CommentPost .Post-actions,.CommentPost .Post-footer{padding:6px 14px!important;margin:0!important;border-bottom:1px solid #eef1f4!important}
 .CommentPost .PostUser-badges{display:none!important}
 .CommentPost .Post-header .PostUser-badges,.CommentPost .Post-header .badges,.CommentPost .Post-header .Badge,.CommentPost .Post-header .Badge--icon,.CommentPost .Post-header [class*="Badge"],.CommentPost .Post-header .fa-wrench,.CommentPost .Post-header .fa-screwdriver-wrench{display:none!important}
-/* 回复框(composer)定制 —— 纯 CSS,不移动 DOM(JS 只在 <html> 加 .kv-composing 标记)。
-   composer 保留 Flarum 原生的底部固定定位(position:fixed),不搬进帖子流,避免发帖后
-   Mithril 重绘导致的闪退。这里把它从"右下角小浮窗"改成"贴底、限内容宽度的干净面板":
-   去掉拖拽手柄/最小化/全屏,居中对齐内容宽度,顶部一条边框,底部无圆角浮动感。 */
-html.kv-composing .App-composer,.App-composer{box-shadow:0 -2px 10px rgba(20,30,50,.12)!important}
-html.kv-composing .App-composer .Composer,.App-composer .Composer{max-width:1320px!important;width:94%!important;margin:0 auto!important;box-shadow:none!important;border-top:2px solid #0771a8!important;border-left:1px solid #c9cfd6!important;border-right:1px solid #c9cfd6!important;border-radius:0!important;background:#fff!important}
+/* 回复框(composer)内联化 —— 纯 CSS,不移动 DOM(JS 只在 <html> 加 .kv-composing 标记)。
+   .App-composer 是 .App 的直接子节点、排在 .App-content 之后,所以只要把它从原生的
+   position:fixed(固定贴视口底) 改成 position:static(回到正常文档流),它就会自然接在
+   页面内容/页脚下方,形成"内联"效果——而且完全不搬动 DOM,不会触发发帖后 Mithril 重绘的
+   闪退。只在 kv-composing(回复框打开)时应用,关闭时收起不留空隙。 */
+html.kv-composing .App-composer{
+  position:static!important;height:auto!important;max-height:none!important;min-height:0!important;
+  width:100%!important;box-shadow:none!important;z-index:auto!important;background:transparent!important;
+}
+html.kv-composing .App-composer .Composer{
+  position:static!important;height:auto!important;max-height:none!important;min-height:180px!important;
+  max-width:1320px!important;width:94%!important;margin:14px auto 24px!important;
+  box-shadow:0 1px 3px rgba(20,30,50,.08)!important;
+  border:1px solid #c9cfd6!important;border-top:2px solid #0771a8!important;border-radius:0!important;
+  background:#fff!important;
+}
+/* 关闭状态:确保原生 fixed 空壳不占位、不露出 */
+html:not(.kv-composing) .App-composer{display:none!important}
 .App-composer .Composer-handle{display:none!important}
 .App-composer .item-minimize,.App-composer .item-fullScreen{display:none!important}
 .composer-backdrop{display:none!important}
