@@ -64,9 +64,9 @@
     padding: 0 !important;
     background: #ffffff !important;
     position: static !important;
-    box-shadow: none !important;
-    border: 1px solid #c9cfd6 !important;
-    border-radius: 0 !important;
+    box-shadow: 0 1px 3px rgba(20, 30, 50, 0.08) !important;
+    border: 1px solid #c3cad2 !important;
+    border-radius: 4px !important;
     overflow: hidden !important;
 }
 
@@ -147,7 +147,7 @@
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 6px !important;
+    padding: 6px 12px 10px !important;
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: wrap !important;
@@ -267,15 +267,16 @@
 /*         item-category-language        (a plugin group, holds an            */
 /*         h4.ExtensionListTitle + its own li.item-extension-* children)      */
 #admin-navigation .Dropdown-menu {
-    padding: 6px !important;
+    padding: 6px 12px 10px !important;
 }
 
-/* Each plugin = a fixed-width cell. Plugins appear both directly in the menu  */
-/* AND nested inside category groups, so target item-extension-* everywhere.  */
+/* Each plugin = a flexible cell that GROWS to fill the row (min 190px),      */
+/* so a row of plugins stretches across the full width with no right-side gap.*/
+/* Plugins appear both directly in the menu AND nested inside category groups.*/
 #admin-navigation .Dropdown-menu li[class*="item-extension-"] {
-    flex: 0 0 190px !important;
-    width: 190px !important;
-    max-width: 190px !important;
+    flex: 1 1 190px !important;
+    min-width: 190px !important;
+    max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
@@ -350,14 +351,14 @@
     padding: 0 !important;
 }
 
-/* AdminHeader (page hero) - FluxBB gray gradient card */
+/* AdminHeader (page hero) - framed panel matching the nav box */
 .AdminHeader {
-    background: #f0f0f0 !important;
-    border: 1px solid #c9cfd6 !important;
-    border-radius: 0 !important;
+    background: #f7f8fa !important;
+    border: 1px solid #c3cad2 !important;
+    border-radius: 4px !important;
     color: #333 !important;
     padding: 0 !important;
-    box-shadow: none !important;
+    box-shadow: 0 1px 3px rgba(20, 30, 50, 0.08) !important;
     max-width: 1320px !important;
     width: 94% !important;
     margin: 0 auto 16px !important;
@@ -384,21 +385,26 @@
     margin-top: 4px !important;
 }
 
-/* Form groups, extension cards, widgets = FluxBB white cards */
-/* Scoped to .App-content so these card styles do NOT hit the extension      */
-/* items inside the top nav (which share the .ExtensionListItem class).      */
+/* Form groups, dashboard widgets, cards = framed white panels that MATCH     */
+/* the nav box (same border color, radius and subtle shadow) so the whole     */
+/* admin page reads as a set of consistent boxes.                             */
+/* Scoped to .App-content so these card styles do NOT hit the extension       */
+/* items inside the top nav.                                                  */
 .App-content .Form-group,
 .App-content fieldset,
 .App-content .ExtensionCard,
 .App-content .DashboardWidget,
 .App-content .StatusWidget,
-.App-content .ExtensionsWidget {
+.App-content .ExtensionsWidget,
+.App-content .Widget,
+.App-content .DashboardPage-container > div,
+.App-content .item-widgets > div {
     background: #fff !important;
-    border: 1px solid #c9cfd6 !important;
-    border-radius: 0 !important;
+    border: 1px solid #c3cad2 !important;
+    border-radius: 4px !important;
     padding: 14px !important;
-    box-shadow: none !important;
-    margin-bottom: 14px !important;
+    box-shadow: 0 1px 3px rgba(20, 30, 50, 0.08) !important;
+    margin-bottom: 16px !important;
 }
 
 .Form-group > label,
