@@ -58,17 +58,22 @@
 /* margin-bottom below creates the gap before the dashboard content.          */
 #admin-navigation .AdminNav {
     display: block !important;
-    /* Restore full width (user liked the wider look) but keep the outer frame */
-    /* border/shadow so nav is clearly wrapped as one big card.                */
+    /* Nav is the TOP HALF of one continuous outer frame that wraps the entire */
+    /* admin page (nav + content + footer). Only top/left/right border here;   */
+    /* the bottom is left off so it visually connects to the .AdminPage frame  */
+    /* below with no seam.                                                     */
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 0 20px !important;
+    margin: 0 !important;
     padding: 0 !important;
     background: #ffffff !important;
     position: static !important;
-    box-shadow: 0 2px 6px rgba(20, 30, 50, 0.10) !important;
-    border: 1px solid #c3cad2 !important;
-    border-radius: 4px !important;
+    box-shadow: none !important;
+    border-top: 1px solid #c3cad2 !important;
+    border-left: 1px solid #c3cad2 !important;
+    border-right: 1px solid #c3cad2 !important;
+    border-bottom: none !important;
+    border-radius: 4px 4px 0 0 !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
 }
@@ -342,7 +347,9 @@
 }
 
 .App-content {
-    padding: 20px 0 !important;
+    /* No top padding: content sits flush against the nav frame above so the  */
+    /* two visually form ONE continuous outer frame (no seam / no gap).       */
+    padding: 0 0 20px !important;
 }
 .App-content .container {
     width: 100% !important;
@@ -700,11 +707,17 @@ html, body, .App, .App-content, .App-content > *,
 /* is NOT a direct child of main.App-content (there is a .container between),  */
 /* so target it as a descendant, not a direct child.                            */
 #app main.App-content .AdminPage:not(.UserListPage) {
+    /* Content is the BOTTOM HALF of one continuous outer frame. Only         */
+    /* bottom/left/right border; top is off so it visually connects to the    */
+    /* AdminNav frame above with no seam.                                     */
     background: #ffffff !important;
-    border: 1px solid #c3cad2 !important;
-    border-radius: 4px !important;
+    border-top: none !important;
+    border-left: 1px solid #c3cad2 !important;
+    border-right: 1px solid #c3cad2 !important;
+    border-bottom: 1px solid #c3cad2 !important;
+    border-radius: 0 0 4px 4px !important;
     box-shadow: 0 2px 6px rgba(20, 30, 50, 0.10) !important;
     padding: 20px !important;
-    margin: 0 0 20px !important;
+    margin: 0 !important;
     box-sizing: border-box !important;
 }
