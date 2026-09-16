@@ -552,18 +552,19 @@ main.App-content::after {
 }
 
 
-/* Users page container: constrain to 1320/94% like other admin panels.        */
-/* No frame (user said it looked ugly), no shadow, just plain white content.  */
+/* Users page container: constrained to 1320/94% AND wrapped in a subtle       */
+/* border (user asked to frame it). No inner padding shift so content stays    */
+/* where it was.                                                                */
 #app main.App-content .container.UserListPage,
 #app main.App-content .AdminPage.UserListPage,
 #app main.App-content .sideNavOffset.UserListPage {
     max-width: 1320px !important;
     width: 94% !important;
     margin: 0 auto 16px !important;
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
+    background: #ffffff !important;
+    border: 1px solid #dfe3e8 !important;
+    border-radius: 4px !important;
+    padding: 20px !important;
     box-shadow: none !important;
     box-sizing: border-box !important;
 }
