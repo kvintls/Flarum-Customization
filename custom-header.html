@@ -441,34 +441,30 @@
 (function(){
   var app = document.querySelector('.App');
   var cooldown = 0;      // >0 期间不塞回帖子流(发帖后重绘窗口)
-  var lastCount = -1;    // 上次帖子数
-  var lastPath = location.pathname; // 记录路径, 换页时重置帖子数基准
-  function count(){ var s = document.querySelector('.PostStream'); return s ? s.querySelectorAll('.PostStream-item').length : -1; }
+  var wasOpen = false;   // 上一轮 composer 是否打开, 用于侦测"开->关"的转变(=发帖成功)
+  var lastPath = location.pathname;
 
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
-    if(!comp) return;
+    if(!comp){ wasOpen = false; return; }
     if(!app) app = document.querySelector('.App');
     var open = !!comp.querySelector('.Composer');
 
-    // 【修复"第一次进话题点回复没反应"】换页(进新话题)时, 新话题帖子数与上个页面不同,
-    // 会被误判成"发帖成功"而把 composer 移走 -> 回复框出不来。所以路径一变就重置基准,
-    // 并清冷却, 保证进新话题时状态干净。
-    if(location.pathname !== lastPath){ lastCount = -1; cooldown = 0; lastPath = location.pathname; }
+    // 换页(进新话题)时清冷却, 状态干净
+    if(location.pathname !== lastPath){ cooldown = 0; lastPath = location.pathname; }
 
-    // 开着加内联类, 关了去掉。不用 display:none 强行隐藏 —— 那样会在"点回复"的过渡瞬间
-    // (Flarum 刚建 composer、.Composer 子节点还没生成)把它压成隐藏且 !important 顶死,
-    // 导致"点回复没反应"。composer 的显示/隐藏交给 Flarum 自己管, 我们只管内联 class。
+    // 内联类只在打开时加, 关了去掉。composer 的显示/隐藏交给 Flarum 自己管。
     if(open){ comp.classList.add('kv-inline'); }
     else { comp.classList.remove('kv-inline'); }
 
-    // 帖子数增加 = 发帖成功 -> 立刻把 composer 移出帖子流, 进入冷却(躲开重绘窗口, 防闪退)
-    var c = count();
-    if(lastCount !== -1 && c > lastCount){
+    // 【发帖信号】composer "从开->关"的转变 = 用户刚发布了回复(不是取消、不是切页,
+    // 因为那两种情况前面已经处理)。此时把 composer park 到 .App 并进入短冷却, 让 Flarum
+    // 完整重绘帖子流。这个信号比"帖子数变化"可靠得多——后者会被懒加载/骨架填充误触发。
+    if(wasOpen && !open){
       if(app && comp.parentElement !== app){ try{ app.appendChild(comp); }catch(e){} }
       cooldown = 6; // 约1.2秒
     }
-    lastCount = c;
+    wasOpen = open;
 
     if(cooldown > 0){ cooldown--; return; } // 冷却期不动位置
 
@@ -480,7 +476,6 @@
           var footer = stream.querySelector('#kvin-footer2');
           if(footer && footer.parentElement === stream){ stream.insertBefore(comp, footer); }
           else { stream.appendChild(comp); }
-          lastCount = count(); // 插入后重新基准化, 别把自己的插入算成"帖子变化"
         }catch(e){}
       }
     }
