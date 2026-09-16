@@ -520,3 +520,31 @@ select {
     height: auto !important;
     overflow: visible !important;
 }
+
+
+/* Users admin table -- higher-specificity full-width. The earlier            */
+/* '.App-content table' rule didn't reach it because the table is nested in a */
+/* wrapper div. Also stretch every likely wrapper.                             */
+.App-content .UserListPage,
+.App-content .UsersListPage,
+.App-content .UsersPage,
+.App-content .UserListPage > *,
+.App-content .UsersListPage > *,
+.App-content [class*="UserList"] table,
+.App-content [class*="UsersList"] table,
+.App-content .Table-container,
+.App-content .Table-wrapper,
+.App-content .table-responsive {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+#app main.App-content table.Table,
+#app main.App-content .UserListPage table,
+#app main.App-content .UsersListPage table,
+#app main.App-content .UserListPage-users table,
+#app main.App-content .UsersListPage-users table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: auto !important;
+}
