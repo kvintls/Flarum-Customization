@@ -329,22 +329,11 @@ body,.App{background:#f5f6f8;color:#1f2328}
 .CommentPost .Post-actions,.CommentPost .Post-footer{padding:6px 14px!important;margin:0!important;border-bottom:1px solid #eef1f4!important}
 .CommentPost .PostUser-badges{display:none!important}
 .CommentPost .Post-header .PostUser-badges,.CommentPost .Post-header .badges,.CommentPost .Post-header .Badge,.CommentPost .Post-header .Badge--icon,.CommentPost .Post-header [class*="Badge"],.CommentPost .Post-header .fa-wrench,.CommentPost .Post-header .fa-screwdriver-wrench{display:none!important}
-/* 回复框(composer)内联化 —— JS 把 .App-composer 借放进帖子流白卡内(紧贴内容),
-   这里用 CSS 把它从"右下角浮动框"改成流内静态框:去掉 fixed/拖拽/最小化/全屏,并让
-   编辑器撑满整个框宽。(JS 侧靠帖子数变化侦测重绘并短暂抽回,避免发帖后闪退。) */
-.App-composer.kv-inline,html.kv-composing .App-composer{position:static!important;height:auto!important;max-height:none!important;min-height:0!important;width:100%!important;box-shadow:none!important;z-index:auto!important;background:transparent!important}
-.App-composer.kv-inline .Composer,html.kv-composing .App-composer .Composer{position:static!important;height:auto!important;max-height:none!important;min-height:160px!important;width:100%!important;box-sizing:border-box!important;box-shadow:none!important;border:1px solid #c9cfd6!important;border-top:2px solid #0771a8!important;border-radius:0!important;margin:12px 0 0!important;background:#fff!important}
-/* 让编辑器内部各层都撑满框宽(默认可能只占左半) */
-.App-composer.kv-inline .Composer-body,html.kv-composing .App-composer .Composer-body,
-.App-composer.kv-inline .TextEditor,html.kv-composing .App-composer .TextEditor,
-.App-composer.kv-inline .TextEditor-editor,html.kv-composing .App-composer .TextEditor-editor,
-.App-composer.kv-inline .Composer-header,html.kv-composing .App-composer .Composer-header{width:100%!important;max-width:100%!important;box-sizing:border-box!important}
-.App-composer .Composer-handle{display:none!important}
-.App-composer .item-minimize,.App-composer .item-fullScreen{display:none!important}
-.composer-backdrop{display:none!important}
-/* 发帖重绘瞬间 JS 会把 composer 抽回原生位置(有底部大padding会掉到下面),此刻先藏起来,
-   避免用户看到它"跳出去";JS 借放回帖子流后会移除 kv-ejecting 恢复显示。 */
-html.kv-ejecting .App-composer{display:none!important}
+.App-composer.kv-inline{position:static!important;height:auto!important;max-height:none!important;min-height:0!important;width:100%!important;box-shadow:none!important;z-index:auto!important}
+.App-composer.kv-inline .Composer{position:static!important;height:auto!important;box-shadow:none!important;border:1px solid #c9cfd6!important;border-radius:0!important;margin:12px 0 0!important}
+.App-composer.kv-inline .Composer-handle{display:none!important}
+.App-composer.kv-inline .item-minimize,.App-composer.kv-inline .item-fullScreen{display:none!important}
+.App-composer.kv-inline + .composer-backdrop,.composer-backdrop{display:none!important}
 .CommentPost .Post-header > ul{align-items:center!important;min-height:0!important}
 .CommentPost .Post-header .item-user,.CommentPost .Post-header .item-user .PostUser{align-items:center!important}
 .CommentPost .PostUser-name{display:flex!important;align-items:center!important;line-height:1.2!important;margin:0!important}

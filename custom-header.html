@@ -433,78 +433,87 @@
 
 
 <script>
-/* 回复框(composer)内联化 —— 把浮动回复框移进帖子流白卡内、紧贴内容,形成内联效果。
-   闪退根因: 发帖成功后 Flarum(Mithril) 会重绘 .DiscussionPage-stream, 若 composer
-   还塞在 stream 里, Mithril 的虚拟DOM会以为那块DOM是它的、去操作/复用它 -> 与真实DOM
-   错位 -> 第二次打开回复框崩溃(闪退)。
-   稳妥修法: composer 只"临时借放"进 stream; 一旦检测到 Mithril 要动 stream 的子节点
-   (MutationObserver 立即触发, 早于闪退发生), 就把 composer 抽回它的原生父节点(.App),
-   让 Mithril 重绘自己那份干净DOM。重绘落定后下一轮再借放回去。这样既内联、又不闪退。 */
+/* 主题详情页(/d/...)：把浮动的回复 composer 变成内联——移动到主题白卡内(页脚之前)，
+   并加 .kv-inline 类由 CSS 去掉浮动/拖拽/最小化。其它页面保持原样。 */
 (function(){
-  var root = document.documentElement;
-  var nativeParent = null;   // composer 的原生父节点(=.App-content), 抽回时放这
-  var borrowed = false;      // composer 当前是否被借放进了 stream
-  var cooldown = 0;          // >0 时暂不借放(等 Mithril 重绘落定)
-  var lastPostCount = -1;    // 上次记录的帖子数, 用于只在"真正新增帖子"时才 eject
-
-  function postCount(){
-    var s = document.querySelector('.PostStream');
-    return s ? s.querySelectorAll('.PostStream-item').length : -1;
-  }
-
-  // 把 composer 抽回原生父节点 —— 发帖/重绘前调用, 避免 Mithril 操作到错位的DOM。
-  // 抽回后短暂藏起来(kv-ejecting), 免得用户看到它掉到底部空白处;cooldown 一过立刻借放回去。
-  function eject(){
+  // 把 composer 移回 .App(安全位置)。导航前调用,避免它随被销毁的帖子流一起被 mithril 销毁。
+  function park(){
     var comp = document.querySelector('.App-composer');
-    if(comp && nativeParent && comp.parentElement !== nativeParent){
-      try{ nativeParent.appendChild(comp); }catch(e){}
-    }
-    borrowed = false;
-    root.classList.add('kv-ejecting'); // CSS 借此把抽回瞬间的 composer 暂时隐藏
-    cooldown = 3; // 抽回后约0.6s内不再借放, 等重绘落定
+    var app = document.querySelector('.App');
+    if(comp && app && comp.parentElement !== app){ try{ app.appendChild(comp); }catch(e){} }
   }
-
-  // 点"发布/提交"按钮那一刻先 eject(发帖会重绘 stream)
+  // 浏览器后退/前进 & 点击任意会跳转的链接 —— 先 park,再让 mithril 去销毁旧页面
+  window.addEventListener('popstate', park, true);
   document.addEventListener('click', function(e){
-    if(e.target.closest && e.target.closest('.Composer .Button--primary, .Composer-footer .Button--primary')){
-      eject();
+    if(!e.target.closest) return;
+    var a = e.target.closest('a[href]');
+    if(a){ var h = a.getAttribute('href') || ''; if(h && h.charAt(0) !== '#') park(); }
+    // 【闪退修复】点"发布回复/发布主题"提交按钮时,先 park 把 composer 移出帖子流。
+    // 发帖成功后 Flarum 会重绘 .DiscussionPage-stream, 若 composer 还塞在流里,
+    // Mithril 虚拟DOM与真实DOM错位 -> 第二次打开回复框就闪退。提交前 park 即可避开。
+    // 发布后 composer 会自然关闭(无 .Composer 子), 轮询也不会再把它塞回, 所以 park 后
+    // 它安静待在 .App 里不显示; 下次点回复 Flarum 重新打开, 轮询再内联进流。
+    if(e.target.closest('.Composer .Button--primary, .Composer-footer .Button--primary')){
+      park();
     }
   }, true);
 
+  var kvPrevPath = location.pathname;
+  var kvPostCount = -1; // 帖子数, 侦测"发帖成功"(数量变化)作为二次保险再 park 一下
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
     if(!comp) return;
-    if(!nativeParent) nativeParent = comp.parentElement; // 记住原生父节点(首次)
-    var open = !!comp.querySelector('.Composer');
-    root.classList.toggle('kv-composing', open);
-
-    // 侦测"帖子数变化"(发帖成功/翻页/加载更多的真实信号)。只有数量真的变了才 eject,
-    // 避免把"我自己插入 composer"或帖子内部的装饰性变动误判成重绘而反复抽回。
-    var pc = postCount();
-    if(borrowed && lastPostCount !== -1 && pc !== lastPostCount){ eject(); }
-    lastPostCount = pc;
-
-    if(cooldown > 0){ cooldown--; return; }
-
-    if(open && /^\/d\//.test(location.pathname)){
+    // 【闪退修复·二次保险】帖子流数量一变(发帖成功),先 park 让 composer 脱离即将被
+    // Mithril 重绘的帖子流; 下一轮若回复框仍开着, 轮询会重新把它内联进流。
+    var _stream = document.querySelector('.DiscussionPage-stream');
+    if(_stream){
+      var _n = _stream.querySelectorAll('.PostStream-item').length;
+      if(kvPostCount !== -1 && _n !== kvPostCount){ park(); }
+      kvPostCount = _n;
+    } else { kvPostCount = -1; }
+    // 没有正在编辑的 .Composer 时,行内强制隐藏(比 :has() 可靠,消除过渡态露出的小块)
+    if(!comp.querySelector('.Composer')){ comp.style.setProperty('display','none','important'); }
+    else { comp.style.removeProperty('display'); }
+    // 路径一变就关掉编辑框——不管是帖子详情页的回复框, 还是列表/标签页打开的发主题框,
+    // 都是"属于打开时那个页面"的, 不该跟着漂到下一个页面(用户返回首页/切分类都算)
+    if(kvPrevPath !== location.pathname){
+      try{ if(window.app && app.composer && typeof app.composer.hide === 'function') app.composer.hide(); }catch(e){}
+    }
+    kvPrevPath = location.pathname;
+    // 只在 composer 真正打开(有 .Composer 子)时才加 kv-inline,避免首页空 composer 也显示虚线
+    if(comp.querySelector('.Composer')){ comp.classList.add('kv-inline'); }
+    else { comp.classList.remove('kv-inline'); }
+    if(/^\/d\//.test(location.pathname)){
       var stream = document.querySelector('.DiscussionPage-stream');
       if(stream){
-        if(comp.parentElement !== stream){
-          // 借放进帖子流白卡内(页脚 #kvin-footer2 之前, 没有页脚则追加到末尾)
-          try{
-            var footer = stream.querySelector('#kvin-footer2');
-            if(footer && footer.parentElement === stream){ stream.insertBefore(comp, footer); }
-            else{ stream.appendChild(comp); }
-            borrowed = true;
-            lastPostCount = postCount(); // 插入后重新基准化, 别把这次插入算成"帖子变化"
-          }catch(e){}
-        }
-        root.classList.remove('kv-ejecting'); // 已在流内, 取消隐藏
+        comp.classList.add('kv-inline');
+        // 移进白卡内、页脚之前(park 已保证它在跳转时不会被销毁)
+        try{
+          var footer = stream.querySelector('#kvin-footer2');
+          if(footer && footer.parentElement === stream){
+            if(comp.parentElement !== stream || comp.nextElementSibling !== footer) stream.insertBefore(comp, footer);
+          } else if(comp.parentElement !== stream){
+            stream.appendChild(comp);
+          }
+        }catch(e){}
       }
-    } else if(borrowed){
-      eject(); // 回复框关了或离开详情页 -> 抽回原生位置
+    } else {
+      // 非详情页(发主题)：移进当前页的内容白卡内(有park保护SPA跳转); 找不到卡片就退回park到.App
+      var card = document.querySelector('.IndexPage-results') || document.querySelector('.CategoriesPage-content') || document.querySelector('.TagsPage .TagTiles');
+      if(card){
+        try{
+          var _f = card.querySelector('#kvin-footer2');
+          if(_f && _f.parentElement === card){
+            if(comp.parentElement !== card || comp.nextElementSibling !== _f) card.insertBefore(comp, _f);
+          } else if(comp.parentElement !== card){
+            card.appendChild(comp);
+          }
+        }catch(e){}
+      } else {
+        park();
+      }
     }
-  }, 200);
+  }, 300);
 })();
 </script>
 
