@@ -58,16 +58,20 @@
 /* margin-bottom below creates the gap before the dashboard content.          */
 #admin-navigation .AdminNav {
     display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 0 20px !important;
+    /* Constrain to the same content width as other admin panels (1320/94%),  */
+    /* auto-centered, so the outer border visibly wraps the nav sections      */
+    /* instead of running past the viewport edges.                             */
+    width: 94% !important;
+    max-width: 1320px !important;
+    margin: 0 auto 20px !important;
     padding: 0 !important;
     background: #ffffff !important;
     position: static !important;
-    box-shadow: 0 1px 3px rgba(20, 30, 50, 0.08) !important;
+    box-shadow: 0 2px 6px rgba(20, 30, 50, 0.10) !important;
     border: 1px solid #c3cad2 !important;
     border-radius: 4px !important;
     overflow: hidden !important;
+    box-sizing: border-box !important;
 }
 
 /* Hide the mobile-style Dropdown-toggle button (SelectDropdown expands to list on desktop) */
