@@ -940,3 +940,127 @@
 })();
 </script>
 
+
+
+
+<script>
+/* 客户端图片压缩 —— 在浏览器里压完再上传, 服务器零 CPU 消耗
+   ------------------------------------------------------------------
+   触发: 任何走 fetch / XMLHttpRequest 且 body 是 FormData 且里面含
+         image/* 类型 File 的上传请求 (fof/upload 走 XHR, 全捕获)
+   处理: 长边 > 1920px 时等比缩到 1920px, 重编 JPEG quality 0.85
+   跳过: 原文件 < 300KB 的图 (不划算); 或者 GIF / SVG (会丢动画/矢量)
+   兜底: 压后比原图大 -> 上传原图 (无损兜底, 决不会变更差)
+   注意: PNG 带透明会转成 JPEG 平底 —— 若含通透头像等再考虑保留 PNG.
+   日志: 每次压完在 Console 打一行 "原大小 -> 新大小", 方便观察效果. */
+(function(){
+  var MAX_DIM = 1920;
+  var QUALITY = 0.85;
+  var MIN_SIZE = 300 * 1024;
+
+  function compress(file){
+    return new Promise(function(resolve){
+      try{
+        if(!/^image\//.test(file.type)){ resolve(file); return; }
+        // GIF / SVG / ICO 原样上传 (会丢动画或矢量)
+        if(/^image\/(gif|svg\+xml|x-icon|vnd\.microsoft\.icon)$/i.test(file.type)){ resolve(file); return; }
+        if(file.size < MIN_SIZE){ resolve(file); return; }
+        var url = URL.createObjectURL(file);
+        var img = new Image();
+        img.onload = function(){
+          try{
+            URL.revokeObjectURL(url);
+            var w = img.naturalWidth || img.width;
+            var h = img.naturalHeight || img.height;
+            if(!w || !h){ resolve(file); return; }
+            if(w > MAX_DIM || h > MAX_DIM){
+              if(w >= h){ h = Math.round(h * MAX_DIM / w); w = MAX_DIM; }
+              else       { w = Math.round(w * MAX_DIM / h); h = MAX_DIM; }
+            }
+            var c = document.createElement('canvas');
+            c.width = w; c.height = h;
+            var ctx = c.getContext('2d');
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            // 白底填充: PNG 透明区转 JPEG 会变黑, 先铺白底
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0, w, h);
+            c.toBlob(function(blob){
+              if(!blob){ resolve(file); return; }
+              if(blob.size >= file.size){
+                try{ console.log('[kv-compress] ' + file.name + ' 压后反而更大, 保留原图 (' + Math.round(file.size/1024) + ' KB)'); }catch(_){}
+                resolve(file); return;
+              }
+              var newName = file.name.replace(/\.\w+$/, '') + '.jpg';
+              var nf = new File([blob], newName, { type: 'image/jpeg', lastModified: Date.now() });
+              try{
+                console.log('[kv-compress] ' + file.name + ': ' +
+                  Math.round(file.size/1024) + ' KB -> ' + Math.round(nf.size/1024) + ' KB (' +
+                  Math.round(nf.size/file.size*100) + '%, ' + w + 'x' + h + ')');
+              }catch(_){}
+              resolve(nf);
+            }, 'image/jpeg', QUALITY);
+          }catch(err){ resolve(file); }
+        };
+        img.onerror = function(){ URL.revokeObjectURL(url); resolve(file); };
+        img.src = url;
+      }catch(err){ resolve(file); }
+    });
+  }
+
+  function processFD(fd){
+    try{
+      var pairs = [];
+      var it = fd.entries();
+      while(true){
+        var r = it.next();
+        if(r.done) break;
+        pairs.push(r.value);
+      }
+      var any = pairs.some(function(p){ return p[1] instanceof File && /^image\//.test(p[1].type); });
+      if(!any) return Promise.resolve(fd);
+      var nfd = new FormData();
+      return Promise.all(pairs.map(function(p){
+        var k = p[0], v = p[1];
+        if(v instanceof File && /^image\//.test(v.type)){
+          return compress(v).then(function(cf){ nfd.append(k, cf, cf.name); });
+        }
+        nfd.append(k, v);
+        return Promise.resolve();
+      })).then(function(){ return nfd; });
+    }catch(e){ return Promise.resolve(fd); }
+  }
+
+  // fetch 拦截 (Flarum 2.x / 部分扩展走这条)
+  if(typeof window.fetch === 'function'){
+    var _fetch = window.fetch;
+    window.fetch = function(input, init){
+      try{
+        if(init && init.body instanceof FormData){
+          var self = this;
+          return processFD(init.body).then(function(fd){
+            var ni = Object.assign({}, init, { body: fd });
+            return _fetch.call(self, input, ni);
+          });
+        }
+      }catch(e){}
+      return _fetch.apply(this, arguments);
+    };
+  }
+
+  // XMLHttpRequest.send 拦截 (Flarum 1.x m.request / fof-upload 都走这条)
+  var _send = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.send = function(body){
+    try{
+      if(body instanceof FormData){
+        var xhr = this;
+        processFD(body).then(function(fd){ _send.call(xhr, fd); });
+        return;
+      }
+    }catch(e){}
+    return _send.apply(this, arguments);
+  };
+})();
+</script>
+
