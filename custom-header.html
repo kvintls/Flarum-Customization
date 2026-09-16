@@ -433,80 +433,50 @@
 
 
 <script>
-/* 主题详情页(/d/...)：把浮动的回复 composer 变成内联——移动到主题白卡内(页脚之前)，
-   并加 .kv-inline 类由 CSS 去掉浮动/拖拽/最小化。其它页面保持原样。 */
+/* 回复框(composer)内联化 + 防闪退 —— 这就是用户实测有效的 "v4" 逻辑固化版。
+   思路: 只在"帖子数增加"(=真发帖成功)时把 composer 移出帖子流到 .App, 并进入约1.2s
+   冷却; 冷却期不动 DOM 位置, 让 Flarum/Mithril 完整重绘帖子流(此刻 composer 不在流里,
+   不会 DOM 错位闪退)。冷却结束后每轮自动把 composer 归位到帖子流(页脚 #kvin-footer2 之前
+   的虚线区)。不监听点击(避免"点回复就跳到外面"), 位置每轮自愈(避免隔次跑偏)。 */
 (function(){
-  // 把 composer 移回 .App(安全位置)。导航前调用,避免它随被销毁的帖子流一起被 mithril 销毁。
-  function park(){
-    var comp = document.querySelector('.App-composer');
-    var app = document.querySelector('.App');
-    if(comp && app && comp.parentElement !== app){ try{ app.appendChild(comp); }catch(e){} }
-  }
-  // 浏览器后退/前进 & 点击任意会跳转的链接 —— 先 park,再让 mithril 去销毁旧页面
-  window.addEventListener('popstate', park, true);
-  document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a[href]');
-    if(a){ var h = a.getAttribute('href') || ''; if(h && h.charAt(0) !== '#') park(); }
-  }, true);
+  var app = document.querySelector('.App');
+  var cooldown = 0;      // >0 期间不塞回帖子流(发帖后重绘窗口)
+  var lastCount = -1;    // 上次帖子数
+  function count(){ var s = document.querySelector('.PostStream'); return s ? s.querySelectorAll('.PostStream-item').length : -1; }
 
-  var kvPrevPath = location.pathname;
-  var kvCooldown = 0;      // 【防闪退】>0 期间不把 composer 塞回帖子流(躲开发帖后的 Mithril 重绘窗口)
-  var kvLastCount = -1;    // 上次帖子数, 用于侦测"发帖成功"(数量增加)
-  function kvCount(){ var s=document.querySelector('.PostStream'); return s?s.querySelectorAll('.PostStream-item').length:-1; }
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
     if(!comp) return;
-    // 【防闪退核心】帖子数增加 = 发帖成功 -> 立刻把 composer 移出帖子流到 .App,
-    // 并进入短冷却; 发帖后 Flarum 重绘帖子流时 composer 已不在流里, 不会 DOM 错位闪退。
-    var _c = kvCount();
-    if(kvLastCount !== -1 && _c > kvLastCount){ park(); kvCooldown = 6; } // 约1.2s冷却
-    kvLastCount = _c;
-    // 没有正在编辑的 .Composer 时,行内强制隐藏(比 :has() 可靠,消除过渡态露出的小块)
-    if(!comp.querySelector('.Composer')){ comp.style.setProperty('display','none','important'); }
-    else { comp.style.removeProperty('display'); }
-    // 路径一变就关掉编辑框——不管是帖子详情页的回复框, 还是列表/标签页打开的发主题框,
-    // 都是"属于打开时那个页面"的, 不该跟着漂到下一个页面(用户返回首页/切分类都算)
-    if(kvPrevPath !== location.pathname){
-      try{ if(window.app && app.composer && typeof app.composer.hide === 'function') app.composer.hide(); }catch(e){}
+    if(!app) app = document.querySelector('.App');
+    var open = !!comp.querySelector('.Composer');
+
+    // 开着才内联可见, 关了就隐藏(消除过渡态露出的空壳/虚线)
+    if(open){ comp.classList.add('kv-inline'); comp.style.removeProperty('display'); }
+    else { comp.classList.remove('kv-inline'); comp.style.setProperty('display','none','important'); }
+
+    // 帖子数增加 = 发帖成功 -> 立刻把 composer 移出帖子流, 进入冷却(躲开重绘窗口, 防闪退)
+    var c = count();
+    if(lastCount !== -1 && c > lastCount){
+      if(app && comp.parentElement !== app){ try{ app.appendChild(comp); }catch(e){} }
+      cooldown = 6; // 约1.2秒
     }
-    kvPrevPath = location.pathname;
-    // 只在 composer 真正打开(有 .Composer 子)时才加 kv-inline,避免首页空 composer 也显示虚线
-    if(comp.querySelector('.Composer')){ comp.classList.add('kv-inline'); }
-    else { comp.classList.remove('kv-inline'); }
-    // 【防闪退】冷却期内(发帖后约1.2s)不动 composer 位置, 让 Mithril 重绘帖子流落定。
-    // 冷却结束后, 下面原有的"每轮归位"逻辑照常运行 -> 位置会自动回到帖子流虚线区。
-    if(kvCooldown > 0){ kvCooldown--; return; }
-    if(/^\/d\//.test(location.pathname)){
+    lastCount = c;
+
+    if(cooldown > 0){ cooldown--; return; } // 冷却期不动位置
+
+    // 平时: 详情页且回复框开着 -> 归位到帖子流(页脚之前的虚线区)
+    if(open && /^\/d\//.test(location.pathname)){
       var stream = document.querySelector('.DiscussionPage-stream');
-      if(stream){
-        comp.classList.add('kv-inline');
-        // 移进白卡内、页脚之前(park 已保证它在跳转时不会被销毁)
+      if(stream && comp.parentElement !== stream){
         try{
           var footer = stream.querySelector('#kvin-footer2');
-          if(footer && footer.parentElement === stream){
-            if(comp.parentElement !== stream || comp.nextElementSibling !== footer){ stream.insertBefore(comp, footer); kvLastCount = kvCount(); }
-          } else if(comp.parentElement !== stream){
-            stream.appendChild(comp); kvLastCount = kvCount();
-          }
+          if(footer && footer.parentElement === stream){ stream.insertBefore(comp, footer); }
+          else { stream.appendChild(comp); }
+          lastCount = count(); // 插入后重新基准化, 别把自己的插入算成"帖子变化"
         }catch(e){}
-      }
-    } else {
-      // 非详情页(发主题)：移进当前页的内容白卡内(有park保护SPA跳转); 找不到卡片就退回park到.App
-      var card = document.querySelector('.IndexPage-results') || document.querySelector('.CategoriesPage-content') || document.querySelector('.TagsPage .TagTiles');
-      if(card){
-        try{
-          var _f = card.querySelector('#kvin-footer2');
-          if(_f && _f.parentElement === card){
-            if(comp.parentElement !== card || comp.nextElementSibling !== _f) card.insertBefore(comp, _f);
-          } else if(comp.parentElement !== card){
-            card.appendChild(comp);
-          }
-        }catch(e){}
-      } else {
-        park();
       }
     }
-  }, 300);
+  }, 200);
 })();
 </script>
 
