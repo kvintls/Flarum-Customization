@@ -392,11 +392,23 @@
 
 
 <script>
-/* 自动生成唯一头像(identicon)：给没有上传真实头像的用户，按用户名确定性地生成一张唯一的
-   GitHub 风格图案头像(纯前端、无需外网、无需扩展)。已上传真实头像(img)的用户保持不变。 */
+/* 卡通头像 (DiceBear) —— 给没有上传真实头像的用户按用户名确定性生成卡通人物头像
+   - 有真实头像 (Flarum <img>) 的用户完全不动
+   - 首次访问: fetch DiceBear SVG (10KB 上下), 存 localStorage
+   - 二次访问: 直接读缓存, 零网络请求
+   - DiceBear 不通/慢时先用几何 identicon 兜底显示, fetch 回来再无感替换
+   要换头像风格改下面 STYLE 变量; 顺便把 CACHE_VER 加一下, 老缓存会自动作废.
+   可选风格 (v9): avataaars | adventurer | micah | notionists | open-peeps
+                   big-smile | fun-emoji | personas | croodles | lorelei | pixel-art */
 (function(){
+  var STYLE       = 'avataaars';   // 默认: Sketch 风格卡通人物 (男女/发型/肤色/配饰各种组合)
+  var BG_COLORS   = 'b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe4b2';  // 随机背景色池
+  var CACHE_VER   = 'v3';
+  var CACHE_PREFIX = 'kv-avatar:' + CACHE_VER + ':' + STYLE + ':';
+
+  // ---- 兜底: 老的几何 identicon (只在网络失败时展示) ----
   function hash(s){ var h=2166136261; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
-  function identicon(seed){
+  function identiconFallback(seed){
     var h=hash(seed), hue=h%360, fg='hsl('+hue+',58%,52%)', r=h;
     function nx(){ r=(Math.imul(r,1103515245)+12345)>>>0; return r; }
     var rects='';
@@ -409,22 +421,66 @@
     var svg='<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#eef0f2"/><g fill="'+fg+'">'+rects+'</g></svg>';
     return 'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svg)));
   }
+
   function seedFor(av){
     var a = av.closest && av.closest('a[href*="/u/"]');
     if(a){ var m=a.getAttribute('href').match(/\/u\/([^\/?#]+)/); if(m) return decodeURIComponent(m[1]); }
-    var txt=(av.textContent||'').trim();
+    var txt = (av.textContent||'').trim();
     return txt + '|' + (av.getAttribute('style')||'') + getComputedStyle(av).backgroundColor;
   }
+
+  var mem = {};       // seed -> data URL (内存缓存, 避 localStorage 反复读)
+  var pending = {};   // seed -> [avatar 元素...] (fetch 中的排队, 防重复请求)
+
+  function apply(av, dataUrl){
+    av.style.backgroundImage = 'url("' + dataUrl + '")';
+    av.style.backgroundSize  = 'cover';
+    av.style.backgroundColor = 'transparent';
+    av.style.color           = 'transparent';
+  }
+
+  function load(seed, av){
+    // (1) 内存缓存命中
+    if(mem[seed]){ apply(av, mem[seed]); return; }
+    // (2) localStorage 命中
+    var key = CACHE_PREFIX + seed;
+    try{
+      var cached = localStorage.getItem(key);
+      if(cached){ mem[seed] = cached; apply(av, cached); return; }
+    }catch(e){}
+    // (3) 需要 fetch —— 但先用几何 identicon 兜底避免空白
+    var stub = identiconFallback(seed);
+    apply(av, stub);
+    if(pending[seed]){ pending[seed].push(av); return; }
+    pending[seed] = [av];
+    var url = 'https://api.dicebear.com/9.x/' + STYLE + '/svg' +
+              '?seed=' + encodeURIComponent(seed) +
+              '&backgroundColor=' + BG_COLORS +
+              '&size=120';
+    fetch(url, { credentials: 'omit' })
+      .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+      .then(function(svg){
+        var dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+        mem[seed] = dataUrl;
+        try{ localStorage.setItem(key, dataUrl); }catch(e){/* quota 满 or 隐私模式 */}
+        (pending[seed] || []).forEach(function(el){ apply(el, dataUrl); });
+        delete pending[seed];
+      })
+      .catch(function(){
+        // 网络失败: 保留 identicon 兜底, 记忆到内存, 下次会话再试
+        mem[seed] = stub;
+        (pending[seed] || []).forEach(function(el){ apply(el, stub); });
+        delete pending[seed];
+      });
+  }
+
   setInterval(function(){
     document.querySelectorAll('.Avatar').forEach(function(av){
       if(av.dataset.kvIdent) return;
-      if(av.tagName==='IMG' || av.querySelector('img')){ av.dataset.kvIdent='1'; return; } // 已有真实头像
-      var seed=seedFor(av); if(!seed) return;
-      av.style.backgroundImage='url("'+identicon(seed)+'")';
-      av.style.backgroundSize='cover';
-      av.style.backgroundColor='transparent';
-      av.style.color='transparent';
-      av.dataset.kvIdent='1';
+      if(av.tagName === 'IMG' || av.querySelector('img')){ av.dataset.kvIdent = '1'; return; } // 已有真实头像
+      var seed = seedFor(av); if(!seed) return;
+      av.dataset.kvIdent = '1';
+      load(seed, av);
     });
   }, 500);
 })();
