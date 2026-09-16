@@ -677,3 +677,18 @@ main.App-content::after {
     border: none !important;
     box-shadow: none !important;
 }
+
+
+/* Real target confirmed via user console:                                     */
+/*   DIV .ExtensionPage-permissions-header | bg = rgb(229, 238, 245)          */
+/* Force it and its likely siblings to white, killing the residual blue strip.*/
+.ExtensionPage-permissions-header,
+.ExtensionPage-permissions-header *,
+.ExtensionPage-settings-header,
+.ExtensionPage-header,
+.ExtensionPage-info,
+.ExtensionPage-nav,
+[class*="ExtensionPage-"][class*="-header"] {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
