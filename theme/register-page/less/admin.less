@@ -721,3 +721,18 @@ html, body, .App, .App-content, .App-content > *,
     margin: 0 !important;
     box-sizing: border-box !important;
 }
+
+
+/* Modal backdrop (dimmed layer behind popups like 添加组用户 dialog): kill    */
+/* the default blue tint, use a light white overlay instead so the page       */
+/* underneath just fades to white, no blue.                                    */
+.Modal-backdrop,
+.Modal-backdrop.fade,
+.Modal-backdrop.in,
+.modal-backdrop,
+.modal-backdrop.fade,
+.modal-backdrop.in {
+    background: rgba(255, 255, 255, 0.6) !important;
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    opacity: 1 !important;
+}
