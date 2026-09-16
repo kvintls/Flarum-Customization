@@ -576,23 +576,59 @@ main.App-content::after {
     border-radius: 0 !important;
     box-shadow: none !important;
 }
-/* Force plain white on the whole admin content surface (was showing a slight  */
-/* green/blue tint on plugin detail pages).                                    */
-.App, .App-content, .App-content > * {
+/* Force plain white on all admin content surfaces to kill the green/blue     */
+/* tint on plugin detail / permission pages.                                   */
+html, body, .App, .App-content, .App-content > *,
+.ExtensionPage, .ExtensionPage-header, .ExtensionPage-body,
+.SettingsPage, .PermissionsPage, .AdminPage {
     background: #ffffff !important;
+    background-color: #ffffff !important;
 }
-/* Search-users bar sits next to the Users title on the right, not below. */
+/* Search bar: float right of Users AdminHeader so it sits on the same line   */
+/* as the title, not stacked below. Undo prior absolute positioning which     */
+/* made it invisible off-screen.                                               */
 #app main.App-content .UserListPage .SearchBar,
-#app main.App-content .UserListPage .Search-input,
-#app main.App-content .UserListPage-search {
-    position: absolute !important;
-    top: 20px !important;
-    right: 20px !important;
+#app main.App-content .UserListPage .Search-input {
+    position: static !important;
+    float: right !important;
     width: 260px !important;
     margin: 0 !important;
+    top: auto !important;
+    right: auto !important;
 }
 #app main.App-content .UserListPage .AdminHeader {
-    position: relative !important;
+    overflow: visible !important;
+}
+#app main.App-content .UserListPage .AdminHeader::after {
+    content: "" !important;
+    display: block !important;
+    clear: both !important;
+}
+/* Permission grid: horizontal row lines + subtle vertical column separators. */
+.App-content .PermissionGrid,
+.App-content .PermissionsPage-grid {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+.App-content .PermissionGrid tr,
+.App-content .PermissionGrid > div,
+.App-content .PermissionsPage tbody tr,
+.App-content .PermissionGrid-row {
+    border-bottom: 1px solid #e0e4e8 !important;
+}
+.App-content .PermissionGrid td,
+.App-content .PermissionGrid th,
+.App-content .PermissionGrid > div > *,
+.App-content .PermissionsPage td,
+.App-content .PermissionsPage th {
+    border-bottom: 1px solid #e0e4e8 !important;
+    border-right: 1px solid #eef1f4 !important;
+    padding: 8px 12px !important;
+}
+.App-content .PermissionGrid td:last-child,
+.App-content .PermissionGrid th:last-child,
+.App-content .PermissionGrid > div > *:last-child {
+    border-right: none !important;
 }
 /* Footer blue line: constrain to the framed content width (1320/94%) so it   */
 /* doesn't stretch across the full page width.                                 */
