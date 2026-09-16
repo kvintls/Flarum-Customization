@@ -491,6 +491,35 @@
 
 
 <script>
+/* 彻底禁掉离开/刷新页面时的"重新加载/是否离开"确认弹窗(beforeunload)。
+   注意代价: 真有未发布的回复草稿时刷新/关页面也不再提示, 内容会直接丢失。(用户选择 B 方案) */
+(function(){
+  // 1) 拦截 addEventListener 注册的 beforeunload 处理器, 直接不注册
+  var _add = window.addEventListener;
+  window.addEventListener = function(type){
+    if(String(type).toLowerCase() === 'beforeunload'){ return; }
+    return _add.apply(this, arguments);
+  };
+  // 2) 保险: 若已有 onbeforeunload / 之后被赋值, 都强制返回空(不弹框)
+  try{ window.onbeforeunload = null; }catch(e){}
+  try{
+    Object.defineProperty(window, 'onbeforeunload', {
+      configurable:true,
+      get:function(){ return null; },
+      set:function(){ /* 忽略任何赋值, 保证永不弹框 */ }
+    });
+  }catch(e){}
+  // 3) 兜底: 捕获阶段拦截 beforeunload, 阻止默认确认框
+  _add.call(window, 'beforeunload', function(e){
+    e.stopImmediatePropagation();
+    delete e.returnValue;
+  }, true);
+})();
+</script>
+
+
+
+<script>
 /* 隐藏鼠标悬停用户名弹出的用户卡片(.UserCard / .UserCard-profile 浮卡)。
    个人主页(.UserPage)内的用户卡片保留不隐藏。 */
 (function(){
