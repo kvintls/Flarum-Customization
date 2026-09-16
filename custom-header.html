@@ -433,20 +433,70 @@
 
 
 <script>
-/* 回复框(composer)内联化 —— 纯 CSS 方案，不移动任何 DOM。
-   旧方案曾用 JS 把 .App-composer 物理搬进 .DiscussionPage-stream，导致发帖成功
-   Flarum 重绘帖子流后、第二次打开回复框必闪退(Mithril 虚拟DOM与真实DOM错位)。
-   现改为：让 composer 留在 Flarum 原生位置不动，只在 <html> 上打一个标记类
-   kv-composing(表示"回复框已打开")，全部视觉效果由 custom-style-full.css 里的
-   CSS 完成(把右下角浮动框改成贴底静态框、去掉拖拽/最小化/全屏)。JS 只负责
-   加/去这个标记类，绝不碰 composer 的 DOM 位置，因此不会与 Mithril 冲突。 */
+/* 回复框(composer)内联化 —— 把浮动回复框移进帖子流白卡内、紧贴内容,形成内联效果。
+   闪退根因: 发帖成功后 Flarum(Mithril) 会重绘 .DiscussionPage-stream, 若 composer
+   还塞在 stream 里, Mithril 的虚拟DOM会以为那块DOM是它的、去操作/复用它 -> 与真实DOM
+   错位 -> 第二次打开回复框崩溃(闪退)。
+   稳妥修法: composer 只"临时借放"进 stream; 一旦检测到 Mithril 要动 stream 的子节点
+   (MutationObserver 立即触发, 早于闪退发生), 就把 composer 抽回它的原生父节点(.App),
+   让 Mithril 重绘自己那份干净DOM。重绘落定后下一轮再借放回去。这样既内联、又不闪退。 */
 (function(){
   var root = document.documentElement;
+  var nativeParent = null;   // composer 的原生父节点(通常是 .App), 抽回时放这
+  var borrowed = false;      // composer 当前是否被借放进了 stream
+  var cooldown = 0;          // >0 时暂不借放(等 Mithril 重绘落定)
+
+  // 把 composer 抽回原生父节点 —— Mithril 动 stream 前调用, 避免它操作到错位的DOM
+  function eject(){
+    var comp = document.querySelector('.App-composer');
+    if(comp && nativeParent && comp.parentElement !== nativeParent){
+      try{ nativeParent.appendChild(comp); }catch(e){}
+    }
+    borrowed = false;
+    cooldown = 4; // 抽回后约0.8s内不再借放, 等重绘彻底结束
+  }
+
+  // 监听帖子流的子节点变化(发帖成功/翻页/加载更多都会触发): 一有变化立刻 eject
+  var streamObs = new MutationObserver(function(){ if(borrowed) eject(); });
+  var observedStream = null;
+  function watchStream(stream){
+    if(stream === observedStream) return;
+    try{ streamObs.disconnect(); }catch(e){}
+    observedStream = stream;
+    if(stream){ streamObs.observe(stream, {childList:true}); }
+  }
+
+  // 点"发布/提交"按钮那一刻先 eject(发帖会重绘 stream)
+  document.addEventListener('click', function(e){
+    if(e.target.closest && e.target.closest('.Composer .Button--primary, .Composer-footer .Button--primary')){
+      eject();
+    }
+  }, true);
+
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
-    // composer 真正打开时(内部有 .Composer 子节点)才标记为编辑中
-    var open = !!(comp && comp.querySelector('.Composer'));
+    if(!comp) return;
+    if(!nativeParent) nativeParent = comp.parentElement; // 记住原生父节点(首次)
+    var open = !!comp.querySelector('.Composer');
     root.classList.toggle('kv-composing', open);
+    if(cooldown > 0){ cooldown--; watchStream(document.querySelector('.DiscussionPage-stream')); return; }
+    if(open && /^\/d\//.test(location.pathname)){
+      var stream = document.querySelector('.DiscussionPage-stream');
+      watchStream(stream);
+      if(stream){
+        var footer = stream.querySelector('#kvin-footer2');
+        try{
+          if(footer && footer.parentElement === stream){
+            if(comp.nextElementSibling !== footer){ stream.insertBefore(comp, footer); borrowed = true; }
+          } else if(comp.parentElement !== stream){
+            stream.appendChild(comp); borrowed = true;
+          }
+        }catch(e){}
+      }
+    } else if(borrowed){
+      // 回复框关了或离开详情页 -> 抽回原生位置
+      eject();
+    }
   }, 200);
 })();
 </script>
