@@ -450,7 +450,9 @@ body,.App{background:#f5f6f8;color:#1f2328}
 .App.hasPane .DiscussionPage-discussion,.App.hasPane .DiscussionPage{margin-left:0!important}
 .App.hasPane .DiscussionPage-stream{margin-left:0!important}
 .TagsPage .TagTile-children{padding-left:0!important}
-.App-composer:not(:has(.Composer)){display:none!important}
+/* 【已删除】旧规则 .App-composer:not(:has(.Composer)){display:none!important} —— 会把
+   composer 打开过程中的第一步(空壳阶段)也隐藏, 导致点回复"没反应"(composer 甚至不再挂载)。
+   空壳的显示已由 JS(添加/移除 .kv-inline 类)控制, 不需要这条全局隐藏。 */
 .App-composer.minimized,.App-composer--minimized,.Composer.minimized{display:none!important}
 main.App-content:has(table.rankings){padding:16px 0!important}
 main.App-content:has(table.rankings) .sideNavContainer,main.App-content:has(table.rankings) .container{display:block!important;max-width:1320px!important;width:94%!important;margin:0 auto!important}
