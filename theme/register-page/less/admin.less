@@ -552,26 +552,14 @@ main.App-content::after {
 }
 
 
-/* Users admin grid: real DOM (from user inspection) is                        */
-/*   section.UserListPage-grid.UserListPage-grid--loaded                       */
-/* which uses display:grid with grid-template-columns: repeat(N, max-content)  */
-/* so columns only take content width -> lots of empty space on the right.    */
-/* Distribute all columns with 1fr except the actions column so the grid fills */
-/* full width. Also stretch parent containers.                                 */
-.App-content .UserListPage,
-.App-content .AdminPage.UserListPage,
-.App-content .AdminPage.UserListPage .container,
-.App-content .UserListPage-grid {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-}
+/* Users admin grid (section.UserListPage-grid uses display:grid). Distribute  */
+/* columns with fr so they fill the grid's natural width, but DON'T stretch    */
+/* the grid's parent -- let it stay inside the same container width as other   */
+/* admin panels (语言包/用户 etc.) so it doesn't shoot past them.               */
 .App-content .UserListPage-grid,
 .App-content .UserListPage-grid--loaded,
 .App-content .UserListPage-grid--loading {
     grid-template-columns: minmax(60px, auto) minmax(120px, 1.2fr) minmax(120px, 1.2fr) minmax(150px, 1.5fr) minmax(80px, 0.8fr) minmax(200px, 2fr) minmax(80px, auto) !important;
-    /* Slight side padding so the grid aligns with the search box above but    */
-    /* isn't pushed too narrow.                                                 */
     padding-left: 10px !important;
     padding-right: 10px !important;
     box-sizing: border-box !important;
