@@ -1451,10 +1451,10 @@
 
 
 <script>
-/* 用户主页 (/u/name) 侧栏顶部塞一张统计卡: 加入天数 / 等级 / 鸡腿
+/* 用户主页 (/u/name) 侧栏顶部塞一张统计卡: 加入天数 / 等级 / 贡献值
    - 加入天数: 从 user.joinTime() 实时算 (毫秒差 / 86400000)
    - 等级: 阈值表映射, 参数 XP
-   - 鸡腿(XP): 前端暂时靠帖子数+评论数+加入天数推导, 服务端将来接入了真正的
+   - 贡献值(XP): 前端暂时靠帖子数+评论数+加入天数推导, 服务端将来接入了真正的
      签到/投喂/惩罚系统后, 把 computeXP 里的返回值换成 user.data.attributes.<字段>
      就一步到位, 显示层不用改.
    数据源: app.store.all('users') 里按 slug 匹配到当前主页用户. */
@@ -1516,7 +1516,7 @@
       card.innerHTML =
         '<div class="kv-us-item"><i class="fas fa-clock"></i><span class="kv-us-label">加入天数</span><span class="kv-us-value kv-us-days">-</span></div>' +
         '<div class="kv-us-item"><i class="fas fa-gem"></i><span class="kv-us-label">等级</span><span class="kv-us-value kv-us-level">-</span></div>' +
-        '<div class="kv-us-item"><i class="fas fa-drumstick-bite"></i><span class="kv-us-label">鸡腿</span><span class="kv-us-value kv-us-xp">-</span></div>';
+        '<div class="kv-us-item"><i class="fas fa-award"></i><span class="kv-us-label">贡献值</span><span class="kv-us-value kv-us-xp">-</span></div>';
       sideNav.insertBefore(card, sideNav.firstChild);
     }
     var dEl = card.querySelector('.kv-us-days');
