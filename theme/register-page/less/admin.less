@@ -722,16 +722,15 @@ html, body, .App, .App-content, .App-content > *,
 }
 
 
-/* Modal backdrop (dimmed layer behind admin popups / dialogs): kill the      */
-/* the default blue tint, use a light white overlay instead so the page       */
-/* underneath just fades to white, no blue.                                    */
+/* Modal backdrop: fully transparent per user -- no tint at all, so the page  */
+/* underneath is visible normally while the modal is open.                     */
 .Modal-backdrop,
 .Modal-backdrop.fade,
 .Modal-backdrop.in,
 .modal-backdrop,
 .modal-backdrop.fade,
 .modal-backdrop.in {
-    background: rgba(255, 255, 255, 0.6) !important;
-    background-color: rgba(255, 255, 255, 0.6) !important;
-    opacity: 1 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    opacity: 0 !important;
 }
