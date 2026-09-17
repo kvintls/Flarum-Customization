@@ -1540,8 +1540,10 @@
       '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:block!important;grid-template-columns:none!important;width:100%!important;box-sizing:border-box!important}',
       /* 桌面把 alignStart 设成 display:contents 撑 grid, 手机恢复成块 */
       '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-alignStart,.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-alignStart{display:block!important}',
-      /* 隐藏 120/240/100 那三列统计, 手机放不下 */
-      '.TagCategoryList .StatWidget,.TagCategory-subTagList .StatWidget,.TagCategory .StatWidget,.TagCategory-lastDiscussion{display:none!important}',
+      /* 统计数/版主/最后发帖: 不隐藏, 改成块级排到板块底部 (不再绝对/grid列叠在描述上) */
+      '.TagCategory-subTagList>.TagCategory>.TagCategory-content .kv-mod,.TagCategory .kv-mod{position:static!important;display:block!important;width:100%!important;top:auto!important;right:auto!important;left:auto!important;text-align:left!important;font-size:12px!important;color:#8a96a3!important;margin:2px 0 0!important;order:9!important}',
+      '.TagCategoryList .StatWidget,.TagCategory-subTagList .StatWidget,.TagCategory .StatWidget,.StatWidget-count{position:static!important;display:block!important;width:100%!important;text-align:left!important;font-size:12px!important;color:#8a96a3!important;margin:2px 0 0!important;order:8!important}',
+      '.TagCategory-lastDiscussion{position:static!important;display:block!important;width:100%!important;order:10!important;white-space:normal!important;font-size:12px!important;margin:2px 0 0!important}',
       /* 分类名/描述强制横排全宽 (修竖排单字) */
       '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-name,.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-name,.TagCategory-name,.TagCategory-description{display:block!important;width:auto!important;white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}',
       '.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-description{display:block!important}',
