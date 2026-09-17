@@ -1534,12 +1534,19 @@
     /* ===== 小平板/手机横屏 <=767: 板块列表转单列, 导航换行 ===== */
     '@media (max-width:767px){',
       '.container,.sideNavContainer,.UserPage>.container{padding-left:10px!important;padding-right:10px!important}',
-      /* 板块列表: 隐藏挤占宽度的列头/版主列, 内容横排占满 (修竖排单字) */
+      /* 板块列表 (真实 class): content 是 grid, 手机改成弹性横向, 内容占满不竖排 */
       '.kh-cols,.kv-mod{display:none!important}',
       '.TagsPage .TagTiles,.TagTiles{display:block!important}',
-      '.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:block!important;width:100%!important}',
-      '.TagTile,.TagCategory{width:100%!important;float:none!important;box-sizing:border-box!important}',
-      '.TagTile *,.TagCategory *{white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}',
+      '.TagCategory,.TagCategory.ParentCategory{width:100%!important;float:none!important;box-sizing:border-box!important}',
+      /* content 从 grid 改 flex 横向: 图标 + 主体 + 统计 一行, 主体自适应 */
+      '.TagCategory-content,.TagCategory-content-Newbi,a.TagCategory-content{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;gap:8px!important;width:100%!important;grid-template-columns:none!important}',
+      '.TagCategory-alignStart{flex:0 0 auto!important}',
+      '.TagCategory-main{flex:1 1 auto!important;min-width:0!important;display:block!important}',
+      /* 分类名/描述横排 (修竖排单字根因) */
+      '.TagCategory-name,.TagCategory-description{white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important;width:auto!important;display:block!important}',
+      /* 统计数字 (StatWidget) 不再绝对/挤压, 正常横排 */
+      '.StatWidget,.StatWidget-count,.TagCategory .StatWidget{position:static!important;writing-mode:horizontal-tb!important;white-space:nowrap!important;width:auto!important;display:inline-flex!important;flex:0 0 auto!important}',
+      '.TagCategory-lastDiscussion{flex:1 1 100%!important;white-space:normal!important}',
       /* 顶部导航条换行 */
       '#archbar,#archbar ul{flex-wrap:wrap!important;white-space:normal!important}',
       '.archbar-right{float:none!important;display:block!important;margin-top:6px!important}',
