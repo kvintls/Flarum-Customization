@@ -1483,22 +1483,29 @@
 
 <script>
 (function(){
-  var stuckSince = 0;
+  var busy = false, lastKey = '';
   setInterval(function(){
-    if(location.pathname.indexOf('/d/') !== 0) { stuckSince = 0; return; }
-    var loading = document.querySelectorAll('.PostStream-item .LoadingPost');
-    if(!loading.length){ stuckSince = 0; return; }
-    var now = Date.now();
-    if(!stuckSince){ stuckSince = now; return; }
-    if(now - stuckSince < 1200) return;
-    stuckSince = now;
-    var first = loading[0].closest('.PostStream-item');
-    if(first && first.scrollIntoView){
-      first.scrollIntoView({block:'center'});
-      window.scrollBy(0, -1);
-      window.scrollBy(0, 1);
-    }
-  }, 600);
+    if(location.pathname.indexOf('/d/') !== 0) return;
+    if(busy) return;
+    var stuck = document.querySelector('.PostStream-item .LoadingPost');
+    if(!stuck) { lastKey = ''; return; }
+    var item = stuck.closest('.PostStream-item');
+    var idx = parseInt(item.getAttribute('data-index'), 10);
+    if(isNaN(idx)) return;
+    var key = location.pathname + ':' + idx;
+    if(key === lastKey) return; // 同一个卡点已经试过, 避免狂刷
+    lastKey = key;
+    try {
+      var s = app.current && app.current.get && app.current.get('stream');
+      if(!s || !s.loadRange) return;
+      busy = true;
+      var r = s.loadRange(idx, idx + 4);
+      if(r && r.then){
+        r.then(function(){ try{ m.redraw(); }catch(e){} busy = false; lastKey = ''; })
+         .catch(function(){ busy = false; });
+      } else { try{ m.redraw(); }catch(e){} busy = false; lastKey = ''; }
+    } catch(e){ busy = false; }
+  }, 500);
 })();
 </script>
 
