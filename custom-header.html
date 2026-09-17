@@ -1517,35 +1517,55 @@
 </script>
 
 <script>
-/* 手机端适配: 用 JS 运行时注入 <style> (不写进 header HTML, 避开 Flarum 消毒白屏;
-   也不占 custom-style-full.css 的 65535 上限). 只在 <=767px 生效, 不影响桌面. */
+/* 响应式适配: JS 运行时注入 <style> (不写进 header HTML, 避开 Flarum 消毒白屏;
+   也不占 custom-style-full.css 的 65535 上限).
+   分层断点: 手机竖屏 <=480 / 手机横屏+小平板 <=767 / 平板 <=1024 / 桌面 >1024.
+   用 % + flex-wrap + 弹性宽度做平滑过渡, 不是单一宽度硬写. */
 (function(){
   var css = [
+    /* ===== 平板及以下 <=1024: 容器自适应, 图片相册弹性列 ===== */
+    '@media (max-width:1024px){',
+      '.App-header .container,#header .container,.container,.UserPage>.container{max-width:100%!important;width:auto!important;margin-left:auto!important;margin-right:auto!important;padding-left:14px!important;padding-right:14px!important;box-sizing:border-box!important}',
+      '.Post-body .kv-imggrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))!important}',
+      /* 帖子行元信息允许换行 */
+      '.DiscussionList-discussions .DiscussionListItem-content{flex-wrap:wrap!important}',
+      '.DiscussionList-discussions .kv-meta{flex-wrap:wrap!important}',
+    '}',
+    /* ===== 小平板/手机横屏 <=767: 板块列表转单列, 导航换行 ===== */
     '@media (max-width:767px){',
-    /* 容器全宽 */
-    '.App-header .container,#header .container,.container,.sideNavContainer,.UserPage>.container{max-width:100%!important;width:100%!important;padding-left:8px!important;padding-right:8px!important;box-sizing:border-box!important}',
-    /* 板块列表: 竖排单字根因 —— 隐藏注入的列头/版主列, 名称+描述占满整行 */
-    '.kh-cols,.kv-mod,.TagTile-lastPostedDiscussion .kh-cols{display:none!important}',
-    '.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:block!important;width:100%!important}',
-    '.TagsPage .TagTiles,.TagTiles{display:block!important}',
-    '.TagTile,.TagCategory{width:100%!important;float:none!important;box-sizing:border-box!important;white-space:normal!important}',
-    '.TagTile *,.TagCategory *{white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}',
-    /* 帖子列表行: 元信息换行, 右侧 tag 换到下一行 */
-    '.DiscussionList-discussions .DiscussionListItem-content{flex-wrap:wrap!important;gap:4px!important;padding:8px 10px!important}',
-    '.DiscussionList-discussions .kv-meta{flex-wrap:wrap!important;gap:8px!important}',
-    '.DiscussionList-discussions .kv-list-tag{order:3!important;flex:0 0 auto!important;min-width:0!important;justify-content:flex-start!important}',
-    /* 顶部导航条换行 */
-    '#archbar,#archbar ul{flex-wrap:wrap!important;white-space:normal!important}',
-    '.archbar-right{float:none!important;display:block!important;margin-top:6px!important}',
-    /* 贡献榜表格: 横向滚动避免挤爆 */
-    'table.rankings{display:block!important;overflow-x:auto!important;white-space:nowrap!important}',
-    /* 主内容白卡内边距收窄 */
-    '.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:10px!important}',
-    /* 帖子正文图片相册: 手机改 2 列, 太窄 */
-    '.Post-body .kv-imggrid{grid-template-columns:repeat(2,1fr)!important}',
-    /* 帖子操作按钮换行 */
-    '.CommentPost .Post-header>ul{flex-wrap:wrap!important;padding-right:8px!important}',
-    '.CommentPost .Post-actions{position:static!important;flex-wrap:wrap!important}',
+      '.container,.sideNavContainer,.UserPage>.container{padding-left:10px!important;padding-right:10px!important}',
+      /* 板块列表: 隐藏挤占宽度的列头/版主列, 内容横排占满 (修竖排单字) */
+      '.kh-cols,.kv-mod{display:none!important}',
+      '.TagsPage .TagTiles,.TagTiles{display:block!important}',
+      '.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:block!important;width:100%!important}',
+      '.TagTile,.TagCategory{width:100%!important;float:none!important;box-sizing:border-box!important}',
+      '.TagTile *,.TagCategory *{white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}',
+      /* 顶部导航条换行 */
+      '#archbar,#archbar ul{flex-wrap:wrap!important;white-space:normal!important}',
+      '.archbar-right{float:none!important;display:block!important;margin-top:6px!important}',
+      /* 用户主页侧栏改上下堆叠 */
+      '.UserPage .sideNavContainer{flex-direction:column!important}',
+      '.UserPage .UserPage-nav.sideNav{flex:1 1 auto!important;width:100%!important;border-right:none!important;border-bottom:1px solid #c9cfd6!important}',
+      /* 贡献榜表格横向滚动 */
+      'table.rankings{display:block!important;overflow-x:auto!important}',
+      /* 帖子操作按钮换行 */
+      '.CommentPost .Post-header>ul{flex-wrap:wrap!important;padding-right:8px!important}',
+      '.CommentPost .Post-actions{position:static!important;flex-wrap:wrap!important}',
+      /* 主内容白卡内边距 */
+      '.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:12px!important}',
+    '}',
+    /* ===== 手机竖屏 <=480: 最紧凑 ===== */
+    '@media (max-width:480px){',
+      '.container,.sideNavContainer,.UserPage>.container{padding-left:6px!important;padding-right:6px!important}',
+      '.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:8px!important}',
+      /* 帖子列表: tag 换到下一行 */
+      '.DiscussionList-discussions .DiscussionListItem-content{gap:4px!important;padding:8px!important}',
+      '.DiscussionList-discussions .kv-meta{gap:8px!important;font-size:11px!important}',
+      '.DiscussionList-discussions .kv-list-tag{order:3!important;flex:0 0 auto!important;min-width:0!important;justify-content:flex-start!important}',
+      /* 图片相册手机 2 列 */
+      '.Post-body .kv-imggrid{grid-template-columns:repeat(2,1fr)!important}',
+      /* 标题字号收一点 */
+      '.DiscussionList-discussions .DiscussionListItem-title{font-size:14px!important;white-space:normal!important}',
     '}'
   ].join('');
   var s = document.createElement('style');
