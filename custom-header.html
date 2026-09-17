@@ -1582,6 +1582,11 @@
       '.CommentPost .Post-actions{position:static!important;flex-wrap:wrap!important}',
       
       '.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:12px!important}',
+      /* 手机 composer: 覆盖 kv-inline, 恢复底部悬浮抽屉 (桌面内联版在窄屏塌了只剩提交按钮) */
+      '.App-composer.kv-inline{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;width:100%!important;max-width:100%!important;max-height:75vh!important;height:auto!important;margin:0!important;padding:0!important;z-index:1000!important;background:#fff!important;border-top:1px solid #ccc!important;box-shadow:0 -2px 12px rgba(0,0,0,.18)!important}',
+      '.App-composer.kv-inline .Composer{position:static!important;height:auto!important;max-height:75vh!important;margin:0!important;border:none!important;box-shadow:none!important}',
+      '.App-composer.kv-inline .Composer-content,.App-composer.kv-inline .ComposerBody{display:block!important;height:auto!important;max-height:70vh!important;overflow-y:auto!important}',
+      '.App-composer.kv-inline .TextEditor,.App-composer.kv-inline .TextEditor textarea{min-height:100px!important;height:auto!important}',
     '}',
     
     '@media (max-width:480px){',
