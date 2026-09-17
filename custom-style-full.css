@@ -81,3 +81,9 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 .CommentPost .Post-actions .Post-vote.Post-upvote .Button-label::before{content:"贡献加一"!important;font-size:13px!important;font-weight:400!important}
 .CommentPost .Post-actions .Post-vote.Post-downvote .Button-label::before{content:"贡献减一"!important;font-size:13px!important;font-weight:400!important}
 .CommentPost .Post-actions .Post-vote.Post-upvote .Button-label,.CommentPost .Post-actions .Post-vote.Post-downvote .Button-label{font-size:13px!important;font-weight:400!important}
+
+table.rankings tr:not(:first-child):hover{background:#eef4f8!important;transition:background .12s ease!important}
+table.rankings td.kv-score-pos{color:#2f8f43!important;font-weight:700!important}
+table.rankings td.kv-score-neg{color:#c94848!important;font-weight:700!important}
+table.rankings td.kv-score-zero{color:#a3aab2!important;font-weight:400!important}
+table.rankings td.kv-time-td.kv-empty-time{color:#d0d5db!important;font-weight:400!important}

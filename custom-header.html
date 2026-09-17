@@ -957,7 +957,22 @@
         }
       }catch(e){}
       td.textContent=text;
+      if(text==='-') td.classList.add('kv-empty-time');
       tr.appendChild(td);
+    });
+    /* 分数染色: 每行第 3 个 td (贡献认同) 按正/负/0 加 class, CSS 里定义颜色 */
+    tbl.querySelectorAll('tr').forEach(function(tr){
+      if(tr.querySelector('th')) return;
+      var tds=tr.querySelectorAll('td');
+      if(tds.length<3) return;
+      var scoreTd=tds[2]; if(!scoreTd) return;
+      var m=(scoreTd.textContent||'').match(/-?\d+/);
+      if(!m) return;
+      var n=parseInt(m[0],10); if(isNaN(n)) return;
+      scoreTd.classList.remove('kv-score-pos','kv-score-neg','kv-score-zero');
+      if(n>0) scoreTd.classList.add('kv-score-pos');
+      else if(n<0) scoreTd.classList.add('kv-score-neg');
+      else scoreTd.classList.add('kv-score-zero');
     });
     /* 清掉上一版加过的空 4th td(用 rowspan 后就不需要了) */
     tbl.querySelectorAll('td.kv-more-td').forEach(function(td){td.remove();});
