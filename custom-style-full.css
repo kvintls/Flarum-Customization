@@ -63,14 +63,12 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 .Post-downvote.Post-vote--voted,.Post-downvote.active{color:#c94848!important}
 .Post-vote-count,.Post-votesLabel,.Post-vote-score{display:inline-block!important;visibility:visible!important;min-width:16px!important;font-size:12px!important;color:#555!important;margin:0 4px!important}
 
-.CommentPost .Post-actions .CommentPost-votes,.CommentPost .Post-actions .Post-vote.Post-upvote,.CommentPost .Post-actions .Post-vote.Post-downvote{padding:0 5px!important;border:1px solid #c9cfd6!important;border-radius:8px!important;background:#f5f7f9!important;min-width:0!important;min-height:18px!important;height:18px!important;line-height:16px!important;font-size:11px!important;gap:2px!important}
-.CommentPost .Post-actions .Post-vote.Post-upvote:hover{background:#e6f5ea!important;border-color:#7cc48a!important;color:#2f8f43!important}
-.CommentPost .Post-actions .Post-vote.Post-downvote:hover{background:#faeaea!important;border-color:#d68787!important;color:#a53232!important}
-.CommentPost .Post-actions .Post-vote.Post-upvote.Post-voted,.CommentPost .Post-actions .Post-upvote.Post-voted{background:#e6f5ea!important;color:#2f8f43!important;border-color:#7cc48a!important}
-.CommentPost .Post-actions .Post-vote.Post-downvote.Post-voted,.CommentPost .Post-actions .Post-downvote.Post-voted{background:#faeaea!important;color:#a53232!important;border-color:#d68787!important}
-.CommentPost .Post-actions .CommentPost-votes .Button-icon{font-size:11px!important;margin:0 2px 0 0!important;line-height:1!important}
-.CommentPost .Post-actions .CommentPost-votes{gap:4px!important;display:inline-flex!important;align-items:center!important}
-.CommentPost .item-votes{display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important;font-size:11px!important}
+.CommentPost .Post-actions .CommentPost-votes,.CommentPost .Post-actions .Post-vote.Post-upvote,.CommentPost .Post-actions .Post-vote.Post-downvote{background:transparent!important;border:none!important;border-radius:0!important;box-shadow:none!important;padding:0!important;margin:0!important;min-width:0!important;min-height:0!important;height:auto!important;line-height:normal!important;font-size:13px!important;font-weight:400!important;color:#0771a8!important;gap:0!important}
+.CommentPost .Post-actions .Post-vote.Post-upvote:hover,.CommentPost .Post-actions .Post-vote.Post-downvote:hover{background:transparent!important;text-decoration:underline!important;color:#0771a8!important}
+.CommentPost .Post-actions .Post-vote.Post-upvote.Post-voted,.CommentPost .Post-actions .Post-upvote.Post-voted{background:transparent!important;color:#2f8f43!important;font-weight:600!important}
+.CommentPost .Post-actions .Post-vote.Post-downvote.Post-voted,.CommentPost .Post-actions .Post-downvote.Post-voted{background:transparent!important;color:#a53232!important;font-weight:600!important}
+.CommentPost .Post-actions .CommentPost-votes{display:inline-flex!important;align-items:center!important;gap:14px!important}
+.CommentPost .item-votes{display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important}
 
 .CommentPost .Post-actions .Dropdown-menu>.item-reply{order:1!important}
 .CommentPost .Post-actions .Dropdown-menu>.item-votes{order:2!important}
