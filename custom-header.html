@@ -1537,13 +1537,14 @@
       /* 板块列表: 用完整路径选择器压过主 CSS 的 grid(特异性 0,3,1), 否则名称列宽=0 竖排 */
       '.kh-cols,.kv-mod{display:none!important}',
       '.TagsPage .TagTiles,.TagTiles{display:block!important}',
-      '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:block!important;grid-template-columns:none!important;width:100%!important;box-sizing:border-box!important}',
-      /* 桌面把 alignStart 设成 display:contents 撑 grid, 手机恢复成块 */
-      '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-alignStart,.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-alignStart{display:block!important}',
-      /* 统计数 + 版主 排到板块底部同一行 (并排, 不叠在描述上) */
-      '.TagCategoryList .StatWidget,.TagCategory-subTagList .StatWidget,.TagCategory .StatWidget,.TagCategory-stats,.StatWidgetList{position:static!important;display:inline-flex!important;width:auto!important;text-align:left!important;font-size:12px!important;color:#8a96a3!important;margin:4px 10px 0 0!important;vertical-align:middle!important}',
-      '.TagCategory-subTagList>.TagCategory>.TagCategory-content .kv-mod,.TagCategory .kv-mod{position:static!important;display:inline-flex!important;width:auto!important;top:auto!important;right:auto!important;left:auto!important;text-align:left!important;font-size:12px!important;color:#8a96a3!important;margin:4px 0 0!important;vertical-align:middle!important}',
-      '.TagCategory-lastDiscussion{position:static!important;display:block!important;width:100%!important;white-space:normal!important;font-size:12px!important;margin:2px 0 0!important}',
+      /* content 改 flex-wrap: 名称/描述占满上方, 统计元素换到下一行横排 */
+      '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important;grid-template-columns:none!important;width:100%!important;box-sizing:border-box!important}',
+      /* alignStart(图标+名称+描述) 占满整行, 底部加浅灰分隔线 */
+      '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content>.TagCategory-alignStart,.TagCategory-subTagList>.TagCategory>.TagCategory-content>.TagCategory-alignStart{display:block!important;flex:1 1 100%!important;width:100%!important;border-bottom:1px solid #e0e4e8!important;padding-bottom:8px!important}',
+      /* alignEnd 用 contents 让其子元素(统计/最后发帖)直接进入 flex 行 */
+      '.TagCategory-alignEnd{display:contents!important}',
+      /* 4 个统计元素(主题数/最后发帖/版主等) 全部块底横排, align-items:center 平行对齐 */
+      '.TagCategory-stats,.StatWidgetList,.TagCategory .StatWidget,.TagCategory-lastDiscussion,.TagCategory .kv-mod,.TagCategory-subTagList>.TagCategory>.TagCategory-content .kv-mod{position:static!important;display:inline-flex!important;align-items:center!important;width:auto!important;flex:0 0 auto!important;top:auto!important;right:auto!important;left:auto!important;margin:0!important;font-size:12px!important;color:#8a96a3!important;white-space:nowrap!important;vertical-align:middle!important}',
       /* 分类名/描述强制横排全宽 (修竖排单字) */
       '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-name,.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-name,.TagCategory-name,.TagCategory-description{display:block!important;width:auto!important;white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}',
       '.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-description{display:block!important}',
