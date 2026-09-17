@@ -1484,8 +1484,11 @@
 <script>
 (function(){
   window.addEventListener('pageshow', function(e){
-    var nav = (performance.getEntriesByType('navigation')[0] || {}).type;
-    if(e.persisted || nav === 'back_forward'){ location.reload(); }
+    if(!e.persisted) return;
+    var k = 'kv-bf:' + location.pathname;
+    if(sessionStorage.getItem(k)){ sessionStorage.removeItem(k); return; }
+    sessionStorage.setItem(k, '1');
+    window.location.replace(location.href);
   });
 })();
 </script>
