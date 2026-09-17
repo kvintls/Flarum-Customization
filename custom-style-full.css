@@ -51,9 +51,7 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 .UserPage .UserPage-nav.sideNav a,.UserPage .sideNav ul li a,.UserPage .sideNav ul li .Button{justify-content:center!important;text-align:center!important;display:flex!important;align-items:center!important;gap:8px!important}
 .UserPage .sideNav ul li a .Button-label{text-align:center!important;flex:0 0 auto!important}
 
-.UserPage .sideNav .kv-user-stats{background:#3a3f47!important;border-radius:6px!important;padding:8px 12px!important;margin:0 0 14px!important;color:#fff!important;box-shadow:0 1px 3px rgba(0,0,0,.2)!important}
-.UserPage .sideNav .kv-user-stats .kv-us-item{display:grid!important;grid-template-columns:24px 1fr auto!important;align-items:center!important;gap:8px!important;padding:8px 0!important;border-bottom:1px solid rgba(255,255,255,.08)!important;text-align:left!important;justify-content:flex-start!important}
-.UserPage .sideNav .kv-user-stats .kv-us-item:last-child{border-bottom:none!important}
-.UserPage .sideNav .kv-user-stats .kv-us-item i{font-size:15px!important;color:#a3b0bd!important;text-align:center!important;margin:0!important}
-.UserPage .sideNav .kv-user-stats .kv-us-label{font-size:12px!important;color:#c9cfd6!important;font-weight:400!important}
-.UserPage .sideNav .kv-user-stats .kv-us-value{font-size:14px!important;font-weight:700!important;color:#fff!important;text-align:right!important}
+.UserPage .sideNav .kv-user-stats{display:none!important}
+.UserPage .sideNav li.kv-us-nav-item .kv-us-stat{cursor:default!important;background:transparent!important;border:none!important;box-shadow:none!important}
+.UserPage .sideNav li.kv-us-nav-item .kv-us-stat:hover{background:transparent!important}
+.UserPage .sideNav li.kv-us-nav-item .kv-us-value{color:#0771a8!important;font-weight:600!important;margin-left:4px!important}

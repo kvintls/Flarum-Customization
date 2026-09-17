@@ -1511,6 +1511,8 @@
     if(!/^\/u\//.test(location.pathname)) return;
     var sideNav = document.querySelector('.UserPage .sideNav');
     if(!sideNav) return;
+    var navUl = sideNav.querySelector('ul');
+    if(!navUl) return;
 
     var m = location.pathname.match(/^\/u\/([^\/?#]+)/);
     if(!m) return;
@@ -1522,22 +1524,42 @@
     var xp    = computeXP(user, days);
     var level = computeLevel(xp);
 
-    var card = sideNav.querySelector('.kv-user-stats');
-    if(!card){
-      card = document.createElement('div');
-      card.className = 'kv-user-stats';
-      card.innerHTML =
-        '<div class="kv-us-item"><i class="fas fa-clock"></i><span class="kv-us-label">加入天数</span><span class="kv-us-value kv-us-days">-</span></div>' +
-        '<div class="kv-us-item"><i class="fas fa-gem"></i><span class="kv-us-label">等级</span><span class="kv-us-value kv-us-level">-</span></div>' +
-        '<div class="kv-us-item"><i class="fas fa-award"></i><span class="kv-us-label">贡献值</span><span class="kv-us-value kv-us-xp">-</span></div>';
-      sideNav.insertBefore(card, sideNav.firstChild);
-    }
-    var dEl = card.querySelector('.kv-us-days');
-    var lEl = card.querySelector('.kv-us-level');
-    var xEl = card.querySelector('.kv-us-xp');
-    if(dEl.textContent !== String(days))  dEl.textContent = String(days);
-    if(lEl.textContent !== String(level)) lEl.textContent = String(level);
-    if(xEl.textContent !== String(xp))    xEl.textContent = String(xp);
+    // 拆掉老版本的深色卡片(如果还在)
+    var oldCard = sideNav.querySelector('.kv-user-stats');
+    if(oldCard) oldCard.remove();
+
+    // 3 项 stats 作为 <li> 追加到 nav ul 末尾 (在"安全"之后)
+    var items = [
+      { cls:'kv-us-days',  icon:'clock', label:'加入天数', value:days  },
+      { cls:'kv-us-level', icon:'gem',   label:'等级',     value:level },
+      { cls:'kv-us-xp',    icon:'award', label:'贡献值',   value:xp    }
+    ];
+    items.forEach(function(it){
+      var li = navUl.querySelector(':scope > li.item-' + it.cls);
+      if(li){
+        var vEl = li.querySelector('.kv-us-value');
+        if(vEl && vEl.textContent !== String(it.value)){
+          vEl.textContent = String(it.value);
+        }
+        return;
+      }
+      li = document.createElement('li');
+      li.className = 'item-' + it.cls + ' kv-us-nav-item';
+      li.innerHTML =
+        '<span class="Button hasIcon kv-us-stat">' +
+          '<i class="Button-icon icon fas fa-' + it.icon + '"></i>' +
+          '<span class="Button-label">' + it.label + '</span>' +
+          '<span class="kv-us-value">' + String(it.value) + '</span>' +
+        '</span>';
+      navUl.appendChild(li);
+    });
+    // 保证顺序: days -> level -> xp 都在 UL 末尾, 谁比谁靠后不重要, 但都在原 nav 之后
+    ['kv-us-days','kv-us-level','kv-us-xp'].forEach(function(cls){
+      var li = navUl.querySelector(':scope > li.item-' + cls);
+      if(li && li.nextElementSibling && !li.nextElementSibling.classList.contains('kv-us-nav-item')){
+        navUl.appendChild(li);
+      }
+    });
   }, 500);
 })();
 </script>
