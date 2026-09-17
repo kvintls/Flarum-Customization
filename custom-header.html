@@ -1509,3 +1509,11 @@
 })();
 </script>
 
+<script>
+(function(){
+  window.addEventListener('pageshow', function(e){
+    if(e.persisted){ location.reload(); }
+  });
+})();
+</script>
+
