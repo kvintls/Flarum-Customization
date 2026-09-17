@@ -84,3 +84,5 @@ table.rankings .kv-rank-avatar{display:inline-block!important;width:32px!importa
 .CommentPost .Post-actions .Post-vote.Post-downvote .Button-label::before{content:"贡献减一"!important;font-size:13px!important;font-weight:400!important}
 .CommentPost .Post-actions .Post-vote.Post-upvote .Button-label,.CommentPost .Post-actions .Post-vote.Post-downvote .Button-label{font-size:13px!important;font-weight:400!important}
 
+
+.DiscussionPage-stream{min-height:calc(100vh - 140px)!important}
