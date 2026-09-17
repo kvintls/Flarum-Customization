@@ -1481,14 +1481,3 @@
 })();
 </script>
 
-<script>
-(function(){
-  window.addEventListener('pageshow', function(e){
-    if(!e.persisted) return;
-    var k = 'kv-bf:' + location.pathname;
-    if(sessionStorage.getItem(k)){ sessionStorage.removeItem(k); return; }
-    sessionStorage.setItem(k, '1');
-    window.location.replace(location.href);
-  });
-})();
-</script>
