@@ -71,3 +71,10 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 .CommentPost .Post-actions .CommentPost-votes .Button-icon{font-size:11px!important;margin:0 2px 0 0!important;line-height:1!important}
 .CommentPost .Post-actions .CommentPost-votes{gap:4px!important;display:inline-flex!important;align-items:center!important}
 .CommentPost .item-votes{display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important;font-size:11px!important}
+
+.CommentPost .Post-actions .Dropdown-menu>.item-reply{order:1!important}
+.CommentPost .Post-actions .Dropdown-menu>.item-votes{order:2!important}
+.CommentPost .Post-actions .Dropdown-menu>.item-like,.CommentPost .Post-actions .Dropdown-menu>.item-liked{order:3!important}
+.CommentPost .Post-actions .Dropdown-menu>.item-report,.CommentPost .Post-actions .Dropdown-menu>.item-flag{order:4!important}
+.CommentPost .Post-actions .Dropdown-menu>.item-edit{order:5!important}
+.CommentPost .Post-actions .Dropdown-menu>.item-delete{order:6!important}
