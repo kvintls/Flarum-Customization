@@ -1452,12 +1452,11 @@
         '</span>';
       navUl.appendChild(li);
     });
-    // 保证顺序: days -> level -> xp 都在 UL 末尾, 谁比谁靠后不重要, 但都在原 nav 之后
+    // 手机: 统计卡挪到 sideNav 末尾(标签栏之后), 桌面留在 nav ul 里
+    var mob = window.innerWidth <= 767;
     ['kv-us-days','kv-us-level','kv-us-xp'].forEach(function(cls){
       var li = navUl.querySelector(':scope > li.item-' + cls);
-      if(li && li.nextElementSibling && !li.nextElementSibling.classList.contains('kv-us-nav-item')){
-        navUl.appendChild(li);
-      }
+      if(li && mob) sideNav.appendChild(li);
     });
   }, 500);
 })();
