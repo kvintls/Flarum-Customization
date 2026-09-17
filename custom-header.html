@@ -1582,3 +1582,34 @@
   }, 500);
 })();
 </script>
+
+
+
+<script>
+/* Workaround for "首次 SPA 进入 /d/ 点回复无响应" (超级 bug):
+   如果点击 .item-reply 后 300ms 内 Flarum 没打开 composer, 手动调 app.composer.load()
+   强制补上 —— 不管背后是哪个扩展的 lifecycle 把 core 的 handler 干掉了 */
+(function(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('.item-reply');
+    if(!btn) return;
+    setTimeout(function(){
+      if(document.querySelector('.App-composer .Composer')) return; // Flarum 自己开了, 不用管
+      try {
+        var app = window.app;
+        if(!app || !app.composer || !app.composer.load) return;
+        var d = app.current && app.current.get && app.current.get('discussion');
+        if(!d || !d.canReply || !d.canReply()) return;
+        var compat = (window.flarum && window.flarum.core && window.flarum.core.compat) || {};
+        var ReplyComposer =
+          compat['forum/components/ReplyComposer'] ||
+          compat['common/components/ReplyComposer'];
+        if(!ReplyComposer) return;
+        app.composer.load(ReplyComposer, { user: app.session.user, discussion: d });
+        if(app.composer.show) app.composer.show();
+        console.log('[kv-reply-workaround] forced composer open');
+      } catch(err) { console.log('[kv-reply-workaround] err:', err); }
+    }, 300);
+  }, false);
+})();
+</script>
