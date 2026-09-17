@@ -1470,10 +1470,9 @@
     var a = e.target.closest('a[href]');
     if(!a) return;
     var href = a.getAttribute('href') || '';
-    var m = href.match(/^(?:https?:\/\/[^\/]+)?(\/d\/\d+[^\s"']*)/);
+    var m = href.match(/^(?:https?:\/\/[^\/]+)?(\/(?:d|t)\/[^\s"']+)/);
     if(!m) return;
     var path = m[1];
-    if(location.pathname.indexOf('/d/') === 0) return;
     e.preventDefault();
     e.stopPropagation();
     window.location.href = path;
