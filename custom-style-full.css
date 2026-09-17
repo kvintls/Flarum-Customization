@@ -88,3 +88,5 @@ table.rankings .kv-rank-avatar{display:inline-block!important;width:32px!importa
 
 
 .DiscussionPage-stream{min-height:calc(100vh - 140px)!important}
+
+.LoadingPost .fakeText,.CommentPost.LoadingPost .fakeText{visibility:hidden!important}
