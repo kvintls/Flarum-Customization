@@ -886,35 +886,6 @@
 </script>
 
 
-<style>
-/* 贡献榜: 加高每行 + 用户名前放卡通头像 + 左侧小方块跟着长高 */
-/* 行加高: 之前是 Flarum 默认的紧凑 padding, 现在给 10px 上下, 视觉舒展但不拖沓 */
-table.rankings tr td, table.rankings tr th{
-  padding-top:10px !important;
-  padding-bottom:10px !important;
-  vertical-align:middle !important;
-}
-/* 左侧第一列小方块: 从 14x14 增到 20x20, 同时 padding-left 从 38px 增到 46px 给它腾位置 */
-table.rankings tr td:first-child{
-  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect x=".75" y=".75" width="18.5" height="18.5" fill="%23fff" stroke="%23a0a7ae" stroke-width="1" rx="3"/></svg>') !important;
-  background-repeat:no-repeat !important;
-  background-position:16px center !important;
-  padding-left:46px !important;
-}
-/* 用户名前的头像: 32x32 (跟加高的行高协调), 圆形, 细边 */
-table.rankings .kv-rank-avatar{
-  width:32px; height:32px;
-  border-radius:50%;
-  vertical-align:middle;
-  margin-right:10px;
-  border:1px solid #d5d9df;
-  background:#fff;
-  padding:1px;
-  object-fit:cover;
-}
-</style>
-
-
 <script>
 /* 贡献榜: 表头 = 贡献榜/用户/贡献认同/加载更多 4列, 第4列用 rowspan 撑满整表 = 加载更多垂直居中
    —— 原生底部按钮容器 .rankings-loadmore 由 CSS 隐藏 (Mithril 碰不到CSS, 就不会在点击后闪现) */
