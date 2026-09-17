@@ -15,6 +15,8 @@ table.rankings .kv-rank-avatar{display:inline-block!important;width:32px!importa
 .Post-body .kv-imggrid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:6px!important;margin:14px 0!important;align-items:start!important}
 .Post-body .kv-imggrid>*{margin:0!important;padding:0!important;max-width:100%!important;text-align:left!important;display:block!important;float:none!important;clear:none!important}
 .Post-body .kv-imggrid img{width:100%!important;height:auto!important;max-width:100%!important;display:block!important;margin:0!important}
+.Post-body img{visibility:hidden!important}
+.Post-body .kv-imggrid img,.Post-body img.emoji,.Post-body img.fof-emoji,.Post-body img[src*="aru-sticker"],.Post-body img[src*="emojiCDN"]{visibility:visible!important}
 
 .EmojiPickerDropdown,.EmojiDropdown,ul.EmojiPickerDropdown,ul.EmojiDropdown,.item-emoji .Dropdown-menu{display:none!important}
 #kv-emojipanel{position:absolute;z-index:100000;background:#fff;border:1px solid #c9cfd6;border-radius:2px;box-shadow:0 6px 20px rgba(0,0,0,.18);width:420px;max-height:340px;display:none;flex-direction:column;overflow:hidden;padding:0;margin:0;font-size:14px}
