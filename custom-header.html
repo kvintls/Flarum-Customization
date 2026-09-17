@@ -1517,6 +1517,29 @@
 </script>
 
 <script>
+/* 手机: 把每个板块的 统计数/最后发帖/版主 包进一个 .kv-cat-footer 横排容器,
+   避免它们分散在不同父级导致无法对齐到同一行 */
+(function(){
+  setInterval(function(){
+    if(window.innerWidth > 767) return;
+    document.querySelectorAll('.TagCategory-content').forEach(function(content){
+      if(content.querySelector(':scope > .kv-cat-footer')) return;
+      var stats = content.querySelector('.TagCategory-stats, .StatWidgetList');
+      var last  = content.querySelector('.TagCategory-lastDiscussion');
+      var mod   = content.querySelector('.kv-mod');
+      if(!stats && !last && !mod) return;
+      var footer = document.createElement('div');
+      footer.className = 'kv-cat-footer';
+      if(stats) footer.appendChild(stats);
+      if(last)  footer.appendChild(last);
+      if(mod)   footer.appendChild(mod);
+      content.appendChild(footer);
+    });
+  }, 400);
+})();
+</script>
+
+<script>
 /* 响应式适配: JS 运行时注入 <style> (不写进 header HTML, 避开 Flarum 消毒白屏;
    也不占 custom-style-full.css 的 65535 上限).
    分层断点: 手机竖屏 <=480 / 手机横屏+小平板 <=767 / 平板 <=1024 / 桌面 >1024.
@@ -1541,10 +1564,9 @@
       '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important;grid-template-columns:none!important;width:100%!important;box-sizing:border-box!important}',
       /* alignStart(图标+名称+描述) 占满整行, 底部加浅灰分隔线 */
       '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content>.TagCategory-alignStart,.TagCategory-subTagList>.TagCategory>.TagCategory-content>.TagCategory-alignStart{display:block!important;flex:1 1 100%!important;width:100%!important;border-bottom:1px solid #e0e4e8!important;padding-bottom:8px!important}',
-      /* alignEnd 用 contents 让其子元素(统计/最后发帖)直接进入 flex 行 */
-      '.TagCategory-alignEnd{display:contents!important}',
-      /* 4 个统计元素(主题数/最后发帖/版主等) 全部块底横排, align-items:center 平行对齐 */
-      '.TagCategory-stats,.StatWidgetList,.TagCategory .StatWidget,.TagCategory-lastDiscussion,.TagCategory .kv-mod,.TagCategory-subTagList>.TagCategory>.TagCategory-content .kv-mod{position:static!important;display:inline-flex!important;align-items:center!important;width:auto!important;flex:0 0 auto!important;top:auto!important;right:auto!important;left:auto!important;margin:0!important;font-size:12px!important;color:#8a96a3!important;white-space:nowrap!important;vertical-align:middle!important}',
+      /* kv-cat-footer: JS 包好的横排容器, 整行 flex, 4 个统计元素平行对齐 */
+      '.kv-cat-footer{display:flex!important;flex-flow:row wrap!important;align-items:center!important;gap:14px!important;flex:1 1 100%!important;width:100%!important;margin-top:4px!important}',
+      '.kv-cat-footer .TagCategory-stats,.kv-cat-footer .StatWidgetList,.kv-cat-footer .StatWidget,.kv-cat-footer .TagCategory-lastDiscussion,.kv-cat-footer .kv-mod{position:static!important;display:inline-flex!important;align-items:center!important;width:auto!important;flex:0 0 auto!important;top:auto!important;right:auto!important;left:auto!important;margin:0!important;font-size:12px!important;color:#8a96a3!important;white-space:nowrap!important;vertical-align:middle!important}',
       /* 分类名/描述强制横排全宽 (修竖排单字) */
       '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-name,.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-name,.TagCategory-name,.TagCategory-description{display:block!important;width:auto!important;white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}',
       '.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-description{display:block!important}',
