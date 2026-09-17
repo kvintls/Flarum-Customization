@@ -78,6 +78,6 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 .CommentPost .Post-actions .Dropdown-menu>.item-delete{order:6!important}
 
 .CommentPost .Post-actions .Post-vote.Post-upvote .Button-icon,.CommentPost .Post-actions .Post-vote.Post-downvote .Button-icon,.CommentPost .Post-actions .CommentPost-votes .Button-icon{display:none!important}
-.CommentPost .Post-actions .Post-vote.Post-upvote .Button-label::before{content:"贡献加一"!important;font-size:11px!important}
-.CommentPost .Post-actions .Post-vote.Post-downvote .Button-label::before{content:"贡献减一"!important;font-size:11px!important}
-.CommentPost .Post-actions .Post-vote.Post-upvote,.CommentPost .Post-actions .Post-vote.Post-downvote{padding:0 8px!important;min-width:auto!important}
+.CommentPost .Post-actions .Post-vote.Post-upvote .Button-label::before{content:"贡献加一"!important;font-size:13px!important;font-weight:400!important}
+.CommentPost .Post-actions .Post-vote.Post-downvote .Button-label::before{content:"贡献减一"!important;font-size:13px!important;font-weight:400!important}
+.CommentPost .Post-actions .Post-vote.Post-upvote .Button-label,.CommentPost .Post-actions .Post-vote.Post-downvote .Button-label{font-size:13px!important;font-weight:400!important}
