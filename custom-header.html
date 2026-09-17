@@ -1480,3 +1480,12 @@
   }, true);
 })();
 </script>
+
+<script>
+(function(){
+  window.addEventListener('pageshow', function(e){
+    var nav = (performance.getEntriesByType('navigation')[0] || {}).type;
+    if(e.persisted || nav === 'back_forward'){ location.reload(); }
+  });
+})();
+</script>
