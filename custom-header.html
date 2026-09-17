@@ -1466,14 +1466,17 @@
 
 (function(){
   document.addEventListener('click', function(e){
-    if(!/^\/t\//.test(location.pathname)) return;
     if(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
-    var a = e.target.closest('a[href^="/d/"]');
+    var a = e.target.closest('a[href]');
     if(!a) return;
-    if(!a.closest('.DiscussionListItem, .DiscussionList')) return;
+    var href = a.getAttribute('href') || '';
+    var m = href.match(/^(?:https?:\/\/[^\/]+)?(\/d\/\d+[^\s"']*)/);
+    if(!m) return;
+    var path = m[1];
+    if(location.pathname.indexOf('/d/') === 0) return;
     e.preventDefault();
     e.stopPropagation();
-    window.location.href = a.getAttribute('href');
+    window.location.href = path;
   }, true);
 })();
 </script>
