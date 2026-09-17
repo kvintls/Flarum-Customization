@@ -1433,8 +1433,9 @@
       { cls:'kv-us-level', icon:'gem',   label:'等级',     value:level },
       { cls:'kv-us-xp',    icon:'award', label:'贡献值',   value:xp    }
     ];
+    var mob = window.innerWidth <= 767;
     items.forEach(function(it){
-      var li = navUl.querySelector(':scope > li.item-' + it.cls);
+      var li = sideNav.querySelector('li.item-' + it.cls);
       if(li){
         var vEl = li.querySelector('.kv-us-value');
         if(vEl && vEl.textContent !== String(it.value)){
@@ -1450,12 +1451,10 @@
           '<span class="Button-label">' + it.label + '</span>' +
           '<span class="kv-us-value">' + String(it.value) + '</span>' +
         '</span>';
-      navUl.appendChild(li);
+      (mob ? sideNav : navUl).appendChild(li);
     });
-    // 手机: 统计卡挪到 sideNav 末尾(标签栏之后), 桌面留在 nav ul 里
-    var mob = window.innerWidth <= 767;
     ['kv-us-days','kv-us-level','kv-us-xp'].forEach(function(cls){
-      var li = navUl.querySelector(':scope > li.item-' + cls);
+      var li = sideNav.querySelector('li.item-' + cls);
       if(li && mob) sideNav.appendChild(li);
     });
   }, 500);
