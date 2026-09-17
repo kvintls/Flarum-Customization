@@ -1585,3 +1585,23 @@
 
 
 
+
+
+
+<script>
+/* Reply bug workaround: 从 /t/ 板块页点击讨论链接强制走全页加载 (等同自动 F5),
+   避开 flarum-tags 的 SPA 状态污染问题.
+   只影响 /t/ → /d/ 这一条路径, 其它导航保持 SPA. */
+(function(){
+  document.addEventListener('click', function(e){
+    if(!/^\/t\//.test(location.pathname)) return;
+    if(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    var a = e.target.closest('a[href^="/d/"]');
+    if(!a) return;
+    if(!a.closest('.DiscussionListItem, .DiscussionList')) return;
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = a.getAttribute('href');
+  }, true);
+})();
+</script>
