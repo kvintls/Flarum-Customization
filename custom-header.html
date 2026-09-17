@@ -1522,7 +1522,7 @@
 (function(){
   setInterval(function(){
     if(window.innerWidth > 767) return;
-    document.querySelectorAll('.TagCategory-content').forEach(function(content){
+    document.querySelectorAll('.TagCategory-subTagList .TagCategory-content').forEach(function(content){
       if(content.querySelector(':scope > .kv-cat-footer')) return;
       var stats = content.querySelector('.TagCategory-stats, .StatWidgetList');
       var last  = content.querySelector('.TagCategory-lastDiscussion');
@@ -1564,6 +1564,8 @@
       '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important;grid-template-columns:none!important;width:100%!important;box-sizing:border-box!important}',
       /* alignStart(图标+名称+描述) 占满整行, 底部加浅灰分隔线 */
       '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content>.TagCategory-alignStart,.TagCategory-subTagList>.TagCategory>.TagCategory-content>.TagCategory-alignStart{display:block!important;flex:1 1 100%!important;width:100%!important;border-bottom:1px solid #e0e4e8!important;padding-bottom:8px!important}',
+      /* 父分类标题栏(综合区)不显示统计/最后发帖, 手机上避免灰蒙蒙叠字 */
+      '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-alignEnd,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .kv-mod,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-description{display:none!important}',
       /* kv-cat-footer: JS 包好的横排容器, 整行 flex, 4 个统计元素平行对齐 */
       '.kv-cat-footer{display:flex!important;flex-flow:row wrap!important;align-items:center!important;gap:14px!important;flex:1 1 100%!important;width:100%!important;margin-top:4px!important}',
       '.kv-cat-footer .TagCategory-stats,.kv-cat-footer .StatWidgetList,.kv-cat-footer .StatWidget,.kv-cat-footer .TagCategory-lastDiscussion,.kv-cat-footer .kv-mod{position:static!important;display:inline-flex!important;align-items:center!important;width:auto!important;flex:0 0 auto!important;top:auto!important;right:auto!important;left:auto!important;margin:0!important;font-size:12px!important;color:#8a96a3!important;white-space:nowrap!important;vertical-align:middle!important}',
