@@ -1,6 +1,5 @@
 <script>
-/* 让加载转圈彻底无感：任何含 "LoadingIndicator" 的元素一插入 DOM 就立刻隐藏。
-   用 MutationObserver 在元素出现的同一帧就处理，用户看不到转圈。 */
+
 (function(){
   function killSpinners(root){
     if(!root || !root.querySelectorAll) return;
@@ -113,10 +112,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 版主列 = 该板块最后发帖的作者（取 .username，绝对定位盖在第4列，不影响布局） */
+
 (function(){
   setInterval(function(){
     document.querySelectorAll('.TagCategory-subTagList > .TagCategory > .TagCategory-content').forEach(function(row){
@@ -135,9 +132,8 @@
 })();
 </script>
 
-
 <script>
-/* 给注册/登录弹窗的输入框加 FluxBB 风格文字标签（用户名 * / 密码 * ...） */
+
 (function(){
   setInterval(function(){
     document.querySelectorAll('.SignUpModal .Form-group, .LogInModal .Form-group').forEach(function(g){
@@ -157,9 +153,8 @@
 })();
 </script>
 
-
 <script>
-/* 注册/登录一律走整页：拦截 Flarum 原生「注册」「登录」按钮，改为跳转 /register 或 /login */
+
 (function(){
   document.addEventListener('click', function(e){
     if(!e.target.closest) return;
@@ -174,10 +169,8 @@
 })();
 </script>
 
-
 <script>
-/* 兜底：任何来源(发帖/回复/点赞/关注等)弹出的登录/注册弹窗，一律改跳到整页 /login 或 /register。
-   这样不管从哪个入口触发，都统一走和首页一模一样的整页注册/登录界面，不再出现旧弹窗。 */
+
 (function(){
   setInterval(function(){
     // 整页注册/登录页本身不拦截
@@ -188,9 +181,8 @@
 })();
 </script>
 
-
 <script>
-/* 帖子列表页(板块)：注入面包屑 + 列头(话题|回复|浏览量|最后一篇帖子)，做成 FluxBB 表格 */
+
 (function(){
   setInterval(function(){
     var dl = document.querySelector('.IndexPage .DiscussionList');
@@ -242,9 +234,8 @@
 })();
 </script>
 
-
 <script>
-/* 登录后在顶部右侧放「用户名 · 退出」链接（用户菜单已被 CSS 隐藏，避免无法登出） */
+
 (function(){
   setInterval(function(){
     if(typeof app === 'undefined' || !app.session || !app.session.user) return;
@@ -264,13 +255,8 @@
 })();
 </script>
 
-
 <script>
-/* v2 帖子行布局: 标题 + 图标元信息行 (发帖人 / 浏览量 / 讨论量 / 最后回复人 / 时间)
-   + 右侧板块 tag. 发帖人和最后回复人可点击, SPA 路由直达 /u/username.
-   数据源: 从 Flarum 原来的 .DiscussionListItem-author / .item-discussion-views /
-   .DiscussionListItem-count / .item-terminalPost / .item-tags 里读, 原元素被 CSS
-   隐掉但 DOM 保留 (方便 Flarum 自己更新数据, 我们下一轮再同步过来). */
+
 (function(){
   function makeUserLink(name){
     var s = document.createElement('span');
@@ -417,10 +403,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 主题详情页：给每帖 header 右侧补一个「#楼层」号(从 PostMeta 文本里提取 #数字) */
+
 (function(){
   setInterval(function(){
     document.querySelectorAll('.CommentPost').forEach(function(post){
@@ -439,11 +423,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 主题详情页(/d/...)：兜底隐藏顶部大横幅(Hero，类名可能因主题而异)。
-   仅在帖子详情页执行，避免误伤首页 Hero。 */
+
 (function(){
   setInterval(function(){
     if(!/^\/d\//.test(location.pathname)) return;
@@ -452,19 +433,8 @@
 })();
 </script>
 
-
-
-
-
 <script>
-/* 卡通头像 (DiceBear) —— 给没有上传真实头像的用户按用户名确定性生成卡通人物头像
-   - 有真实头像 (Flarum <img>) 的用户完全不动
-   - 首次访问: fetch DiceBear SVG (10KB 上下), 存 localStorage
-   - 二次访问: 直接读缓存, 零网络请求
-   - DiceBear 不通/慢时先用几何 identicon 兜底显示, fetch 回来再无感替换
-   要换头像风格改下面 STYLE 变量; 顺便把 CACHE_VER 加一下, 老缓存会自动作废.
-   可选风格 (v9): avataaars | adventurer | micah | notionists | open-peeps
-                   big-smile | fun-emoji | personas | croodles | lorelei | pixel-art */
+
 (function(){
   var STYLE       = 'avataaars';   // 默认: Sketch 风格卡通人物 (男女/发型/肤色/配饰各种组合)
   var BG_COLORS   = 'b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe4b2';  // 随机背景色池
@@ -527,7 +497,7 @@
       .then(function(svg){
         var dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
         mem[seed] = dataUrl;
-        try{ localStorage.setItem(key, dataUrl); }catch(e){/* quota 满 or 隐私模式 */}
+        try{ localStorage.setItem(key, dataUrl); }catch(e){}
         (pending[seed] || []).forEach(function(el){ apply(el, dataUrl); });
         delete pending[seed];
       })
@@ -551,14 +521,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 回复框(composer)内联化 + 防闪退 —— 这就是用户实测有效的 "v4" 逻辑固化版。
-   思路: 只在"帖子数增加"(=真发帖成功)时把 composer 移出帖子流到 .App, 并进入约1.2s
-   冷却; 冷却期不动 DOM 位置, 让 Flarum/Mithril 完整重绘帖子流(此刻 composer 不在流里,
-   不会 DOM 错位闪退)。冷却结束后每轮自动把 composer 归位到帖子流(页脚 #kvin-footer2 之前
-   的虚线区)。不监听点击(避免"点回复就跳到外面"), 位置每轮自愈(避免隔次跑偏)。 */
+
 (function(){
   var app = document.querySelector('.App');
   var cooldown = 0;      // >0 期间不塞回帖子流(发帖后重绘窗口)
@@ -624,11 +588,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 彻底禁掉离开/刷新页面时的"重新加载/是否离开"确认弹窗(beforeunload)。
-   注意代价: 真有未发布的回复草稿时刷新/关页面也不再提示, 内容会直接丢失。(用户选择 B 方案) */
+
 (function(){
   // 1) 拦截 addEventListener 注册的 beforeunload 处理器, 直接不注册
   var _add = window.addEventListener;
@@ -642,7 +603,7 @@
     Object.defineProperty(window, 'onbeforeunload', {
       configurable:true,
       get:function(){ return null; },
-      set:function(){ /* 忽略任何赋值, 保证永不弹框 */ }
+      set:function(){  }
     });
   }catch(e){}
   // 3) 兜底: 捕获阶段拦截 beforeunload, 阻止默认确认框
@@ -653,11 +614,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 隐藏鼠标悬停用户名弹出的用户卡片(.UserCard / .UserCard-profile 浮卡)。
-   个人主页(.UserPage)内的用户卡片保留不隐藏。 */
+
 (function(){
   function hide(){
     document.querySelectorAll('.UserCard, .UserCard-profile').forEach(function(el){
@@ -670,12 +628,8 @@
 })();
 </script>
 
-
-
-
-
 <script>
-/* 点帖子里的「回复」按钮后，平滑滚动到底部的回复框 */
+
 (function(){
   document.addEventListener('click', function(e){
     if(!e.target.closest) return;
@@ -690,10 +644,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 回复框(composer)打开时，隐藏底部"说点什么吧"占位，避免占位框与回复框重复出现 */
+
 (function(){
   setInterval(function(){
     var ph = document.querySelector('.DiscussionPage-stream .ReplyPlaceholder');
@@ -704,19 +656,12 @@
 })();
 </script>
 
-
-
 <script>
-/* (已移除)之前用 JS 清空输入框来去掉 @引用，会与 Flarum 编辑器状态不同步、导致
-   "回复尚未发布/丢弃吗"弹窗且回复框打不开。改为不干预，保留 Flarum 原生引用。 */
+
 </script>
 
-
-
 <script>
-/* 新建主题的 composer: 把提交按钮标签从「发布主题」改为「发布帖子」
-   —— 只改新建主题(有 title 输入框)的 composer, 回复框不受影响。
-   同时兼容 Button-label / 纯文本 两种结构; 会保留按钮里的 icon 节点。 */
+
 (function(){
   setInterval(function(){
     var comp = document.querySelector('.App-composer');
@@ -755,10 +700,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 回复框加「取消」按钮：用 Flarum 原生 API 关闭 composer(不改编辑器内容,安全) */
+
 (function(){
   setInterval(function(){
     // 所有页面(回复/发主题)都注入取消按钮
@@ -784,10 +727,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 用美观居中弹窗替换删除时的原生 confirm。只拦"删除"类确认,其它确认走原生不受影响。 */
+
 (function(){
   var bypass = false, lastBtn = null;
   var orig = window.confirm.bind(window);
@@ -820,10 +761,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 未登录用户点「回复」→ 直接跳整页 /login，不再弹出旧登录弹窗 */
+
 (function(){
   document.addEventListener('click', function(e){
     if(!e.target.closest) return;
@@ -837,10 +776,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 板块页最后发帖：补上「由 用户名」(从 Flarum store 里取该讨论的最后发帖人/发起人) */
+
 (function(){
   setInterval(function(){
     if(typeof app === 'undefined' || !app.store) return;
@@ -864,10 +801,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 贡献榜访问权限: 只有登录用户能看; 未登录用户 —— 导航链接隐藏 + 直接访问 /rankings 跳回首页 */
+
 (function(){
   function loggedIn(){try{return !!(window.app&&app.session&&app.session.user);}catch(e){return false;}}
   function apply(){
@@ -885,22 +820,20 @@
 })();
 </script>
 
-
 <script>
-/* 贡献榜: 表头 = 贡献榜/用户/贡献认同/加载更多 4列, 第4列用 rowspan 撑满整表 = 加载更多垂直居中
-   —— 原生底部按钮容器 .rankings-loadmore 由 CSS 隐藏 (Mithril 碰不到CSS, 就不会在点击后闪现) */
+
 (function(){
   setInterval(function(){
     var tbl=document.querySelector('table.rankings');
     if(!tbl) return;
-    /* 表头文字规范化(排名/贡献人 -> 贡献榜, 👍 -> 贡献认同; 我加的第4列 th 跳过) */
+    
     tbl.querySelectorAll('th').forEach(function(th){
       if(th.classList.contains('kv-loadmore-th')) return;
       var t=(th.textContent||'').trim();
       if(t==='排名'||t==='贡献人') th.textContent='贡献榜';
       if(t==='👍'||th.querySelector('i.fa-thumbs-up,.fa-thumbs-up')) th.textContent='贡献认同';
     });
-    /* 表头行末尾加 <th class=kv-loadmore-th>加载更多</th>(幂等) */
+    
     var thRow=tbl.querySelector('tr');
     if(thRow&&!thRow.querySelector('.kv-loadmore-th')){
       var lth=document.createElement('th');
@@ -913,7 +846,7 @@
       };
       thRow.appendChild(lth);
     }
-    /* 表头行插入 <th class=kv-time-th>最新更新时间</th>, 位置在 kv-loadmore-th 前(幂等) */
+    
     if(thRow&&!thRow.querySelector('.kv-time-th')){
       var tth=document.createElement('th');
       tth.className='kv-time-th';
@@ -922,13 +855,13 @@
       if(beforeEl) thRow.insertBefore(tth,beforeEl);
       else thRow.appendChild(tth);
     }
-    /* 更新 加载更多 th 的 rowspan = 表头 + 所有数据行 */
+    
     var lth=thRow?thRow.querySelector('.kv-loadmore-th'):null;
     if(lth){
       var total=tbl.querySelectorAll('tr').length;
       if(lth.getAttribute('rowspan')!==String(total)) lth.setAttribute('rowspan',total);
     }
-    /* 数据行末尾加 <td class=kv-time-td>时间</td>, 从 app.store 查用户 lastSeenAt */
+    
     tbl.querySelectorAll('tr').forEach(function(tr){
       if(tr.querySelector('th')) return;
       if(tr.querySelector('.kv-time-td')) return;
@@ -959,7 +892,7 @@
       td.textContent=text;
       tr.appendChild(td);
     });
-    /* 每行用户名前面加卡通头像 (DiceBear, 复用侧栏头像的 CDN) */
+    
     tbl.querySelectorAll('tr').forEach(function(tr){
       if(tr.querySelector('th')) return;
       var userLink = tr.querySelector('a[href*="/u/"]');
@@ -975,32 +908,27 @@
       img.loading = 'lazy';
       td.insertBefore(img, td.firstChild);
     });
-    /* 如果之前建过 podium, 移掉 (回退到普通表格模式) */
+    
     (function(){
       var pod = tbl.parentElement && tbl.parentElement.querySelector('#kv-podium');
       if(pod) pod.remove();
     })();
-    /* 清掉上一版加过的空 4th td(用 rowspan 后就不需要了) */
+    
     tbl.querySelectorAll('td.kv-more-td').forEach(function(td){td.remove();});
-    /* 拆除历史 kv-rank-wrap 残留 */
+    
     var w=tbl.parentElement;
     if(w&&w.classList.contains('kv-rank-wrap')){
       var gp=w.parentElement;
       if(gp){gp.insertBefore(tbl,w);w.remove();}
     }
-    /* 所有改动都做完 -> 加 kv-ready 类让 CSS 显示表格(切页/初次加载时避免露出原始"排名|用户|👍") */
+    
     tbl.classList.add('kv-ready');
   },50);
 })();
 </script>
 
-
-
 <script>
-/* Locale-aware translation for extension modals that ship without Chinese
-   strings in the language pack (flarum-tags' "Choose tags to follow" flow, etc.).
-   Rule: only translate when the browser language starts with "zh" (Chinese).
-   English or other browsers see Flarum's default English -- no interference. */
+
 (function(){
   var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
   if(lang.indexOf('zh') !== 0) return; // Non-Chinese browsers: do nothing.
@@ -1054,17 +982,8 @@
 })();
 </script>
 
-
-
-
 <script>
-/* Silently remove the ChooseTagsToFollow and Subscription modals as soon as
-   they open. IMPORTANT: do NOT call app.modal.close() -- that triggers
-   Flarum's internal close handlers which may fire backend API calls (save
-   preferences, follow-tags, etc.) that regular users lack permission for,
-   causing "您没有权限进行此操作" errors even for logged-in users.
-   Instead we directly tear down the DOM: remove the modal + any backdrop
-   + unlock body scroll -- all fully client-side, zero API calls. */
+
 (function(){
   setInterval(function(){
     var m = document.querySelector('.ChooseTagsToFollowModal, .SubscriptionModal');
@@ -1082,19 +1001,8 @@
 })();
 </script>
 
-
-
-
 <script>
-/* 客户端图片压缩 —— 在浏览器里压完再上传, 服务器零 CPU 消耗
-   ------------------------------------------------------------------
-   触发: 任何走 fetch / XMLHttpRequest 且 body 是 FormData 且里面含
-         image/* 类型 File 的上传请求 (fof/upload 走 XHR, 全捕获)
-   处理: 长边 > 1920px 时等比缩到 1920px, 重编 JPEG quality 0.85
-   跳过: 原文件 < 300KB 的图 (不划算); 或者 GIF / SVG (会丢动画/矢量)
-   兜底: 压后比原图大 -> 上传原图 (无损兜底, 决不会变更差)
-   注意: PNG 带透明会转成 JPEG 平底 —— 若含通透头像等再考虑保留 PNG.
-   日志: 每次压完在 Console 打一行 "原大小 -> 新大小", 方便观察效果. */
+
 (function(){
   var MAX_DIM = 1920;
   var QUALITY = 0.85;
@@ -1206,18 +1114,8 @@
 })();
 </script>
 
-
-
-
 <script>
-/* 帖子正文图片相册化 —— 两条规则合一:
-   (1) 先文字后图片: 无论作者怎么写, 所有 <img> 一律搬到 .Post-body 末尾
-   (2) 一行最多 3 张, 3 等分列宽 (第1张左 / 第2张中 / 第3张右)
-       4张+ 自动换行, 依然按左->中->右填充
-   实现: 每轮 setInterval 扫每个 .Post-body, 把没进 grid 的 <img> 连带最外层
-   <a href> 一起 appendChild 到 .kv-imggrid (grid 容器) 里, grid 挂在 Post-body
-   的最末尾. 原来的段落如果被抽空就顺手删掉, 不留空白段.
-   idempotent: 靠 :not(.kv-imggrid img) 的过滤保证已经进 grid 的不再动. */
+
 (function(){
   setInterval(function(){
     document.querySelectorAll('.Post-body').forEach(function(body){
@@ -1268,19 +1166,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 自定义表情面板: 三个 tab (泡泡 / 阿鲁 / 颜文字)
-   - 干掉 Flarum 原生的 emoji picker (那个"regional_indicator_a"的下拉)
-   - 点笑脸按钮 -> 弹出我们的面板 (定位在按钮上方)
-   - 点图片表情: 往 composer textarea 插入 markdown ![](url), 会渲染成图片
-   - 点颜文字: 直接插入字符 (纯文本)
-   
-   素材来源 (全部走 jsdelivr CDN, 引用第三方公开托管仓库, 不重打包):
-   - 泡泡: KBdog/emojiCDN 的 tieba 目录 (贴吧原生表情, 61 张)
-   - 阿鲁: liopoos/aru-sticker 的 image 目录 (281 张)
-   如果这两个 CDN 挂了/慢了, 也可以自己 fork 一份到自己的仓库改 URL. */
+
 (function(){
   // === 数据 ===
   var PAOPAO_NAMES = ['OK','haha','what','不高兴','乖','你懂的','便便','勉强','吐','吐舌','呀咩爹','呵呵','哈哈','啊','喷','大拇指','太开心','太阳','委屈','小乖','小红脸','彩虹','心碎','怒','惊哭','惊讶','懒得理','手纸','挖鼻','捂嘴笑','星星月亮','汗','沙发','泪','滑稽','灯泡','爱心','犀利','狂汗','玫瑰','疑问','真棒','睡觉','礼物','笑尿','笑眼','红领巾','胜利','花心','茶杯','药丸','蛋糕','蜡烛','鄙视','酷','酸爽','钱币','阴险','音乐','香蕉','黑线'];
@@ -1469,16 +1356,8 @@
 })();
 </script>
 
-
-
 <script>
-/* 用户主页 (/u/name) 侧栏顶部塞一张统计卡: 加入天数 / 等级 / 贡献值
-   - 加入天数: 从 user.joinTime() 实时算 (毫秒差 / 86400000)
-   - 等级: 阈值表映射, 参数 XP
-   - 贡献值(XP): 前端暂时靠帖子数+评论数+加入天数推导, 服务端将来接入了真正的
-     签到/投喂/惩罚系统后, 把 computeXP 里的返回值换成 user.data.attributes.<字段>
-     就一步到位, 显示层不用改.
-   数据源: app.store.all('users') 里按 slug 匹配到当前主页用户. */
+
 (function(){
   // ---- 参数(想调整积分曲线改这里就行) ----
   var XP_PER_DISCUSSION = 5;
@@ -1583,15 +1462,8 @@
 })();
 </script>
 
-
-
-
-
-
 <script>
-/* Reply bug workaround: 从 /t/ 板块页点击讨论链接强制走全页加载 (等同自动 F5),
-   避开 flarum-tags 的 SPA 状态污染问题.
-   只影响 /t/ → /d/ 这一条路径, 其它导航保持 SPA. */
+
 (function(){
   document.addEventListener('click', function(e){
     if(!/^\/t\//.test(location.pathname)) return;
