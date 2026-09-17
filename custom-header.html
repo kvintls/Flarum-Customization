@@ -1481,3 +1481,24 @@
 })();
 </script>
 
+<script>
+(function(){
+  var stuckSince = 0;
+  setInterval(function(){
+    if(location.pathname.indexOf('/d/') !== 0) { stuckSince = 0; return; }
+    var loading = document.querySelectorAll('.PostStream-item .LoadingPost');
+    if(!loading.length){ stuckSince = 0; return; }
+    var now = Date.now();
+    if(!stuckSince){ stuckSince = now; return; }
+    if(now - stuckSince < 1200) return;
+    stuckSince = now;
+    var first = loading[0].closest('.PostStream-item');
+    if(first && first.scrollIntoView){
+      first.scrollIntoView({block:'center'});
+      window.scrollBy(0, -1);
+      window.scrollBy(0, 1);
+    }
+  }, 600);
+})();
+</script>
+
