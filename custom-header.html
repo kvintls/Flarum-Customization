@@ -1579,6 +1579,13 @@
       '.UserPage .sideNav .Dropdown-menu>li,.UserPage .sideNav .Dropdown-menu a,.UserPage .sideNav .Dropdown-menu button{flex:0 0 auto!important;white-space:nowrap!important;width:auto!important}',
       '.UserPage .sideNav .Dropdown-menu a[active="true"],.UserPage .sideNav .Dropdown-menu .active{border-bottom:2px solid #0771a8!important;color:#0771a8!important}',
       
+      // stat <li> items are appended straight into <nav.sideNav> (not a <ul>) -> kill the default list bullets and lay them out as a clean inline row under the tab bar
+      '.UserPage .sideNav>.kv-us-nav-item{list-style:none!important;display:inline-flex!important;align-items:center!important;width:auto!important;float:none!important;margin:8px 14px 0 0!important;padding:0!important}',
+      '.UserPage .sideNav>.kv-us-nav-item::marker{content:""!important}',
+      '.UserPage .sideNav>.kv-us-nav-item .kv-us-stat{display:inline-flex!important;align-items:center!important;gap:5px!important;padding:0!important;background:transparent!important;border:none!important;box-shadow:none!important;color:#5b6875!important;font-size:13px!important;font-weight:400!important}',
+      '.UserPage .sideNav>.kv-us-nav-item .kv-us-stat .Button-icon{margin:0!important;color:#8a96a3!important}',
+      '.UserPage .sideNav>.kv-us-nav-item .kv-us-value{margin-left:2px!important;font-weight:700!important;color:#1f2328!important}',
+      
       'table.rankings{display:block!important;overflow-x:auto!important}',
       
       '.CommentPost .Post-header>ul{flex-wrap:wrap!important;padding-right:8px!important}',
