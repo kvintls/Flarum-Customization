@@ -62,3 +62,10 @@ body,.App{background:#f5f6f8;color:#1f2328}.App-header,.Header{box-shadow:0 1px 
 .Post-upvote.Post-vote--voted,.Post-upvote.active{color:#e08a00!important}
 .Post-downvote.Post-vote--voted,.Post-downvote.active{color:#c94848!important}
 .Post-vote-count,.Post-votesLabel,.Post-vote-score{display:inline-block!important;visibility:visible!important;min-width:16px!important;font-size:12px!important;color:#555!important;margin:0 4px!important}
+
+.CommentPost-votes,.Post-vote.Post-upvote,.Post-vote.Post-downvote{padding:2px 8px!important;border:1px solid #c9cfd6!important;border-radius:12px!important;background:#f5f7f9!important}
+.Post-vote.Post-upvote:hover{background:#e6f5ea!important;border-color:#7cc48a!important;color:#2f8f43!important}
+.Post-vote.Post-downvote:hover{background:#faeaea!important;border-color:#d68787!important;color:#a53232!important}
+.Post-vote.Post-upvote.Post-voted{background:#e6f5ea!important;color:#2f8f43!important;border-color:#7cc48a!important}
+.Post-vote.Post-downvote.Post-voted{background:#faeaea!important;color:#a53232!important;border-color:#d68787!important}
+.CommentPost-votes .Button-icon{font-size:14px!important;margin-right:3px!important}
