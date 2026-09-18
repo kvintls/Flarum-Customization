@@ -1572,6 +1572,9 @@
       '.archbar-right{float:none!important;display:block!important;margin-top:6px!important}',
       
       '.UserPage .sideNavContainer{flex-direction:column!important}',
+      // Flarum affixes ul.affix with inline position/top/left/width tuned for the 2-col desktop layout; in our 1-col mobile layout that yanks the nav bar to a wrong spot (top:641) so it looks "gone". Force it back into normal flow.
+      '.UserPage .sideNav .affix,.UserPage .sideNavContainer .affix{position:static!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important}',
+      '.UserPage .sideNav>ul.affix{list-style:none!important;padding:0!important}',
       '.UserPage .UserPage-nav.sideNav{flex:1 1 auto!important;width:100%!important;border-right:none!important;border-bottom:1px solid #c9cfd6!important}',
       '.UserPage .sideNav ul li .Dropdown-toggle,.UserPage .UserPage-nav.sideNav .Dropdown-toggle,.UserPage .sideNav .Dropdown--select .Dropdown-toggle{display:none!important}',
       '.UserPage .sideNav .Dropdown.Dropdown--select,.UserPage .sideNav .App-titleControl{width:100%!important}',
