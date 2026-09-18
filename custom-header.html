@@ -75,7 +75,6 @@ el.innerHTML='<div class="kvin-stats-title">统计信息</div>'+
 '</div>';
 box.appendChild(el);
 }
-// 页脚：始终放进当前页面的白卡里(和首页一样在框内)。哪怕之前跑到框外，也移回来。
 var _rank = document.querySelector('table.rankings');
 var footerBox = document.querySelector('.CategoriesPage-content') || document.querySelector('.DiscussionPage-stream') || document.querySelector('.IndexPage-results') || document.querySelector('.TagsPage .TagTiles') || document.querySelector('.UserPage>.container') || (_rank && _rank.parentElement);
 if(footerBox){
@@ -151,14 +150,12 @@ if(reg){ e.preventDefault(); e.stopPropagation(); window.location = '/register';
 var login = e.target.closest('.item-logIn a, .item-logIn button');
 if(login){ e.preventDefault(); e.stopPropagation(); window.location = '/login'; return; }
 }, true);
-// 兼容旧链接 /?login=1 —— 直接跳到整页登录
 if(/[?&]login=1\b/.test(location.search)){ window.location = '/login'; }
 })();
 </script>
 <script>
 (function(){
 setInterval(function(){
-// 整页注册/登录页本身不拦截
 if(location.pathname === '/login' || location.pathname === '/register') return;
 if(document.querySelector('.SignUpModal, .Modal .SignUpModal, [class*="SignUpModal"]')){ window.location = '/register'; return; }
 if(document.querySelector('.LogInModal, .Modal .LogInModal, [class*="LogInModal"]')){ window.location = '/login'; return; }
@@ -170,7 +167,6 @@ if(document.querySelector('.LogInModal, .Modal .LogInModal, [class*="LogInModal"
 setInterval(function(){
 var dl = document.querySelector('.IndexPage .DiscussionList');
 if(!dl) return;
-// 列头（所有帖子列表都加）
 var ul = dl.querySelector('.DiscussionList-discussions');
 if(ul && !dl.querySelector('.kv-dlhead')){
 var head = document.createElement('div');
@@ -178,8 +174,6 @@ head.className = 'kv-dlhead';
 head.innerHTML = '<span class="c1">话题</span>';
 ul.parentNode.insertBefore(head, ul);
 }
-// 翻页上/下位置改由 CSS 的 flex order 固定(瞬时生效，翻页时不再跳动)，此处不再用 JS 搬动
-// 面包屑 + 发布帖子（仅板块页 /t/...）
 var isTag = /^\/t\//.test(location.pathname);
 var results = document.querySelector('.IndexPage-results') || dl.parentNode;
 if(isTag && results && !document.getElementById('kv-forumbar')){
@@ -194,7 +188,6 @@ crumb.appendChild(document.createTextNode(' » ' + name));
 var btn = document.createElement('button');
 btn.type = 'button'; btn.id = 'kv-newtopic'; btn.className = 'kv-newtopic'; btn.textContent = '发布帖子';
 btn.addEventListener('click', function(){
-// 未登录 → 直接跳整页登录(避免弹出旧登录弹窗)
 if(typeof app === 'undefined' || !app.session || !app.session.user){ window.location = '/login'; return; }
 var b = document.querySelector('.item-newDiscussion button, .IndexPage-newDiscussion, .item-newDiscussion .Button');
 if(b) b.click();
@@ -203,7 +196,6 @@ bar.appendChild(crumb);
 bar.appendChild(btn);
 results.insertBefore(bar, results.firstChild);
 }
-// 没有发帖权限时隐藏发帖按钮
 var nt = document.getElementById('kv-newtopic');
 if(nt){ nt.style.display = document.querySelector('.item-newDiscussion, .IndexPage-newDiscussion') ? '' : 'none'; }
 }, 400);
@@ -263,7 +255,6 @@ if(!el) return '';
 var m = (el.textContent || '').match(/\d+/);
 return m ? m[0] : '';
 }
-// 点击处理: 拦截 .kv-userlink / .kv-taglink, 用 SPA 路由跳 (避免触发父级 <a> 到帖子详情)
 document.addEventListener('click', function(e){
 var ul = e.target.closest && e.target.closest('.kv-userlink');
 if(ul){
@@ -287,7 +278,6 @@ document.querySelectorAll('.DiscussionList-discussions .DiscussionListItem-conte
 var main  = c.querySelector('.DiscussionListItem-main');
 var title = c.querySelector('.DiscussionListItem-title');
 if(!main || !title) return;
-// 清掉 v1 遗留的内联 !important (一次性, 免得跟新 CSS 打架)
 if(!c.dataset.kvV2Reset){
 [c, main, title,
 c.querySelector('.DiscussionListItem-count'),
@@ -302,7 +292,6 @@ if(!el) return;
 });
 c.dataset.kvV2Reset = '1';
 }
-// 采集数据
 var authorEl = c.querySelector('.DiscussionListItem-author');
 var starter = '';
 if(authorEl){
@@ -321,7 +310,6 @@ var lt = terminal.querySelector('time');
 if(lu) lastUser = (lu.textContent || '').trim();
 if(lt) lastTime = (lt.textContent || '').trim();
 }
-// Tag: 可能在标题里, 也可能在 info 列表里
 var tagEl = c.querySelector('.item-tags .TagLabel, .DiscussionListItem-title .TagLabel, .DiscussionListItem-info .TagLabel');
 var tagName = tagEl ? (tagEl.textContent || '').trim() : '';
 var tagHref = tagEl && tagEl.getAttribute ? (tagEl.getAttribute('href') || '') : '';
@@ -333,13 +321,10 @@ var fm = st.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i);
 if(bm) tagBg = bm[1].trim();
 if(fm) tagFg = fm[1].trim();
 }
-// 签名: 数据没变就跳过 (防闪烁)
 var sig = starter + '|' + viewsStr + '|' + countStr + '|' + lastUser + '|' + lastTime + '|' + tagName;
 if(c.dataset.kvSig === sig) return;
 c.dataset.kvSig = sig;
-// 清 v1 遗留的 kv-by
 title.querySelectorAll('.kv-by').forEach(function(el){ el.remove(); });
-// 构建/更新 meta 元信息行 (标题下方)
 var meta = main.querySelector(':scope > .kv-meta');
 if(!meta){
 meta = document.createElement('ul');
@@ -352,7 +337,6 @@ if(viewsStr) meta.appendChild(metaLi('eye',     viewsStr));
 meta.appendChild(metaLi('comment', countStr || '0'));
 if(lastUser) meta.appendChild(metaLi('bolt',    makeUserLink(lastUser)));
 if(lastTime) meta.appendChild(metaLi('',        lastTime));
-// 构建/更新 右侧 tag 列
 var tagCol = c.querySelector(':scope > .kv-list-tag');
 if(!tagCol){
 tagCol = document.createElement('div');
@@ -361,7 +345,6 @@ c.appendChild(tagCol);
 }
 tagCol.innerHTML = '';
 if(tagName){ tagCol.appendChild(makeTagLink(tagName, tagHref, tagBg, tagFg)); }
-// 保证 tag 列在最右 (order:2 也管, 但 DOM 顺序更稳)
 if(c.lastElementChild !== tagCol) c.appendChild(tagCol);
 });
 }, 400);
@@ -399,7 +382,6 @@ var STYLE       = 'avataaars';   // 默认: Sketch 风格卡通人物 (男女/�
 var BG_COLORS   = 'b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe4b2';  // 随机背景色池
 var CACHE_VER   = 'v3';
 var CACHE_PREFIX = 'kv-avatar:' + CACHE_VER + ':' + STYLE + ':';
-// ---- 兜底: 老的几何 identicon (只在网络失败时展示) ----
 function hash(s){ var h=2166136261; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
 function identiconFallback(seed){
 var h=hash(seed), hue=h%360, fg='hsl('+hue+',58%,52%)', r=h;
@@ -429,15 +411,12 @@ av.style.backgroundColor = 'transparent';
 av.style.color           = 'transparent';
 }
 function load(seed, av){
-// (1) 内存缓存命中
 if(mem[seed]){ apply(av, mem[seed]); return; }
-// (2) localStorage 命中
 var key = CACHE_PREFIX + seed;
 try{
 var cached = localStorage.getItem(key);
 if(cached){ mem[seed] = cached; apply(av, cached); return; }
 }catch(e){}
-// (3) 需要 fetch —— 但先用几何 identicon 兜底避免空白
 var stub = identiconFallback(seed);
 apply(av, stub);
 if(pending[seed]){ pending[seed].push(av); return; }
@@ -456,7 +435,6 @@ try{ localStorage.setItem(key, dataUrl); }catch(e){}
 delete pending[seed];
 })
 .catch(function(){
-// 网络失败: 保留 identicon 兜底, 记忆到内存, 下次会话再试
 mem[seed] = stub;
 (pending[seed] || []).forEach(function(el){ apply(el, stub); });
 delete pending[seed];
@@ -479,10 +457,6 @@ var app = document.querySelector('.App');
 var cooldown = 0;      // >0 期间不塞回帖子流(发帖后重绘窗口)
 var wasOpen = false;   // 上一轮 composer 是否打开, 用于侦测"开->关"的转变(=发帖成功)
 var lastPath = location.pathname;
-// 【修复"第一次点回复没反应"】焦点若卡在某个按钮上(常见 fof-upload-button 等),
-// 浏览器会阻止 Flarum 给 #app 加 aria-hidden 打开回复框("Blocked aria-hidden ...
-// Element with focus"), 结果第一次点看不见框, 第二次点因焦点已移开才正常。
-// 修法: 在点"回复/编辑/发主题"按钮时, 先把当前焦点主动清掉。
 document.addEventListener('mousedown', function(e){
 if(!e.target.closest) return;
 var trig = e.target.closest('.item-reply, .item-edit, .item-newDiscussion, .Post-actions .Button, .ReplyPlaceholder, [data-item-name="reply"], [data-item-name="edit"]');
@@ -496,23 +470,15 @@ var comp = document.querySelector('.App-composer');
 if(!comp){ wasOpen = false; return; }
 if(!app) app = document.querySelector('.App');
 var open = !!comp.querySelector('.Composer');
-// 换页(进新话题)时清冷却, 状态干净
 if(location.pathname !== lastPath){ cooldown = 0; lastPath = location.pathname; }
-// 内联类只在打开时加, 关了去掉。composer 的显示/隐藏交给 Flarum 自己管。
 if(open){ comp.classList.add('kv-inline'); }
 else { comp.classList.remove('kv-inline'); }
-// 【发帖信号】composer "从开->关"的转变 = 用户刚发布了回复(不是取消、不是切页,
-// 因为那两种情况前面已经处理)。此时把 composer park 到 .App 并进入短冷却, 让 Flarum
-// 完整重绘帖子流。这个信号比"帖子数变化"可靠得多——后者会被懒加载/骨架填充误触发。
 if(wasOpen && !open){
 if(app && comp.parentElement !== app){ try{ app.appendChild(comp); }catch(e){} }
 cooldown = 6; // 约1.2秒
 }
 wasOpen = open;
 if(cooldown > 0){ cooldown--; return; } // 冷却期不动位置
-// 平时: composer 打开时 -> 归位到当前页面的白卡内(页脚之前的虚线区)
-//  - /d/ 详情页 : 白卡 = .DiscussionPage-stream
-//  - /t/ 板块页 : 白卡 = .IndexPage-results  (发新主题也要在白卡内, 不能跑到框外)
 if(open){
 var host = null;
 if(/^\/d\//.test(location.pathname)){
@@ -533,13 +499,11 @@ else { host.appendChild(comp); }
 </script>
 <script>
 (function(){
-// 1) 拦截 addEventListener 注册的 beforeunload 处理器, 直接不注册
 var _add = window.addEventListener;
 window.addEventListener = function(type){
 if(String(type).toLowerCase() === 'beforeunload'){ return; }
 return _add.apply(this, arguments);
 };
-// 2) 保险: 若已有 onbeforeunload / 之后被赋值, 都强制返回空(不弹框)
 try{ window.onbeforeunload = null; }catch(e){}
 try{
 Object.defineProperty(window, 'onbeforeunload', {
@@ -548,7 +512,6 @@ get:function(){ return null; },
 set:function(){  }
 });
 }catch(e){}
-// 3) 兜底: 捕获阶段拦截 beforeunload, 阻止默认确认框
 _add.call(window, 'beforeunload', function(e){
 e.stopImmediatePropagation();
 delete e.returnValue;
@@ -598,7 +561,6 @@ ph.style.display = composing ? 'none' : '';
 setInterval(function(){
 var comp = document.querySelector('.App-composer');
 if(!comp) return;
-// 判定是不是"新建主题" composer: DiscussionComposer / 有标题输入框
 var isNewDiscussion = !!(
 comp.querySelector('.DiscussionComposer') ||
 comp.querySelector('.DiscussionComposer-title') ||
@@ -614,7 +576,6 @@ var lbl = btn.querySelector('.Button-label');
 if(lbl){
 if((lbl.textContent||'').trim() !== '发布帖子'){ lbl.textContent = '发布帖子'; }
 } else {
-// 无 .Button-label 结构: 直接改按钮里的文本节点(保留 icon 等元素节点)
 var changed = false;
 for(var i=0;i<btn.childNodes.length;i++){
 var n = btn.childNodes[i];
@@ -634,7 +595,6 @@ btn.textContent = '发布帖子';
 <script>
 (function(){
 setInterval(function(){
-// 所有页面(回复/发主题)都注入取消按钮
 var tb = document.querySelector('.App-composer.kv-inline .TextEditor-controls, .App-composer.kv-inline .Composer-footer');
 if(tb && !tb.querySelector('.kv-cancel')){
 var li = document.createElement('li');
@@ -856,19 +816,15 @@ var dict = {
 'Save Changes': '保存修改'
 };
 function tryTranslate(el){
-// Only replace TEXT nodes and buttons/spans whose entire trimmed text matches a key.
 var scope = el.querySelectorAll('*');
 for(var i = 0; i < scope.length; i++){
 var n = scope[i];
-// Skip inputs/textarea to not mess with typed content
 if(/^(INPUT|TEXTAREA)$/.test(n.tagName)) continue;
-// Direct text-only elements
 if(n.children.length === 0 && n.textContent){
 var t = n.textContent.trim();
 if(dict[t]){ n.textContent = n.textContent.replace(t, dict[t]); }
 }
 }
-// Also inspect direct text nodes of the container itself
 for(var c = el.firstChild; c; c = c.nextSibling){
 if(c.nodeType === 3 && c.textContent){
 var t = c.textContent.trim();
@@ -876,7 +832,6 @@ if(dict[t]){ c.textContent = c.textContent.replace(t, dict[t]); }
 }
 }
 }
-// Target the tags-related modals + any modal in general (safe: only exact-match keys)
 setInterval(function(){
 var modals = document.querySelectorAll(
 '.ChooseTagsToFollowModal, .SubscriptionMenuModal, .SubscribeMenuModal, ' +
@@ -912,7 +867,6 @@ function compress(file){
 return new Promise(function(resolve){
 try{
 if(!/^image\//.test(file.type)){ resolve(file); return; }
-// GIF / SVG / ICO 原样上传 (会丢动画或矢量)
 if(/^image\/(gif|svg\+xml|x-icon|vnd\.microsoft\.icon)$/i.test(file.type)){ resolve(file); return; }
 if(file.size < MIN_SIZE){ resolve(file); return; }
 var url = URL.createObjectURL(file);
@@ -932,7 +886,6 @@ c.width = w; c.height = h;
 var ctx = c.getContext('2d');
 ctx.imageSmoothingEnabled = true;
 ctx.imageSmoothingQuality = 'high';
-// 白底填充: PNG 透明区转 JPEG 会变黑, 先铺白底
 ctx.fillStyle = '#ffffff';
 ctx.fillRect(0, 0, w, h);
 ctx.drawImage(img, 0, 0, w, h);
@@ -980,7 +933,6 @@ return Promise.resolve();
 })).then(function(){ return nfd; });
 }catch(e){ return Promise.resolve(fd); }
 }
-// fetch 拦截 (Flarum 2.x / 部分扩展走这条)
 if(typeof window.fetch === 'function'){
 var _fetch = window.fetch;
 window.fetch = function(input, init){
@@ -996,7 +948,6 @@ return _fetch.call(self, input, ni);
 return _fetch.apply(this, arguments);
 };
 }
-// XMLHttpRequest.send 拦截 (Flarum 1.x m.request / fof-upload 都走这条)
 var _send = XMLHttpRequest.prototype.send;
 XMLHttpRequest.prototype.send = function(body){
 try{
@@ -1017,11 +968,6 @@ document.querySelectorAll('.Post-body').forEach(function(body){
 try{
 var imgs = Array.from(body.querySelectorAll('img')).filter(function(img){
 if(img.closest('.kv-imggrid')) return false;
-// 排除 emoji/表情包 (保持内联小图, 不进 grid):
-//  - Flarum 内置 twemoji: class="emoji"
-//  - fof/emoji: class="fof-emoji"
-//  - alt 是 :xxx: 形式的
-//  - 我们自己的 tieba/aru 两个 CDN
 if(img.classList){
 if(img.classList.contains('emoji')) return false;
 if(img.classList.contains('fof-emoji')) return false;
@@ -1030,7 +976,6 @@ if((img.getAttribute('alt')||'').match(/^:[\w+-]+:$/)) return false;
 var src = img.getAttribute('src') || '';
 if(src.indexOf('cdn.jsdelivr.net/gh/liopoos/aru-sticker') !== -1) return false;
 if(src.indexOf('cdn.jsdelivr.net/gh/KBdog/emojiCDN')  !== -1) return false;
-// 其它一律当"真照片", 进 grid (无论有没有 <a> 外壳)
 return true;
 });
 if(imgs.length === 0) return;
@@ -1040,7 +985,6 @@ grid = document.createElement('div');
 grid.className = 'kv-imggrid';
 body.appendChild(grid);
 }
-// 保证 grid 永远是 body 的最后一个子节点 (即使有人在后面又插了新段落)
 if(body.lastElementChild !== grid){ body.appendChild(grid); }
 imgs.forEach(function(img){
 var a = img.closest('a[href]');
@@ -1048,7 +992,6 @@ var moveEl = (a && body.contains(a)) ? a : img;
 if(moveEl.parentElement === grid) return;
 var oldParent = moveEl.parentElement;
 grid.appendChild(moveEl);
-// 老段落被抽空了(既没文字也没其它多媒体) -> 删掉, 不留空白段
 if(oldParent && oldParent !== body && oldParent !== grid &&
 !(oldParent.textContent || '').replace(/[\s\u00A0\uFEFF]+/g, '') &&
 !oldParent.querySelector('img,video,iframe,audio,button,input,picture')){
@@ -1062,7 +1005,6 @@ oldParent.remove();
 </script>
 <script>
 (function(){
-// === 数据 ===
 var PAOPAO_NAMES = ['OK','haha','what','不高兴','乖','你懂的','便便','勉强','吐','吐舌','呀咩爹','呵呵','哈哈','啊','喷','大拇指','太开心','太阳','委屈','小乖','小红脸','彩虹','心碎','怒','惊哭','惊讶','懒得理','手纸','挖鼻','捂嘴笑','星星月亮','汗','沙发','泪','滑稽','灯泡','爱心','犀利','狂汗','玫瑰','疑问','真棒','睡觉','礼物','笑尿','笑眼','红领巾','胜利','花心','茶杯','药丸','蛋糕','蜡烛','鄙视','酷','酸爽','钱币','阴险','音乐','香蕉','黑线'];
 var ARU_COUNT = 281;
 var KAOMOJI = [
@@ -1103,11 +1045,9 @@ return;
 var item = e.target.closest('[data-insert]');
 if(item){
 insertToComposer(item.dataset.insert);
-// 插完不关掉面板, 方便连发多个
 return;
 }
 });
-// 防止面板里点击冒泡到 window/document 的 "点外面关掉" 逻辑
 panel.addEventListener('mousedown', function(e){ e.stopPropagation(); });
 return panel;
 }
@@ -1156,16 +1096,13 @@ body.appendChild(frag);
 }
 function showPanel(anchor){
 buildPanel();
-// 首次显示默认落在泡泡
 if(!panel.querySelector('.kv-ep-tabs button.active')){
 panel.querySelector('[data-pack="pao"]').classList.add('active');
 renderPack('pao');
 }
-// 先显示成 block 才能测量尺寸
 panel.style.display = 'flex';
 panel.style.visibility = 'hidden';
 panel.style.left = '0px'; panel.style.top = '0px';
-// 等下一帧拿到真实尺寸再定位
 requestAnimationFrame(function(){
 var rect = anchor.getBoundingClientRect();
 var pw = panel.offsetWidth, ph = panel.offsetHeight;
@@ -1173,7 +1110,6 @@ var top = rect.top + window.scrollY - ph - 8;
 var left = rect.left + window.scrollX - pw / 2 + rect.width / 2;
 if(left < 8) left = 8;
 if(left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
-// 上方空间不够就展开到下方
 if(top < window.scrollY + 8) top = rect.bottom + window.scrollY + 8;
 panel.style.top  = top + 'px';
 panel.style.left = left + 'px';
@@ -1187,13 +1123,11 @@ if(!ta) return;
 var start = ta.selectionStart || 0;
 var end   = ta.selectionEnd   || 0;
 var v = ta.value;
-// 图片单独成行 (前后自动补换行); 颜文字直接插原文
 var isImg = /^!\[/.test(text);
 var pre = v.substring(0, start), post = v.substring(end);
 var lead  = isImg && pre  && !/\n$/.test(pre)  ? '\n' : '';
 var trail = isImg && post && !/^\n/.test(post) ? '\n' : '';
 var chunk = lead + text + trail;
-// 用原生 setter 绕过 Mithril/React 的受控组件劫持
 try{
 var setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
 setter.call(ta, pre + chunk + post);
@@ -1206,12 +1140,9 @@ ta.focus();
 ta.dispatchEvent(new Event('input',  { bubbles: true }));
 ta.dispatchEvent(new Event('change', { bubbles: true }));
 }
-// 拦截笑脸按钮 (capture 阶段, 抢在 Flarum 前面)
 document.addEventListener('click', function(e){
 if(!e.target.closest) return;
-// 我们自己的面板不动
 if(e.target.closest('#kv-emojipanel')) return;
-// 笑脸按钮: 兼容多个可能的选择器
 var btn = e.target.closest(
 '.TextEditor-controls .item-emoji, .item-emoji, [data-item-name="emoji"], ' +
 '.TextEditor-controls .fa-smile, .TextEditor-controls .fa-face-smile, ' +
@@ -1224,14 +1155,12 @@ e.stopImmediatePropagation();
 var anchor = btn.closest('li, button') || btn;
 showPanel(anchor);
 }, true);
-// 点面板外面收起
 document.addEventListener('mousedown', function(e){
 if(!panel || panel.style.display === 'none') return;
 if(e.target.closest && e.target.closest('#kv-emojipanel')) return;
 if(e.target.closest && e.target.closest('.item-emoji, .fa-smile, .fa-face-smile, [data-item-name="emoji"]')) return;
 hidePanel();
 }, true);
-// Esc 关掉
 document.addEventListener('keydown', function(e){
 if(e.key === 'Escape' && panel && panel.style.display !== 'none') hidePanel();
 });
@@ -1239,11 +1168,9 @@ if(e.key === 'Escape' && panel && panel.style.display !== 'none') hidePanel();
 </script>
 <script>
 (function(){
-// ---- 参数(想调整积分曲线改这里就行) ----
 var XP_PER_DISCUSSION = 5;
 var XP_PER_COMMENT    = 1;
 var XP_PER_DAY        = 0.5;
-// 等级阈值: 需累积多少 XP 才能进这一级
 var LEVEL_XP = [0, 50, 200, 500, 1000, 2000, 4000, 7000, 12000, 20000];
 function daysSince(date){
 if(!date) return 0;
@@ -1252,9 +1179,6 @@ if(!t) return 0;
 return Math.max(0, Math.floor((Date.now() - t) / 86400000));
 }
 function computeXP(user, days){
-// 优先读后端真实分数. fof/gamification 在 users 表里加的字段名是 votes;
-// 不同版本/其它插件也可能用 points / reputation, 都试一遍.
-// 用 typeof 判断能正确处理 "真实 0" 的情况 (以前用 || 会把 0 当 falsy 漏掉).
 try{
 var attrs = (user.data && user.data.attributes) || {};
 var candidates = ['votes', 'points', 'reputation'];
@@ -1263,7 +1187,6 @@ var v = attrs[candidates[i]];
 if(typeof v === 'number' && !isNaN(v)) return Math.max(0, Math.floor(v));
 }
 }catch(e){}
-// 兜底: 后端字段不可用时按活跃度估算
 var d = 0, c = 0;
 try{ d = user.discussionCount ? (user.discussionCount() || 0) : 0; }catch(e){}
 try{ c = user.commentCount    ? (user.commentCount()    || 0) : 0; }catch(e){}
@@ -1289,7 +1212,6 @@ var sideNav = document.querySelector('.UserPage .sideNav');
 if(!sideNav) return;
 var navUl = sideNav.querySelector('ul');
 if(!navUl) return;
-// 在导航项(回复/主题/投票...)末尾加一个"返回首页"
 var ddMenu = sideNav.querySelector('.Dropdown-menu') || navUl;
 if(ddMenu && !ddMenu.querySelector('.kv-home-nav-item')){
 var hli = document.createElement('li');
@@ -1305,10 +1227,8 @@ if(!user) return;
 var days  = user.joinTime ? daysSince(user.joinTime()) : 0;
 var xp    = computeXP(user, days);
 var level = computeLevel(xp);
-// 拆掉老版本的深色卡片(如果还在)
 var oldCard = sideNav.querySelector('.kv-user-stats');
 if(oldCard) oldCard.remove();
-// 3 项 stats 作为 <li> 追加到 nav ul 末尾 (在"安全"之后)
 var items = [
 { cls:'kv-us-days',  icon:'clock', label:'加入天数', value:days  },
 { cls:'kv-us-level', icon:'gem',   label:'等级',     value:level },
@@ -1354,19 +1274,15 @@ bar.appendChild(a);
 return bar;
 }
 setInterval(function(){
-// 首页(/) / 个人页 / 帖子详情页 : 不要"返回首页"按钮; 若有残留则移除
 if(location.pathname==='/' || location.pathname==='' || document.querySelector('.UserPage') || location.pathname.indexOf('/d/')===0){
 var old=document.querySelectorAll('.kv-home-topright');
 for(var i=0;i<old.length;i++){ old[i].remove(); }
 return;
 }
-// 子页面(分类/板块/全部帖子索引) : 主白卡顶部右侧
 var box=document.querySelector('.CategoriesPage-content')||document.querySelector('.IndexPage-results');
 if(box && !box.querySelector('.kv-home-topright')){ box.insertBefore(makeBar(), box.firstChild); }
-// 贡献榜 : rankings 表格所在白卡
 var rank=document.querySelector('table.rankings');
 if(rank && rank.parentElement && !rank.parentElement.querySelector('.kv-home-topright')){ rank.parentElement.insertBefore(makeBar(), rank); }
-// 板块/标签页 (/tags) : TagTiles 上方
 var tiles=document.querySelector('.TagsPage .TagTiles');
 if(tiles && tiles.parentElement && !tiles.parentElement.querySelector('.kv-home-topright')){ tiles.parentElement.insertBefore(makeBar(), tiles); }
 }, 400);
@@ -1444,7 +1360,7 @@ content.appendChild(footer);
 </script>
 <script>
 (function(){
-var css='.CategoriesPage-content{position:relative!important}.kv-home-topright{display:flex;justify-content:flex-start;margin:0 0 10px}.kv-home-topright .kv-home-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:#0771a8;color:#fff;border-radius:4px;font-size:13px;line-height:1.2;text-decoration:none}.kv-home-topright .kv-home-btn:hover{background:#055d8a;color:#fff}.UserPage .Post-actions .item-reply,.UserPage .CommentPost .Post-actions .item-reply{display:none!important}@media (max-width:1024px){.App-header .container,#header .container,.container,.UserPage>.container{max-width:100%!important;width:auto!important;margin-left:auto!important;margin-right:auto!important;padding-left:14px!important;padding-right:14px!important;box-sizing:border-box!important}.Post-body .kv-imggrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))!important}.DiscussionList-discussions .DiscussionListItem-content{flex-wrap:wrap!important}.DiscussionList-discussions .kv-meta{flex-wrap:wrap!important}}@media (max-width:767px){.App-drawer,#drawer{position:static!important;transform:none!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;max-height:none!important;visibility:visible!important;overflow:visible!important;box-shadow:none!important;border:none!important}.App-drawer .App-header,.App-drawer #header,.App-drawer .App-header>.container{width:100%!important;max-width:100%!important;box-sizing:border-box!important}.container,.sideNavContainer,.UserPage>.container{padding-left:10px!important;padding-right:10px!important}.kh-cols,.kv-mod{display:none!important}.TagsPage .TagTiles,.TagTiles{display:block!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important;grid-template-columns:none!important;width:100%!important;box-sizing:border-box!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content>.TagCategory-alignStart,.TagCategory-subTagList>.TagCategory>.TagCategory-content>.TagCategory-alignStart{display:block!important;flex:1 1 100%!important;width:100%!important;padding-bottom:4px!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-alignEnd,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .kv-mod,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-description{display:none!important}.kv-cat-footer{display:flex!important;flex-flow:row wrap!important;align-items:center!important;gap:14px!important;flex:1 1 100%!important;width:100%!important;margin-top:4px!important}.kv-cat-footer .TagCategory-stats,.kv-cat-footer .StatWidgetList,.kv-cat-footer .StatWidget,.kv-cat-footer .TagCategory-lastDiscussion,.kv-cat-footer .kv-mod{position:static!important;display:inline-flex!important;align-items:center!important;width:auto!important;flex:0 0 auto!important;top:auto!important;right:auto!important;left:auto!important;margin:0!important;font-size:12px!important;color:#8a96a3!important;white-space:nowrap!important;vertical-align:middle!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-name,.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-name,.TagCategory-name,.TagCategory-description{display:block!important;width:auto!important;white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-description{display:block!important}#archbar,#archbar ul{flex-wrap:wrap!important;white-space:normal!important}.archbar-right{float:none!important;display:block!important;margin-top:6px!important}.UserPage .sideNavContainer{flex-direction:column!important;min-height:0!important;height:auto!important}.UserPage .sideNav,.UserPage .UserPage-nav.sideNav,.UserPage .sideNavOffset{min-height:0!important;height:auto!important}.UserPage .sideNav .affix,.UserPage .sideNavContainer .affix{position:static!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important}.UserPage .sideNav>ul.affix{list-style:none!important;padding:0!important}.UserPage .sideNav ul.affix,.UserPage .sideNav ul.affix>li,.UserPage .sideNav .Dropdown,.UserPage .sideNav .Dropdown--select{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;margin:0!important;padding:0!important;float:none!important;left:auto!important;right:auto!important;position:static!important;list-style:none!important}.UserPage .UserPage-nav.sideNav{flex:1 1 auto!important;width:100%!important;border-right:none!important;border-bottom:1px solid #c9cfd6!important}.UserPage .sideNav ul li .Dropdown-toggle,.UserPage .UserPage-nav.sideNav .Dropdown-toggle,.UserPage .sideNav .Dropdown--select .Dropdown-toggle{display:none!important}.UserPage .sideNav .Dropdown,.UserPage .sideNav .Dropdown.Dropdown--select,.UserPage .sideNav .App-titleControl{width:100%!important;position:static!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;height:auto!important;max-height:none!important;transform:none!important}.UserPage .sideNav .Dropdown-menu{display:flex!important;visibility:visible!important;opacity:1!important;position:static!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;list-style:none!important;flex-flow:row wrap!important;overflow:visible!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;justify-content:flex-start!important;align-items:center!important;gap:2px 4px!important;max-height:none!important;margin:0!important;padding:0!important;box-shadow:none!important;border:none!important;background:transparent!important;float:none!important}.UserPage .sideNav .Dropdown-menu>li{list-style:none!important;display:block!important}.UserPage .sideNav .Dropdown-menu>li,.UserPage .sideNav .Dropdown-menu a,.UserPage .sideNav .Dropdown-menu button{flex:0 0 auto!important;white-space:nowrap!important;width:auto!important}.UserPage .sideNav .Dropdown-menu .Button,.UserPage .sideNav .Dropdown-menu a,.UserPage .sideNav .Dropdown-menu button,.UserPage .sideNav .Dropdown-menu li,.UserPage .sideNav .Dropdown-menu span,.UserPage .sideNav .Dropdown-menu .Button--primary,.UserPage .sideNav .Dropdown-menu .active .Button{background:transparent!important;background-color:transparent!important;box-shadow:none!important;border:none!important;border-radius:0!important;text-shadow:none!important}.UserPage .sideNav .Dropdown-menu .Button,.UserPage .sideNav .Dropdown-menu a,.UserPage .sideNav .Dropdown-menu button{color:#5b6875!important;font-weight:400!important;font-size:12px!important;padding:4px 7px!important;height:auto!important;min-height:0!important;line-height:1.3!important}.UserPage .sideNav .Dropdown-menu .Button-icon,.UserPage .sideNav .Dropdown-menu .icon{color:#8a96a3!important;font-size:12px!important;margin-right:3px!important}.UserPage .sideNav .Dropdown-menu .active .Button,.UserPage .sideNav .Dropdown-menu .Button.active,.UserPage .sideNav .Dropdown-menu a[active="true"],.UserPage .sideNav .Dropdown-menu .active{color:#1f2328!important;font-weight:600!important;border-bottom:2px solid #8a96a3!important}.UserPage .sideNav .Dropdown-menu .active .Button-icon,.UserPage .sideNav .Dropdown-menu .active .icon{color:#1f2328!important}.UserPage .sideNav>.kv-us-nav-item{list-style:none!important;display:inline-flex!important;align-items:center!important;width:auto!important;float:none!important;margin:8px 14px 0 0!important;padding:0!important}.UserPage .sideNav>.kv-us-nav-item::marker{content:""!important}.UserPage .sideNav>.kv-us-nav-item .kv-us-stat{display:inline-flex!important;align-items:center!important;gap:5px!important;padding:0!important;background:transparent!important;border:none!important;box-shadow:none!important;color:#5b6875!important;font-size:13px!important;font-weight:400!important}.UserPage .sideNav>.kv-us-nav-item .kv-us-stat .Button-icon{margin:0!important;color:#8a96a3!important}.UserPage .sideNav>.kv-us-nav-item .kv-us-value{margin-left:2px!important;font-weight:700!important;color:#1f2328!important}table.rankings{display:block!important;overflow-x:auto!important}.CommentPost .Post-header>ul{flex-wrap:wrap!important;padding-right:8px!important}.CommentPost .Post-actions{position:static!important;flex-wrap:wrap!important}.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:12px!important}.App-composer.kv-inline{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;width:100%!important;max-width:100%!important;max-height:75vh!important;height:auto!important;margin:0!important;padding:0!important;z-index:1000!important;background:#fff!important;border-top:1px solid #ccc!important;box-shadow:0 -2px 12px rgba(0,0,0,.18)!important}.App-composer.kv-inline .Composer{position:static!important;height:auto!important;max-height:75vh!important;margin:0!important;border:none!important;box-shadow:none!important}.App-composer.kv-inline .Composer-content,.App-composer.kv-inline .ComposerBody{display:block!important;height:auto!important;max-height:70vh!important;overflow-y:auto!important}.App-composer.kv-inline .TextEditor,.App-composer.kv-inline .TextEditor textarea{min-height:100px!important;height:auto!important}}@media (max-width:480px){.container,.sideNavContainer,.UserPage>.container{padding-left:6px!important;padding-right:6px!important}.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:8px!important}.DiscussionList-discussions .DiscussionListItem-content{gap:4px!important;padding:8px!important}.DiscussionList-discussions .kv-meta{gap:8px!important;font-size:11px!important}.DiscussionList-discussions .kv-list-tag{order:3!important;flex:0 0 auto!important;min-width:0!important;justify-content:flex-start!important}.Post-body .kv-imggrid{grid-template-columns:repeat(2,1fr)!important}.DiscussionList-discussions .DiscussionListItem-title{font-size:14px!important;white-space:normal!important}}';
+var css='.CategoriesPage-content{position:relative!important}.kv-home-topright{display:flex;justify-content:flex-start;margin:0 0 10px}.kv-home-topright .kv-home-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:#0771a8;color:#fff;border-radius:4px;font-size:13px;line-height:1.2;text-decoration:none}.kv-home-topright .kv-home-btn:hover{background:#055d8a;color:#fff}.UserPage .Post-actions .item-reply,.UserPage .CommentPost .Post-actions .item-reply{display:none!important}@media (max-width:1024px){.App-header .container,#header .container,.container,.UserPage>.container{max-width:100%!important;width:auto!important;margin-left:auto!important;margin-right:auto!important;padding-left:14px!important;padding-right:14px!important;box-sizing:border-box!important}.Post-body .kv-imggrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))!important}.DiscussionList-discussions .DiscussionListItem-content{flex-wrap:wrap!important}.DiscussionList-discussions .kv-meta{flex-wrap:wrap!important}}@media (max-width:767px){.App-drawer,#drawer{position:static!important;transform:none!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;max-height:none!important;visibility:visible!important;overflow:visible!important;box-shadow:none!important;border:none!important}.App-drawer .App-header,.App-drawer #header,.App-drawer .App-header>.container{width:100%!important;max-width:100%!important;box-sizing:border-box!important}.App-drawer .Header-primary .Header-controls{display:flex!important;flex-flow:row wrap!important;justify-content:center!important;align-items:center!important;gap:4px 10px!important;margin:6px 0!important;padding:0!important}.App-drawer .Header-primary .Header-controls>li{width:auto!important;float:none!important;margin:0!important}.App-drawer .Header-secondary .Header-controls{display:flex!important;flex-flow:row nowrap!important;align-items:center!important;gap:8px!important;width:100%!important;margin:6px 0!important;padding:0!important}.App-drawer .Header-secondary>ul,.App-drawer .Header-secondary{width:100%!important}.App-drawer .Header-secondary .item-search{flex:0 1 auto!important;min-width:0!important;margin:0!important}.App-drawer .Header-secondary .item-search .Search,.App-drawer .Header-secondary .item-search input,.App-drawer .Header-secondary .item-search .Search-input{width:170px!important;max-width:60vw!important}.App-drawer .Header-secondary .item-session,.App-drawer .Header-secondary .item-notifications{margin-left:auto!important}.container,.sideNavContainer,.UserPage>.container{padding-left:10px!important;padding-right:10px!important}.kh-cols,.kv-mod{display:none!important}.TagsPage .TagTiles,.TagTiles{display:block!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important;grid-template-columns:none!important;width:100%!important;box-sizing:border-box!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content>.TagCategory-alignStart,.TagCategory-subTagList>.TagCategory>.TagCategory-content>.TagCategory-alignStart{display:block!important;flex:1 1 100%!important;width:100%!important;padding-bottom:4px!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-alignEnd,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .kv-mod,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-description{display:none!important}.kv-cat-footer{display:flex!important;flex-flow:row wrap!important;align-items:center!important;gap:14px!important;flex:1 1 100%!important;width:100%!important;margin-top:4px!important}.kv-cat-footer .TagCategory-stats,.kv-cat-footer .StatWidgetList,.kv-cat-footer .StatWidget,.kv-cat-footer .TagCategory-lastDiscussion,.kv-cat-footer .kv-mod{position:static!important;display:inline-flex!important;align-items:center!important;width:auto!important;flex:0 0 auto!important;top:auto!important;right:auto!important;left:auto!important;margin:0!important;font-size:12px!important;color:#8a96a3!important;white-space:nowrap!important;vertical-align:middle!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-name,.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-name,.TagCategory-name,.TagCategory-description{display:block!important;width:auto!important;white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-description{display:block!important}#archbar,#archbar ul{flex-wrap:wrap!important;white-space:normal!important}.archbar-right{float:none!important;display:block!important;margin-top:6px!important}.UserPage .sideNavContainer{flex-direction:column!important;min-height:0!important;height:auto!important}.UserPage .sideNav,.UserPage .UserPage-nav.sideNav,.UserPage .sideNavOffset{min-height:0!important;height:auto!important}.UserPage .sideNav .affix,.UserPage .sideNavContainer .affix{position:static!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important}.UserPage .sideNav>ul.affix{list-style:none!important;padding:0!important}.UserPage .sideNav ul.affix,.UserPage .sideNav ul.affix>li,.UserPage .sideNav .Dropdown,.UserPage .sideNav .Dropdown--select{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;margin:0!important;padding:0!important;float:none!important;left:auto!important;right:auto!important;position:static!important;list-style:none!important}.UserPage .UserPage-nav.sideNav{flex:1 1 auto!important;width:100%!important;border-right:none!important;border-bottom:1px solid #c9cfd6!important}.UserPage .sideNav ul li .Dropdown-toggle,.UserPage .UserPage-nav.sideNav .Dropdown-toggle,.UserPage .sideNav .Dropdown--select .Dropdown-toggle{display:none!important}.UserPage .sideNav .Dropdown,.UserPage .sideNav .Dropdown.Dropdown--select,.UserPage .sideNav .App-titleControl{width:100%!important;position:static!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;height:auto!important;max-height:none!important;transform:none!important}.UserPage .sideNav .Dropdown-menu{display:flex!important;visibility:visible!important;opacity:1!important;position:static!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;list-style:none!important;flex-flow:row wrap!important;overflow:visible!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;justify-content:flex-start!important;align-items:center!important;gap:2px 4px!important;max-height:none!important;margin:0!important;padding:0!important;box-shadow:none!important;border:none!important;background:transparent!important;float:none!important}.UserPage .sideNav .Dropdown-menu>li{list-style:none!important;display:block!important}.UserPage .sideNav .Dropdown-menu>li,.UserPage .sideNav .Dropdown-menu a,.UserPage .sideNav .Dropdown-menu button{flex:0 0 auto!important;white-space:nowrap!important;width:auto!important}.UserPage .sideNav .Dropdown-menu .Button,.UserPage .sideNav .Dropdown-menu a,.UserPage .sideNav .Dropdown-menu button,.UserPage .sideNav .Dropdown-menu li,.UserPage .sideNav .Dropdown-menu span,.UserPage .sideNav .Dropdown-menu .Button--primary,.UserPage .sideNav .Dropdown-menu .active .Button{background:transparent!important;background-color:transparent!important;box-shadow:none!important;border:none!important;border-radius:0!important;text-shadow:none!important}.UserPage .sideNav .Dropdown-menu .Button,.UserPage .sideNav .Dropdown-menu a,.UserPage .sideNav .Dropdown-menu button{color:#5b6875!important;font-weight:400!important;font-size:12px!important;padding:4px 7px!important;height:auto!important;min-height:0!important;line-height:1.3!important}.UserPage .sideNav .Dropdown-menu .Button-icon,.UserPage .sideNav .Dropdown-menu .icon{color:#8a96a3!important;font-size:12px!important;margin-right:3px!important}.UserPage .sideNav .Dropdown-menu .active .Button,.UserPage .sideNav .Dropdown-menu .Button.active,.UserPage .sideNav .Dropdown-menu a[active="true"],.UserPage .sideNav .Dropdown-menu .active{color:#1f2328!important;font-weight:600!important;border-bottom:2px solid #8a96a3!important}.UserPage .sideNav .Dropdown-menu .active .Button-icon,.UserPage .sideNav .Dropdown-menu .active .icon{color:#1f2328!important}.UserPage .sideNav>.kv-us-nav-item{list-style:none!important;display:inline-flex!important;align-items:center!important;width:auto!important;float:none!important;margin:8px 14px 0 0!important;padding:0!important}.UserPage .sideNav>.kv-us-nav-item::marker{content:""!important}.UserPage .sideNav>.kv-us-nav-item .kv-us-stat{display:inline-flex!important;align-items:center!important;gap:5px!important;padding:0!important;background:transparent!important;border:none!important;box-shadow:none!important;color:#5b6875!important;font-size:13px!important;font-weight:400!important}.UserPage .sideNav>.kv-us-nav-item .kv-us-stat .Button-icon{margin:0!important;color:#8a96a3!important}.UserPage .sideNav>.kv-us-nav-item .kv-us-value{margin-left:2px!important;font-weight:700!important;color:#1f2328!important}table.rankings{display:block!important;overflow-x:auto!important}.CommentPost .Post-header>ul{flex-wrap:wrap!important;padding-right:8px!important}.CommentPost .Post-actions{position:static!important;flex-wrap:wrap!important}.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:12px!important}.App-composer.kv-inline{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;width:100%!important;max-width:100%!important;max-height:75vh!important;height:auto!important;margin:0!important;padding:0!important;z-index:1000!important;background:#fff!important;border-top:1px solid #ccc!important;box-shadow:0 -2px 12px rgba(0,0,0,.18)!important}.App-composer.kv-inline .Composer{position:static!important;height:auto!important;max-height:75vh!important;margin:0!important;border:none!important;box-shadow:none!important}.App-composer.kv-inline .Composer-content,.App-composer.kv-inline .ComposerBody{display:block!important;height:auto!important;max-height:70vh!important;overflow-y:auto!important}.App-composer.kv-inline .TextEditor,.App-composer.kv-inline .TextEditor textarea{min-height:100px!important;height:auto!important}}@media (max-width:480px){.container,.sideNavContainer,.UserPage>.container{padding-left:6px!important;padding-right:6px!important}.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:8px!important}.DiscussionList-discussions .DiscussionListItem-content{gap:4px!important;padding:8px!important}.DiscussionList-discussions .kv-meta{gap:8px!important;font-size:11px!important}.DiscussionList-discussions .kv-list-tag{order:3!important;flex:0 0 auto!important;min-width:0!important;justify-content:flex-start!important}.Post-body .kv-imggrid{grid-template-columns:repeat(2,1fr)!important}.DiscussionList-discussions .DiscussionListItem-title{font-size:14px!important;white-space:normal!important}}';
 var s = document.createElement('style');
 s.id = 'kv-mobile-css';
 s.textContent = css;
