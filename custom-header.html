@@ -1354,8 +1354,8 @@ bar.appendChild(a);
 return bar;
 }
 setInterval(function(){
-// 个人页 / 帖子详情页 : 不要"返回首页"按钮; 若有残留则移除
-if(document.querySelector('.UserPage') || location.pathname.indexOf('/d/')===0){
+// 首页(/) / 个人页 / 帖子详情页 : 不要"返回首页"按钮; 若有残留则移除
+if(location.pathname==='/' || location.pathname==='' || document.querySelector('.UserPage') || location.pathname.indexOf('/d/')===0){
 var old=document.querySelectorAll('.kv-home-topright');
 for(var i=0;i<old.length;i++){ old[i].remove(); }
 return;
