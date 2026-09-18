@@ -1,1624 +1,1414 @@
 <script>
-
 (function(){
-  function killSpinners(root){
-    if(!root || !root.querySelectorAll) return;
-    var sel = '[class*="LoadingIndicator"], .LoadingIndicator';
-    if(root.matches && root.matches(sel)) root.style.setProperty('display','none','important');
-    root.querySelectorAll(sel).forEach(function(e){ e.style.setProperty('display','none','important'); });
-  }
-  function start(){
-    if(!document.body){ return setTimeout(start, 20); }
-    killSpinners(document.body);
-    new MutationObserver(function(muts){
-      for(var i=0;i<muts.length;i++){
-        var a=muts[i].addedNodes;
-        for(var j=0;j<a.length;j++){ if(a[j].nodeType===1) killSpinners(a[j]); }
-      }
-    }).observe(document.body, {childList:true, subtree:true});
-  }
-  start();
+function killSpinners(root){
+if(!root || !root.querySelectorAll) return;
+var sel = '[class*="LoadingIndicator"], .LoadingIndicator';
+if(root.matches && root.matches(sel)) root.style.setProperty('display','none','important');
+root.querySelectorAll(sel).forEach(function(e){ e.style.setProperty('display','none','important'); });
+}
+function start(){
+if(!document.body){ return setTimeout(start, 20); }
+killSpinners(document.body);
+new MutationObserver(function(muts){
+for(var i=0;i<muts.length;i++){
+var a=muts[i].addedNodes;
+for(var j=0;j<a.length;j++){ if(a[j].nodeType===1) killSpinners(a[j]); }
+}
+}).observe(document.body, {childList:true, subtree:true});
+}
+start();
 })();
 </script>
-
 <div id="archbar-src" style="display:none">
-  <ul>
-    <li><a href="/">首页</a></li>
-    <li><a href="/tags">板块</a></li>
-    <li><a href="/rankings">贡献榜</a></li>
-    <li><a href="/all">全部帖子</a></li>
-  </ul>
-  <span class="archbar-right">
-    主题：<a href="/">活跃</a> | <a href="/all">未回复</a>
-    <span class="ab-authwrap">
-      <a href="/register" class="ab-auth">注册</a>
-      <a href="/login" class="ab-auth">登录</a>
-    </span>
-  </span>
+<ul>
+<li><a href="/">首页</a></li>
+<li><a href="/tags">板块</a></li>
+<li><a href="/rankings">贡献榜</a></li>
+<li><a href="/all">全部帖子</a></li>
+</ul>
+<span class="archbar-right">
+主题：<a href="/">活跃</a> | <a href="/all">未回复</a>
+<span class="ab-authwrap">
+<a href="/register" class="ab-auth">注册</a>
+<a href="/login" class="ab-auth">登录</a>
+</span>
+</span>
 </div>
 <script>
 (function(){
-  setInterval(function(){
-    var box=document.querySelector('.CategoriesPage-content');
-    if(box && !box.querySelector('#archbar')){
-      var src=document.getElementById('archbar-src');
-      if(src){var bar=src.cloneNode(true);bar.id='archbar';bar.style.display='';box.insertBefore(bar,box.firstChild);}
-    }
-    var loggedIn=!document.querySelector('.item-logIn');
-    document.querySelectorAll('.ab-authwrap').forEach(function(e){e.style.display=loggedIn?'none':'';});
-  },300);
+setInterval(function(){
+var box=document.querySelector('.CategoriesPage-content');
+if(box && !box.querySelector('#archbar')){
+var src=document.getElementById('archbar-src');
+if(src){var bar=src.cloneNode(true);bar.id='archbar';bar.style.display='';box.insertBefore(bar,box.firstChild);}
+}
+var loggedIn=!document.querySelector('.item-logIn');
+document.querySelectorAll('.ab-authwrap').forEach(function(e){e.style.display=loggedIn?'none':'';});
+},300);
 })();
 </script>
-
 <style>
 .Search .FormControl { -webkit-appearance: none !important; appearance: none !important; }
 .Search .FormControl::-webkit-search-cancel-button,
 .Search .FormControl::-webkit-search-decoration {
-  -webkit-appearance: none !important;
-  display: none !important;
+-webkit-appearance: none !important;
+display: none !important;
 }
 </style>
-
 <script>
 (function(){
-  setInterval(function(){
-    if(typeof app==='undefined' || !app.forum) return;
-    var box=document.querySelector('.CategoriesPage-content');
-    if(box && !document.getElementById('kvin-stats')){
-      var a=app.forum.data.attributes||{};
-      var d=a['fof-forum-statistics-widget.discussionsCount']||0;
-      var p=a['fof-forum-statistics-widget.postsCount']||0;
-      var u=a['fof-forum-statistics-widget.usersCount']||0;
-      var on=a['totalOnlineUsers']||0;
-      var el=document.createElement('div');
-      el.id='kvin-stats';
-      el.innerHTML='<div class="kvin-stats-title">统计信息</div>'+
+setInterval(function(){
+if(typeof app==='undefined' || !app.forum) return;
+var box=document.querySelector('.CategoriesPage-content');
+if(box && !document.getElementById('kvin-stats')){
+var a=app.forum.data.attributes||{};
+var d=a['fof-forum-statistics-widget.discussionsCount']||0;
+var p=a['fof-forum-statistics-widget.postsCount']||0;
+var u=a['fof-forum-statistics-widget.usersCount']||0;
+var on=a['totalOnlineUsers']||0;
+var el=document.createElement('div');
+el.id='kvin-stats';
+el.innerHTML='<div class="kvin-stats-title">统计信息</div>'+
 '<div class="kvin-stats-body">'+
 '<div class="ks-line"><b class="ks-h">在线用户</b>&nbsp;&nbsp;总共 <b>'+on+'</b> 人在线</div>'+
 '<div class="ks-line"><b class="ks-h">统计信息</b>&nbsp;&nbsp;帖子总数 <b>'+p+'</b> | 主题总数 <b>'+d+'</b> | 用户总数 <b>'+u+'</b></div>'+
 '</div>';
-
-      box.appendChild(el);
-    }
-    // 页脚：始终放进当前页面的白卡里(和首页一样在框内)。哪怕之前跑到框外，也移回来。
-    var _rank = document.querySelector('table.rankings');
-    var footerBox = document.querySelector('.CategoriesPage-content') || document.querySelector('.DiscussionPage-stream') || document.querySelector('.IndexPage-results') || document.querySelector('.TagsPage .TagTiles') || document.querySelector('.UserPage>.container') || (_rank && _rank.parentElement);
-    if(footerBox){
-      var ft = document.getElementById('kvin-footer2');
-      if(!ft){
-        ft = document.createElement('div');
-        ft.id = 'kvin-footer2';
-        ft.innerHTML = '由 <a href="https://vpsbt.online/" target="_blank">kvin.kirby</a> 提供技术支持 · © Talkora';
-      }
-      if(ft.parentElement !== footerBox){ footerBox.appendChild(ft); }
-    }
-
-  },400);
+box.appendChild(el);
+}
+// 页脚：始终放进当前页面的白卡里(和首页一样在框内)。哪怕之前跑到框外，也移回来。
+var _rank = document.querySelector('table.rankings');
+var footerBox = document.querySelector('.CategoriesPage-content') || document.querySelector('.DiscussionPage-stream') || document.querySelector('.IndexPage-results') || document.querySelector('.TagsPage .TagTiles') || document.querySelector('.UserPage>.container') || (_rank && _rank.parentElement);
+if(footerBox){
+var ft = document.getElementById('kvin-footer2');
+if(!ft){
+ft = document.createElement('div');
+ft.id = 'kvin-footer2';
+ft.innerHTML = '由 <a href="https://vpsbt.online/" target="_blank">kvin.kirby</a> 提供技术支持 · © Talkora';
+}
+if(ft.parentElement !== footerBox){ footerBox.appendChild(ft); }
+}
+},400);
 })();
 </script>
-
 <script>
 (function(){
-  setInterval(function(){
-    document.querySelectorAll('.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content').forEach(function(h){
-      if(!h.querySelector('.kh-cols')){
-        var s=document.createElement('span');
-        s.className='kh-cols';
-        s.innerHTML='<span>主题/文章</span><span>最后发表</span><span>版主</span>';
-        h.appendChild(s);
-      }
-    });
-  },500);
+setInterval(function(){
+document.querySelectorAll('.TagCategoryList > .TagCategory.ParentCategory > .TagCategory-content').forEach(function(h){
+if(!h.querySelector('.kh-cols')){
+var s=document.createElement('span');
+s.className='kh-cols';
+s.innerHTML='<span>主题/文章</span><span>最后发表</span><span>版主</span>';
+h.appendChild(s);
+}
+});
+},500);
 })();
 </script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    document.querySelectorAll('.TagCategory-subTagList > .TagCategory > .TagCategory-content').forEach(function(row){
-      var mod = '';
-      var u = row.querySelector('.LastDiscussion-usernameLink .username') || row.querySelector('.LastDiscussion .username') || row.querySelector('.username');
-      if(u){ mod = (u.textContent || '').trim(); }
-      var cell = row.querySelector('.kv-mod');
-      if(!cell){
-        cell = document.createElement('span');
-        cell.className = 'kv-mod';
-        var ft = row.querySelector(':scope > .kv-cat-footer');
-        (ft || row).appendChild(cell);
-      }
-      if(cell.textContent !== mod){ cell.textContent = mod; }
-    });
-  }, 500);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    document.querySelectorAll('.SignUpModal .Form-group, .LogInModal .Form-group').forEach(function(g){
-      var input = g.querySelector('input.FormControl');
-      if(input && !g.querySelector('.kv-flabel')){
-        var ph = input.getAttribute('placeholder') || input.getAttribute('aria-label') || '';
-        if(ph){
-          var lb = document.createElement('label');
-          lb.className = 'kv-flabel';
-          lb.innerHTML = ph.replace(/</g,'&lt;') + ' <span class="kv-req">*</span>';
-          g.insertBefore(lb, input);
-          input.setAttribute('placeholder', ''); // 清掉重复的占位文字
-        }
-      }
-    });
-  }, 400);
-})();
-</script>
-
-<script>
-
-(function(){
-  document.addEventListener('click', function(e){
-    if(!e.target.closest) return;
-    var reg = e.target.closest('.item-signUp a, .item-signUp button, .Button--signup');
-    if(reg){ e.preventDefault(); e.stopPropagation(); window.location = '/register'; return; }
-    var login = e.target.closest('.item-logIn a, .item-logIn button');
-    if(login){ e.preventDefault(); e.stopPropagation(); window.location = '/login'; return; }
-  }, true);
-
-  // 兼容旧链接 /?login=1 —— 直接跳到整页登录
-  if(/[?&]login=1\b/.test(location.search)){ window.location = '/login'; }
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    // 整页注册/登录页本身不拦截
-    if(location.pathname === '/login' || location.pathname === '/register') return;
-    if(document.querySelector('.SignUpModal, .Modal .SignUpModal, [class*="SignUpModal"]')){ window.location = '/register'; return; }
-    if(document.querySelector('.LogInModal, .Modal .LogInModal, [class*="LogInModal"]')){ window.location = '/login'; return; }
-  }, 80);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    var dl = document.querySelector('.IndexPage .DiscussionList');
-    if(!dl) return;
-
-    // 列头（所有帖子列表都加）
-    var ul = dl.querySelector('.DiscussionList-discussions');
-    if(ul && !dl.querySelector('.kv-dlhead')){
-      var head = document.createElement('div');
-      head.className = 'kv-dlhead';
-      head.innerHTML = '<span class="c1">话题</span>';
-      ul.parentNode.insertBefore(head, ul);
-    }
-
-    // 翻页上/下位置改由 CSS 的 flex order 固定(瞬时生效，翻页时不再跳动)，此处不再用 JS 搬动
-
-    // 面包屑 + 发布帖子（仅板块页 /t/...）
-    var isTag = /^\/t\//.test(location.pathname);
-    var results = document.querySelector('.IndexPage-results') || dl.parentNode;
-    if(isTag && results && !document.getElementById('kv-forumbar')){
-      var name = (document.title.split(' - ')[0] || '').trim();
-      var bar = document.createElement('div');
-      bar.id = 'kv-forumbar';
-
-      var crumb = document.createElement('span');
-      crumb.className = 'kv-crumb';
-      var home = document.createElement('a'); home.href = '/'; home.textContent = '首页';
-      crumb.appendChild(home);
-      crumb.appendChild(document.createTextNode(' » ' + name));
-
-      var btn = document.createElement('button');
-      btn.type = 'button'; btn.id = 'kv-newtopic'; btn.className = 'kv-newtopic'; btn.textContent = '发布帖子';
-      btn.addEventListener('click', function(){
-        // 未登录 → 直接跳整页登录(避免弹出旧登录弹窗)
-        if(typeof app === 'undefined' || !app.session || !app.session.user){ window.location = '/login'; return; }
-        var b = document.querySelector('.item-newDiscussion button, .IndexPage-newDiscussion, .item-newDiscussion .Button');
-        if(b) b.click();
-      });
-
-      bar.appendChild(crumb);
-      bar.appendChild(btn);
-      results.insertBefore(bar, results.firstChild);
-    }
-
-    // 没有发帖权限时隐藏发帖按钮
-    var nt = document.getElementById('kv-newtopic');
-    if(nt){ nt.style.display = document.querySelector('.item-newDiscussion, .IndexPage-newDiscussion') ? '' : 'none'; }
-  }, 400);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    if(typeof app === 'undefined' || !app.session || !app.session.user) return;
-    var sec = document.querySelector('.Header-secondary');
-    if(sec && !sec.querySelector('.kv-logout')){
-      var li = document.createElement('li');
-      li.className = 'kv-logout';
-      var uname = '';
-      try { uname = app.session.user.username(); } catch(e){}
-      var a = document.createElement('a');
-      a.href = '/logout?token=' + app.session.csrfToken;
-      a.textContent = (uname ? uname + ' · ' : '') + '退出';
-      li.appendChild(a);
-      sec.appendChild(li);
-    }
-  }, 500);
-})();
-</script>
-
-<script>
-
-(function(){
-  function makeUserLink(name){
-    var s = document.createElement('span');
-    s.className = 'kv-userlink';
-    s.dataset.uname = name;
-    s.textContent = name;
-    return s;
-  }
-  function makeTagLink(name, href, bg, fg){
-    var s = document.createElement('span');
-    s.className = 'kv-taglink';
-    s.dataset.href = href || '';
-    s.textContent = name;
-    if(bg) s.style.background = bg;
-    if(fg) s.style.color = fg;
-    return s;
-  }
-  function metaLi(icon, node){
-    var li = document.createElement('li');
-    if(icon){
-      var i = document.createElement('i');
-      i.className = 'fas fa-' + icon;
-      li.appendChild(i);
-      li.appendChild(document.createTextNode(' '));
-    }
-    if(typeof node === 'string') li.appendChild(document.createTextNode(node));
-    else if(node) li.appendChild(node);
-    return li;
-  }
-  function extractNum(el){
-    if(!el) return '';
-    var m = (el.textContent || '').match(/\d+/);
-    return m ? m[0] : '';
-  }
-  // 点击处理: 拦截 .kv-userlink / .kv-taglink, 用 SPA 路由跳 (避免触发父级 <a> 到帖子详情)
-  document.addEventListener('click', function(e){
-    var ul = e.target.closest && e.target.closest('.kv-userlink');
-    if(ul){
-      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-      var url = '/u/' + encodeURIComponent(ul.dataset.uname);
-      if(window.app && app.route && app.route.set){ app.route.set(url); }
-      else { window.location = url; }
-      return;
-    }
-    var tl = e.target.closest && e.target.closest('.kv-taglink');
-    if(tl){
-      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-      var url = tl.dataset.href || '/';
-      if(window.app && app.route && app.route.set){ app.route.set(url); }
-      else { window.location = url; }
-      return;
-    }
-  }, true);
-
-  setInterval(function(){
-    document.querySelectorAll('.DiscussionList-discussions .DiscussionListItem-content').forEach(function(c){
-      var main  = c.querySelector('.DiscussionListItem-main');
-      var title = c.querySelector('.DiscussionListItem-title');
-      if(!main || !title) return;
-
-      // 清掉 v1 遗留的内联 !important (一次性, 免得跟新 CSS 打架)
-      if(!c.dataset.kvV2Reset){
-        [c, main, title,
-         c.querySelector('.DiscussionListItem-count'),
-         c.querySelector('.item-discussion-views'),
-         c.querySelector('.item-terminalPost')].forEach(function(el){
-          if(!el) return;
-          ['display','flex','order','position','top','right','left','margin',
-           'padding','align-items','justify-content','background','box-shadow',
-           'min-width','width','height','border-radius','text-align','white-space',
-           'overflow','text-overflow','flex-basis','flex-grow','flex-shrink']
-            .forEach(function(p){ el.style.removeProperty(p); });
-        });
-        c.dataset.kvV2Reset = '1';
-      }
-
-      // 采集数据
-      var authorEl = c.querySelector('.DiscussionListItem-author');
-      var starter = '';
-      if(authorEl){
-        var al = (authorEl.getAttribute('aria-label') || '').trim();
-        starter = (al.split('发布')[0] || '').trim();
-        if(!starter) starter = (al.split(/\s+/)[0] || '').trim();
-      }
-      var viewsStr = extractNum(c.querySelector('.item-discussion-views'));
-      var countStr = extractNum(c.querySelector('.DiscussionListItem-count'));
-      var terminal = c.querySelector('.item-terminalPost');
-      var lastUser = '';
-      var lastTime = '';
-      if(terminal){
-        var lu = terminal.querySelector('.username');
-        var lt = terminal.querySelector('time');
-        if(lu) lastUser = (lu.textContent || '').trim();
-        if(lt) lastTime = (lt.textContent || '').trim();
-      }
-      // Tag: 可能在标题里, 也可能在 info 列表里
-      var tagEl = c.querySelector('.item-tags .TagLabel, .DiscussionListItem-title .TagLabel, .DiscussionListItem-info .TagLabel');
-      var tagName = tagEl ? (tagEl.textContent || '').trim() : '';
-      var tagHref = tagEl && tagEl.getAttribute ? (tagEl.getAttribute('href') || '') : '';
-      var tagBg = '', tagFg = '';
-      if(tagEl){
-        var st = tagEl.getAttribute('style') || '';
-        var bm = st.match(/background(?:-color)?\s*:\s*([^;]+)/i);
-        var fm = st.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i);
-        if(bm) tagBg = bm[1].trim();
-        if(fm) tagFg = fm[1].trim();
-      }
-
-      // 签名: 数据没变就跳过 (防闪烁)
-      var sig = starter + '|' + viewsStr + '|' + countStr + '|' + lastUser + '|' + lastTime + '|' + tagName;
-      if(c.dataset.kvSig === sig) return;
-      c.dataset.kvSig = sig;
-
-      // 清 v1 遗留的 kv-by
-      title.querySelectorAll('.kv-by').forEach(function(el){ el.remove(); });
-
-      // 构建/更新 meta 元信息行 (标题下方)
-      var meta = main.querySelector(':scope > .kv-meta');
-      if(!meta){
-        meta = document.createElement('ul');
-        meta.className = 'kv-meta';
-        main.appendChild(meta);
-      }
-      meta.innerHTML = '';
-      if(starter)  meta.appendChild(metaLi('user',    makeUserLink(starter)));
-      if(viewsStr) meta.appendChild(metaLi('eye',     viewsStr));
-      meta.appendChild(metaLi('comment', countStr || '0'));
-      if(lastUser) meta.appendChild(metaLi('bolt',    makeUserLink(lastUser)));
-      if(lastTime) meta.appendChild(metaLi('',        lastTime));
-
-      // 构建/更新 右侧 tag 列
-      var tagCol = c.querySelector(':scope > .kv-list-tag');
-      if(!tagCol){
-        tagCol = document.createElement('div');
-        tagCol.className = 'kv-list-tag';
-        c.appendChild(tagCol);
-      }
-      tagCol.innerHTML = '';
-      if(tagName){ tagCol.appendChild(makeTagLink(tagName, tagHref, tagBg, tagFg)); }
-      // 保证 tag 列在最右 (order:2 也管, 但 DOM 顺序更稳)
-      if(c.lastElementChild !== tagCol) c.appendChild(tagCol);
-    });
-  }, 400);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    document.querySelectorAll('.CommentPost').forEach(function(post){
-      var ul = post.querySelector('.Post-header > ul');
-      if(!ul || ul.querySelector('.kv-floor')) return;
-      var meta = post.querySelector('.PostMeta');
-      var m = meta ? (meta.textContent.match(/#(\d+)/)) : null;
-      if(m){
-        var f = document.createElement('span');
-        f.className = 'kv-floor';
-        f.textContent = '#' + m[1];
-        ul.appendChild(f);
-      }
-    });
-  }, 500);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    if(!/^\/d\//.test(location.pathname)) return;
-    document.querySelectorAll('[class*="Hero"]').forEach(function(e){ e.style.display = 'none'; });
-  }, 400);
-})();
-</script>
-
-<script>
-
-(function(){
-  var STYLE       = 'avataaars';   // 默认: Sketch 风格卡通人物 (男女/发型/肤色/配饰各种组合)
-  var BG_COLORS   = 'b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe4b2';  // 随机背景色池
-  var CACHE_VER   = 'v3';
-  var CACHE_PREFIX = 'kv-avatar:' + CACHE_VER + ':' + STYLE + ':';
-
-  // ---- 兜底: 老的几何 identicon (只在网络失败时展示) ----
-  function hash(s){ var h=2166136261; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
-  function identiconFallback(seed){
-    var h=hash(seed), hue=h%360, fg='hsl('+hue+',58%,52%)', r=h;
-    function nx(){ r=(Math.imul(r,1103515245)+12345)>>>0; return r; }
-    var rects='';
-    for(var x=0;x<3;x++){ for(var y=0;y<5;y++){
-      if(nx()&1){
-        rects+='<rect x="'+(x*20)+'" y="'+(y*20)+'" width="20" height="20"/>';
-        if(x<2){ rects+='<rect x="'+((4-x)*20)+'" y="'+(y*20)+'" width="20" height="20"/>'; }
-      }
-    }}
-    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#eef0f2"/><g fill="'+fg+'">'+rects+'</g></svg>';
-    return 'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svg)));
-  }
-
-  function seedFor(av){
-    var a = av.closest && av.closest('a[href*="/u/"]');
-    if(a){ var m=a.getAttribute('href').match(/\/u\/([^\/?#]+)/); if(m) return decodeURIComponent(m[1]); }
-    var txt = (av.textContent||'').trim();
-    return txt + '|' + (av.getAttribute('style')||'') + getComputedStyle(av).backgroundColor;
-  }
-
-  var mem = {};       // seed -> data URL (内存缓存, 避 localStorage 反复读)
-  var pending = {};   // seed -> [avatar 元素...] (fetch 中的排队, 防重复请求)
-
-  function apply(av, dataUrl){
-    av.style.backgroundImage = 'url("' + dataUrl + '")';
-    av.style.backgroundSize  = 'cover';
-    av.style.backgroundColor = 'transparent';
-    av.style.color           = 'transparent';
-  }
-
-  function load(seed, av){
-    // (1) 内存缓存命中
-    if(mem[seed]){ apply(av, mem[seed]); return; }
-    // (2) localStorage 命中
-    var key = CACHE_PREFIX + seed;
-    try{
-      var cached = localStorage.getItem(key);
-      if(cached){ mem[seed] = cached; apply(av, cached); return; }
-    }catch(e){}
-    // (3) 需要 fetch —— 但先用几何 identicon 兜底避免空白
-    var stub = identiconFallback(seed);
-    apply(av, stub);
-    if(pending[seed]){ pending[seed].push(av); return; }
-    pending[seed] = [av];
-    var url = 'https://api.dicebear.com/9.x/' + STYLE + '/svg' +
-              '?seed=' + encodeURIComponent(seed) +
-              '&backgroundColor=' + BG_COLORS +
-              '&size=120';
-    fetch(url, { credentials: 'omit' })
-      .then(function(r){ if(!r.ok) throw 0; return r.text(); })
-      .then(function(svg){
-        var dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
-        mem[seed] = dataUrl;
-        try{ localStorage.setItem(key, dataUrl); }catch(e){}
-        (pending[seed] || []).forEach(function(el){ apply(el, dataUrl); });
-        delete pending[seed];
-      })
-      .catch(function(){
-        // 网络失败: 保留 identicon 兜底, 记忆到内存, 下次会话再试
-        mem[seed] = stub;
-        (pending[seed] || []).forEach(function(el){ apply(el, stub); });
-        delete pending[seed];
-      });
-  }
-
-  setInterval(function(){
-    document.querySelectorAll('.Avatar').forEach(function(av){
-      if(av.dataset.kvIdent) return;
-      if(av.tagName === 'IMG' || av.querySelector('img')){ av.dataset.kvIdent = '1'; return; } // 已有真实头像
-      var seed = seedFor(av); if(!seed) return;
-      av.dataset.kvIdent = '1';
-      load(seed, av);
-    });
-  }, 500);
-})();
-</script>
-
-<script>
-
-(function(){
-  var app = document.querySelector('.App');
-  var cooldown = 0;      // >0 期间不塞回帖子流(发帖后重绘窗口)
-  var wasOpen = false;   // 上一轮 composer 是否打开, 用于侦测"开->关"的转变(=发帖成功)
-  var lastPath = location.pathname;
-
-  // 【修复"第一次点回复没反应"】焦点若卡在某个按钮上(常见 fof-upload-button 等),
-  // 浏览器会阻止 Flarum 给 #app 加 aria-hidden 打开回复框("Blocked aria-hidden ...
-  // Element with focus"), 结果第一次点看不见框, 第二次点因焦点已移开才正常。
-  // 修法: 在点"回复/编辑/发主题"按钮时, 先把当前焦点主动清掉。
-  document.addEventListener('mousedown', function(e){
-    if(!e.target.closest) return;
-    var trig = e.target.closest('.item-reply, .item-edit, .item-newDiscussion, .Post-actions .Button, .ReplyPlaceholder, [data-item-name="reply"], [data-item-name="edit"]');
-    if(trig){
-      var el = document.activeElement;
-      if(el && el !== document.body && el.blur){ try{ el.blur(); }catch(_){} }
-    }
-  }, true);
-
-  setInterval(function(){
-    var comp = document.querySelector('.App-composer');
-    if(!comp){ wasOpen = false; return; }
-    if(!app) app = document.querySelector('.App');
-    var open = !!comp.querySelector('.Composer');
-
-    // 换页(进新话题)时清冷却, 状态干净
-    if(location.pathname !== lastPath){ cooldown = 0; lastPath = location.pathname; }
-
-    // 内联类只在打开时加, 关了去掉。composer 的显示/隐藏交给 Flarum 自己管。
-    if(open){ comp.classList.add('kv-inline'); }
-    else { comp.classList.remove('kv-inline'); }
-
-    // 【发帖信号】composer "从开->关"的转变 = 用户刚发布了回复(不是取消、不是切页,
-    // 因为那两种情况前面已经处理)。此时把 composer park 到 .App 并进入短冷却, 让 Flarum
-    // 完整重绘帖子流。这个信号比"帖子数变化"可靠得多——后者会被懒加载/骨架填充误触发。
-    if(wasOpen && !open){
-      if(app && comp.parentElement !== app){ try{ app.appendChild(comp); }catch(e){} }
-      cooldown = 6; // 约1.2秒
-    }
-    wasOpen = open;
-
-    if(cooldown > 0){ cooldown--; return; } // 冷却期不动位置
-
-    // 平时: composer 打开时 -> 归位到当前页面的白卡内(页脚之前的虚线区)
-    //  - /d/ 详情页 : 白卡 = .DiscussionPage-stream
-    //  - /t/ 板块页 : 白卡 = .IndexPage-results  (发新主题也要在白卡内, 不能跑到框外)
-    if(open){
-      var host = null;
-      if(/^\/d\//.test(location.pathname)){
-        host = document.querySelector('.DiscussionPage-stream');
-      } else if(/^\/t\//.test(location.pathname) || location.pathname === '/'){
-        host = document.querySelector('.IndexPage-results');
-      }
-      if(host && comp.parentElement !== host){
-        try{
-          var footer = host.querySelector('#kvin-footer2');
-          if(footer && footer.parentElement === host){ host.insertBefore(comp, footer); }
-          else { host.appendChild(comp); }
-        }catch(e){}
-      }
-    }
-  }, 200);
-})();
-</script>
-
-<script>
-
-(function(){
-  // 1) 拦截 addEventListener 注册的 beforeunload 处理器, 直接不注册
-  var _add = window.addEventListener;
-  window.addEventListener = function(type){
-    if(String(type).toLowerCase() === 'beforeunload'){ return; }
-    return _add.apply(this, arguments);
-  };
-  // 2) 保险: 若已有 onbeforeunload / 之后被赋值, 都强制返回空(不弹框)
-  try{ window.onbeforeunload = null; }catch(e){}
-  try{
-    Object.defineProperty(window, 'onbeforeunload', {
-      configurable:true,
-      get:function(){ return null; },
-      set:function(){  }
-    });
-  }catch(e){}
-  // 3) 兜底: 捕获阶段拦截 beforeunload, 阻止默认确认框
-  _add.call(window, 'beforeunload', function(e){
-    e.stopImmediatePropagation();
-    delete e.returnValue;
-  }, true);
-})();
-</script>
-
-<script>
-
-(function(){
-  function hide(){
-    document.querySelectorAll('.UserCard, .UserCard-profile').forEach(function(el){
-      if(el.closest('.UserPage')) return;
-      el.style.setProperty('display','none','important');
-    });
-  }
-  try{ new MutationObserver(hide).observe(document.body,{childList:true,subtree:true}); }catch(e){}
-  setInterval(hide, 150);
-})();
-</script>
-
-<script>
-
-(function(){
-  document.addEventListener('click', function(e){
-    if(!e.target.closest) return;
-    if(e.target.closest('.Post-actions .item-reply, .Post-actions .item-reply *')){
-      setTimeout(function(){
-        var c = document.querySelector('.App-composer.kv-inline .Composer')
-             || document.querySelector('.App-composer.kv-inline');
-        if(c) c.scrollIntoView({ behavior:'smooth', block:'center' });
-      }, 220);
-    }
-  }, true);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    var ph = document.querySelector('.DiscussionPage-stream .ReplyPlaceholder');
-    if(!ph) return;
-    var composing = !!document.querySelector('.App-composer.kv-inline .Composer');
-    ph.style.display = composing ? 'none' : '';
-  }, 250);
-})();
-</script>
-
-<script>
-
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    var comp = document.querySelector('.App-composer');
-    if(!comp) return;
-    // 判定是不是"新建主题" composer: DiscussionComposer / 有标题输入框
-    var isNewDiscussion = !!(
-      comp.querySelector('.DiscussionComposer') ||
-      comp.querySelector('.DiscussionComposer-title') ||
-      comp.querySelector('input[name="title"]') ||
-      comp.querySelector('.ComposerBody-header input.FormControl')
-    );
-    if(!isNewDiscussion) return;
-    var btn = comp.querySelector('.Composer-footer .Button--primary')
-           || comp.querySelector('.TextEditor-controls .Button--primary')
-           || comp.querySelector('.Button--primary');
-    if(!btn) return;
-    var lbl = btn.querySelector('.Button-label');
-    if(lbl){
-      if((lbl.textContent||'').trim() !== '发布帖子'){ lbl.textContent = '发布帖子'; }
-    } else {
-      // 无 .Button-label 结构: 直接改按钮里的文本节点(保留 icon 等元素节点)
-      var changed = false;
-      for(var i=0;i<btn.childNodes.length;i++){
-        var n = btn.childNodes[i];
-        if(n.nodeType === 3 && n.textContent && n.textContent.trim()){
-          if(n.textContent.trim() !== '发布帖子'){ n.textContent = '发布帖子'; }
-          changed = true;
-          break;
-        }
-      }
-      if(!changed && (btn.textContent||'').trim() !== '发布帖子'){
-        btn.textContent = '发布帖子';
-      }
-    }
-  }, 200);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    // 所有页面(回复/发主题)都注入取消按钮
-    var tb = document.querySelector('.App-composer.kv-inline .TextEditor-controls, .App-composer.kv-inline .Composer-footer');
-    if(tb && !tb.querySelector('.kv-cancel')){
-      var li = document.createElement('li');
-      li.className = 'kv-cancel-li';
-      var b = document.createElement('button');
-      b.type = 'button'; b.className = 'Button kv-cancel'; b.textContent = '取消';
-      b.addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        try{
-          if(window.app && app.composer){
-            if(typeof app.composer.hide === 'function') app.composer.hide();
-            else if(typeof app.composer.close === 'function') app.composer.close();
-          }
-        }catch(err){}
-      });
-      li.appendChild(b);
-      tb.appendChild(li);
-    }
-  }, 300);
-})();
-</script>
-
-<script>
-
-(function(){
-  var bypass = false, lastBtn = null;
-  var orig = window.confirm.bind(window);
-  document.addEventListener('click', function(e){
-    if(e.target.closest && e.target.closest('.kv-confirm-overlay')) return; // 不记录美化弹窗自身的按钮
-    var el = e.target.closest && e.target.closest('button, a');
-    if(el) lastBtn = el;
-  }, true);
-  window.confirm = function(msg){
-    if(bypass) return true;
-    showModal(msg);   // 所有原生 confirm(删除/丢弃回复等)都换成美化弹窗
-    return false;
-  };
-  function closeModal(){ var o = document.querySelector('.kv-confirm-overlay'); if(o) o.parentNode.removeChild(o); }
-  function showModal(msg){
-    closeModal();
-    var ov = document.createElement('div');
-    ov.className = 'kv-confirm-overlay';
-    ov.innerHTML = '<div class="kv-confirm-box"><div class="kv-confirm-head">提示</div><div class="kv-confirm-msg"></div><div class="kv-confirm-btns"><button type="button" class="kv-confirm-cancel">取消</button><button type="button" class="kv-confirm-ok">确定删除</button></div></div>';
-    ov.querySelector('.kv-confirm-msg').textContent = msg;
-    ov.querySelector('.kv-confirm-ok').textContent = /删除|刪除|delete/i.test(msg||'') ? '确定删除' : '确定';
-    document.body.appendChild(ov);
-    ov.querySelector('.kv-confirm-cancel').onclick = closeModal;
-    ov.querySelector('.kv-confirm-ok').onclick = function(){
-      closeModal();
-      if(lastBtn){ bypass = true; try{ lastBtn.click(); }catch(e){} bypass = false; }
-    };
-    ov.onclick = function(e){ if(e.target === ov) closeModal(); };
-  }
-})();
-</script>
-
-<script>
-
-(function(){
-  document.addEventListener('click', function(e){
-    if(!e.target.closest) return;
-    var r = e.target.closest('.item-reply, .item-reply a, .item-reply button');
-    if(!r) return;
-    if(typeof app === 'undefined' || !app.session || !app.session.user){
-      e.preventDefault(); e.stopPropagation();
-      window.location = '/login';
-    }
-  }, true);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    if(typeof app === 'undefined' || !app.store) return;
-    document.querySelectorAll('.TagsPage .TagTile-lastPostedDiscussion').forEach(function(lp){
-      if(lp.querySelector('.kv-lp-by')) return;
-      var href = lp.getAttribute('href') || '';
-      var m = href.match(/\/d\/(\d+)/);
-      if(!m) return;
-      var disc = app.store.getById('discussions', m[1]);
-      if(!disc) return;
-      var u = null;
-      try{ u = (disc.lastPostedUser && disc.lastPostedUser()) || (disc.user && disc.user()); }catch(e){}
-      if(u && u.username){
-        var by = document.createElement('span');
-        by.className = 'kv-lp-by';
-        by.textContent = ' 由 ' + u.username();
-        lp.appendChild(by);
-      }
-    });
-  }, 600);
-})();
-</script>
-
-<script>
-
-(function(){
-  function loggedIn(){try{return !!(window.app&&app.session&&app.session.user);}catch(e){return false;}}
-  function apply(){
-    var isIn=loggedIn();
-    document.querySelectorAll('a[href="/rankings"]').forEach(function(a){
-      var li=a.closest('li')||a;
-      li.style.display=isIn?'':'none';
-    });
-    if(!isIn&&location.pathname==='/rankings'){
-      try{if(window.app&&app.route&&app.route.set){app.route.set('/');}else{location.replace('/');}}catch(e){location.replace('/');}
-    }
-  }
-  document.addEventListener('DOMContentLoaded',apply);
-  setInterval(apply,400);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    var tbl=document.querySelector('table.rankings');
-    if(!tbl) return;
-    
-    tbl.querySelectorAll('th').forEach(function(th){
-      if(th.classList.contains('kv-loadmore-th')) return;
-      var t=(th.textContent||'').trim();
-      if(t==='排名'||t==='贡献人') th.textContent='贡献榜';
-      if(t==='👍'||th.querySelector('i.fa-thumbs-up,.fa-thumbs-up')) th.textContent='贡献认同';
-    });
-    
-    var thRow=tbl.querySelector('tr');
-    if(thRow&&!thRow.querySelector('.kv-loadmore-th')){
-      var lth=document.createElement('th');
-      lth.className='kv-loadmore-th';
-      lth.textContent='加载更多';
-      lth.onclick=function(){
-        document.querySelectorAll('button').forEach(function(b){
-          if((b.textContent||'').trim()==='加载更多'&&!b.classList.contains('kv-loadmore-th')) b.click();
-        });
-      };
-      thRow.appendChild(lth);
-    }
-    
-    if(thRow&&!thRow.querySelector('.kv-time-th')){
-      var tth=document.createElement('th');
-      tth.className='kv-time-th';
-      tth.textContent='最新更新时间';
-      var beforeEl=thRow.querySelector('.kv-loadmore-th');
-      if(beforeEl) thRow.insertBefore(tth,beforeEl);
-      else thRow.appendChild(tth);
-    }
-    
-    var lth=thRow?thRow.querySelector('.kv-loadmore-th'):null;
-    if(lth){
-      var total=tbl.querySelectorAll('tr').length;
-      if(lth.getAttribute('rowspan')!==String(total)) lth.setAttribute('rowspan',total);
-    }
-    
-    tbl.querySelectorAll('tr').forEach(function(tr){
-      if(tr.querySelector('th')) return;
-      if(tr.querySelector('.kv-time-td')) return;
-      var td=document.createElement('td');
-      td.className='kv-time-td';
-      var text='-';
-      try{
-        var link=tr.querySelector('a[href*="/u/"]');
-        var m=link&&(link.getAttribute('href')||'').match(/\/u\/([^\/\?#]+)/);
-        if(m&&window.app&&app.store){
-          var uname=decodeURIComponent(m[1]);
-          var users=app.store.all('users')||[];
-          for(var i=0;i<users.length;i++){
-            if(users[i]&&users[i].username&&users[i].username()===uname){
-              var t=users[i].lastSeenAt&&users[i].lastSeenAt();
-              if(t){
-                var diff=(Date.now()-t.getTime())/1000;
-                if(diff<60) text='刚刚';
-                else if(diff<3600) text=Math.floor(diff/60)+'分钟前';
-                else if(diff<86400) text=Math.floor(diff/3600)+'小时前';
-                else text=Math.floor(diff/86400)+'天前';
-              }
-              break;
-            }
-          }
-        }
-      }catch(e){}
-      td.textContent=text;
-      tr.appendChild(td);
-    });
-    
-    tbl.querySelectorAll('tr').forEach(function(tr){
-      if(tr.querySelector('th')) return;
-      var userLink = tr.querySelector('a[href*="/u/"]');
-      if(!userLink) return;
-      var td = userLink.closest('td');
-      if(!td || td.querySelector('.kv-rank-avatar')) return;
-      var m = (userLink.getAttribute('href')||'').match(/\/u\/([^\/\?#]+)/);
-      if(!m) return;
-      var slug = decodeURIComponent(m[1]);
-      var img = document.createElement('img');
-      img.className = 'kv-rank-avatar';
-      img.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=' + encodeURIComponent(slug) + '&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe4b2&size=80';
-      img.loading = 'lazy';
-      td.insertBefore(img, td.firstChild);
-    });
-    
-    (function(){
-      var pod = tbl.parentElement && tbl.parentElement.querySelector('#kv-podium');
-      if(pod) pod.remove();
-    })();
-    
-    tbl.querySelectorAll('td.kv-more-td').forEach(function(td){td.remove();});
-    
-    var w=tbl.parentElement;
-    if(w&&w.classList.contains('kv-rank-wrap')){
-      var gp=w.parentElement;
-      if(gp){gp.insertBefore(tbl,w);w.remove();}
-    }
-    
-    tbl.classList.add('kv-ready');
-  },50);
-})();
-</script>
-
-<script>
-
-(function(){
-  var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-  if(lang.indexOf('zh') !== 0) return; // Non-Chinese browsers: do nothing.
-
-  var dict = {
-    'Choose tags to follow': '选择要关注的标签',
-    'Continue to forum': '继续访问论坛',
-    'Remind me later': '稍后提醒',
-    'Follow': '关注',
-    'Unfollow': '取消关注',
-    'Choose primary tags': '选择主标签',
-    'Choose secondary tags': '选择次标签',
-    'Skip': '跳过',
-    'Next': '下一步',
-    'Back': '返回',
-    'Submit': '提交',
-    'Save changes': '保存修改',
-    'Save Changes': '保存修改'
-  };
-
-  function tryTranslate(el){
-    // Only replace TEXT nodes and buttons/spans whose entire trimmed text matches a key.
-    var scope = el.querySelectorAll('*');
-    for(var i = 0; i < scope.length; i++){
-      var n = scope[i];
-      // Skip inputs/textarea to not mess with typed content
-      if(/^(INPUT|TEXTAREA)$/.test(n.tagName)) continue;
-      // Direct text-only elements
-      if(n.children.length === 0 && n.textContent){
-        var t = n.textContent.trim();
-        if(dict[t]){ n.textContent = n.textContent.replace(t, dict[t]); }
-      }
-    }
-    // Also inspect direct text nodes of the container itself
-    for(var c = el.firstChild; c; c = c.nextSibling){
-      if(c.nodeType === 3 && c.textContent){
-        var t = c.textContent.trim();
-        if(dict[t]){ c.textContent = c.textContent.replace(t, dict[t]); }
-      }
-    }
-  }
-
-  // Target the tags-related modals + any modal in general (safe: only exact-match keys)
-  setInterval(function(){
-    var modals = document.querySelectorAll(
-      '.ChooseTagsToFollowModal, .SubscriptionMenuModal, .SubscribeMenuModal, ' +
-      '.NotificationMenuModal, .SelectTagsModal, .TagDiscussionModal, .Modal-content'
-    );
-    modals.forEach(tryTranslate);
-  }, 300);
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    var m = document.querySelector('.ChooseTagsToFollowModal, .SubscriptionModal');
-    if(!m) return;
-    try{
-      m.remove();
-      document.querySelectorAll('.Modal-backdrop, .modal-backdrop').forEach(function(b){ b.remove(); });
-      document.body.classList.remove('modal-open');
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-      var mm = document.querySelector('.ModalManager');
-      if(mm){ mm.classList.remove('in','fade','modal'); mm.style.display = 'none'; }
-    }catch(e){}
-  }, 100);
-})();
-</script>
-
-<script>
-
-(function(){
-  var MAX_DIM = 1920;
-  var QUALITY = 0.85;
-  var MIN_SIZE = 300 * 1024;
-
-  function compress(file){
-    return new Promise(function(resolve){
-      try{
-        if(!/^image\//.test(file.type)){ resolve(file); return; }
-        // GIF / SVG / ICO 原样上传 (会丢动画或矢量)
-        if(/^image\/(gif|svg\+xml|x-icon|vnd\.microsoft\.icon)$/i.test(file.type)){ resolve(file); return; }
-        if(file.size < MIN_SIZE){ resolve(file); return; }
-        var url = URL.createObjectURL(file);
-        var img = new Image();
-        img.onload = function(){
-          try{
-            URL.revokeObjectURL(url);
-            var w = img.naturalWidth || img.width;
-            var h = img.naturalHeight || img.height;
-            if(!w || !h){ resolve(file); return; }
-            if(w > MAX_DIM || h > MAX_DIM){
-              if(w >= h){ h = Math.round(h * MAX_DIM / w); w = MAX_DIM; }
-              else       { w = Math.round(w * MAX_DIM / h); h = MAX_DIM; }
-            }
-            var c = document.createElement('canvas');
-            c.width = w; c.height = h;
-            var ctx = c.getContext('2d');
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
-            // 白底填充: PNG 透明区转 JPEG 会变黑, 先铺白底
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, w, h);
-            ctx.drawImage(img, 0, 0, w, h);
-            c.toBlob(function(blob){
-              if(!blob){ resolve(file); return; }
-              if(blob.size >= file.size){
-                try{ console.log('[kv-compress] ' + file.name + ' 压后反而更大, 保留原图 (' + Math.round(file.size/1024) + ' KB)'); }catch(_){}
-                resolve(file); return;
-              }
-              var newName = file.name.replace(/\.\w+$/, '') + '.jpg';
-              var nf = new File([blob], newName, { type: 'image/jpeg', lastModified: Date.now() });
-              try{
-                console.log('[kv-compress] ' + file.name + ': ' +
-                  Math.round(file.size/1024) + ' KB -> ' + Math.round(nf.size/1024) + ' KB (' +
-                  Math.round(nf.size/file.size*100) + '%, ' + w + 'x' + h + ')');
-              }catch(_){}
-              resolve(nf);
-            }, 'image/jpeg', QUALITY);
-          }catch(err){ resolve(file); }
-        };
-        img.onerror = function(){ URL.revokeObjectURL(url); resolve(file); };
-        img.src = url;
-      }catch(err){ resolve(file); }
-    });
-  }
-
-  function processFD(fd){
-    try{
-      var pairs = [];
-      var it = fd.entries();
-      while(true){
-        var r = it.next();
-        if(r.done) break;
-        pairs.push(r.value);
-      }
-      var any = pairs.some(function(p){ return p[1] instanceof File && /^image\//.test(p[1].type); });
-      if(!any) return Promise.resolve(fd);
-      var nfd = new FormData();
-      return Promise.all(pairs.map(function(p){
-        var k = p[0], v = p[1];
-        if(v instanceof File && /^image\//.test(v.type)){
-          return compress(v).then(function(cf){ nfd.append(k, cf, cf.name); });
-        }
-        nfd.append(k, v);
-        return Promise.resolve();
-      })).then(function(){ return nfd; });
-    }catch(e){ return Promise.resolve(fd); }
-  }
-
-  // fetch 拦截 (Flarum 2.x / 部分扩展走这条)
-  if(typeof window.fetch === 'function'){
-    var _fetch = window.fetch;
-    window.fetch = function(input, init){
-      try{
-        if(init && init.body instanceof FormData){
-          var self = this;
-          return processFD(init.body).then(function(fd){
-            var ni = Object.assign({}, init, { body: fd });
-            return _fetch.call(self, input, ni);
-          });
-        }
-      }catch(e){}
-      return _fetch.apply(this, arguments);
-    };
-  }
-
-  // XMLHttpRequest.send 拦截 (Flarum 1.x m.request / fof-upload 都走这条)
-  var _send = XMLHttpRequest.prototype.send;
-  XMLHttpRequest.prototype.send = function(body){
-    try{
-      if(body instanceof FormData){
-        var xhr = this;
-        processFD(body).then(function(fd){ _send.call(xhr, fd); });
-        return;
-      }
-    }catch(e){}
-    return _send.apply(this, arguments);
-  };
-})();
-</script>
-
-<script>
-
-(function(){
-  setInterval(function(){
-    document.querySelectorAll('.Post-body').forEach(function(body){
-      try{
-        var imgs = Array.from(body.querySelectorAll('img')).filter(function(img){
-          if(img.closest('.kv-imggrid')) return false;
-          // 排除 emoji/表情包 (保持内联小图, 不进 grid):
-          //  - Flarum 内置 twemoji: class="emoji"
-          //  - fof/emoji: class="fof-emoji"
-          //  - alt 是 :xxx: 形式的
-          //  - 我们自己的 tieba/aru 两个 CDN
-          if(img.classList){
-            if(img.classList.contains('emoji')) return false;
-            if(img.classList.contains('fof-emoji')) return false;
-          }
-          if((img.getAttribute('alt')||'').match(/^:[\w+-]+:$/)) return false;
-          var src = img.getAttribute('src') || '';
-          if(src.indexOf('cdn.jsdelivr.net/gh/liopoos/aru-sticker') !== -1) return false;
-          if(src.indexOf('cdn.jsdelivr.net/gh/KBdog/emojiCDN')  !== -1) return false;
-          // 其它一律当"真照片", 进 grid (无论有没有 <a> 外壳)
-          return true;
-        });
-        if(imgs.length === 0) return;
-        var grid = body.querySelector(':scope > .kv-imggrid');
-        if(!grid){
-          grid = document.createElement('div');
-          grid.className = 'kv-imggrid';
-          body.appendChild(grid);
-        }
-        // 保证 grid 永远是 body 的最后一个子节点 (即使有人在后面又插了新段落)
-        if(body.lastElementChild !== grid){ body.appendChild(grid); }
-        imgs.forEach(function(img){
-          var a = img.closest('a[href]');
-          var moveEl = (a && body.contains(a)) ? a : img;
-          if(moveEl.parentElement === grid) return;
-          var oldParent = moveEl.parentElement;
-          grid.appendChild(moveEl);
-          // 老段落被抽空了(既没文字也没其它多媒体) -> 删掉, 不留空白段
-          if(oldParent && oldParent !== body && oldParent !== grid &&
-             !(oldParent.textContent || '').replace(/[\s\u00A0\uFEFF]+/g, '') &&
-             !oldParent.querySelector('img,video,iframe,audio,button,input,picture')){
-            oldParent.remove();
-          }
-        });
-      }catch(e){}
-    });
-  }, 100);
-})();
-</script>
-
-<script>
-
-(function(){
-  // === 数据 ===
-  var PAOPAO_NAMES = ['OK','haha','what','不高兴','乖','你懂的','便便','勉强','吐','吐舌','呀咩爹','呵呵','哈哈','啊','喷','大拇指','太开心','太阳','委屈','小乖','小红脸','彩虹','心碎','怒','惊哭','惊讶','懒得理','手纸','挖鼻','捂嘴笑','星星月亮','汗','沙发','泪','滑稽','灯泡','爱心','犀利','狂汗','玫瑰','疑问','真棒','睡觉','礼物','笑尿','笑眼','红领巾','胜利','花心','茶杯','药丸','蛋糕','蜡烛','鄙视','酷','酸爽','钱币','阴险','音乐','香蕉','黑线'];
-  var ARU_COUNT = 281;
-  var KAOMOJI = [
-    '(๑•̀ㅁ•́ฅ)','(´｡• ω •｡`)','¯\\_(ツ)_/¯','(◍•ᴗ•◍)','ヾ(≧▽≦*)o',
-    '(´,,•ω•,,)♡','(｡◕‿◕｡)','(◕‿◕✿)','٩( ᐛ )و','(・_・?)',
-    '(；￣Д￣)','(◎_◎;)','(╯°□°）╯︵ ┻━┻','(ノಠ益ಠ)ノ','(˘•_•˘)',
-    'ಥ_ಥ','(っ °Д °;)っ','(ಥ﹏ಥ)','٩(◕‿◕)۶','(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧',
-    '(☆▽☆)','ヽ(´▽`)/','(⌒‿⌒)','(◠‿◠)','(♡´౪`♡)',
-    '٩(♡ε♡ )۶','(♡◡♡)','(∪｡∪)｡｡｡zzZ','σ(≧ε≦o)','(´−｀) ンー',
-    '( ͡° ͜ʖ ͡°)','(¬‿¬)','(*≧ω≦)','(＞人＜;)','(=^･ω･^=)',
-    '(=①ω①=)','(๑˃̵ᴗ˂̵)و','(◐‿◑)','｡◕‿‿◕｡','(＾• ω •＾)'
-  ];
-
-  var PAOPAO_BASE = 'https://cdn.jsdelivr.net/gh/KBdog/emojiCDN@master/tieba/';
-  var ARU_BASE = 'https://cdn.jsdelivr.net/gh/liopoos/aru-sticker@master/image/';
-
-  function paopaoUrl(name){ return PAOPAO_BASE + encodeURIComponent(name) + '.png'; }
-  function aruUrl(n){ return ARU_BASE + encodeURIComponent('aru (' + n + ').png'); }
-
-  var panel = null;
-
-  function buildPanel(){
-    if(panel) return panel;
-    panel = document.createElement('div');
-    panel.id = 'kv-emojipanel';
-    panel.innerHTML =
-      '<div class="kv-ep-body"></div>' +
-      '<div class="kv-ep-tabs">' +
-        '<button type="button" data-pack="pao">泡泡</button>' +
-        '<button type="button" data-pack="aru">阿鲁</button>' +
-        '<button type="button" data-pack="kao">颜文字</button>' +
-      '</div>';
-    document.body.appendChild(panel);
-    panel.addEventListener('click', function(e){
-      var tab = e.target.closest('.kv-ep-tabs button');
-      if(tab){
-        panel.querySelectorAll('.kv-ep-tabs button').forEach(function(b){ b.classList.remove('active'); });
-        tab.classList.add('active');
-        renderPack(tab.dataset.pack);
-        return;
-      }
-      var item = e.target.closest('[data-insert]');
-      if(item){
-        insertToComposer(item.dataset.insert);
-        // 插完不关掉面板, 方便连发多个
-        return;
-      }
-    });
-    // 防止面板里点击冒泡到 window/document 的 "点外面关掉" 逻辑
-    panel.addEventListener('mousedown', function(e){ e.stopPropagation(); });
-    return panel;
-  }
-
-  function renderPack(pack){
-    var body = panel.querySelector('.kv-ep-body');
-    body.className = 'kv-ep-body' + (pack === 'kao' ? ' kv-ep-kao' : '');
-    body.innerHTML = '';
-    var frag = document.createDocumentFragment();
-    if(pack === 'pao'){
-      PAOPAO_NAMES.forEach(function(name){
-        var url = paopaoUrl(name);
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'kv-ep-img';
-        b.title = name;
-        b.dataset.insert = '![](' + url + ')';
-        var img = document.createElement('img');
-        img.src = url; img.loading = 'lazy'; img.alt = name;
-        b.appendChild(img);
-        frag.appendChild(b);
-      });
-    } else if(pack === 'aru'){
-      for(var i = 1; i <= ARU_COUNT; i++){
-        var url = aruUrl(i);
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'kv-ep-img';
-        b.title = 'aru' + i;
-        b.dataset.insert = '![](' + url + ')';
-        var img = document.createElement('img');
-        img.src = url; img.loading = 'lazy'; img.alt = 'aru' + i;
-        b.appendChild(img);
-        frag.appendChild(b);
-      }
-    } else if(pack === 'kao'){
-      KAOMOJI.forEach(function(text){
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'kv-ep-text';
-        b.dataset.insert = text;
-        b.textContent = text;
-        frag.appendChild(b);
-      });
-    }
-    body.appendChild(frag);
-  }
-
-  function showPanel(anchor){
-    buildPanel();
-    // 首次显示默认落在泡泡
-    if(!panel.querySelector('.kv-ep-tabs button.active')){
-      panel.querySelector('[data-pack="pao"]').classList.add('active');
-      renderPack('pao');
-    }
-    // 先显示成 block 才能测量尺寸
-    panel.style.display = 'flex';
-    panel.style.visibility = 'hidden';
-    panel.style.left = '0px'; panel.style.top = '0px';
-    // 等下一帧拿到真实尺寸再定位
-    requestAnimationFrame(function(){
-      var rect = anchor.getBoundingClientRect();
-      var pw = panel.offsetWidth, ph = panel.offsetHeight;
-      var top = rect.top + window.scrollY - ph - 8;
-      var left = rect.left + window.scrollX - pw / 2 + rect.width / 2;
-      if(left < 8) left = 8;
-      if(left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
-      // 上方空间不够就展开到下方
-      if(top < window.scrollY + 8) top = rect.bottom + window.scrollY + 8;
-      panel.style.top  = top + 'px';
-      panel.style.left = left + 'px';
-      panel.style.visibility = 'visible';
-    });
-  }
-
-  function hidePanel(){ if(panel) panel.style.display = 'none'; }
-
-  function insertToComposer(text){
-    var ta = document.querySelector('.App-composer .Composer textarea, .App-composer textarea, .Composer textarea, .TextEditor textarea');
-    if(!ta) return;
-    var start = ta.selectionStart || 0;
-    var end   = ta.selectionEnd   || 0;
-    var v = ta.value;
-    // 图片单独成行 (前后自动补换行); 颜文字直接插原文
-    var isImg = /^!\[/.test(text);
-    var pre = v.substring(0, start), post = v.substring(end);
-    var lead  = isImg && pre  && !/\n$/.test(pre)  ? '\n' : '';
-    var trail = isImg && post && !/^\n/.test(post) ? '\n' : '';
-    var chunk = lead + text + trail;
-    // 用原生 setter 绕过 Mithril/React 的受控组件劫持
-    try{
-      var setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
-      setter.call(ta, pre + chunk + post);
-    }catch(e){
-      ta.value = pre + chunk + post;
-    }
-    var cursor = start + chunk.length;
-    ta.selectionStart = ta.selectionEnd = cursor;
-    ta.focus();
-    ta.dispatchEvent(new Event('input',  { bubbles: true }));
-    ta.dispatchEvent(new Event('change', { bubbles: true }));
-  }
-
-  // 拦截笑脸按钮 (capture 阶段, 抢在 Flarum 前面)
-  document.addEventListener('click', function(e){
-    if(!e.target.closest) return;
-    // 我们自己的面板不动
-    if(e.target.closest('#kv-emojipanel')) return;
-    // 笑脸按钮: 兼容多个可能的选择器
-    var btn = e.target.closest(
-      '.TextEditor-controls .item-emoji, .item-emoji, [data-item-name="emoji"], ' +
-      '.TextEditor-controls .fa-smile, .TextEditor-controls .fa-face-smile, ' +
-      '.Composer .fa-smile, .Composer .fa-face-smile'
-    );
-    if(!btn) return;
-    e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    var anchor = btn.closest('li, button') || btn;
-    showPanel(anchor);
-  }, true);
-
-  // 点面板外面收起
-  document.addEventListener('mousedown', function(e){
-    if(!panel || panel.style.display === 'none') return;
-    if(e.target.closest && e.target.closest('#kv-emojipanel')) return;
-    if(e.target.closest && e.target.closest('.item-emoji, .fa-smile, .fa-face-smile, [data-item-name="emoji"]')) return;
-    hidePanel();
-  }, true);
-
-  // Esc 关掉
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && panel && panel.style.display !== 'none') hidePanel();
-  });
-})();
-</script>
-
-<script>
-
-(function(){
-  // ---- 参数(想调整积分曲线改这里就行) ----
-  var XP_PER_DISCUSSION = 5;
-  var XP_PER_COMMENT    = 1;
-  var XP_PER_DAY        = 0.5;
-  // 等级阈值: 需累积多少 XP 才能进这一级
-  var LEVEL_XP = [0, 50, 200, 500, 1000, 2000, 4000, 7000, 12000, 20000];
-
-  function daysSince(date){
-    if(!date) return 0;
-    var t = (date instanceof Date) ? date.getTime() : new Date(date).getTime();
-    if(!t) return 0;
-    return Math.max(0, Math.floor((Date.now() - t) / 86400000));
-  }
-  function computeXP(user, days){
-    // 优先读后端真实分数. fof/gamification 在 users 表里加的字段名是 votes;
-    // 不同版本/其它插件也可能用 points / reputation, 都试一遍.
-    // 用 typeof 判断能正确处理 "真实 0" 的情况 (以前用 || 会把 0 当 falsy 漏掉).
-    try{
-      var attrs = (user.data && user.data.attributes) || {};
-      var candidates = ['votes', 'points', 'reputation'];
-      for(var i = 0; i < candidates.length; i++){
-        var v = attrs[candidates[i]];
-        if(typeof v === 'number' && !isNaN(v)) return Math.max(0, Math.floor(v));
-      }
-    }catch(e){}
-    // 兜底: 后端字段不可用时按活跃度估算
-    var d = 0, c = 0;
-    try{ d = user.discussionCount ? (user.discussionCount() || 0) : 0; }catch(e){}
-    try{ c = user.commentCount    ? (user.commentCount()    || 0) : 0; }catch(e){}
-    return Math.max(0, Math.floor(d * XP_PER_DISCUSSION + c * XP_PER_COMMENT + days * XP_PER_DAY));
-  }
-  function computeLevel(xp){
-    for(var i = LEVEL_XP.length - 1; i >= 0; i--){
-      if(xp >= LEVEL_XP[i]) return i + 1;
-    }
-    return 1;
-  }
-  function findUser(slug){
-    if(!(window.app && app.store)) return null;
-    var users = app.store.all('users') || [];
-    for(var i = 0; i < users.length; i++){
-      try{ if(users[i].username && users[i].username() === slug) return users[i]; }catch(e){}
-    }
-    return null;
-  }
-
-  setInterval(function(){
-    if(!/^\/u\//.test(location.pathname)) return;
-    var sideNav = document.querySelector('.UserPage .sideNav');
-    if(!sideNav) return;
-    var navUl = sideNav.querySelector('ul');
-    if(!navUl) return;
-
-    var m = location.pathname.match(/^\/u\/([^\/?#]+)/);
-    if(!m) return;
-    var slug = decodeURIComponent(m[1]);
-    var user = findUser(slug);
-    if(!user) return;
-
-    var days  = user.joinTime ? daysSince(user.joinTime()) : 0;
-    var xp    = computeXP(user, days);
-    var level = computeLevel(xp);
-
-    // 拆掉老版本的深色卡片(如果还在)
-    var oldCard = sideNav.querySelector('.kv-user-stats');
-    if(oldCard) oldCard.remove();
-
-    // 3 项 stats 作为 <li> 追加到 nav ul 末尾 (在"安全"之后)
-    var items = [
-      { cls:'kv-us-days',  icon:'clock', label:'加入天数', value:days  },
-      { cls:'kv-us-level', icon:'gem',   label:'等级',     value:level },
-      { cls:'kv-us-xp',    icon:'award', label:'贡献值',   value:xp    }
-    ];
-    var mob = window.innerWidth <= 767;
-    items.forEach(function(it){
-      var li = sideNav.querySelector('li.item-' + it.cls);
-      if(li){
-        var vEl = li.querySelector('.kv-us-value');
-        if(vEl && vEl.textContent !== String(it.value)){
-          vEl.textContent = String(it.value);
-        }
-        return;
-      }
-      li = document.createElement('li');
-      li.className = 'item-' + it.cls + ' kv-us-nav-item';
-      li.innerHTML =
-        '<span class="Button hasIcon kv-us-stat">' +
-          '<i class="Button-icon icon fas fa-' + it.icon + '"></i>' +
-          '<span class="Button-label">' + it.label + '</span>' +
-          '<span class="kv-us-value">' + String(it.value) + '</span>' +
-        '</span>';
-      (mob ? sideNav : navUl).appendChild(li);
-    });
-    ['kv-us-days','kv-us-level','kv-us-xp'].forEach(function(cls){
-      var li = sideNav.querySelector('li.item-' + cls);
-      if(li && mob) sideNav.appendChild(li);
-    });
-  }, 500);
-})();
-</script>
-
-<script>
-
-(function(){
-  document.addEventListener('click', function(e){
-    if(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
-    var a = e.target.closest('a[href]');
-    if(!a) return;
-    var href = a.getAttribute('href') || '';
-    var m = href.match(/^(?:https?:\/\/[^\/]+)?(\/(?:d|t)\/[^\s"']+)/);
-    if(!m) return;
-    var path = m[1];
-    e.preventDefault();
-    e.stopPropagation();
-    window.location.href = path;
-  }, true);
-})();
-</script>
-
 <script>
 (function(){
-  var busy = false, lastKey = '';
-  setInterval(function(){
-    if(location.pathname.indexOf('/d/') !== 0) return;
-    if(busy) return;
-    var stuck = document.querySelector('.PostStream-item .LoadingPost');
-    if(!stuck) { lastKey = ''; return; }
-    var item = stuck.closest('.PostStream-item');
-    var idx = parseInt(item.getAttribute('data-index'), 10);
-    if(isNaN(idx)) return;
-    var key = location.pathname + ':' + idx;
-    if(key === lastKey) return; // 同一个卡点已经试过, 避免狂刷
-    lastKey = key;
-    try {
-      var s = app.current && app.current.get && app.current.get('stream');
-      if(!s || !s.loadRange) return;
-      busy = true;
-      var r = s.loadRange(idx, idx + 4);
-      if(r && r.then){
-        r.then(function(){ try{ m.redraw(); }catch(e){} busy = false; lastKey = ''; })
-         .catch(function(){ busy = false; });
-      } else { try{ m.redraw(); }catch(e){} busy = false; lastKey = ''; }
-    } catch(e){ busy = false; }
-  }, 150);
+setInterval(function(){
+document.querySelectorAll('.TagCategory-subTagList > .TagCategory > .TagCategory-content').forEach(function(row){
+var mod = '';
+var u = row.querySelector('.LastDiscussion-usernameLink .username') || row.querySelector('.LastDiscussion .username') || row.querySelector('.username');
+if(u){ mod = (u.textContent || '').trim(); }
+var cell = row.querySelector('.kv-mod');
+if(!cell){
+cell = document.createElement('span');
+cell.className = 'kv-mod';
+var ft = row.querySelector(':scope > .kv-cat-footer');
+(ft || row).appendChild(cell);
+}
+if(cell.textContent !== mod){ cell.textContent = mod; }
+});
+}, 500);
 })();
 </script>
-
 <script>
 (function(){
-  window.addEventListener('pageshow', function(e){
-    if(e.persisted){ location.reload(); }
-  });
+setInterval(function(){
+document.querySelectorAll('.SignUpModal .Form-group, .LogInModal .Form-group').forEach(function(g){
+var input = g.querySelector('input.FormControl');
+if(input && !g.querySelector('.kv-flabel')){
+var ph = input.getAttribute('placeholder') || input.getAttribute('aria-label') || '';
+if(ph){
+var lb = document.createElement('label');
+lb.className = 'kv-flabel';
+lb.innerHTML = ph.replace(/</g,'&lt;') + ' <span class="kv-req">*</span>';
+g.insertBefore(lb, input);
+input.setAttribute('placeholder', ''); // 清掉重复的占位文字
+}
+}
+});
+}, 400);
 })();
 </script>
-
 <script>
-
 (function(){
-  setInterval(function(){
-    if(window.innerWidth > 767) return;
-    document.querySelectorAll('.TagCategory-subTagList .TagCategory-content').forEach(function(content){
-      if(content.querySelector(':scope > .kv-cat-footer')) return;
-      var stats = content.querySelector('.TagCategory-stats, .StatWidgetList');
-      var last  = content.querySelector('.TagCategory-lastDiscussion');
-      var mod   = content.querySelector('.kv-mod');
-      if(!stats && !last && !mod) return;
-      var footer = document.createElement('div');
-      footer.className = 'kv-cat-footer';
-      if(stats) footer.appendChild(stats);
-      if(last)  footer.appendChild(last);
-      if(mod)   footer.appendChild(mod);
-      content.appendChild(footer);
-    });
-  }, 400);
+document.addEventListener('click', function(e){
+if(!e.target.closest) return;
+var reg = e.target.closest('.item-signUp a, .item-signUp button, .Button--signup');
+if(reg){ e.preventDefault(); e.stopPropagation(); window.location = '/register'; return; }
+var login = e.target.closest('.item-logIn a, .item-logIn button');
+if(login){ e.preventDefault(); e.stopPropagation(); window.location = '/login'; return; }
+}, true);
+// 兼容旧链接 /?login=1 —— 直接跳到整页登录
+if(/[?&]login=1\b/.test(location.search)){ window.location = '/login'; }
 })();
 </script>
-
 <script>
-
 (function(){
-  var css = [
-    
-    '@media (max-width:1024px){',
-      '.App-header .container,#header .container,.container,.UserPage>.container{max-width:100%!important;width:auto!important;margin-left:auto!important;margin-right:auto!important;padding-left:14px!important;padding-right:14px!important;box-sizing:border-box!important}',
-      '.Post-body .kv-imggrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))!important}',
-      
-      '.DiscussionList-discussions .DiscussionListItem-content{flex-wrap:wrap!important}',
-      '.DiscussionList-discussions .kv-meta{flex-wrap:wrap!important}',
-    '}',
-    
-    '@media (max-width:767px){',
-      '.container,.sideNavContainer,.UserPage>.container{padding-left:10px!important;padding-right:10px!important}',
-      
-      '.kh-cols,.kv-mod{display:none!important}',
-      '.TagsPage .TagTiles,.TagTiles{display:block!important}',
-      
-      '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important;grid-template-columns:none!important;width:100%!important;box-sizing:border-box!important}',
-      
-      '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content>.TagCategory-alignStart,.TagCategory-subTagList>.TagCategory>.TagCategory-content>.TagCategory-alignStart{display:block!important;flex:1 1 100%!important;width:100%!important;padding-bottom:4px!important}',
-      
-      '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-alignEnd,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .kv-mod,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-description{display:none!important}',
-      
-      '.kv-cat-footer{display:flex!important;flex-flow:row wrap!important;align-items:center!important;gap:14px!important;flex:1 1 100%!important;width:100%!important;margin-top:4px!important}',
-      '.kv-cat-footer .TagCategory-stats,.kv-cat-footer .StatWidgetList,.kv-cat-footer .StatWidget,.kv-cat-footer .TagCategory-lastDiscussion,.kv-cat-footer .kv-mod{position:static!important;display:inline-flex!important;align-items:center!important;width:auto!important;flex:0 0 auto!important;top:auto!important;right:auto!important;left:auto!important;margin:0!important;font-size:12px!important;color:#8a96a3!important;white-space:nowrap!important;vertical-align:middle!important}',
-      
-      '.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-name,.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-name,.TagCategory-name,.TagCategory-description{display:block!important;width:auto!important;white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}',
-      '.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-description{display:block!important}',
-      
-      '#archbar,#archbar ul{flex-wrap:wrap!important;white-space:normal!important}',
-      '.archbar-right{float:none!important;display:block!important;margin-top:6px!important}',
-      
-      '.UserPage .sideNavContainer{flex-direction:column!important}',
-      // Flarum affixes ul.affix with inline position/top/left/width tuned for the 2-col desktop layout; in our 1-col mobile layout that yanks the nav bar to a wrong spot (top:641) so it looks "gone". Force it back into normal flow.
-      '.UserPage .sideNav .affix,.UserPage .sideNavContainer .affix{position:static!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important}',
-      '.UserPage .sideNav>ul.affix{list-style:none!important;padding:0!important}',
-      '.UserPage .UserPage-nav.sideNav{flex:1 1 auto!important;width:100%!important;border-right:none!important;border-bottom:1px solid #c9cfd6!important}',
-      '.UserPage .sideNav ul li .Dropdown-toggle,.UserPage .UserPage-nav.sideNav .Dropdown-toggle,.UserPage .sideNav .Dropdown--select .Dropdown-toggle{display:none!important}',
-      '.UserPage .sideNav .Dropdown.Dropdown--select,.UserPage .sideNav .App-titleControl{width:100%!important}',
-      '.UserPage .sideNav .Dropdown-menu{display:flex!important;position:static!important;flex-flow:row nowrap!important;overflow-x:auto!important;width:100%!important;min-width:0!important;max-height:none!important;margin:0!important;padding:0!important;box-shadow:none!important;border:none!important;background:transparent!important;float:none!important}',
-      '.UserPage .sideNav .Dropdown-menu>li,.UserPage .sideNav .Dropdown-menu a,.UserPage .sideNav .Dropdown-menu button{flex:0 0 auto!important;white-space:nowrap!important;width:auto!important}',
-      '.UserPage .sideNav .Dropdown-menu a[active="true"],.UserPage .sideNav .Dropdown-menu .active{border-bottom:2px solid #0771a8!important;color:#0771a8!important}',
-      
-      // stat <li> items are appended straight into <nav.sideNav> (not a <ul>) -> kill the default list bullets and lay them out as a clean inline row under the tab bar
-      '.UserPage .sideNav>.kv-us-nav-item{list-style:none!important;display:inline-flex!important;align-items:center!important;width:auto!important;float:none!important;margin:8px 14px 0 0!important;padding:0!important}',
-      '.UserPage .sideNav>.kv-us-nav-item::marker{content:""!important}',
-      '.UserPage .sideNav>.kv-us-nav-item .kv-us-stat{display:inline-flex!important;align-items:center!important;gap:5px!important;padding:0!important;background:transparent!important;border:none!important;box-shadow:none!important;color:#5b6875!important;font-size:13px!important;font-weight:400!important}',
-      '.UserPage .sideNav>.kv-us-nav-item .kv-us-stat .Button-icon{margin:0!important;color:#8a96a3!important}',
-      '.UserPage .sideNav>.kv-us-nav-item .kv-us-value{margin-left:2px!important;font-weight:700!important;color:#1f2328!important}',
-      
-      'table.rankings{display:block!important;overflow-x:auto!important}',
-      
-      '.CommentPost .Post-header>ul{flex-wrap:wrap!important;padding-right:8px!important}',
-      '.CommentPost .Post-actions{position:static!important;flex-wrap:wrap!important}',
-      
-      '.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:12px!important}',
-      
-      '.App-composer.kv-inline{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;width:100%!important;max-width:100%!important;max-height:75vh!important;height:auto!important;margin:0!important;padding:0!important;z-index:1000!important;background:#fff!important;border-top:1px solid #ccc!important;box-shadow:0 -2px 12px rgba(0,0,0,.18)!important}',
-      '.App-composer.kv-inline .Composer{position:static!important;height:auto!important;max-height:75vh!important;margin:0!important;border:none!important;box-shadow:none!important}',
-      '.App-composer.kv-inline .Composer-content,.App-composer.kv-inline .ComposerBody{display:block!important;height:auto!important;max-height:70vh!important;overflow-y:auto!important}',
-      '.App-composer.kv-inline .TextEditor,.App-composer.kv-inline .TextEditor textarea{min-height:100px!important;height:auto!important}',
-    '}',
-    
-    '@media (max-width:480px){',
-      '.container,.sideNavContainer,.UserPage>.container{padding-left:6px!important;padding-right:6px!important}',
-      '.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:8px!important}',
-      
-      '.DiscussionList-discussions .DiscussionListItem-content{gap:4px!important;padding:8px!important}',
-      '.DiscussionList-discussions .kv-meta{gap:8px!important;font-size:11px!important}',
-      '.DiscussionList-discussions .kv-list-tag{order:3!important;flex:0 0 auto!important;min-width:0!important;justify-content:flex-start!important}',
-      
-      '.Post-body .kv-imggrid{grid-template-columns:repeat(2,1fr)!important}',
-      
-      '.DiscussionList-discussions .DiscussionListItem-title{font-size:14px!important;white-space:normal!important}',
-    '}'
-  ].join('');
-  var s = document.createElement('style');
-  s.id = 'kv-mobile-css';
-  s.textContent = css;
-  (document.head || document.documentElement).appendChild(s);
+setInterval(function(){
+// 整页注册/登录页本身不拦截
+if(location.pathname === '/login' || location.pathname === '/register') return;
+if(document.querySelector('.SignUpModal, .Modal .SignUpModal, [class*="SignUpModal"]')){ window.location = '/register'; return; }
+if(document.querySelector('.LogInModal, .Modal .LogInModal, [class*="LogInModal"]')){ window.location = '/login'; return; }
+}, 80);
 })();
 </script>
-
+<script>
+(function(){
+setInterval(function(){
+var dl = document.querySelector('.IndexPage .DiscussionList');
+if(!dl) return;
+// 列头（所有帖子列表都加）
+var ul = dl.querySelector('.DiscussionList-discussions');
+if(ul && !dl.querySelector('.kv-dlhead')){
+var head = document.createElement('div');
+head.className = 'kv-dlhead';
+head.innerHTML = '<span class="c1">话题</span>';
+ul.parentNode.insertBefore(head, ul);
+}
+// 翻页上/下位置改由 CSS 的 flex order 固定(瞬时生效，翻页时不再跳动)，此处不再用 JS 搬动
+// 面包屑 + 发布帖子（仅板块页 /t/...）
+var isTag = /^\/t\//.test(location.pathname);
+var results = document.querySelector('.IndexPage-results') || dl.parentNode;
+if(isTag && results && !document.getElementById('kv-forumbar')){
+var name = (document.title.split(' - ')[0] || '').trim();
+var bar = document.createElement('div');
+bar.id = 'kv-forumbar';
+var crumb = document.createElement('span');
+crumb.className = 'kv-crumb';
+var home = document.createElement('a'); home.href = '/'; home.textContent = '首页';
+crumb.appendChild(home);
+crumb.appendChild(document.createTextNode(' » ' + name));
+var btn = document.createElement('button');
+btn.type = 'button'; btn.id = 'kv-newtopic'; btn.className = 'kv-newtopic'; btn.textContent = '发布帖子';
+btn.addEventListener('click', function(){
+// 未登录 → 直接跳整页登录(避免弹出旧登录弹窗)
+if(typeof app === 'undefined' || !app.session || !app.session.user){ window.location = '/login'; return; }
+var b = document.querySelector('.item-newDiscussion button, .IndexPage-newDiscussion, .item-newDiscussion .Button');
+if(b) b.click();
+});
+bar.appendChild(crumb);
+bar.appendChild(btn);
+results.insertBefore(bar, results.firstChild);
+}
+// 没有发帖权限时隐藏发帖按钮
+var nt = document.getElementById('kv-newtopic');
+if(nt){ nt.style.display = document.querySelector('.item-newDiscussion, .IndexPage-newDiscussion') ? '' : 'none'; }
+}, 400);
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+if(typeof app === 'undefined' || !app.session || !app.session.user) return;
+var sec = document.querySelector('.Header-secondary');
+if(sec && !sec.querySelector('.kv-logout')){
+var li = document.createElement('li');
+li.className = 'kv-logout';
+var uname = '';
+try { uname = app.session.user.username(); } catch(e){}
+var a = document.createElement('a');
+a.href = '/logout?token=' + app.session.csrfToken;
+a.textContent = (uname ? uname + ' · ' : '') + '退出';
+li.appendChild(a);
+sec.appendChild(li);
+}
+}, 500);
+})();
+</script>
+<script>
+(function(){
+function makeUserLink(name){
+var s = document.createElement('span');
+s.className = 'kv-userlink';
+s.dataset.uname = name;
+s.textContent = name;
+return s;
+}
+function makeTagLink(name, href, bg, fg){
+var s = document.createElement('span');
+s.className = 'kv-taglink';
+s.dataset.href = href || '';
+s.textContent = name;
+if(bg) s.style.background = bg;
+if(fg) s.style.color = fg;
+return s;
+}
+function metaLi(icon, node){
+var li = document.createElement('li');
+if(icon){
+var i = document.createElement('i');
+i.className = 'fas fa-' + icon;
+li.appendChild(i);
+li.appendChild(document.createTextNode(' '));
+}
+if(typeof node === 'string') li.appendChild(document.createTextNode(node));
+else if(node) li.appendChild(node);
+return li;
+}
+function extractNum(el){
+if(!el) return '';
+var m = (el.textContent || '').match(/\d+/);
+return m ? m[0] : '';
+}
+// 点击处理: 拦截 .kv-userlink / .kv-taglink, 用 SPA 路由跳 (避免触发父级 <a> 到帖子详情)
+document.addEventListener('click', function(e){
+var ul = e.target.closest && e.target.closest('.kv-userlink');
+if(ul){
+e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+var url = '/u/' + encodeURIComponent(ul.dataset.uname);
+if(window.app && app.route && app.route.set){ app.route.set(url); }
+else { window.location = url; }
+return;
+}
+var tl = e.target.closest && e.target.closest('.kv-taglink');
+if(tl){
+e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+var url = tl.dataset.href || '/';
+if(window.app && app.route && app.route.set){ app.route.set(url); }
+else { window.location = url; }
+return;
+}
+}, true);
+setInterval(function(){
+document.querySelectorAll('.DiscussionList-discussions .DiscussionListItem-content').forEach(function(c){
+var main  = c.querySelector('.DiscussionListItem-main');
+var title = c.querySelector('.DiscussionListItem-title');
+if(!main || !title) return;
+// 清掉 v1 遗留的内联 !important (一次性, 免得跟新 CSS 打架)
+if(!c.dataset.kvV2Reset){
+[c, main, title,
+c.querySelector('.DiscussionListItem-count'),
+c.querySelector('.item-discussion-views'),
+c.querySelector('.item-terminalPost')].forEach(function(el){
+if(!el) return;
+['display','flex','order','position','top','right','left','margin',
+'padding','align-items','justify-content','background','box-shadow',
+'min-width','width','height','border-radius','text-align','white-space',
+'overflow','text-overflow','flex-basis','flex-grow','flex-shrink']
+.forEach(function(p){ el.style.removeProperty(p); });
+});
+c.dataset.kvV2Reset = '1';
+}
+// 采集数据
+var authorEl = c.querySelector('.DiscussionListItem-author');
+var starter = '';
+if(authorEl){
+var al = (authorEl.getAttribute('aria-label') || '').trim();
+starter = (al.split('发布')[0] || '').trim();
+if(!starter) starter = (al.split(/\s+/)[0] || '').trim();
+}
+var viewsStr = extractNum(c.querySelector('.item-discussion-views'));
+var countStr = extractNum(c.querySelector('.DiscussionListItem-count'));
+var terminal = c.querySelector('.item-terminalPost');
+var lastUser = '';
+var lastTime = '';
+if(terminal){
+var lu = terminal.querySelector('.username');
+var lt = terminal.querySelector('time');
+if(lu) lastUser = (lu.textContent || '').trim();
+if(lt) lastTime = (lt.textContent || '').trim();
+}
+// Tag: 可能在标题里, 也可能在 info 列表里
+var tagEl = c.querySelector('.item-tags .TagLabel, .DiscussionListItem-title .TagLabel, .DiscussionListItem-info .TagLabel');
+var tagName = tagEl ? (tagEl.textContent || '').trim() : '';
+var tagHref = tagEl && tagEl.getAttribute ? (tagEl.getAttribute('href') || '') : '';
+var tagBg = '', tagFg = '';
+if(tagEl){
+var st = tagEl.getAttribute('style') || '';
+var bm = st.match(/background(?:-color)?\s*:\s*([^;]+)/i);
+var fm = st.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i);
+if(bm) tagBg = bm[1].trim();
+if(fm) tagFg = fm[1].trim();
+}
+// 签名: 数据没变就跳过 (防闪烁)
+var sig = starter + '|' + viewsStr + '|' + countStr + '|' + lastUser + '|' + lastTime + '|' + tagName;
+if(c.dataset.kvSig === sig) return;
+c.dataset.kvSig = sig;
+// 清 v1 遗留的 kv-by
+title.querySelectorAll('.kv-by').forEach(function(el){ el.remove(); });
+// 构建/更新 meta 元信息行 (标题下方)
+var meta = main.querySelector(':scope > .kv-meta');
+if(!meta){
+meta = document.createElement('ul');
+meta.className = 'kv-meta';
+main.appendChild(meta);
+}
+meta.innerHTML = '';
+if(starter)  meta.appendChild(metaLi('user',    makeUserLink(starter)));
+if(viewsStr) meta.appendChild(metaLi('eye',     viewsStr));
+meta.appendChild(metaLi('comment', countStr || '0'));
+if(lastUser) meta.appendChild(metaLi('bolt',    makeUserLink(lastUser)));
+if(lastTime) meta.appendChild(metaLi('',        lastTime));
+// 构建/更新 右侧 tag 列
+var tagCol = c.querySelector(':scope > .kv-list-tag');
+if(!tagCol){
+tagCol = document.createElement('div');
+tagCol.className = 'kv-list-tag';
+c.appendChild(tagCol);
+}
+tagCol.innerHTML = '';
+if(tagName){ tagCol.appendChild(makeTagLink(tagName, tagHref, tagBg, tagFg)); }
+// 保证 tag 列在最右 (order:2 也管, 但 DOM 顺序更稳)
+if(c.lastElementChild !== tagCol) c.appendChild(tagCol);
+});
+}, 400);
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+document.querySelectorAll('.CommentPost').forEach(function(post){
+var ul = post.querySelector('.Post-header > ul');
+if(!ul || ul.querySelector('.kv-floor')) return;
+var meta = post.querySelector('.PostMeta');
+var m = meta ? (meta.textContent.match(/#(\d+)/)) : null;
+if(m){
+var f = document.createElement('span');
+f.className = 'kv-floor';
+f.textContent = '#' + m[1];
+ul.appendChild(f);
+}
+});
+}, 500);
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+if(!/^\/d\//.test(location.pathname)) return;
+document.querySelectorAll('[class*="Hero"]').forEach(function(e){ e.style.display = 'none'; });
+}, 400);
+})();
+</script>
+<script>
+(function(){
+var STYLE       = 'avataaars';   // 默认: Sketch 风格卡通人物 (男女/发型/肤色/配饰各种组合)
+var BG_COLORS   = 'b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe4b2';  // 随机背景色池
+var CACHE_VER   = 'v3';
+var CACHE_PREFIX = 'kv-avatar:' + CACHE_VER + ':' + STYLE + ':';
+// ---- 兜底: 老的几何 identicon (只在网络失败时展示) ----
+function hash(s){ var h=2166136261; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
+function identiconFallback(seed){
+var h=hash(seed), hue=h%360, fg='hsl('+hue+',58%,52%)', r=h;
+function nx(){ r=(Math.imul(r,1103515245)+12345)>>>0; return r; }
+var rects='';
+for(var x=0;x<3;x++){ for(var y=0;y<5;y++){
+if(nx()&1){
+rects+='<rect x="'+(x*20)+'" y="'+(y*20)+'" width="20" height="20"/>';
+if(x<2){ rects+='<rect x="'+((4-x)*20)+'" y="'+(y*20)+'" width="20" height="20"/>'; }
+}
+}}
+var svg='<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#eef0f2"/><g fill="'+fg+'">'+rects+'</g></svg>';
+return 'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svg)));
+}
+function seedFor(av){
+var a = av.closest && av.closest('a[href*="/u/"]');
+if(a){ var m=a.getAttribute('href').match(/\/u\/([^\/?#]+)/); if(m) return decodeURIComponent(m[1]); }
+var txt = (av.textContent||'').trim();
+return txt + '|' + (av.getAttribute('style')||'') + getComputedStyle(av).backgroundColor;
+}
+var mem = {};       // seed -> data URL (内存缓存, 避 localStorage 反复读)
+var pending = {};   // seed -> [avatar 元素...] (fetch 中的排队, 防重复请求)
+function apply(av, dataUrl){
+av.style.backgroundImage = 'url("' + dataUrl + '")';
+av.style.backgroundSize  = 'cover';
+av.style.backgroundColor = 'transparent';
+av.style.color           = 'transparent';
+}
+function load(seed, av){
+// (1) 内存缓存命中
+if(mem[seed]){ apply(av, mem[seed]); return; }
+// (2) localStorage 命中
+var key = CACHE_PREFIX + seed;
+try{
+var cached = localStorage.getItem(key);
+if(cached){ mem[seed] = cached; apply(av, cached); return; }
+}catch(e){}
+// (3) 需要 fetch —— 但先用几何 identicon 兜底避免空白
+var stub = identiconFallback(seed);
+apply(av, stub);
+if(pending[seed]){ pending[seed].push(av); return; }
+pending[seed] = [av];
+var url = 'https://api.dicebear.com/9.x/' + STYLE + '/svg' +
+'?seed=' + encodeURIComponent(seed) +
+'&backgroundColor=' + BG_COLORS +
+'&size=120';
+fetch(url, { credentials: 'omit' })
+.then(function(r){ if(!r.ok) throw 0; return r.text(); })
+.then(function(svg){
+var dataUrl = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+mem[seed] = dataUrl;
+try{ localStorage.setItem(key, dataUrl); }catch(e){}
+(pending[seed] || []).forEach(function(el){ apply(el, dataUrl); });
+delete pending[seed];
+})
+.catch(function(){
+// 网络失败: 保留 identicon 兜底, 记忆到内存, 下次会话再试
+mem[seed] = stub;
+(pending[seed] || []).forEach(function(el){ apply(el, stub); });
+delete pending[seed];
+});
+}
+setInterval(function(){
+document.querySelectorAll('.Avatar').forEach(function(av){
+if(av.dataset.kvIdent) return;
+if(av.tagName === 'IMG' || av.querySelector('img')){ av.dataset.kvIdent = '1'; return; } // 已有真实头像
+var seed = seedFor(av); if(!seed) return;
+av.dataset.kvIdent = '1';
+load(seed, av);
+});
+}, 500);
+})();
+</script>
+<script>
+(function(){
+var app = document.querySelector('.App');
+var cooldown = 0;      // >0 期间不塞回帖子流(发帖后重绘窗口)
+var wasOpen = false;   // 上一轮 composer 是否打开, 用于侦测"开->关"的转变(=发帖成功)
+var lastPath = location.pathname;
+// 【修复"第一次点回复没反应"】焦点若卡在某个按钮上(常见 fof-upload-button 等),
+// 浏览器会阻止 Flarum 给 #app 加 aria-hidden 打开回复框("Blocked aria-hidden ...
+// Element with focus"), 结果第一次点看不见框, 第二次点因焦点已移开才正常。
+// 修法: 在点"回复/编辑/发主题"按钮时, 先把当前焦点主动清掉。
+document.addEventListener('mousedown', function(e){
+if(!e.target.closest) return;
+var trig = e.target.closest('.item-reply, .item-edit, .item-newDiscussion, .Post-actions .Button, .ReplyPlaceholder, [data-item-name="reply"], [data-item-name="edit"]');
+if(trig){
+var el = document.activeElement;
+if(el && el !== document.body && el.blur){ try{ el.blur(); }catch(_){} }
+}
+}, true);
+setInterval(function(){
+var comp = document.querySelector('.App-composer');
+if(!comp){ wasOpen = false; return; }
+if(!app) app = document.querySelector('.App');
+var open = !!comp.querySelector('.Composer');
+// 换页(进新话题)时清冷却, 状态干净
+if(location.pathname !== lastPath){ cooldown = 0; lastPath = location.pathname; }
+// 内联类只在打开时加, 关了去掉。composer 的显示/隐藏交给 Flarum 自己管。
+if(open){ comp.classList.add('kv-inline'); }
+else { comp.classList.remove('kv-inline'); }
+// 【发帖信号】composer "从开->关"的转变 = 用户刚发布了回复(不是取消、不是切页,
+// 因为那两种情况前面已经处理)。此时把 composer park 到 .App 并进入短冷却, 让 Flarum
+// 完整重绘帖子流。这个信号比"帖子数变化"可靠得多——后者会被懒加载/骨架填充误触发。
+if(wasOpen && !open){
+if(app && comp.parentElement !== app){ try{ app.appendChild(comp); }catch(e){} }
+cooldown = 6; // 约1.2秒
+}
+wasOpen = open;
+if(cooldown > 0){ cooldown--; return; } // 冷却期不动位置
+// 平时: composer 打开时 -> 归位到当前页面的白卡内(页脚之前的虚线区)
+//  - /d/ 详情页 : 白卡 = .DiscussionPage-stream
+//  - /t/ 板块页 : 白卡 = .IndexPage-results  (发新主题也要在白卡内, 不能跑到框外)
+if(open){
+var host = null;
+if(/^\/d\//.test(location.pathname)){
+host = document.querySelector('.DiscussionPage-stream');
+} else if(/^\/t\//.test(location.pathname) || location.pathname === '/'){
+host = document.querySelector('.IndexPage-results');
+}
+if(host && comp.parentElement !== host){
+try{
+var footer = host.querySelector('#kvin-footer2');
+if(footer && footer.parentElement === host){ host.insertBefore(comp, footer); }
+else { host.appendChild(comp); }
+}catch(e){}
+}
+}
+}, 200);
+})();
+</script>
+<script>
+(function(){
+// 1) 拦截 addEventListener 注册的 beforeunload 处理器, 直接不注册
+var _add = window.addEventListener;
+window.addEventListener = function(type){
+if(String(type).toLowerCase() === 'beforeunload'){ return; }
+return _add.apply(this, arguments);
+};
+// 2) 保险: 若已有 onbeforeunload / 之后被赋值, 都强制返回空(不弹框)
+try{ window.onbeforeunload = null; }catch(e){}
+try{
+Object.defineProperty(window, 'onbeforeunload', {
+configurable:true,
+get:function(){ return null; },
+set:function(){  }
+});
+}catch(e){}
+// 3) 兜底: 捕获阶段拦截 beforeunload, 阻止默认确认框
+_add.call(window, 'beforeunload', function(e){
+e.stopImmediatePropagation();
+delete e.returnValue;
+}, true);
+})();
+</script>
+<script>
+(function(){
+function hide(){
+document.querySelectorAll('.UserCard, .UserCard-profile').forEach(function(el){
+if(el.closest('.UserPage')) return;
+el.style.setProperty('display','none','important');
+});
+}
+try{ new MutationObserver(hide).observe(document.body,{childList:true,subtree:true}); }catch(e){}
+setInterval(hide, 150);
+})();
+</script>
+<script>
+(function(){
+document.addEventListener('click', function(e){
+if(!e.target.closest) return;
+if(e.target.closest('.Post-actions .item-reply, .Post-actions .item-reply *')){
+setTimeout(function(){
+var c = document.querySelector('.App-composer.kv-inline .Composer')
+|| document.querySelector('.App-composer.kv-inline');
+if(c) c.scrollIntoView({ behavior:'smooth', block:'center' });
+}, 220);
+}
+}, true);
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+var ph = document.querySelector('.DiscussionPage-stream .ReplyPlaceholder');
+if(!ph) return;
+var composing = !!document.querySelector('.App-composer.kv-inline .Composer');
+ph.style.display = composing ? 'none' : '';
+}, 250);
+})();
+</script>
+<script>
+</script>
+<script>
+(function(){
+setInterval(function(){
+var comp = document.querySelector('.App-composer');
+if(!comp) return;
+// 判定是不是"新建主题" composer: DiscussionComposer / 有标题输入框
+var isNewDiscussion = !!(
+comp.querySelector('.DiscussionComposer') ||
+comp.querySelector('.DiscussionComposer-title') ||
+comp.querySelector('input[name="title"]') ||
+comp.querySelector('.ComposerBody-header input.FormControl')
+);
+if(!isNewDiscussion) return;
+var btn = comp.querySelector('.Composer-footer .Button--primary')
+|| comp.querySelector('.TextEditor-controls .Button--primary')
+|| comp.querySelector('.Button--primary');
+if(!btn) return;
+var lbl = btn.querySelector('.Button-label');
+if(lbl){
+if((lbl.textContent||'').trim() !== '发布帖子'){ lbl.textContent = '发布帖子'; }
+} else {
+// 无 .Button-label 结构: 直接改按钮里的文本节点(保留 icon 等元素节点)
+var changed = false;
+for(var i=0;i<btn.childNodes.length;i++){
+var n = btn.childNodes[i];
+if(n.nodeType === 3 && n.textContent && n.textContent.trim()){
+if(n.textContent.trim() !== '发布帖子'){ n.textContent = '发布帖子'; }
+changed = true;
+break;
+}
+}
+if(!changed && (btn.textContent||'').trim() !== '发布帖子'){
+btn.textContent = '发布帖子';
+}
+}
+}, 200);
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+// 所有页面(回复/发主题)都注入取消按钮
+var tb = document.querySelector('.App-composer.kv-inline .TextEditor-controls, .App-composer.kv-inline .Composer-footer');
+if(tb && !tb.querySelector('.kv-cancel')){
+var li = document.createElement('li');
+li.className = 'kv-cancel-li';
+var b = document.createElement('button');
+b.type = 'button'; b.className = 'Button kv-cancel'; b.textContent = '取消';
+b.addEventListener('click', function(e){
+e.preventDefault(); e.stopPropagation();
+try{
+if(window.app && app.composer){
+if(typeof app.composer.hide === 'function') app.composer.hide();
+else if(typeof app.composer.close === 'function') app.composer.close();
+}
+}catch(err){}
+});
+li.appendChild(b);
+tb.appendChild(li);
+}
+}, 300);
+})();
+</script>
+<script>
+(function(){
+var bypass = false, lastBtn = null;
+var orig = window.confirm.bind(window);
+document.addEventListener('click', function(e){
+if(e.target.closest && e.target.closest('.kv-confirm-overlay')) return; // 不记录美化弹窗自身的按钮
+var el = e.target.closest && e.target.closest('button, a');
+if(el) lastBtn = el;
+}, true);
+window.confirm = function(msg){
+if(bypass) return true;
+showModal(msg);   // 所有原生 confirm(删除/丢弃回复等)都换成美化弹窗
+return false;
+};
+function closeModal(){ var o = document.querySelector('.kv-confirm-overlay'); if(o) o.parentNode.removeChild(o); }
+function showModal(msg){
+closeModal();
+var ov = document.createElement('div');
+ov.className = 'kv-confirm-overlay';
+ov.innerHTML = '<div class="kv-confirm-box"><div class="kv-confirm-head">提示</div><div class="kv-confirm-msg"></div><div class="kv-confirm-btns"><button type="button" class="kv-confirm-cancel">取消</button><button type="button" class="kv-confirm-ok">确定删除</button></div></div>';
+ov.querySelector('.kv-confirm-msg').textContent = msg;
+ov.querySelector('.kv-confirm-ok').textContent = /删除|刪除|delete/i.test(msg||'') ? '确定删除' : '确定';
+document.body.appendChild(ov);
+ov.querySelector('.kv-confirm-cancel').onclick = closeModal;
+ov.querySelector('.kv-confirm-ok').onclick = function(){
+closeModal();
+if(lastBtn){ bypass = true; try{ lastBtn.click(); }catch(e){} bypass = false; }
+};
+ov.onclick = function(e){ if(e.target === ov) closeModal(); };
+}
+})();
+</script>
+<script>
+(function(){
+document.addEventListener('click', function(e){
+if(!e.target.closest) return;
+var r = e.target.closest('.item-reply, .item-reply a, .item-reply button');
+if(!r) return;
+if(typeof app === 'undefined' || !app.session || !app.session.user){
+e.preventDefault(); e.stopPropagation();
+window.location = '/login';
+}
+}, true);
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+if(typeof app === 'undefined' || !app.store) return;
+document.querySelectorAll('.TagsPage .TagTile-lastPostedDiscussion').forEach(function(lp){
+if(lp.querySelector('.kv-lp-by')) return;
+var href = lp.getAttribute('href') || '';
+var m = href.match(/\/d\/(\d+)/);
+if(!m) return;
+var disc = app.store.getById('discussions', m[1]);
+if(!disc) return;
+var u = null;
+try{ u = (disc.lastPostedUser && disc.lastPostedUser()) || (disc.user && disc.user()); }catch(e){}
+if(u && u.username){
+var by = document.createElement('span');
+by.className = 'kv-lp-by';
+by.textContent = ' 由 ' + u.username();
+lp.appendChild(by);
+}
+});
+}, 600);
+})();
+</script>
+<script>
+(function(){
+function loggedIn(){try{return !!(window.app&&app.session&&app.session.user);}catch(e){return false;}}
+function apply(){
+var isIn=loggedIn();
+document.querySelectorAll('a[href="/rankings"]').forEach(function(a){
+var li=a.closest('li')||a;
+li.style.display=isIn?'':'none';
+});
+if(!isIn&&location.pathname==='/rankings'){
+try{if(window.app&&app.route&&app.route.set){app.route.set('/');}else{location.replace('/');}}catch(e){location.replace('/');}
+}
+}
+document.addEventListener('DOMContentLoaded',apply);
+setInterval(apply,400);
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+var tbl=document.querySelector('table.rankings');
+if(!tbl) return;
+tbl.querySelectorAll('th').forEach(function(th){
+if(th.classList.contains('kv-loadmore-th')) return;
+var t=(th.textContent||'').trim();
+if(t==='排名'||t==='贡献人') th.textContent='贡献榜';
+if(t==='👍'||th.querySelector('i.fa-thumbs-up,.fa-thumbs-up')) th.textContent='贡献认同';
+});
+var thRow=tbl.querySelector('tr');
+if(thRow&&!thRow.querySelector('.kv-loadmore-th')){
+var lth=document.createElement('th');
+lth.className='kv-loadmore-th';
+lth.textContent='加载更多';
+lth.onclick=function(){
+document.querySelectorAll('button').forEach(function(b){
+if((b.textContent||'').trim()==='加载更多'&&!b.classList.contains('kv-loadmore-th')) b.click();
+});
+};
+thRow.appendChild(lth);
+}
+if(thRow&&!thRow.querySelector('.kv-time-th')){
+var tth=document.createElement('th');
+tth.className='kv-time-th';
+tth.textContent='最新更新时间';
+var beforeEl=thRow.querySelector('.kv-loadmore-th');
+if(beforeEl) thRow.insertBefore(tth,beforeEl);
+else thRow.appendChild(tth);
+}
+var lth=thRow?thRow.querySelector('.kv-loadmore-th'):null;
+if(lth){
+var total=tbl.querySelectorAll('tr').length;
+if(lth.getAttribute('rowspan')!==String(total)) lth.setAttribute('rowspan',total);
+}
+tbl.querySelectorAll('tr').forEach(function(tr){
+if(tr.querySelector('th')) return;
+if(tr.querySelector('.kv-time-td')) return;
+var td=document.createElement('td');
+td.className='kv-time-td';
+var text='-';
+try{
+var link=tr.querySelector('a[href*="/u/"]');
+var m=link&&(link.getAttribute('href')||'').match(/\/u\/([^\/\?#]+)/);
+if(m&&window.app&&app.store){
+var uname=decodeURIComponent(m[1]);
+var users=app.store.all('users')||[];
+for(var i=0;i<users.length;i++){
+if(users[i]&&users[i].username&&users[i].username()===uname){
+var t=users[i].lastSeenAt&&users[i].lastSeenAt();
+if(t){
+var diff=(Date.now()-t.getTime())/1000;
+if(diff<60) text='刚刚';
+else if(diff<3600) text=Math.floor(diff/60)+'分钟前';
+else if(diff<86400) text=Math.floor(diff/3600)+'小时前';
+else text=Math.floor(diff/86400)+'天前';
+}
+break;
+}
+}
+}
+}catch(e){}
+td.textContent=text;
+tr.appendChild(td);
+});
+tbl.querySelectorAll('tr').forEach(function(tr){
+if(tr.querySelector('th')) return;
+var userLink = tr.querySelector('a[href*="/u/"]');
+if(!userLink) return;
+var td = userLink.closest('td');
+if(!td || td.querySelector('.kv-rank-avatar')) return;
+var m = (userLink.getAttribute('href')||'').match(/\/u\/([^\/\?#]+)/);
+if(!m) return;
+var slug = decodeURIComponent(m[1]);
+var img = document.createElement('img');
+img.className = 'kv-rank-avatar';
+img.src = 'https://api.dicebear.com/9.x/avataaars/svg?seed=' + encodeURIComponent(slug) + '&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf,ffe4b2&size=80';
+img.loading = 'lazy';
+td.insertBefore(img, td.firstChild);
+});
+(function(){
+var pod = tbl.parentElement && tbl.parentElement.querySelector('#kv-podium');
+if(pod) pod.remove();
+})();
+tbl.querySelectorAll('td.kv-more-td').forEach(function(td){td.remove();});
+var w=tbl.parentElement;
+if(w&&w.classList.contains('kv-rank-wrap')){
+var gp=w.parentElement;
+if(gp){gp.insertBefore(tbl,w);w.remove();}
+}
+tbl.classList.add('kv-ready');
+},50);
+})();
+</script>
+<script>
+(function(){
+var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+if(lang.indexOf('zh') !== 0) return; // Non-Chinese browsers: do nothing.
+var dict = {
+'Choose tags to follow': '选择要关注的标签',
+'Continue to forum': '继续访问论坛',
+'Remind me later': '稍后提醒',
+'Follow': '关注',
+'Unfollow': '取消关注',
+'Choose primary tags': '选择主标签',
+'Choose secondary tags': '选择次标签',
+'Skip': '跳过',
+'Next': '下一步',
+'Back': '返回',
+'Submit': '提交',
+'Save changes': '保存修改',
+'Save Changes': '保存修改'
+};
+function tryTranslate(el){
+// Only replace TEXT nodes and buttons/spans whose entire trimmed text matches a key.
+var scope = el.querySelectorAll('*');
+for(var i = 0; i < scope.length; i++){
+var n = scope[i];
+// Skip inputs/textarea to not mess with typed content
+if(/^(INPUT|TEXTAREA)$/.test(n.tagName)) continue;
+// Direct text-only elements
+if(n.children.length === 0 && n.textContent){
+var t = n.textContent.trim();
+if(dict[t]){ n.textContent = n.textContent.replace(t, dict[t]); }
+}
+}
+// Also inspect direct text nodes of the container itself
+for(var c = el.firstChild; c; c = c.nextSibling){
+if(c.nodeType === 3 && c.textContent){
+var t = c.textContent.trim();
+if(dict[t]){ c.textContent = c.textContent.replace(t, dict[t]); }
+}
+}
+}
+// Target the tags-related modals + any modal in general (safe: only exact-match keys)
+setInterval(function(){
+var modals = document.querySelectorAll(
+'.ChooseTagsToFollowModal, .SubscriptionMenuModal, .SubscribeMenuModal, ' +
+'.NotificationMenuModal, .SelectTagsModal, .TagDiscussionModal, .Modal-content'
+);
+modals.forEach(tryTranslate);
+}, 300);
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+var m = document.querySelector('.ChooseTagsToFollowModal, .SubscriptionModal');
+if(!m) return;
+try{
+m.remove();
+document.querySelectorAll('.Modal-backdrop, .modal-backdrop').forEach(function(b){ b.remove(); });
+document.body.classList.remove('modal-open');
+document.body.style.overflow = '';
+document.body.style.paddingRight = '';
+var mm = document.querySelector('.ModalManager');
+if(mm){ mm.classList.remove('in','fade','modal'); mm.style.display = 'none'; }
+}catch(e){}
+}, 100);
+})();
+</script>
+<script>
+(function(){
+var MAX_DIM = 1920;
+var QUALITY = 0.85;
+var MIN_SIZE = 300 * 1024;
+function compress(file){
+return new Promise(function(resolve){
+try{
+if(!/^image\//.test(file.type)){ resolve(file); return; }
+// GIF / SVG / ICO 原样上传 (会丢动画或矢量)
+if(/^image\/(gif|svg\+xml|x-icon|vnd\.microsoft\.icon)$/i.test(file.type)){ resolve(file); return; }
+if(file.size < MIN_SIZE){ resolve(file); return; }
+var url = URL.createObjectURL(file);
+var img = new Image();
+img.onload = function(){
+try{
+URL.revokeObjectURL(url);
+var w = img.naturalWidth || img.width;
+var h = img.naturalHeight || img.height;
+if(!w || !h){ resolve(file); return; }
+if(w > MAX_DIM || h > MAX_DIM){
+if(w >= h){ h = Math.round(h * MAX_DIM / w); w = MAX_DIM; }
+else       { w = Math.round(w * MAX_DIM / h); h = MAX_DIM; }
+}
+var c = document.createElement('canvas');
+c.width = w; c.height = h;
+var ctx = c.getContext('2d');
+ctx.imageSmoothingEnabled = true;
+ctx.imageSmoothingQuality = 'high';
+// 白底填充: PNG 透明区转 JPEG 会变黑, 先铺白底
+ctx.fillStyle = '#ffffff';
+ctx.fillRect(0, 0, w, h);
+ctx.drawImage(img, 0, 0, w, h);
+c.toBlob(function(blob){
+if(!blob){ resolve(file); return; }
+if(blob.size >= file.size){
+try{ console.log('[kv-compress] ' + file.name + ' 压后反而更大, 保留原图 (' + Math.round(file.size/1024) + ' KB)'); }catch(_){}
+resolve(file); return;
+}
+var newName = file.name.replace(/\.\w+$/, '') + '.jpg';
+var nf = new File([blob], newName, { type: 'image/jpeg', lastModified: Date.now() });
+try{
+console.log('[kv-compress] ' + file.name + ': ' +
+Math.round(file.size/1024) + ' KB -> ' + Math.round(nf.size/1024) + ' KB (' +
+Math.round(nf.size/file.size*100) + '%, ' + w + 'x' + h + ')');
+}catch(_){}
+resolve(nf);
+}, 'image/jpeg', QUALITY);
+}catch(err){ resolve(file); }
+};
+img.onerror = function(){ URL.revokeObjectURL(url); resolve(file); };
+img.src = url;
+}catch(err){ resolve(file); }
+});
+}
+function processFD(fd){
+try{
+var pairs = [];
+var it = fd.entries();
+while(true){
+var r = it.next();
+if(r.done) break;
+pairs.push(r.value);
+}
+var any = pairs.some(function(p){ return p[1] instanceof File && /^image\//.test(p[1].type); });
+if(!any) return Promise.resolve(fd);
+var nfd = new FormData();
+return Promise.all(pairs.map(function(p){
+var k = p[0], v = p[1];
+if(v instanceof File && /^image\//.test(v.type)){
+return compress(v).then(function(cf){ nfd.append(k, cf, cf.name); });
+}
+nfd.append(k, v);
+return Promise.resolve();
+})).then(function(){ return nfd; });
+}catch(e){ return Promise.resolve(fd); }
+}
+// fetch 拦截 (Flarum 2.x / 部分扩展走这条)
+if(typeof window.fetch === 'function'){
+var _fetch = window.fetch;
+window.fetch = function(input, init){
+try{
+if(init && init.body instanceof FormData){
+var self = this;
+return processFD(init.body).then(function(fd){
+var ni = Object.assign({}, init, { body: fd });
+return _fetch.call(self, input, ni);
+});
+}
+}catch(e){}
+return _fetch.apply(this, arguments);
+};
+}
+// XMLHttpRequest.send 拦截 (Flarum 1.x m.request / fof-upload 都走这条)
+var _send = XMLHttpRequest.prototype.send;
+XMLHttpRequest.prototype.send = function(body){
+try{
+if(body instanceof FormData){
+var xhr = this;
+processFD(body).then(function(fd){ _send.call(xhr, fd); });
+return;
+}
+}catch(e){}
+return _send.apply(this, arguments);
+};
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+document.querySelectorAll('.Post-body').forEach(function(body){
+try{
+var imgs = Array.from(body.querySelectorAll('img')).filter(function(img){
+if(img.closest('.kv-imggrid')) return false;
+// 排除 emoji/表情包 (保持内联小图, 不进 grid):
+//  - Flarum 内置 twemoji: class="emoji"
+//  - fof/emoji: class="fof-emoji"
+//  - alt 是 :xxx: 形式的
+//  - 我们自己的 tieba/aru 两个 CDN
+if(img.classList){
+if(img.classList.contains('emoji')) return false;
+if(img.classList.contains('fof-emoji')) return false;
+}
+if((img.getAttribute('alt')||'').match(/^:[\w+-]+:$/)) return false;
+var src = img.getAttribute('src') || '';
+if(src.indexOf('cdn.jsdelivr.net/gh/liopoos/aru-sticker') !== -1) return false;
+if(src.indexOf('cdn.jsdelivr.net/gh/KBdog/emojiCDN')  !== -1) return false;
+// 其它一律当"真照片", 进 grid (无论有没有 <a> 外壳)
+return true;
+});
+if(imgs.length === 0) return;
+var grid = body.querySelector(':scope > .kv-imggrid');
+if(!grid){
+grid = document.createElement('div');
+grid.className = 'kv-imggrid';
+body.appendChild(grid);
+}
+// 保证 grid 永远是 body 的最后一个子节点 (即使有人在后面又插了新段落)
+if(body.lastElementChild !== grid){ body.appendChild(grid); }
+imgs.forEach(function(img){
+var a = img.closest('a[href]');
+var moveEl = (a && body.contains(a)) ? a : img;
+if(moveEl.parentElement === grid) return;
+var oldParent = moveEl.parentElement;
+grid.appendChild(moveEl);
+// 老段落被抽空了(既没文字也没其它多媒体) -> 删掉, 不留空白段
+if(oldParent && oldParent !== body && oldParent !== grid &&
+!(oldParent.textContent || '').replace(/[\s\u00A0\uFEFF]+/g, '') &&
+!oldParent.querySelector('img,video,iframe,audio,button,input,picture')){
+oldParent.remove();
+}
+});
+}catch(e){}
+});
+}, 100);
+})();
+</script>
+<script>
+(function(){
+// === 数据 ===
+var PAOPAO_NAMES = ['OK','haha','what','不高兴','乖','你懂的','便便','勉强','吐','吐舌','呀咩爹','呵呵','哈哈','啊','喷','大拇指','太开心','太阳','委屈','小乖','小红脸','彩虹','心碎','怒','惊哭','惊讶','懒得理','手纸','挖鼻','捂嘴笑','星星月亮','汗','沙发','泪','滑稽','灯泡','爱心','犀利','狂汗','玫瑰','疑问','真棒','睡觉','礼物','笑尿','笑眼','红领巾','胜利','花心','茶杯','药丸','蛋糕','蜡烛','鄙视','酷','酸爽','钱币','阴险','音乐','香蕉','黑线'];
+var ARU_COUNT = 281;
+var KAOMOJI = [
+'(๑•̀ㅁ•́ฅ)','(´｡• ω •｡`)','¯\\_(ツ)_/¯','(◍•ᴗ•◍)','ヾ(≧▽≦*)o',
+'(´,,•ω•,,)♡','(｡◕‿◕｡)','(◕‿◕✿)','٩( ᐛ )و','(・_・?)',
+'(；￣Д￣)','(◎_◎;)','(╯°□°）╯︵ ┻━┻','(ノಠ益ಠ)ノ','(˘•_•˘)',
+'ಥ_ಥ','(っ °Д °;)っ','(ಥ﹏ಥ)','٩(◕‿◕)۶','(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧',
+'(☆▽☆)','ヽ(´▽`)/','(⌒‿⌒)','(◠‿◠)','(♡´౪`♡)',
+'٩(♡ε♡ )۶','(♡◡♡)','(∪｡∪)｡｡｡zzZ','σ(≧ε≦o)','(´−｀) ンー',
+'( ͡° ͜ʖ ͡°)','(¬‿¬)','(*≧ω≦)','(＞人＜;)','(=^･ω･^=)',
+'(=①ω①=)','(๑˃̵ᴗ˂̵)و','(◐‿◑)','｡◕‿‿◕｡','(＾• ω •＾)'
+];
+var PAOPAO_BASE = 'https://cdn.jsdelivr.net/gh/KBdog/emojiCDN@master/tieba/';
+var ARU_BASE = 'https://cdn.jsdelivr.net/gh/liopoos/aru-sticker@master/image/';
+function paopaoUrl(name){ return PAOPAO_BASE + encodeURIComponent(name) + '.png'; }
+function aruUrl(n){ return ARU_BASE + encodeURIComponent('aru (' + n + ').png'); }
+var panel = null;
+function buildPanel(){
+if(panel) return panel;
+panel = document.createElement('div');
+panel.id = 'kv-emojipanel';
+panel.innerHTML =
+'<div class="kv-ep-body"></div>' +
+'<div class="kv-ep-tabs">' +
+'<button type="button" data-pack="pao">泡泡</button>' +
+'<button type="button" data-pack="aru">阿鲁</button>' +
+'<button type="button" data-pack="kao">颜文字</button>' +
+'</div>';
+document.body.appendChild(panel);
+panel.addEventListener('click', function(e){
+var tab = e.target.closest('.kv-ep-tabs button');
+if(tab){
+panel.querySelectorAll('.kv-ep-tabs button').forEach(function(b){ b.classList.remove('active'); });
+tab.classList.add('active');
+renderPack(tab.dataset.pack);
+return;
+}
+var item = e.target.closest('[data-insert]');
+if(item){
+insertToComposer(item.dataset.insert);
+// 插完不关掉面板, 方便连发多个
+return;
+}
+});
+// 防止面板里点击冒泡到 window/document 的 "点外面关掉" 逻辑
+panel.addEventListener('mousedown', function(e){ e.stopPropagation(); });
+return panel;
+}
+function renderPack(pack){
+var body = panel.querySelector('.kv-ep-body');
+body.className = 'kv-ep-body' + (pack === 'kao' ? ' kv-ep-kao' : '');
+body.innerHTML = '';
+var frag = document.createDocumentFragment();
+if(pack === 'pao'){
+PAOPAO_NAMES.forEach(function(name){
+var url = paopaoUrl(name);
+var b = document.createElement('button');
+b.type = 'button';
+b.className = 'kv-ep-img';
+b.title = name;
+b.dataset.insert = '![](' + url + ')';
+var img = document.createElement('img');
+img.src = url; img.loading = 'lazy'; img.alt = name;
+b.appendChild(img);
+frag.appendChild(b);
+});
+} else if(pack === 'aru'){
+for(var i = 1; i <= ARU_COUNT; i++){
+var url = aruUrl(i);
+var b = document.createElement('button');
+b.type = 'button';
+b.className = 'kv-ep-img';
+b.title = 'aru' + i;
+b.dataset.insert = '![](' + url + ')';
+var img = document.createElement('img');
+img.src = url; img.loading = 'lazy'; img.alt = 'aru' + i;
+b.appendChild(img);
+frag.appendChild(b);
+}
+} else if(pack === 'kao'){
+KAOMOJI.forEach(function(text){
+var b = document.createElement('button');
+b.type = 'button';
+b.className = 'kv-ep-text';
+b.dataset.insert = text;
+b.textContent = text;
+frag.appendChild(b);
+});
+}
+body.appendChild(frag);
+}
+function showPanel(anchor){
+buildPanel();
+// 首次显示默认落在泡泡
+if(!panel.querySelector('.kv-ep-tabs button.active')){
+panel.querySelector('[data-pack="pao"]').classList.add('active');
+renderPack('pao');
+}
+// 先显示成 block 才能测量尺寸
+panel.style.display = 'flex';
+panel.style.visibility = 'hidden';
+panel.style.left = '0px'; panel.style.top = '0px';
+// 等下一帧拿到真实尺寸再定位
+requestAnimationFrame(function(){
+var rect = anchor.getBoundingClientRect();
+var pw = panel.offsetWidth, ph = panel.offsetHeight;
+var top = rect.top + window.scrollY - ph - 8;
+var left = rect.left + window.scrollX - pw / 2 + rect.width / 2;
+if(left < 8) left = 8;
+if(left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+// 上方空间不够就展开到下方
+if(top < window.scrollY + 8) top = rect.bottom + window.scrollY + 8;
+panel.style.top  = top + 'px';
+panel.style.left = left + 'px';
+panel.style.visibility = 'visible';
+});
+}
+function hidePanel(){ if(panel) panel.style.display = 'none'; }
+function insertToComposer(text){
+var ta = document.querySelector('.App-composer .Composer textarea, .App-composer textarea, .Composer textarea, .TextEditor textarea');
+if(!ta) return;
+var start = ta.selectionStart || 0;
+var end   = ta.selectionEnd   || 0;
+var v = ta.value;
+// 图片单独成行 (前后自动补换行); 颜文字直接插原文
+var isImg = /^!\[/.test(text);
+var pre = v.substring(0, start), post = v.substring(end);
+var lead  = isImg && pre  && !/\n$/.test(pre)  ? '\n' : '';
+var trail = isImg && post && !/^\n/.test(post) ? '\n' : '';
+var chunk = lead + text + trail;
+// 用原生 setter 绕过 Mithril/React 的受控组件劫持
+try{
+var setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
+setter.call(ta, pre + chunk + post);
+}catch(e){
+ta.value = pre + chunk + post;
+}
+var cursor = start + chunk.length;
+ta.selectionStart = ta.selectionEnd = cursor;
+ta.focus();
+ta.dispatchEvent(new Event('input',  { bubbles: true }));
+ta.dispatchEvent(new Event('change', { bubbles: true }));
+}
+// 拦截笑脸按钮 (capture 阶段, 抢在 Flarum 前面)
+document.addEventListener('click', function(e){
+if(!e.target.closest) return;
+// 我们自己的面板不动
+if(e.target.closest('#kv-emojipanel')) return;
+// 笑脸按钮: 兼容多个可能的选择器
+var btn = e.target.closest(
+'.TextEditor-controls .item-emoji, .item-emoji, [data-item-name="emoji"], ' +
+'.TextEditor-controls .fa-smile, .TextEditor-controls .fa-face-smile, ' +
+'.Composer .fa-smile, .Composer .fa-face-smile'
+);
+if(!btn) return;
+e.preventDefault();
+e.stopPropagation();
+e.stopImmediatePropagation();
+var anchor = btn.closest('li, button') || btn;
+showPanel(anchor);
+}, true);
+// 点面板外面收起
+document.addEventListener('mousedown', function(e){
+if(!panel || panel.style.display === 'none') return;
+if(e.target.closest && e.target.closest('#kv-emojipanel')) return;
+if(e.target.closest && e.target.closest('.item-emoji, .fa-smile, .fa-face-smile, [data-item-name="emoji"]')) return;
+hidePanel();
+}, true);
+// Esc 关掉
+document.addEventListener('keydown', function(e){
+if(e.key === 'Escape' && panel && panel.style.display !== 'none') hidePanel();
+});
+})();
+</script>
+<script>
+(function(){
+// ---- 参数(想调整积分曲线改这里就行) ----
+var XP_PER_DISCUSSION = 5;
+var XP_PER_COMMENT    = 1;
+var XP_PER_DAY        = 0.5;
+// 等级阈值: 需累积多少 XP 才能进这一级
+var LEVEL_XP = [0, 50, 200, 500, 1000, 2000, 4000, 7000, 12000, 20000];
+function daysSince(date){
+if(!date) return 0;
+var t = (date instanceof Date) ? date.getTime() : new Date(date).getTime();
+if(!t) return 0;
+return Math.max(0, Math.floor((Date.now() - t) / 86400000));
+}
+function computeXP(user, days){
+// 优先读后端真实分数. fof/gamification 在 users 表里加的字段名是 votes;
+// 不同版本/其它插件也可能用 points / reputation, 都试一遍.
+// 用 typeof 判断能正确处理 "真实 0" 的情况 (以前用 || 会把 0 当 falsy 漏掉).
+try{
+var attrs = (user.data && user.data.attributes) || {};
+var candidates = ['votes', 'points', 'reputation'];
+for(var i = 0; i < candidates.length; i++){
+var v = attrs[candidates[i]];
+if(typeof v === 'number' && !isNaN(v)) return Math.max(0, Math.floor(v));
+}
+}catch(e){}
+// 兜底: 后端字段不可用时按活跃度估算
+var d = 0, c = 0;
+try{ d = user.discussionCount ? (user.discussionCount() || 0) : 0; }catch(e){}
+try{ c = user.commentCount    ? (user.commentCount()    || 0) : 0; }catch(e){}
+return Math.max(0, Math.floor(d * XP_PER_DISCUSSION + c * XP_PER_COMMENT + days * XP_PER_DAY));
+}
+function computeLevel(xp){
+for(var i = LEVEL_XP.length - 1; i >= 0; i--){
+if(xp >= LEVEL_XP[i]) return i + 1;
+}
+return 1;
+}
+function findUser(slug){
+if(!(window.app && app.store)) return null;
+var users = app.store.all('users') || [];
+for(var i = 0; i < users.length; i++){
+try{ if(users[i].username && users[i].username() === slug) return users[i]; }catch(e){}
+}
+return null;
+}
+setInterval(function(){
+if(!/^\/u\//.test(location.pathname)) return;
+var sideNav = document.querySelector('.UserPage .sideNav');
+if(!sideNav) return;
+var navUl = sideNav.querySelector('ul');
+if(!navUl) return;
+var m = location.pathname.match(/^\/u\/([^\/?#]+)/);
+if(!m) return;
+var slug = decodeURIComponent(m[1]);
+var user = findUser(slug);
+if(!user) return;
+var days  = user.joinTime ? daysSince(user.joinTime()) : 0;
+var xp    = computeXP(user, days);
+var level = computeLevel(xp);
+// 拆掉老版本的深色卡片(如果还在)
+var oldCard = sideNav.querySelector('.kv-user-stats');
+if(oldCard) oldCard.remove();
+// 3 项 stats 作为 <li> 追加到 nav ul 末尾 (在"安全"之后)
+var items = [
+{ cls:'kv-us-days',  icon:'clock', label:'加入天数', value:days  },
+{ cls:'kv-us-level', icon:'gem',   label:'等级',     value:level },
+{ cls:'kv-us-xp',    icon:'award', label:'贡献值',   value:xp    }
+];
+var mob = window.innerWidth <= 767;
+items.forEach(function(it){
+var li = sideNav.querySelector('li.item-' + it.cls);
+if(li){
+var vEl = li.querySelector('.kv-us-value');
+if(vEl && vEl.textContent !== String(it.value)){
+vEl.textContent = String(it.value);
+}
+return;
+}
+li = document.createElement('li');
+li.className = 'item-' + it.cls + ' kv-us-nav-item';
+li.innerHTML =
+'<span class="Button hasIcon kv-us-stat">' +
+'<i class="Button-icon icon fas fa-' + it.icon + '"></i>' +
+'<span class="Button-label">' + it.label + '</span>' +
+'<span class="kv-us-value">' + String(it.value) + '</span>' +
+'</span>';
+(mob ? sideNav : navUl).appendChild(li);
+});
+['kv-us-days','kv-us-level','kv-us-xp'].forEach(function(cls){
+var li = sideNav.querySelector('li.item-' + cls);
+if(li && mob) sideNav.appendChild(li);
+});
+}, 500);
+})();
+</script>
+<script>
+(function(){
+document.addEventListener('click', function(e){
+if(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
+var a = e.target.closest('a[href]');
+if(!a) return;
+var href = a.getAttribute('href') || '';
+var m = href.match(/^(?:https?:\/\/[^\/]+)?(\/(?:d|t)\/[^\s"']+)/);
+if(!m) return;
+var path = m[1];
+e.preventDefault();
+e.stopPropagation();
+window.location.href = path;
+}, true);
+})();
+</script>
+<script>
+(function(){
+var busy = false, lastKey = '';
+setInterval(function(){
+if(location.pathname.indexOf('/d/') !== 0) return;
+if(busy) return;
+var stuck = document.querySelector('.PostStream-item .LoadingPost');
+if(!stuck) { lastKey = ''; return; }
+var item = stuck.closest('.PostStream-item');
+var idx = parseInt(item.getAttribute('data-index'), 10);
+if(isNaN(idx)) return;
+var key = location.pathname + ':' + idx;
+if(key === lastKey) return; // 同一个卡点已经试过, 避免狂刷
+lastKey = key;
+try {
+var s = app.current && app.current.get && app.current.get('stream');
+if(!s || !s.loadRange) return;
+busy = true;
+var r = s.loadRange(idx, idx + 4);
+if(r && r.then){
+r.then(function(){ try{ m.redraw(); }catch(e){} busy = false; lastKey = ''; })
+.catch(function(){ busy = false; });
+} else { try{ m.redraw(); }catch(e){} busy = false; lastKey = ''; }
+} catch(e){ busy = false; }
+}, 150);
+})();
+</script>
+<script>
+(function(){
+window.addEventListener('pageshow', function(e){
+if(e.persisted){ location.reload(); }
+});
+})();
+</script>
+<script>
+(function(){
+setInterval(function(){
+if(window.innerWidth > 767) return;
+document.querySelectorAll('.TagCategory-subTagList .TagCategory-content').forEach(function(content){
+if(content.querySelector(':scope > .kv-cat-footer')) return;
+var stats = content.querySelector('.TagCategory-stats, .StatWidgetList');
+var last  = content.querySelector('.TagCategory-lastDiscussion');
+var mod   = content.querySelector('.kv-mod');
+if(!stats && !last && !mod) return;
+var footer = document.createElement('div');
+footer.className = 'kv-cat-footer';
+if(stats) footer.appendChild(stats);
+if(last)  footer.appendChild(last);
+if(mod)   footer.appendChild(mod);
+content.appendChild(footer);
+});
+}, 400);
+})();
+</script>
+<script>
+(function(){
+var css='@media (max-width:1024px){.App-header .container,#header .container,.container,.UserPage>.container{max-width:100%!important;width:auto!important;margin-left:auto!important;margin-right:auto!important;padding-left:14px!important;padding-right:14px!important;box-sizing:border-box!important}.Post-body .kv-imggrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))!important}.DiscussionList-discussions .DiscussionListItem-content{flex-wrap:wrap!important}.DiscussionList-discussions .kv-meta{flex-wrap:wrap!important}}@media (max-width:767px){.container,.sideNavContainer,.UserPage>.container{padding-left:10px!important;padding-right:10px!important}.kh-cols,.kv-mod{display:none!important}.TagsPage .TagTiles,.TagTiles{display:block!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content,.TagCategory-subTagList>.TagCategory>.TagCategory-content{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important;grid-template-columns:none!important;width:100%!important;box-sizing:border-box!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content>.TagCategory-alignStart,.TagCategory-subTagList>.TagCategory>.TagCategory-content>.TagCategory-alignStart{display:block!important;flex:1 1 100%!important;width:100%!important;padding-bottom:4px!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-alignEnd,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .kv-mod,.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-description{display:none!important}.kv-cat-footer{display:flex!important;flex-flow:row wrap!important;align-items:center!important;gap:14px!important;flex:1 1 100%!important;width:100%!important;margin-top:4px!important}.kv-cat-footer .TagCategory-stats,.kv-cat-footer .StatWidgetList,.kv-cat-footer .StatWidget,.kv-cat-footer .TagCategory-lastDiscussion,.kv-cat-footer .kv-mod{position:static!important;display:inline-flex!important;align-items:center!important;width:auto!important;flex:0 0 auto!important;top:auto!important;right:auto!important;left:auto!important;margin:0!important;font-size:12px!important;color:#8a96a3!important;white-space:nowrap!important;vertical-align:middle!important}.TagCategoryList>.TagCategory.ParentCategory>.TagCategory-content .TagCategory-name,.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-name,.TagCategory-name,.TagCategory-description{display:block!important;width:auto!important;white-space:normal!important;writing-mode:horizontal-tb!important;word-break:break-word!important}.TagCategory-subTagList>.TagCategory>.TagCategory-content .TagCategory-description{display:block!important}#archbar,#archbar ul{flex-wrap:wrap!important;white-space:normal!important}.archbar-right{float:none!important;display:block!important;margin-top:6px!important}.UserPage .sideNavContainer{flex-direction:column!important}.UserPage .sideNav .affix,.UserPage .sideNavContainer .affix{position:static!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important}.UserPage .sideNav>ul.affix{list-style:none!important;padding:0!important}.UserPage .UserPage-nav.sideNav{flex:1 1 auto!important;width:100%!important;border-right:none!important;border-bottom:1px solid #c9cfd6!important}.UserPage .sideNav ul li .Dropdown-toggle,.UserPage .UserPage-nav.sideNav .Dropdown-toggle,.UserPage .sideNav .Dropdown--select .Dropdown-toggle{display:none!important}.UserPage .sideNav .Dropdown.Dropdown--select,.UserPage .sideNav .App-titleControl{width:100%!important}.UserPage .sideNav .Dropdown-menu{display:flex!important;position:static!important;flex-flow:row nowrap!important;overflow-x:auto!important;width:100%!important;min-width:0!important;max-height:none!important;margin:0!important;padding:0!important;box-shadow:none!important;border:none!important;background:transparent!important;float:none!important}.UserPage .sideNav .Dropdown-menu>li,.UserPage .sideNav .Dropdown-menu a,.UserPage .sideNav .Dropdown-menu button{flex:0 0 auto!important;white-space:nowrap!important;width:auto!important}.UserPage .sideNav .Dropdown-menu a[active="true"],.UserPage .sideNav .Dropdown-menu .active{border-bottom:2px solid #0771a8!important;color:#0771a8!important}.UserPage .sideNav>.kv-us-nav-item{list-style:none!important;display:inline-flex!important;align-items:center!important;width:auto!important;float:none!important;margin:8px 14px 0 0!important;padding:0!important}.UserPage .sideNav>.kv-us-nav-item::marker{content:""!important}.UserPage .sideNav>.kv-us-nav-item .kv-us-stat{display:inline-flex!important;align-items:center!important;gap:5px!important;padding:0!important;background:transparent!important;border:none!important;box-shadow:none!important;color:#5b6875!important;font-size:13px!important;font-weight:400!important}.UserPage .sideNav>.kv-us-nav-item .kv-us-stat .Button-icon{margin:0!important;color:#8a96a3!important}.UserPage .sideNav>.kv-us-nav-item .kv-us-value{margin-left:2px!important;font-weight:700!important;color:#1f2328!important}table.rankings{display:block!important;overflow-x:auto!important}.CommentPost .Post-header>ul{flex-wrap:wrap!important;padding-right:8px!important}.CommentPost .Post-actions{position:static!important;flex-wrap:wrap!important}.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:12px!important}.App-composer.kv-inline{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;width:100%!important;max-width:100%!important;max-height:75vh!important;height:auto!important;margin:0!important;padding:0!important;z-index:1000!important;background:#fff!important;border-top:1px solid #ccc!important;box-shadow:0 -2px 12px rgba(0,0,0,.18)!important}.App-composer.kv-inline .Composer{position:static!important;height:auto!important;max-height:75vh!important;margin:0!important;border:none!important;box-shadow:none!important}.App-composer.kv-inline .Composer-content,.App-composer.kv-inline .ComposerBody{display:block!important;height:auto!important;max-height:70vh!important;overflow-y:auto!important}.App-composer.kv-inline .TextEditor,.App-composer.kv-inline .TextEditor textarea{min-height:100px!important;height:auto!important}}@media (max-width:480px){.container,.sideNavContainer,.UserPage>.container{padding-left:6px!important;padding-right:6px!important}.CategoriesPage-content,.IndexPage-results,.DiscussionPage-stream{padding:8px!important}.DiscussionList-discussions .DiscussionListItem-content{gap:4px!important;padding:8px!important}.DiscussionList-discussions .kv-meta{gap:8px!important;font-size:11px!important}.DiscussionList-discussions .kv-list-tag{order:3!important;flex:0 0 auto!important;min-width:0!important;justify-content:flex-start!important}.Post-body .kv-imggrid{grid-template-columns:repeat(2,1fr)!important}.DiscussionList-discussions .DiscussionListItem-title{font-size:14px!important;white-space:normal!important}}';
+var s = document.createElement('style');
+s.id = 'kv-mobile-css';
+s.textContent = css;
+(document.head || document.documentElement).appendChild(s);
+})();
+</script>
