@@ -1289,6 +1289,14 @@ var sideNav = document.querySelector('.UserPage .sideNav');
 if(!sideNav) return;
 var navUl = sideNav.querySelector('ul');
 if(!navUl) return;
+// 在导航项(回复/主题/投票...)末尾加一个"返回首页"
+var ddMenu = sideNav.querySelector('.Dropdown-menu') || navUl;
+if(ddMenu && !ddMenu.querySelector('.kv-home-nav-item')){
+var hli = document.createElement('li');
+hli.className = 'item-kv-home kv-home-nav-item';
+hli.innerHTML = '<a href="/" class="Button hasIcon"><i class="Button-icon icon fas fa-home"></i><span class="Button-label">返回首页</span></a>';
+ddMenu.appendChild(hli);
+}
 var m = location.pathname.match(/^\/u\/([^\/?#]+)/);
 if(!m) return;
 var slug = decodeURIComponent(m[1]);
