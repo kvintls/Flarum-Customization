@@ -1367,6 +1367,9 @@ if(box && !box.querySelector('.kv-home-topright')){ box.insertBefore(makeBar(), 
 // 贡献榜 : rankings 表格所在白卡
 var rank=document.querySelector('table.rankings');
 if(rank && rank.parentElement && !rank.parentElement.querySelector('.kv-home-topright')){ rank.parentElement.insertBefore(makeBar(), rank); }
+// 板块/标签页 (/tags) : TagTiles 上方
+var tiles=document.querySelector('.TagsPage .TagTiles');
+if(tiles && tiles.parentElement && !tiles.parentElement.querySelector('.kv-home-topright')){ tiles.parentElement.insertBefore(makeBar(), tiles); }
 }, 400);
 })();
 </script>
