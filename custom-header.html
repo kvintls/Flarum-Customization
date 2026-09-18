@@ -1354,9 +1354,14 @@ bar.appendChild(a);
 return bar;
 }
 setInterval(function(){
-if(document.querySelector('.UserPage')) return;      // 个人页已在导航里有返回首页
-if(location.pathname.indexOf('/d/')===0) return;      // 帖子详情页不加
-// 分类页 / 全部帖子(索引) : 主白卡顶部右侧
+var onHome = (location.pathname==='/' || location.pathname==='');
+// 首页 / 个人页 / 帖子详情页 : 不要"返回首页"按钮; 若有残留则移除
+if(onHome || document.querySelector('.UserPage') || location.pathname.indexOf('/d/')===0){
+var old=document.querySelectorAll('.kv-home-topright');
+for(var i=0;i<old.length;i++){ old[i].remove(); }
+return;
+}
+// 子页面(分类/板块/全部帖子索引) : 主白卡顶部右侧
 var box=document.querySelector('.CategoriesPage-content')||document.querySelector('.IndexPage-results');
 if(box && !box.querySelector('.kv-home-topright')){ box.insertBefore(makeBar(), box.firstChild); }
 // 贡献榜 : rankings 表格所在白卡
