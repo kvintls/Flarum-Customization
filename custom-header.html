@@ -224,12 +224,12 @@ sec.appendChild(li);
 .DiscussionListItem-controls{display:none!important}
 .DiscussionListItem-content .DiscussionListItem-controls{display:flex!important;position:relative!important;opacity:1!important;order:3!important;flex:0 0 auto!important;align-items:center!important;top:auto!important;right:auto!important}
 .DiscussionListItem-content .DiscussionListItem-controls.open{z-index:1000!important}
-.DiscussionListItem-controls>.Dropdown-toggle{display:inline-flex!important;align-items:center!important;width:auto!important;height:auto!important;padding:3px 10px!important;border:1px solid #c9cfd6!important;border-radius:12px!important;background:#f5f7f9!important;color:#555!important;box-shadow:none!important;font-size:12px!important}
+.DiscussionListItem-controls>.Dropdown-toggle{display:inline-flex!important;align-items:center!important;width:auto!important;height:auto!important;padding:3px 10px!important;border:1px solid #c9cfd6!important;border-radius:12px!important;background:#f5f7f9!important;color:#555!important;font-size:12px!important}
 .DiscussionListItem-controls>.Dropdown-toggle:hover,.DiscussionListItem-controls.open>.Dropdown-toggle{background:#e8ecf0!important;color:#0771a8!important}
-.DiscussionListItem-controls>.Dropdown-toggle .Button-caret{display:none!important}
-.DiscussionListItem-controls .Dropdown-menu{display:flex!important;right:0!important;left:auto!important;top:100%!important;border:1px solid #c9cfd6!important;border-radius:2px!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important;background:#fff!important;z-index:1000!important;padding:2px!important}
-.DiscussionListItem-controls .Dropdown-menu>li{display:flex!important;border-left:1px solid #eef1f4!important}
-.DiscussionListItem-controls .Dropdown-menu>li:first-child{border-left:none!important}
+.DiscussionListItem-controls>.Dropdown-toggle .Button-caret,.DiscussionListItem-controls .Dropdown-menu .icon{display:none!important}
+.DiscussionListItem-controls .Dropdown-menu{right:calc(100% + 6px)!important;left:auto!important;top:50%!important;transform:translateY(-50%)!important;border:1px solid #c9cfd6!important;border-radius:2px!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important;background:#fff!important;z-index:1000!important;padding:2px!important}
+.DiscussionListItem-controls.open .Dropdown-menu{display:flex!important}
+.DiscussionListItem-controls .Dropdown-menu>li{display:flex!important}
 .DiscussionListItem-controls .Dropdown-menu .Dropdown-separator{display:none!important}
 .DiscussionListItem-controls .Dropdown-menu>li>:is(a,button){padding:6px 12px!important;font-size:13px!important;white-space:nowrap!important}
 .DiscussionListItem-controls .Dropdown-menu>li>:is(a,button):hover{background:#eef4f8!important;color:#0771a8!important}
