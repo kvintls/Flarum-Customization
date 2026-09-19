@@ -339,7 +339,8 @@ var fm = st.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i);
 if(bm) tagBg = bm[1].trim();
 if(fm) tagFg = fm[1].trim();
 }
-var kvSticky = !!(kvItem && kvItem.classList.contains('DiscussionListItem--sticky'));
+var kvSticky = !!(kvItem && (kvItem.classList.contains('DiscussionListItem--sticky') || kvItem.querySelector('.DiscussionListItem-badges .Badge--sticky, .DiscussionListItem-badges .fa-thumbtack, .DiscussionListItem-badges .fa-thumb-tack')));
+if(!kvSticky){ try{ var kvML = c.querySelector('.DiscussionListItem-main'); var kvHref = kvML && kvML.getAttribute ? (kvML.getAttribute('href') || '') : ''; var kvId = kvHref.match(/\/d\/(\d+)/); if(kvId && window.app && app.store){ var kvD = app.store.getById('discussions', kvId[1]); var kvA = kvD && kvD.data && kvD.data.attributes; if(kvA && (kvA.isSticky || kvA.isStickyPinned || kvA.sticky)) kvSticky = true; } }catch(e){} }
 var sig = starter + '|' + viewsStr + '|' + countStr + '|' + lastUser + '|' + lastTime + '|' + tagName + '|' + kvSticky;
 if(c.dataset.kvSig === sig) return;
 c.dataset.kvSig = sig;
