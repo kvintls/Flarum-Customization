@@ -222,18 +222,19 @@ sec.appendChild(li);
 </script>
 <style id="kv-dlctrls">
 .DiscussionListItem-controls{display:none!important}
-.DiscussionListItem-content .DiscussionListItem-controls{display:flex!important;position:relative!important;opacity:1!important;order:3!important;flex:0 0 auto!important;align-items:center!important;top:auto!important;right:auto!important}
-.DiscussionListItem-content .DiscussionListItem-controls.open{z-index:1000!important}
-.DiscussionListItem-controls>.Dropdown-toggle{display:inline-flex!important;align-items:center!important;width:auto!important;height:auto!important;padding:3px 10px!important;border:1px solid #c9cfd6!important;border-radius:12px!important;background:#f5f7f9!important;color:#555!important;font-size:12px!important}
-.DiscussionListItem-controls>.Dropdown-toggle:hover,.DiscussionListItem-controls.open>.Dropdown-toggle{background:#e8ecf0!important;color:#0771a8!important}
-.DiscussionListItem-controls>.Dropdown-toggle .Button-caret,.DiscussionListItem-controls .Dropdown-menu .icon{display:none!important}
-.DiscussionListItem-controls .Dropdown-menu{right:calc(100% + 6px)!important;left:auto!important;top:50%!important;transform:translateY(-50%)!important;border:1px solid #c9cfd6!important;border-radius:2px!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important;background:#fff!important;z-index:1000!important;padding:2px!important}
-.DiscussionListItem-controls.open .Dropdown-menu{display:flex!important}
-.DiscussionListItem-controls .Dropdown-menu>li{display:flex!important}
-.DiscussionListItem-controls .Dropdown-menu .Dropdown-separator{display:none!important}
-.DiscussionListItem-controls .Dropdown-menu>li>:is(a,button){padding:6px 12px!important;font-size:13px!important;white-space:nowrap!important}
-.DiscussionListItem-controls .Dropdown-menu>li>:is(a,button):hover{background:#eef4f8!important;color:#0771a8!important}
+.kvc{display:flex!important;position:relative!important;opacity:1!important;order:3!important;flex:0 0 auto!important;align-items:center!important;top:auto!important;right:auto!important}
+.kvc.open{z-index:1000!important}
+.kvc>.Dropdown-toggle{display:inline-flex!important;align-items:center!important;width:auto!important;height:auto!important;padding:3px 10px!important;border:1px solid #c9cfd6!important;border-radius:12px!important;background:#f5f7f9!important;color:#555!important;font-size:12px!important}
+.kvc>.Dropdown-toggle:hover,.kvc.open>.Dropdown-toggle{background:#e8ecf0!important;color:#0771a8!important}
+.kvc>.Dropdown-toggle .Button-caret,.kvc .Dropdown-menu .icon{display:none!important}
+.kvc .Dropdown-menu{right:calc(100% + 6px)!important;left:auto!important;top:50%!important;transform:translateY(-50%)!important;border:1px solid #c9cfd6!important;border-radius:2px!important;box-shadow:0 4px 12px rgba(0,0,0,.15)!important;background:#fff!important;z-index:1000!important;padding:2px!important}
+.kvc.open .Dropdown-menu{display:flex!important}
+.kvc .Dropdown-menu>li{display:flex!important}
+.kvc .Dropdown-menu .Dropdown-separator{display:none!important}
+.kvc .Dropdown-menu>li>:is(a,button){padding:6px 12px!important;font-size:13px!important;white-space:nowrap!important}
+.kvc .Dropdown-menu>li>:is(a,button):hover{background:#eef4f8!important;color:#0771a8!important}
 .App .DiscussionList-discussions,.App .DiscussionList{overflow:visible!important}
+@media (max-width:767px){.kvc>.Dropdown-toggle{flex:0 0 auto!important}.kvc .Dropdown-menu{flex-direction:column!important;right:0!important;left:auto!important;top:100%!important;transform:none!important;min-width:130px!important}}
 .DiscussionListItem-title .kv-sticky{display:inline-flex!important;align-items:center!important;gap:3px!important;margin-left:8px!important;padding:1px 8px!important;border-radius:10px!important;background:#fdeaea!important;color:#d13e32!important;font-size:11px!important;line-height:1.5!important;vertical-align:middle!important;white-space:nowrap!important}
 .DiscussionListItem-title .kv-sticky i{font-size:10px!important;color:#d13e32!important}
 </style>
@@ -311,7 +312,7 @@ c.dataset.kvV2Reset = '1';
 }
 var kvItem = c.parentElement;
 var kvCtrls = kvItem ? kvItem.querySelector(':scope > .DiscussionListItem-controls') : null;
-if(kvCtrls && kvCtrls.parentElement !== c){ c.appendChild(kvCtrls); }
+if(kvCtrls){ if(kvCtrls.parentElement !== c) c.appendChild(kvCtrls); kvCtrls.classList.add('kvc'); }
 var authorEl = c.querySelector('.DiscussionListItem-author');
 var starter = '';
 if(authorEl){
