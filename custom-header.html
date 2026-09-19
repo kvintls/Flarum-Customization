@@ -233,6 +233,8 @@ sec.appendChild(li);
 .DiscussionListItem-controls .Dropdown-menu>li>button:hover,.DiscussionListItem-controls .Dropdown-menu>li>a:hover{background:#eef4f8!important;color:#0771a8!important;text-decoration:none!important}
 .DiscussionListItem-controls .Dropdown-menu>li>button .icon,.DiscussionListItem-controls .Dropdown-menu>li>a .icon{color:#8a96a3!important;font-size:13px!important;width:14px!important;text-align:center!important}
 .DiscussionListItem-controls .Dropdown-menu .Dropdown-separator{margin:4px 0!important;border-top:1px solid #e3e7ec!important}
+/* 消除加载闪现: 列表项在 JS 建好(加 kv-ready)前先隐藏, 占位不跳版 */
+.DiscussionList-discussions .DiscussionListItem-content:not(.kv-ready){visibility:hidden!important}
 /* 列表标题旁的「置顶」标记 */
 .DiscussionListItem-title .kv-sticky{display:inline-flex!important;align-items:center!important;gap:3px!important;margin-left:8px!important;padding:1px 8px!important;border-radius:10px!important;background:#fdeaea!important;color:#d13e32!important;font-size:11px!important;font-weight:400!important;line-height:1.5!important;vertical-align:middle!important;white-space:nowrap!important}
 .DiscussionListItem-title .kv-sticky i{font-size:10px!important;color:#d13e32!important}
@@ -371,8 +373,9 @@ c.appendChild(tagCol);
 tagCol.innerHTML = '';
 if(tagName){ tagCol.appendChild(makeTagLink(tagName, tagHref, tagBg, tagFg)); }
 if(c.lastElementChild !== tagCol) c.appendChild(tagCol);
+c.classList.add('kv-ready');
 });
-}, 400);
+}, 50);
 })();
 </script>
 <script>
