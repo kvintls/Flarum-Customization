@@ -233,6 +233,9 @@ sec.appendChild(li);
 .DiscussionListItem-controls .Dropdown-menu>li>button:hover,.DiscussionListItem-controls .Dropdown-menu>li>a:hover{background:#eef4f8!important;color:#0771a8!important;text-decoration:none!important}
 .DiscussionListItem-controls .Dropdown-menu>li>button .icon,.DiscussionListItem-controls .Dropdown-menu>li>a .icon{color:#8a96a3!important;font-size:13px!important;width:14px!important;text-align:center!important}
 .DiscussionListItem-controls .Dropdown-menu .Dropdown-separator{margin:4px 0!important;border-top:1px solid #e3e7ec!important}
+/* 列表标题旁的「置顶」标记 */
+.DiscussionListItem-title .kv-sticky{display:inline-flex!important;align-items:center!important;gap:3px!important;margin-left:8px!important;padding:1px 8px!important;border-radius:10px!important;background:#fdeaea!important;color:#d13e32!important;font-size:11px!important;font-weight:400!important;line-height:1.5!important;vertical-align:middle!important;white-space:nowrap!important}
+.DiscussionListItem-title .kv-sticky i{font-size:10px!important;color:#d13e32!important}
 </style>
 <script>
 (function(){
@@ -339,10 +342,14 @@ var fm = st.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i);
 if(bm) tagBg = bm[1].trim();
 if(fm) tagFg = fm[1].trim();
 }
-var sig = starter + '|' + viewsStr + '|' + countStr + '|' + lastUser + '|' + lastTime + '|' + tagName;
+var kvSticky = !!(kvItem && kvItem.classList.contains('DiscussionListItem--sticky'));
+var sig = starter + '|' + viewsStr + '|' + countStr + '|' + lastUser + '|' + lastTime + '|' + tagName + '|' + kvSticky;
 if(c.dataset.kvSig === sig) return;
 c.dataset.kvSig = sig;
 title.querySelectorAll('.kv-by').forEach(function(el){ el.remove(); });
+var kvPin = title.querySelector(':scope > .kv-sticky');
+if(kvSticky){ if(!kvPin){ kvPin = document.createElement('span'); kvPin.className = 'kv-sticky'; kvPin.innerHTML = '<i class="fas fa-thumbtack"></i>置顶'; title.appendChild(kvPin); } }
+else if(kvPin){ kvPin.remove(); }
 var meta = main.querySelector(':scope > .kv-meta');
 if(!meta){
 meta = document.createElement('ul');
